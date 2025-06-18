@@ -59,10 +59,21 @@ Antes de crear un nuevo componente o estilo visual, sigue este protocolo:
 
 #### 3.2 Principios de Coherencia Visual
 
-- **Referencias a AppTheme:** Siempre usar referencias a colores y estilos definidos en `AppTheme`
+- **Referencias al sistema centralizado:** Siempre usar las extensiones de contexto para acceder a temas
 - **Nunca hard-codear colores** o estilos que podrían cambiar
 - **Documentar excepciones** cuando sea absolutamente necesario desviarse del tema global
 - **Priorizar la extensión** de componentes existentes sobre la creación de nuevos
+
+#### 3.3 Sistema de Temas y Estilos
+
+- Utilizar el sistema centralizado de temas definido en `core/theme/`
+- Acceder a colores mediante extensiones de contexto (ej: `context.primaryColor`)
+- Acceder a estilos de texto mediante extensiones (ej: `context.h1`, `context.bodyMedium`)
+- Utilizar constantes de espaciado predefinidas (ej: `context.spacingMD`)
+- Aplicar radios de borde consistentes (ej: `context.buttonBorderRadius`)
+- **Nunca hardcodear colores o estilos** directamente en widgets
+- Consultar `docs/GUIA_MIGRACION_TEMA.md` para instrucciones detalladas
+- La aplicación utiliza exclusivamente tema claro (el tema oscuro ha sido eliminado)
 
 ## PARTE II: PRINCIPIOS DE MODULARIZACIÓN
 

@@ -31,6 +31,9 @@ class AppTheme {
   static const Color kErrorColor = Color(0xFFEF4444);          // Error (rojo)
   static const Color kWarningColor = Color(0xFFF59E0B);        // Advertencia (naranja)
   static const Color kInfoColor = Color(0xFF3B82F6);           // Información (azul)
+  
+  // Colores de sombras
+  static const Color kShadowColor = Color(0xFF1A1A1A);         // Color base para sombras
 
   // Espaciado
   static const double kDefaultPadding = 16.0;

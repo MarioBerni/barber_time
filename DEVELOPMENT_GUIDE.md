@@ -67,24 +67,27 @@ En esta fase nos enfocamos exclusivamente en el frontend de la aplicación:
 
 2. **Consultar documentación:** Revisar archivos en `/tasks/` para identificar decisiones de diseño ya establecidas
 
-3. **Mantener coherencia visual:** Utilizar exclusivamente colores y estilos del sistema de temas centralizado:
+3. **Mantener coherencia visual:** Utilizar exclusivamente extensiones de contexto para acceder al sistema de temas centralizado:
    ```dart
-   // CORRECTO - Usar referencias al tema global
-   color: AppTheme.kAccentColor
+   // CORRECTO - Usar extensiones de contexto
+   color: context.accentColor
+   textStyle: context.bodyMedium
    
-   // INCORRECTO - Hard-codear valores
+   // INCORRECTO - Referencias directas o hard-coded
+   color: AppTheme.kAccentColor
    color: Color(0xFFD4AF37)
    ```
 
 4. **Documentar nuevos componentes:** Crear documentación inmediata cuando se desarrollen nuevos componentes reutilizables
 
-### 4.3 Tema Principal
+### 4.3 Sistema de Tema Centralizado
 - **Concepto:** Minimalista, elegante, enfoque estético masculino
-- **Tema:** Dark Theme predominante
+- **Tema:** Light Theme exclusivo (se eliminó el tema oscuro)
 - **Paleta Principal:**
-  - **Azules:** #00296B (kPrimaryColor), #001B4D (kBackgroundColor)
-  - **Dorados:** #FDC500 (kAccentColor)
-  - **Texto:** #FFFFFF (kTextColor), #B0BAC5 (kSecondaryTextColor)
+  - **Azules:** #1A56C7 (primaryColor), #0F2C60 (backgroundColor)
+  - **Dorados:** #FDC500 (accentColor)
+  - **Estados:** Verde para success, Rojo para error, Naranja para warning
+  - **Acceso:** Siempre a través de extensiones de contexto (ej: `context.primaryColor`)
 
 ### 4.2 Componentes UI
 - Utilizar componentes predefinidos en `/lib/core/widgets/`

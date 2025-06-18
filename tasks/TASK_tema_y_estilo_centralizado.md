@@ -47,19 +47,31 @@ Esta tarea abarca la refactorización completa del sistema de temas de la aplica
    - Actualización del archivo de seguimiento de tareas
    - Implementación de ejemplos y mejores prácticas
 
+## Tareas Adicionales Completadas
+
+1. ✅ **Mejoras del sistema de temas** (Actualizado: 18/06/2025)
+   - Implementación de `shadowColor` en las extensiones de contexto
+   - Creación de extensión `ShadowExtension` con diferentes tipos de sombras predefinidas
+   - Adición de constante `kShadowColor` en AppTheme para gestión consistente de sombras
+
+2. ✅ **Sistema de temas alternativos para eventos especiales** (Actualizado: 18/06/2025)
+   - Implementación de la clase `AppSpecialThemes` con temas para ocasiones especiales
+   - Creación de tres temas alternativos: Navidad, Aniversario y Promociones
+   - Desarrollo de extensiones de tema y contexto para acceder a colores especiales
+
+3. ✅ **Nuevos componentes base con sistema centralizado** (Actualizado: 18/06/2025)
+   - Componente `ThemedCard`: Tarjeta personalizable con diferentes niveles de elevación
+   - Componente `ThemedButton`: Botón flexible con múltiples tipos, tamaños e iconos
+   - Componente `StatusBadge`: Widget para mostrar estados con estilos visuales consistentes
+
 ## Próximas Tareas
 
-1. 🔄 **Mejoras del sistema de temas**
-   - Implementar `shadowColor` en las extensiones de contexto
-   - Evaluar la posibilidad de crear un sistema de temas alternativos para eventos especiales
-   - Desarrollar más componentes base que utilicen el sistema centralizado
-
-2. 🔄 **Optimización de rendimiento**
+1. 🔄 **Optimización de rendimiento**
    - Analizar el impacto del nuevo sistema en el rendimiento de la UI
    - Optimizar el uso de recursos para temas y estilos
    - Implementar caché de tema si es necesario
 
-3. 🔄 **Ampliación de la documentación**
+2. 🔄 **Ampliación de la documentación**
    - Crear catálogo visual de componentes con sus estilos asociados
    - Desarrollar guías para la creación de nuevos widgets utilizando el sistema
    - Documentar proceso de actualización/modificación del tema global
@@ -71,8 +83,10 @@ Esta tarea abarca la refactorización completa del sistema de temas de la aplica
 - ⚡ **Mayor velocidad de desarrollo** gracias a extensiones de contexto intuitivas
 - 🔄 **Adaptabilidad mejorada** para cambios futuros en el diseño
 - 📦 **Reducción del tamaño** de código al eliminar estilos duplicados
-- **Coherencia visual** en todas las pantallas y componentes
-- **Facilidad de mantenimiento** al cambiar estilos globalmente
-- **Adaptabilidad a temas** claro/oscuro sin esfuerzo adicional
-- **Mejor colaboración** entre diseñadores y desarrolladores
-- **Mayor escalabilidad** a medida que crece la aplicación
+- 🧩 **Componentes modulares** que siguen un patrón de diseño consistente
+- 🎭 **Flexibilidad para eventos** con temas alternativos fáciles de implementar
+- 🛡️ **Sombras estandarizadas** para una jerarquía visual coherente
+
+---
+
+*Última actualización: 18/06/2025 - Sistema de temas completado con todas las mejoras planificadas*

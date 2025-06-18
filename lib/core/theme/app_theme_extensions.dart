@@ -36,6 +36,12 @@ extension ThemeExtension on BuildContext {
   Color get errorColor => AppTheme.kErrorColor;
   Color get warningColor => AppTheme.kWarningColor;
   Color get infoColor => AppTheme.kInfoColor;
+  
+  // Acceso a colores de sombra
+  Color get shadowColor => Theme.of(this).cardTheme.shadowColor ?? AppTheme.kShadowColor;
+  Color get lightShadowColor => AppTheme.kShadowColor.withOpacity(0.1);
+  Color get mediumShadowColor => AppTheme.kShadowColor.withOpacity(0.3);
+  Color get darkShadowColor => AppTheme.kShadowColor.withOpacity(0.5);
 }
 
 /// Extensión para simplificar el acceso a los estilos de texto
@@ -122,6 +128,49 @@ extension BorderRadiusExtension on BuildContext {
   double get borderRadiusLG => AppBorderRadius.lg;
   double get borderRadiusXL => AppBorderRadius.xl;
   double get borderRadiusXXL => AppBorderRadius.xxl;
+}
+
+/// Extensión para simplificar el acceso a las sombras estandarizadas
+extension ShadowExtension on BuildContext {
+  // Sombras predefinidas
+  List<BoxShadow> get noShadow => [];
+  
+  List<BoxShadow> get lightShadow => [
+    BoxShadow(
+      color: lightShadowColor,
+      blurRadius: 4.0,
+      offset: const Offset(0, 2),
+    ),
+  ];
+  
+  List<BoxShadow> get mediumShadow => [
+    BoxShadow(
+      color: mediumShadowColor,
+      blurRadius: 8.0,
+      offset: const Offset(0, 4),
+    ),
+  ];
+  
+  List<BoxShadow> get strongShadow => [
+    BoxShadow(
+      color: darkShadowColor,
+      blurRadius: 12.0,
+      offset: const Offset(0, 6),
+    ),
+  ];
+  
+  List<BoxShadow> get elevatedShadow => [
+    BoxShadow(
+      color: shadowColor.withOpacity(0.06),
+      blurRadius: 4.0,
+      offset: const Offset(0, 2),
+    ),
+    BoxShadow(
+      color: shadowColor.withOpacity(0.16),
+      blurRadius: 12.0,
+      offset: const Offset(0, 8),
+    ),
+  ];
 }
 
 /// Ejemplo de uso de las extensiones:
