@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_theme_extensions.dart';
 import '../bloc/auth_cubit.dart';
 import '../bloc/auth_state.dart';
 import '../widgets/auth_text_field.dart';
@@ -83,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errorMessage!),
-                backgroundColor: Colors.red,
+                backgroundColor: context.errorColor,
               ),
             );
             context.read<AuthCubit>().clearError();
@@ -103,25 +105,21 @@ class _RegisterPageState extends State<RegisterPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Título y descripción
-                  const SizedBox(height: 16),
-                  const Text(
+                  SizedBox(height: AppSpacing.md),
+                  Text(
                     'Crea tu cuenta',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: context.h2,
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: AppSpacing.xs),
                   Text(
                     'Ingresa tus datos para registrarte',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppTheme.kSecondaryTextColor,
+                    style: context.bodyMedium.copyWith(
+                      color: context.secondaryTextColor,
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: AppSpacing.xl),
 
                   // Campos del formulario
                   AuthTextField(
@@ -214,20 +212,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 24),
 
                   // Selección de rol
-                  const Text(
+                  Text(
                     'Tipo de cuenta:',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppTheme.kTextColor,
-                    ),
+                    style: context.bodyMedium,
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: AppSpacing.xs),
                   
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppTheme.kSecondaryTextColor.withOpacity(0.5)),
-                      borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-                      color: AppTheme.kBackgroundColor.withOpacity(0.5),
+                      border: Border.all(color: context.secondaryTextColor.withOpacity(0.5)),
+                      borderRadius: context.defaultBorderRadius,
+                      color: context.backgroundColor.withOpacity(0.5),
                     ),
                     child: Column(
                       children: [
@@ -258,7 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: AppSpacing.xl),
 
                   // Botón de registro
                   ElevatedButton(
@@ -266,27 +261,23 @@ class _RegisterPageState extends State<RegisterPage> {
                         ? null
                         : () => _handleRegister(context),
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(AppTheme.kDefaultRadius),
+                        borderRadius: context.buttonBorderRadius,
                       ),
                     ),
                     child: state.isLoading
-                        ? const SizedBox(
+                        ? SizedBox(
                             height: 24,
                             width: 24,
                             child: CircularProgressIndicator(
-                              color: AppTheme.kTextColor,
+                              color: context.textColor,
                               strokeWidth: 2,
                             ),
                           )
-                        : const Text(
+                        : Text(
                             'REGISTRARSE',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: context.button,
                           ),
                   ),
                   const SizedBox(height: 24),

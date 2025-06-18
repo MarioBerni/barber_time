@@ -18,13 +18,13 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   
-  // Establecer el color de la barra de estado para combinar con nuestro tema
+  // Establecer el color de la barra de estado para combinar con nuestro tema claro
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark, // Iconos oscuros para tema claro
       systemNavigationBarColor: AppTheme.kBackgroundColor,
-      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.dark, // Iconos oscuros para tema claro
     ),
   );
   
@@ -50,7 +50,7 @@ class BarberTimeApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Barber Time',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme, // Cambiado a tema claro
       routerConfig: AppRouter.router,
     );
   }

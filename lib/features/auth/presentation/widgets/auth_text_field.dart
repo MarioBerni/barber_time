@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/theme/app_spacing.dart';
 
 /// Widget de campo de texto personalizado para formularios de autenticación
 ///
@@ -35,6 +36,7 @@ class AuthTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Usar las extensiones para simplificar el acceso al tema
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
@@ -43,62 +45,60 @@ class AuthTextField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines,
       enabled: enabled,
-      style: const TextStyle(
-        color: AppTheme.kTextColor,
-      ),
+      style: context.bodyMedium,
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
         prefixIcon: prefixIcon != null
-            ? Icon(prefixIcon, color: AppTheme.kSecondaryTextColor)
+            ? Icon(prefixIcon, color: context.secondaryTextColor)
             : null,
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
+          borderRadius: context.textFieldBorderRadius,
           borderSide: BorderSide(
-            color: AppTheme.kSecondaryTextColor.withOpacity(0.5),
+            color: context.secondaryTextColor.withOpacity(0.5),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
+          borderRadius: context.textFieldBorderRadius,
           borderSide: BorderSide(
-            color: AppTheme.kSecondaryTextColor.withOpacity(0.5),
+            color: context.secondaryTextColor.withOpacity(0.5),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-          borderSide: const BorderSide(
-            color: AppTheme.kAccentColor,
+          borderRadius: context.textFieldBorderRadius,
+          borderSide: BorderSide(
+            color: context.accentColor,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-          borderSide: const BorderSide(
-            color: Colors.red,
+          borderRadius: context.textFieldBorderRadius,
+          borderSide: BorderSide(
+            color: context.errorColor,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-          borderSide: const BorderSide(
-            color: Colors.red,
+          borderRadius: context.textFieldBorderRadius,
+          borderSide: BorderSide(
+            color: context.errorColor,
             width: 2,
           ),
         ),
-        labelStyle: TextStyle(
-          color: AppTheme.kSecondaryTextColor,
+        labelStyle: context.bodyMedium.copyWith(
+          color: context.secondaryTextColor,
         ),
-        hintStyle: TextStyle(
-          color: AppTheme.kSecondaryTextColor.withOpacity(0.5),
+        hintStyle: context.bodySmall.copyWith(
+          color: context.secondaryTextColor.withOpacity(0.5),
         ),
-        errorStyle: const TextStyle(
-          color: Colors.red,
+        errorStyle: context.bodySmall.copyWith(
+          color: context.errorColor,
         ),
         filled: true,
-        fillColor: AppTheme.kBackgroundColor.withOpacity(0.5),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 16.0,
-          horizontal: 16.0,
+        fillColor: context.surfaceColor,
+        contentPadding: EdgeInsets.symmetric(
+          vertical: AppSpacing.md,
+          horizontal: AppSpacing.md,
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:math' show Random;
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../theme/app_theme.dart';
+import '../../theme/app_theme_extensions.dart';
 
 /// Clase para almacenar datos de círculos animados
 class AnimatedCircle {
@@ -200,15 +201,15 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     
-    // Usando colores del tema para mantener consistencia
-    final baseColor = widget.primaryColor ?? AppTheme.kBackgroundColor;
-    final accentColor = widget.accentColor ?? AppTheme.kAccentColor;
+    // Obtener colores del tema actual usando las extensiones
+    final baseColor = widget.primaryColor ?? context.backgroundColor;
+    final accentColor = widget.accentColor ?? context.accentColor;
     
     return Stack(
       children: [
-        // Fondo base negro/azul muy oscuro
+        // Fondo base usando el color del tema
         Container(
-          color: Color(0xFF04080F),
+          color: context.backgroundColor,
           width: double.infinity,
           height: double.infinity,
         ),
