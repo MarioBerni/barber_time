@@ -130,7 +130,6 @@ class ThemedButton extends StatelessWidget {
         );
       case ThemedButtonType.accent:
       case ThemedButtonType.primary:
-      default:
         return ElevatedButton(
           onPressed: isLoading ? null : onPressed,
           style: ElevatedButton.styleFrom(
@@ -188,7 +187,6 @@ class ThemedButton extends StatelessWidget {
           vertical: context.spacingMD,
         );
       case ThemedButtonSize.medium:
-      default:
         return EdgeInsets.symmetric(
           horizontal: context.spacingMD,
           vertical: context.spacingSM,
@@ -204,7 +202,6 @@ class ThemedButton extends StatelessWidget {
       case ThemedButtonSize.large:
         return context.button.copyWith(fontSize: 16);
       case ThemedButtonSize.medium:
-      default:
         return context.button;
     }
   }
@@ -217,7 +214,6 @@ class ThemedButton extends StatelessWidget {
       case ThemedButtonSize.large:
         return 24;
       case ThemedButtonSize.medium:
-      default:
         return 20;
     }
   }
@@ -230,7 +226,6 @@ class ThemedButton extends StatelessWidget {
       case ThemedButtonSize.large:
         return 20;
       case ThemedButtonSize.medium:
-      default:
         return 16;
     }
   }

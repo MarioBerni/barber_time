@@ -3,37 +3,78 @@ import 'package:flutter/material.dart';
 /// Clase que define el tema global de la aplicación Barber Time
 /// Incluye colores, estilos de texto y otros parámetros visuales
 class AppTheme {
-  // Paleta de colores principal
-  static const Color kPrimaryColor = Color(0xFF1A56C7);      // Azul principal
-  static const Color kPrimaryDarkColor = Color(0xFF0B4AB3);   // Azul oscuro (para hover/presionado)
-  static const Color kPrimaryLightColor = Color(0xFF4377D1);   // Azul claro (para bordes/detalles)
-  static const Color kBackgroundColor = Color(0xFFF5F7FA);    // Fondo claro con matiz azul
-  static const Color kSurfaceColor = Color(0xFFFFFFFF);       // Superficie de componentes
+  // ======================================================
+  // PALETA DE COLORES EXPANDIDA - BARBER TIME
+  // ======================================================
   
-  // Acento dorado y variaciones
-  static const Color kAccentColor = Color(0xFFFDC500);        // Dorado principal
-  static const Color kAccentDarkColor = Color(0xFFE9B400);    // Dorado oscuro (hover/presionado)
-  static const Color kAccentLightColor = Color(0xFFFFD33C);    // Dorado claro (para destacar)
+  // Paleta de azules principales (ampliada)
+  static const Color kPrimaryColor = Color(0xFF1A56C7);        // Azul principal (original)
+  static const Color kPrimaryDarkColor = Color(0xFF0B4AB3);    // Azul oscuro (original)
+  static const Color kPrimaryLightColor = Color(0xFF4377D1);   // Azul claro (original)
+  
+  // Nuevas tonalidades de azul añadidas para crear jerarquía visual
+  static const Color kMidnightBlue = Color(0xFF001233);        // Azul muy oscuro (casi negro)
+  static const Color kDeepBlue = Color(0xFF023E7D);            // Azul profundo
+  static const Color kBrightBlue = Color(0xFF0466C8);          // Azul brillante
+  static const Color kLightBlue = Color(0xFF0582CA);           // Azul celeste
+  static const Color kSkyBlue = Color(0xFF80B3FF);             // Azul cielo
+
+  // Colores de superficie y fondo
+  static const Color kBackgroundColor = Color(0xFFF5F7FA);     // Fondo claro con matiz azul (original)
+  static const Color kSurfaceColor = Color(0xFFFFFFFF);        // Superficie de componentes (original)
+  static const Color kBackgroundAlt = Color(0xFFEEF2F6);       // Fondo alternativo
+  static const Color kSurfaceAlt = Color(0xFFF9FAFC);          // Superficie alternativa
+  
+  // Acento dorado y variaciones (ampliado)
+  static const Color kAccentColor = Color(0xFFFDC500);          // Dorado principal (original)
+  static const Color kAccentDarkColor = Color(0xFFE9B400);      // Dorado oscuro (original)
+  static const Color kAccentLightColor = Color(0xFFFFD33C);     // Dorado claro (original)
+  
+  // Nuevas tonalidades de dorado/ámbar
+  static const Color kDarkGold = Color(0xFFD4A017);            // Dorado oscuro premium
+  static const Color kMediumGold = Color(0xFFEDBC00);          // Dorado medio
+  static const Color kLightGold = Color(0xFFFFD700);           // Dorado claro brillante
+  static const Color kAmber = Color(0xFFF0C870);               // Ámbar suave
 
   // Colores complementarios (armónicos con azul y dorado)
-  static const Color kComplementaryColor1 = Color(0xFF5C89C7); // Azul medio complementario
-  static const Color kComplementaryColor2 = Color(0xFFF7B84B); // Naranja complementario 
-  static const Color kTertiaryColor = Color(0xFF70B0F8);      // Azul claro terciario
+  static const Color kComplementaryColor1 = Color(0xFF5C89C7);  // Azul medio complementario
+  static const Color kComplementaryColor2 = Color(0xFFF7B84B);  // Naranja complementario 
+  static const Color kTertiaryColor = Color(0xFF70B0F8);       // Azul claro terciario
   
-  // Colores neutros
-  static const Color kTextColor = Color(0xFF212B36);          // Texto principal
-  static const Color kSecondaryTextColor = Color(0xFF637381);  // Texto secundario
-  static const Color kDividerColor = Color(0xFFE2E8F0);        // Divisores
-  static const Color kDisabledColor = Color(0xFFCBD5E1);       // Elementos deshabilitados
+  // Neutros expandidos (escala de grises profesional)
+  static const Color kTextColor = Color(0xFF212B36);            // Texto principal (original)
+  static const Color kSecondaryTextColor = Color(0xFF637381);   // Texto secundario (original)
+  static const Color kDividerColor = Color(0xFFE2E8F0);         // Divisores (original)
+  static const Color kDisabledColor = Color(0xFFCBD5E1);        // Elementos deshabilitados (original)
   
-  // Colores de estado
-  static const Color kSuccessColor = Color(0xFF10B981);        // Éxito (verde)
-  static const Color kErrorColor = Color(0xFFEF4444);          // Error (rojo)
-  static const Color kWarningColor = Color(0xFFF59E0B);        // Advertencia (naranja)
-  static const Color kInfoColor = Color(0xFF3B82F6);           // Información (azul)
+  // Nuevos colores neutros para mayor versatilidad
+  static const Color kCharcoal = Color(0xFF303841);             // Gris carbón para alto contraste
+  static const Color kMetalGray = Color(0xFF7D8597);           // Gris metálico para bordes y detalles
+  static const Color kPearlGray = Color(0xFFE0E1DD);           // Gris perla para fondos alternativos
+  static const Color kCoffee = Color(0xFF4F3621);              // Café oscuro complementario
+  static const Color kCream = Color(0xFFF8F5F0);               // Crema para fondos suaves
   
-  // Colores de sombras
-  static const Color kShadowColor = Color(0xFF1A1A1A);         // Color base para sombras
+  // Colores de estado (para feedback visual)
+  static const Color kSuccessColor = Color(0xFF10B981);          // Éxito (verde)
+  static const Color kSuccessDarkColor = Color(0xFF059669);      // Éxito oscuro
+  static const Color kSuccessLightColor = Color(0xFF6EE7B7);     // Éxito claro
+  
+  static const Color kErrorColor = Color(0xFFEF4444);            // Error (rojo)
+  static const Color kErrorDarkColor = Color(0xFFDC2626);        // Error oscuro
+  static const Color kErrorLightColor = Color(0xFFFCA5A5);       // Error claro
+  
+  static const Color kWarningColor = Color(0xFFF59E0B);          // Advertencia (naranja)
+  static const Color kWarningDarkColor = Color(0xFFD97706);      // Advertencia oscura
+  static const Color kWarningLightColor = Color(0xFFFCD34D);     // Advertencia clara
+  
+  static const Color kInfoColor = Color(0xFF3B82F6);             // Información (azul)
+  static const Color kInfoDarkColor = Color(0xFF2563EB);         // Información oscura
+  static const Color kInfoLightColor = Color(0xFF93C5FD);        // Información clara
+  
+  // Colores de sombras expandidos
+  static const Color kShadowColor = Color(0xFF1A1A1A);           // Color base para sombras (original)
+  static const Color kShadowColorAlt = Color(0xFF2E3A59);        // Sombra alternativa con matiz azul
+  static const Color kDeepShadowColor = Color(0xFF0F172A);       // Sombra profunda para efectos dramáticos
 
   // Espaciado
   static const double kDefaultPadding = 16.0;

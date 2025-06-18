@@ -18,9 +18,30 @@ extension ThemeExtension on BuildContext {
   
   // Acceso directo a colores principales
   Color get primaryColor => Theme.of(this).primaryColor;
+  Color get primaryDarkColor => AppTheme.kPrimaryDarkColor;
+  Color get primaryLightColor => AppTheme.kPrimaryLightColor;
   Color get backgroundColor => Theme.of(this).scaffoldBackgroundColor;
   Color get accentColor => Theme.of(this).colorScheme.secondary;
   Color get surfaceColor => AppTheme.kSurfaceColor;
+  
+  // Nuevos tonos de azul
+  Color get midnightBlue => AppTheme.kMidnightBlue;
+  Color get deepBlue => AppTheme.kDeepBlue;
+  Color get brightBlue => AppTheme.kBrightBlue;
+  Color get lightBlue => AppTheme.kLightBlue;
+  Color get skyBlue => AppTheme.kSkyBlue;
+  
+  // Superficies alternativas
+  Color get backgroundAlt => AppTheme.kBackgroundAlt;
+  Color get surfaceAlt => AppTheme.kSurfaceAlt;
+  
+  // Dorados y ámbar
+  Color get accentDarkColor => AppTheme.kAccentDarkColor;
+  Color get accentLightColor => AppTheme.kAccentLightColor;
+  Color get darkGold => AppTheme.kDarkGold;
+  Color get mediumGold => AppTheme.kMediumGold;
+  Color get lightGold => AppTheme.kLightGold;
+  Color get amber => AppTheme.kAmber;
   
   // Acceso a colores complementarios
   Color get complementaryColor1 => AppTheme.kComplementaryColor1;
@@ -31,14 +52,36 @@ extension ThemeExtension on BuildContext {
   Color get textColor => AppTheme.kTextColor;
   Color get secondaryTextColor => AppTheme.kSecondaryTextColor;
   
+  // Colores neutros expandidos
+  Color get dividerColor => AppTheme.kDividerColor;
+  Color get disabledColor => AppTheme.kDisabledColor;
+  Color get charcoal => AppTheme.kCharcoal;
+  Color get metalGray => AppTheme.kMetalGray;
+  Color get pearlGray => AppTheme.kPearlGray;
+  Color get coffee => AppTheme.kCoffee;
+  Color get cream => AppTheme.kCream;
+  
   // Acceso a colores de estado
   Color get successColor => AppTheme.kSuccessColor;
+  Color get successDarkColor => AppTheme.kSuccessDarkColor;
+  Color get successLightColor => AppTheme.kSuccessLightColor;
+  
   Color get errorColor => AppTheme.kErrorColor;
+  Color get errorDarkColor => AppTheme.kErrorDarkColor;
+  Color get errorLightColor => AppTheme.kErrorLightColor;
+  
   Color get warningColor => AppTheme.kWarningColor;
+  Color get warningDarkColor => AppTheme.kWarningDarkColor;
+  Color get warningLightColor => AppTheme.kWarningLightColor;
+  
   Color get infoColor => AppTheme.kInfoColor;
+  Color get infoDarkColor => AppTheme.kInfoDarkColor;
+  Color get infoLightColor => AppTheme.kInfoLightColor;
   
   // Acceso a colores de sombra
   Color get shadowColor => Theme.of(this).cardTheme.shadowColor ?? AppTheme.kShadowColor;
+  Color get shadowColorAlt => AppTheme.kShadowColorAlt;
+  Color get deepShadowColor => AppTheme.kDeepShadowColor;
   Color get lightShadowColor => AppTheme.kShadowColor.withOpacity(0.1);
   Color get mediumShadowColor => AppTheme.kShadowColor.withOpacity(0.3);
   Color get darkShadowColor => AppTheme.kShadowColor.withOpacity(0.5);

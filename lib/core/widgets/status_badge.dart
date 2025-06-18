@@ -156,7 +156,6 @@ class StatusBadge extends StatelessWidget {
           textColor: context.accentColor,
         );
       case StatusBadgeType.info:
-      default:
         return _BadgeColors(
           backgroundColor: context.infoColor.withOpacity(0.15),
           textColor: context.infoColor,
