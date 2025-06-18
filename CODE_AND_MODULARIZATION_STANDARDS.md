@@ -48,6 +48,22 @@ lib/
 | Lógica de gestión de estado | `/lib/features/{feature}/presentation/bloc/` |
 | BLoC/Cubit | `/lib/features/{feature}/presentation/bloc/` |
 
+### 3. Protocolo de Reutilización de Componentes
+
+#### 3.1 Verificación Previa a la Creación
+Antes de crear un nuevo componente o estilo visual, sigue este protocolo:
+
+1. **Verificación en Core:** Comprobar si ya existe un componente similar en `/lib/core/widgets/`
+2. **Verificación en Features:** Revisar componentes similares en `/lib/features/` que podrían extraerse y generalizarse
+3. **Consultar Documentación:** Revisar archivos en `/tasks/` para entender decisiones de diseño previas
+
+#### 3.2 Principios de Coherencia Visual
+
+- **Referencias a AppTheme:** Siempre usar referencias a colores y estilos definidos en `AppTheme`
+- **Nunca hard-codear colores** o estilos que podrían cambiar
+- **Documentar excepciones** cuando sea absolutamente necesario desviarse del tema global
+- **Priorizar la extensión** de componentes existentes sobre la creación de nuevos
+
 ## PARTE II: PRINCIPIOS DE MODULARIZACIÓN
 
 ### 3. Principios Fundamentales

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
+import '../../../../core/widgets/icons/animated_icon_widget.dart';
 import '../bloc/auth_cubit.dart';
 import '../bloc/auth_state.dart';
 import '../widgets/auth_text_field.dart';
@@ -48,10 +50,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Fondo transparente para que el appBar no tape el fondo animado
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text('Iniciar Sesión'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: BlocConsumer<AuthCubit, AuthState>(
+      body: Stack(
+        children: [
+          // Fondo animado con gradiente y burbujas
+          const AnimatedGradientBackground(),
+          // Contenido de la página
+          BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           // Mostrar mensajes de error si los hay
           if (state.status == AuthStatus.error && state.errorMessage != null) {
@@ -71,31 +83,20 @@ class _LoginPageState extends State<LoginPage> {
         },
         builder: (context, state) {
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.fromLTRB(24.0, 100.0, 24.0, 24.0),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Logo y título
-                  const SizedBox(height: 40),
+                  // Logo y título con ícono animado
                   Center(
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: AppTheme.kPrimaryColor,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppTheme.kAccentColor,
-                          width: 3,
-                        ),
-                      ),
-                      child: const Icon(
-                        Icons.content_cut,
-                        color: AppTheme.kAccentColor,
-                        size: 60,
-                      ),
+                    child: IconWithShimmer(
+                      icon: Icons.content_cut,
+                      size: 100,
+                      // Usar colores del tema para mantener coherencia visual
+                      iconColor: AppTheme.kAccentColor,
+                      backgroundColor: AppTheme.kPrimaryColor.withOpacity(0.85),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -230,6 +231,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         },
+      ),
+        ],
       ),
     );
   }

@@ -47,9 +47,38 @@ En esta fase nos enfocamos exclusivamente en el frontend de la aplicación:
 - Utilizar datos estáticos pero representativos
 - Considerar diferentes escenarios (carga, error, vacío)
 
-## 4. Diseño Visual
+## 4. Diseño Visual y Reutilización de Componentes
 
-### 4.1 Tema Principal
+### 4.1 Principios de Diseño Visual
+
+- **Coherencia:** Mantener una apariencia consistente en toda la aplicación
+- **Simplicidad:** Preferir diseños limpios y minimalistas
+- **Jerarquía:** Establecer jerarquía visual clara entre elementos
+- **Feedback:** Proporcionar retroalimentación visual a acciones del usuario
+
+### 4.2 Protocolo de Reutilización de Componentes
+
+**Antes de crear cualquier nuevo componente visual:**
+
+1. **Verificar componentes existentes:** Revisar en los directorios relevantes si ya existe un componente similar que pueda ser reutilizado o extendido:
+   - Para componentes core: `/lib/core/widgets/`
+   - Para iconos y efectos: `/lib/core/widgets/icons/`
+   - Para fondos y decoraciones: `/lib/core/widgets/backgrounds/`
+
+2. **Consultar documentación:** Revisar archivos en `/tasks/` para identificar decisiones de diseño ya establecidas
+
+3. **Mantener coherencia visual:** Utilizar exclusivamente colores y estilos del sistema de temas centralizado:
+   ```dart
+   // CORRECTO - Usar referencias al tema global
+   color: AppTheme.kAccentColor
+   
+   // INCORRECTO - Hard-codear valores
+   color: Color(0xFFD4AF37)
+   ```
+
+4. **Documentar nuevos componentes:** Crear documentación inmediata cuando se desarrollen nuevos componentes reutilizables
+
+### 4.3 Tema Principal
 - **Concepto:** Minimalista, elegante, enfoque estético masculino
 - **Tema:** Dark Theme predominante
 - **Paleta Principal:**

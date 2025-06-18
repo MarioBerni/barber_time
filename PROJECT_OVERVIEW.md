@@ -51,7 +51,21 @@ El desarrollo del proyecto se realizará en tres fases principales:
    - Persistencia de datos en la nube
    - Implementación de notificaciones
 
-## 4. Tecnologías Principales
+## 4. Principios Fundamentales de Desarrollo
+
+### 4.1 Reutilización y Coherencia Visual
+
+El proyecto Barber Time enfatiza los siguientes principios como pilares fundamentales del desarrollo:
+
+- **Verificación antes de creación:** Antes de crear cualquier nuevo componente visual, verificar exhaustivamente si ya existe un componente similar que pueda ser reutilizado o extendido.
+
+- **Mantener coherencia visual:** Asegurar que todos los elementos visuales compartan un lenguaje de diseño consistente, referenciando siempre el sistema de temas centralizado (AppTheme).
+
+- **Documentación continua:** Documentar cada nuevo componente reutilizable inmediatamente después de su creación para facilitar su descubrimiento por otros desarrolladores.
+
+- **Modularización efectiva:** Diseñar componentes independientes pero visualmente coherentes que puedan combinarse para crear interfaces complejas.
+
+### 4.2 Tecnologías Clave
 
 - **Frontend:** Flutter (SDK) / Dart (Lenguaje)
 - **Gestión de Estado:** BLoC / Cubit (flutter_bloc)
