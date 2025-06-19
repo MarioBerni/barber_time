@@ -148,9 +148,9 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
     final size = MediaQuery.of(context).size;
     
     // Obtener colores del tema actual o usar los proporcionados
-    final baseColor = widget.primaryColor ?? context.backgroundColor;
-    final accentColor = widget.accentColor ?? context.accentColor;
-    
+    final Color baseColor = widget.primaryColor ?? context.backgroundColor;
+    final Color secondaryColor = widget.secondaryColor ?? context.deepBlue;
+
     return Stack(
       children: [
         // Fondo base usando el color del tema
@@ -158,6 +158,23 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
           color: context.backgroundColor,
           width: double.infinity,
           height: double.infinity,
+        ),
+        
+        // Degradado principal mejorado
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                baseColor,
+                secondaryColor,
+              ],
+              stops: const [0.0, 1.0],
+            ),
+          ),
         ),
         
         // Patrón de líneas usando el CustomPainter modularizado
@@ -170,14 +187,10 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
           ),
         ),
         
-        // Efecto de brillo en parte inferior izquierda
-        _buildBottomGlow(size, baseColor),
-        
-        // Línea diagonal (simboliza una navaja de afeitar)
-        _buildDiagonalLine(size, accentColor),
+        // Efectos de brillo y línea diagonal eliminados para un fondo más limpio
         
         // Círculos animados usando el componente modularizado
-        if (widget.showBouncingCircles && widget.showDecorationElements)
+        if (widget.showBouncingCircles) // Mostrar burbujas independientemente de los elementos decorativos
           AnimatedCircleRenderer(
             circles: _circles,
             animation: _animationController,
@@ -186,52 +199,5 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
     );
   }
   
-  /// Construye el efecto de brillo inferior
-  Widget _buildBottomGlow(Size size, Color baseColor) {
-    return Positioned(
-      bottom: -size.height * 0.1,
-      left: -size.width * 0.2,
-      child: Container(
-        width: size.width * 0.8,
-        height: size.width * 0.8,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: RadialGradient(
-            colors: [
-              baseColor.withOpacity(0.15),
-              Colors.transparent,
-            ],
-            stops: const [0.1, 0.9],
-          ),
-        ),
-      ),
-    );
-  }
-  
-  /// Construye la línea diagonal decorativa
-  Widget _buildDiagonalLine(Size size, Color accentColor) {
-    return Positioned(
-      top: size.height * 0.25,
-      left: -size.width * 0.1,
-      child: Transform.rotate(
-        angle: -0.2,
-        child: Container(
-          height: 1.5,
-          width: size.width * 1.2,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.transparent,
-                accentColor.withOpacity(0.6),
-                accentColor.withOpacity(0.8),
-                accentColor.withOpacity(0.6),
-                Colors.transparent,
-              ],
-              stops: const [0.0, 0.25, 0.5, 0.75, 1.0],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Métodos de efectos visuales eliminados para un diseño más limpio
 }

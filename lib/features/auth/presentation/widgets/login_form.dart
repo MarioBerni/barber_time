@@ -58,14 +58,16 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return GlamContainer.card(
-      padding: const EdgeInsets.all(24),
-      baseColor: context.shadowColor.withOpacity(0.05),
-      borderStyle: GlamBorderStyle.gradient,
-      borderColor: context.accentColor.withOpacity(0.3),
-      showInnerGlow: true,
-      elevation: GlamElevation.high,
-      opacity: 0.8,
+    // Usamos GlamContainer directamente para poder personalizar el borderRadius
+    return GlamContainer(
+      padding: const EdgeInsets.all(28),
+      baseColor: Colors.white,
+      borderStyle: GlamBorderStyle.solid,
+      borderColor: Colors.white.withOpacity(0.8),
+      showInnerGlow: false,
+      elevation: GlamElevation.medium,
+      opacity: 0.95,
+      borderRadius: BorderRadius.circular(24),
       child: Form(
         key: _formKey,
         child: Column(

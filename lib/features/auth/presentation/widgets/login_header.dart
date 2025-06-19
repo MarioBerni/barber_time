@@ -20,8 +20,8 @@ class LoginHeader extends StatelessWidget {
             child: IconWithShimmer(
               icon: Icons.content_cut,
               size: 110,
-              iconColor: context.mediumGold,
-              backgroundColor: context.primaryDarkColor.withOpacity(0.9),
+              iconColor: Colors.black87,
+              backgroundColor: Colors.white.withOpacity(0.95),
             ),
           ),
         ),
@@ -32,13 +32,13 @@ class LoginHeader extends StatelessWidget {
           'Barber Time',
           textAlign: TextAlign.center,
           style: context.h1.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+            fontWeight: FontWeight.w700,
             shadows: [
               Shadow(
-                color: context.shadowColor.withOpacity(0.5),
-                blurRadius: 6,
-                offset: const Offset(0, 2),
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 3,
+                offset: const Offset(0, 1),
               ),
             ],
           ),
@@ -50,7 +50,7 @@ class LoginHeader extends StatelessWidget {
           'Ingresa tus datos para continuar',
           textAlign: TextAlign.center,
           style: context.bodyMedium.copyWith(
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.black54,
             fontWeight: FontWeight.w500,
           ),
         ),

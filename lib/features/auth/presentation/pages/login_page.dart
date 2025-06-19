@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
-import '../../../../core/widgets/backgrounds/pattern_background.dart';
-import '../../../../core/widgets/backgrounds/gradient_overlay_background.dart';
+import '../../../../core/widgets/backgrounds/gradient_background_factory.dart';
+import '../../../../core/widgets/containers/glam_container.dart';
 import '../bloc/auth_cubit.dart';
 import '../bloc/auth_state.dart';
 import '../widgets/login_header.dart';
@@ -21,7 +21,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,28 +31,18 @@ class _LoginPageState extends State<LoginPage> {
         title: Text(
           'Iniciar Sesión',
           style: context.h4.copyWith(
-            color: Colors.white,
+            color: context.textColor,
             fontWeight: FontWeight.w600,
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: context.textColor),
       ),
       body: Stack(
         children: [
-          // Fondo de patrón con diseño de barbería
-          PatternBackground(
-            patternType: BarberPattern.diagonalStripes,
-            primaryColor: context.darkGold.withOpacity(0.15),
-            secondaryColor: context.primaryDarkColor.withOpacity(0.2),
-            density: 1.0,
-          ),
-          
-          // Overlay con gradiente para dar profundidad al fondo
-          GradientOverlayBackground.cornerLight(
-            opacity: 0.7,
-            child: const SizedBox.expand(), // Contenido requerido
-          ),
+          // Utilizamos el preset claro con degradado suave y burbujas más visibles
+          GradientBackgroundFactory.lightBarber(),
           
           // Contenido de la página
           BlocConsumer<AuthCubit, AuthState>(
@@ -65,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                     content: Text(state.errorMessage!),
                     backgroundColor: context.errorColor,
                     behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    margin: const EdgeInsets.all(16),
+                    shape: RoundedRectangleBorder(borderRadius: context.cardBorderRadius),
+                    margin: EdgeInsets.all(context.spacingMD),
                   ),
                 );
                 context.read<AuthCubit>().clearError();
@@ -78,27 +67,39 @@ class _LoginPageState extends State<LoginPage> {
               }
             },
             builder: (context, state) {
-              return SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24.0, 100.0, 24.0, 32.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Componente modular para el encabezado
-                    const LoginHeader(),
-                    
-                    SizedBox(height: context.spacingXL + 8),
-                    
-                    // Componente modular para el formulario
-                    LoginForm(
-                      isLoading: state.isLoading,
-                      onLoginPressed: (_) {},
-                    ),
-                    
-                    const SizedBox(height: 30),
+              // Usamos GlamContainer.surface para envolver todo el contenido y dar un efecto visual mejorado
+              return GlamContainer.surface(
+                margin: EdgeInsets.zero,
+                opacity: 0.1, // Muy sutil para no distraer
+                baseColor: Colors.white,
+                borderRadius: BorderRadius.zero, // Sin bordes redondeados para cubrir toda la pantalla
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.fromLTRB(
+                    context.spacingXL,
+                    100.0, // Mantenemos este valor específico para el diseño
+                    context.spacingXL,
+                    context.spacingXL
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Componente modular para el encabezado
+                      const LoginHeader(),
+                      
+                      SizedBox(height: context.spacingXL),
+                      
+                      // Componente modular para el formulario
+                      LoginForm(
+                        isLoading: state.isLoading,
+                        onLoginPressed: (_) {},
+                      ),
+                      
+                      SizedBox(height: context.spacingLG),
 
-                    // Componente modular para enlace de registro
-                    const LoginRegisterLink(),
-                  ],
+                      // Componente modular para enlace de registro
+                      const LoginRegisterLink(),
+                    ],
+                  ),
                 ),
               );
             },

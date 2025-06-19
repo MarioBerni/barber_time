@@ -88,7 +88,7 @@ class _AuthTextFieldState extends State<AuthTextField>
     with SingleTickerProviderStateMixin {
   // Controlador para la animación de enfoque
   late AnimationController _focusController;
-  late Animation<double> _borderAnimation;
+  // Animación para elevar el campo cuando tiene foco
   late Animation<double> _elevationAnimation;
   
   // Estado de enfoque
@@ -113,14 +113,7 @@ class _AuthTextFieldState extends State<AuthTextField>
       duration: const Duration(milliseconds: 300),
     );
     
-    _borderAnimation = Tween<double>(
-      begin: 1.0,
-      end: 2.0,
-    ).animate(CurvedAnimation(
-      parent: _focusController,
-      curve: Curves.easeOutCubic,
-    ));
-    
+    // Configuramos la animación de elevación
     _elevationAnimation = Tween<double>(
       begin: 0.0,
       end: 4.0,
@@ -181,7 +174,7 @@ class _AuthTextFieldState extends State<AuthTextField>
         return context.errorColor;
       case AuthFieldValidationState.neutral:
         return _isFocused
-            ? (widget.accentColor ?? context.accentColor)
+            ? (widget.accentColor ?? context.lightBlue) // Usando azul celeste para enfoque
             : context.secondaryTextColor.withOpacity(0.5);
     }
   }
@@ -213,9 +206,10 @@ class _AuthTextFieldState extends State<AuthTextField>
   @override
   Widget build(BuildContext context) {
     // Usar las extensiones para simplificar el acceso al tema
+    // Aplicamos bordes más redondeados para un estilo moderno
     final borderRadius = widget.customBorderRadius != null
         ? BorderRadius.circular(widget.customBorderRadius!)
-        : context.textFieldBorderRadius;
+        : BorderRadius.circular(18.0);
     
     final stateIcon = _getStateIcon();
     final stateColor = _getStateColor(context);
@@ -226,14 +220,23 @@ class _AuthTextFieldState extends State<AuthTextField>
         return Container(
           decoration: BoxDecoration(
             borderRadius: borderRadius,
-            boxShadow: _isFocused ? [
+            boxShadow: [
+              // Sombra sutil siempre presente para dar profundidad
               BoxShadow(
-                color: stateColor.withOpacity(0.2),
-                blurRadius: _elevationAnimation.value * 2,
-                spreadRadius: _elevationAnimation.value / 4,
+                color: Colors.black.withOpacity(0.04),
+                blurRadius: 4.0,
+                spreadRadius: 0.5,
                 offset: const Offset(0, 1),
-              )
-            ] : [],
+              ),
+              // Sombra adicional cuando tiene foco
+              if (_isFocused)
+                BoxShadow(
+                  color: stateColor.withOpacity(0.12),
+                  blurRadius: _elevationAnimation.value * 4,
+                  spreadRadius: _elevationAnimation.value / 2,
+                  offset: const Offset(0, 2),
+                )
+            ],
           ),
           child: child,
         );
@@ -262,45 +265,49 @@ class _AuthTextFieldState extends State<AuthTextField>
           prefixIcon: widget.prefixIcon != null
               ? AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.only(left: 4, right: 2),
                   child: Icon(
                     widget.prefixIcon,
-                    color: _isFocused ? stateColor : context.secondaryTextColor.withOpacity(0.7),
+                    color: _isFocused ? stateColor : Colors.black45,
+                    size: 20,
                   ),
                 )
               : null,
           suffixIcon: widget.suffixIcon ?? stateIcon,
+          // Estilo más moderno con bordes más sutiles
           border: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
-              color: context.secondaryTextColor.withOpacity(0.5),
+              color: Colors.grey.withOpacity(0.3),
+              width: 0.5,
             ),
           ),
           enabledBorder: OutlineInputBorder(
+            borderRadius: borderRadius,
+            borderSide: BorderSide(
+              color: Colors.grey.withOpacity(0.2),
+              width: 0.5,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
               color: stateColor.withOpacity(0.6),
               width: 1.0,
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: borderRadius,
-            borderSide: BorderSide(
-              color: stateColor,
-              width: _borderAnimation.value,
-            ),
-          ),
           errorBorder: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
               color: context.errorColor,
-              width: 1.5,
+              width: 1.0,
             ),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
               color: context.errorColor,
-              width: _borderAnimation.value,
+              width: 1.0,
             ),
           ),
           labelStyle: context.bodyMedium.copyWith(
@@ -316,8 +323,8 @@ class _AuthTextFieldState extends State<AuthTextField>
           ),
           filled: true,
           fillColor: _isFocused 
-              ? context.backgroundColor.withOpacity(0.8)
-              : context.surfaceColor,
+              ? Colors.white
+              : Colors.white.withOpacity(0.95),
           contentPadding: EdgeInsets.symmetric(
             vertical: AppSpacing.md + (_isFocused ? 1.0 : 0),
             horizontal: AppSpacing.md + (_isFocused ? 2.0 : 0),

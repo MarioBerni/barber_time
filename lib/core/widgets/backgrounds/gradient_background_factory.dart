@@ -31,6 +31,15 @@ class GradientBackgroundFactory {
     );
   }
   
+  /// Crea una instancia con el preset de estilo claro para Barber Time
+  /// Degradado suave y burbujas visibles para la interfaz principal
+  static AnimatedGradientBackground lightBarber({Key? key}) {
+    return fromPreset(
+      key: key,
+      preset: GradientBackgroundPreset.lightBarber,
+    );
+  }
+  
   /// Crea una instancia con el preset profesional
   static AnimatedGradientBackground professional({Key? key}) {
     return fromPreset(

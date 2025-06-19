@@ -8,6 +8,7 @@ Directory structure:
     ├── PROJECT_OVERVIEW.md
     ├── pubspec.lock
     ├── pubspec.yaml
+    ├── STRUCTURE.md
     ├── .metadata
     ├── android/
     │   ├── build.gradle.kts
@@ -45,6 +46,8 @@ Directory structure:
     │   └── gradle/
     │       └── wrapper/
     │           └── gradle-wrapper.properties
+    ├── docs/
+    │   └── GUIA_MIGRACION_TEMA.md
     ├── ios/
     │   ├── .gitignore
     │   ├── Flutter/
@@ -91,10 +94,33 @@ Directory structure:
     │   │   │   ├── app_routes.dart
     │   │   │   └── route_transitions.dart
     │   │   ├── theme/
-    │   │   │   └── app_theme.dart
+    │   │   │   ├── app_border_radius.dart
+    │   │   │   ├── app_spacing.dart
+    │   │   │   ├── app_special_themes.dart
+    │   │   │   ├── app_text_styles.dart
+    │   │   │   ├── app_theme.dart
+    │   │   │   └── app_theme_extensions.dart
     │   │   └── widgets/
+    │   │       ├── status_badge.dart
+    │   │       ├── themed_button.dart
+    │   │       ├── themed_card.dart
     │   │       ├── backgrounds/
-    │   │       │   └── animated_gradient_background.dart
+    │   │       │   ├── animated_circle.dart
+    │   │       │   ├── animated_circle_renderer.dart
+    │   │       │   ├── animated_gradient_background.dart
+    │   │       │   ├── gradient_background_factory.dart
+    │   │       │   ├── gradient_background_preset.dart
+    │   │       │   ├── gradient_overlay_background.dart
+    │   │       │   ├── pattern_background.dart
+    │   │       │   ├── striped_pattern_painter.dart
+    │   │       │   └── painters/
+    │   │       │       ├── diagonal_stripes_painter.dart
+    │   │       │       ├── grid_pattern_painter.dart
+    │   │       │       └── scissors_pattern_painter.dart
+    │   │       ├── buttons/
+    │   │       │   └── stylized_button.dart
+    │   │       ├── containers/
+    │   │       │   └── glam_container.dart
     │   │       └── icons/
     │   │           └── animated_icon_widget.dart
     │   └── features/
@@ -121,7 +147,10 @@ Directory structure:
     │               │   ├── login_page.dart
     │               │   └── register_page.dart
     │               └── widgets/
-    │                   └── auth_text_field.dart
+    │                   ├── auth_text_field.dart
+    │                   ├── login_form.dart
+    │                   ├── login_header.dart
+    │                   └── login_register_link.dart
     ├── linux/
     │   ├── CMakeLists.txt
     │   ├── .gitignore
@@ -173,31 +202,36 @@ Directory structure:
     │       └── RunnerTests.swift
     ├── tasks/
     │   ├── TASK_configuracion_inicial.md
-    │   └── TASK_fondo_animado.md
+    │   ├── TASK_fondo_animado.md
+    │   ├── TASK_mejora_diseno_visual.md
+    │   └── TASK_tema_y_estilo_centralizado.md
     ├── test/
     │   └── widget_test.dart
     ├── web/
     │   ├── index.html
     │   ├── manifest.json
     │   └── icons/
-    └── windows/
-        ├── CMakeLists.txt
-        ├── .gitignore
-        ├── flutter/
-        │   ├── CMakeLists.txt
-        │   ├── generated_plugin_registrant.cc
-        │   ├── generated_plugin_registrant.h
-        │   └── generated_plugins.cmake
-        └── runner/
-            ├── CMakeLists.txt
-            ├── flutter_window.cpp
-            ├── flutter_window.h
-            ├── main.cpp
-            ├── resource.h
-            ├── runner.exe.manifest
-            ├── Runner.rc
-            ├── utils.cpp
-            ├── utils.h
-            ├── win32_window.cpp
-            ├── win32_window.h
-            └── resources/
+    ├── windows/
+    │   ├── CMakeLists.txt
+    │   ├── .gitignore
+    │   ├── flutter/
+    │   │   ├── CMakeLists.txt
+    │   │   ├── generated_plugin_registrant.cc
+    │   │   ├── generated_plugin_registrant.h
+    │   │   └── generated_plugins.cmake
+    │   └── runner/
+    │       ├── CMakeLists.txt
+    │       ├── flutter_window.cpp
+    │       ├── flutter_window.h
+    │       ├── main.cpp
+    │       ├── resource.h
+    │       ├── runner.exe.manifest
+    │       ├── Runner.rc
+    │       ├── utils.cpp
+    │       ├── utils.h
+    │       ├── win32_window.cpp
+    │       ├── win32_window.h
+    │       └── resources/
+    └── .windsurf/
+        └── workflows/
+            └── profesor-synapse.md

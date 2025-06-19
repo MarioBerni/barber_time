@@ -12,6 +12,9 @@ enum GradientType {
   /// Viñeta estilizada con bordes oscurecidos
   vignette,
   
+  /// Viñeta suave y elegante con bordes ligeramente oscurecidos
+  softVignette,
+  
   /// Degradado radial desde el centro
   radialCenter,
   
@@ -108,6 +111,24 @@ class GradientOverlayBackground extends StatelessWidget {
     );
   }
   
+  /// Crea una superposición con efecto de viñeta suave y elegante
+  factory GradientOverlayBackground.softVignette({
+    required Widget child,
+    Color? primaryColor,
+    Color? secondaryColor,
+    double opacity = 0.65,
+    double intensity = 0.8,
+  }) {
+    return GradientOverlayBackground(
+      primaryColor: primaryColor,
+      secondaryColor: secondaryColor,
+      gradientType: GradientType.softVignette,
+      opacity: opacity,
+      intensity: intensity,
+      child: child,
+    );
+  }
+  
   /// Crea una superposición con degradado radial desde el centro
   factory GradientOverlayBackground.radial({
     required Widget child,
@@ -183,6 +204,9 @@ class GradientOverlayBackground extends StatelessWidget {
       
       case GradientType.vignette:
         return _buildVignetteGradient(baseColor, accentColor);
+        
+      case GradientType.softVignette:
+        return _buildSoftVignetteGradient(baseColor, accentColor);
       
       case GradientType.radialCenter:
         return _buildRadialGradient(baseColor, accentColor);
@@ -250,6 +274,53 @@ class GradientOverlayBackground extends StatelessWidget {
           stops: const [0.6, 0.8, 1.0],
         ),
       ),
+    );
+  }
+  
+  /// Construye un efecto de viñeta suave y elegante
+  Widget _buildSoftVignetteGradient(Color baseColor, Color accentColor) {
+    final Color darkColor = baseColor.withOpacity(opacity * intensity);
+    final Color accentGlow = accentColor.withOpacity(opacity * 0.2 * intensity);
+    
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Viñeta suave en los bordes
+        Container(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              center: Alignment.center,
+              radius: 1.5,
+              colors: [
+                Colors.transparent,
+                darkColor.withOpacity(darkColor.opacity * 0.15),
+                darkColor.withOpacity(darkColor.opacity * 0.45),
+              ],
+              stops: const [0.7, 0.85, 1.0],
+            ),
+          ),
+        ),
+        // Sutil resplandor central
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 150,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  accentGlow,
+                  Colors.transparent,
+                ],
+                stops: const [0.0, 1.0],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
   
