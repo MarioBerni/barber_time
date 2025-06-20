@@ -24,14 +24,14 @@ class IconWithShimmer extends StatelessWidget {
 
   /// Constructor
   const IconWithShimmer({
-    Key? key,
+    super.key,
     required this.icon,
     this.size = 100.0,
     this.backgroundColor,
     this.iconColor,
     this.enableShimmer = true,
     this.animateEntry = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class IconWithShimmer extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2), // TODO: Considerar añadir shadowColor a las extensiones
+              color: Colors.black.withAlpha((0.2 * 255).round()), // TODO: Considerar añadir shadowColor a las extensiones
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -84,7 +84,7 @@ class IconWithShimmer extends StatelessWidget {
           .shimmer(
             delay: const Duration(milliseconds: 2000),
             duration: const Duration(milliseconds: 1800),
-            color: effectiveIconColor.withOpacity(0.3),
+            color: effectiveIconColor.withAlpha((0.3 * 255).round()),
           );
     }
 

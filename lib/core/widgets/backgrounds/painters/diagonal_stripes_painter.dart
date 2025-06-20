@@ -30,7 +30,7 @@ class DiagonalStripesPainter extends CustomPainter {
     
     // Crear paint para las rayas
     final stripePaint = Paint()
-      ..color = stripeColor.withOpacity(opacity)
+      ..color = stripeColor.withAlpha((opacity * 255).round())
       ..style = PaintingStyle.stroke
       ..strokeWidth = stripeWidth
       ..isAntiAlias = true;
@@ -49,7 +49,7 @@ class DiagonalStripesPainter extends CustomPainter {
       
       // Rayas secundarias con menor opacidad
       final secondaryPaint = Paint()
-        ..color = backgroundColor.withOpacity(opacity * 0.6)
+        ..color = backgroundColor.withAlpha((opacity * 0.6 * 255).round())
         ..style = PaintingStyle.stroke
         ..strokeWidth = stripeWidth * 0.7
         ..isAntiAlias = true;

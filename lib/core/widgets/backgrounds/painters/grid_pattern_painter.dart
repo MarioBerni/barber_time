@@ -26,7 +26,7 @@ class GridPatternPainter extends CustomPainter {
     
     // Crear paint para la cuadrícula
     final gridPaint = Paint()
-      ..color = gridColor.withOpacity(opacity)
+      ..color = gridColor.withAlpha((opacity * 255).round())
       ..style = PaintingStyle.stroke
       ..strokeWidth = lineWidth;
     
@@ -50,7 +50,7 @@ class GridPatternPainter extends CustomPainter {
     
     // Agregar líneas resaltadas cada 4 celdas para crear jerarquía visual
     final accentPaint = Paint()
-      ..color = gridColor.withOpacity(opacity * 1.5)
+      ..color = gridColor.withAlpha((opacity * 1.5 * 255).round())
       ..style = PaintingStyle.stroke
       ..strokeWidth = lineWidth * 1.5;
       

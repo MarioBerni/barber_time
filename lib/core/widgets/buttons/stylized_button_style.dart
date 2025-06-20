@@ -17,7 +17,7 @@ class StylizedButtonStyleHelper {
           backgroundColor: context.mediumGold, // Usa el dorado del tema centralizado
           foregroundColor: Colors.white,
           elevation: isPressed ? 0 : 2,
-          shadowColor: context.mediumGold.withOpacity(0.3), // Sombra consistente con el tema
+          shadowColor: context.mediumGold.withAlpha((0.3 * 255).round()), // Sombra consistente con el tema
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
@@ -122,7 +122,7 @@ class StylizedButtonStyleHelper {
   static List<BoxShadow> getGlowEffect(BuildContext context) {
     return [
       BoxShadow(
-        color: context.accentColor.withOpacity(0.6),
+        color: context.accentColor.withAlpha((0.6 * 255).round()),
         blurRadius: 20.0,
         spreadRadius: 2.0,
       ),

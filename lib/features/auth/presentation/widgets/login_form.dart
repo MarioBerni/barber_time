@@ -63,7 +63,7 @@ class _LoginFormState extends State<LoginForm> {
       padding: const EdgeInsets.all(28),
       baseColor: Colors.white,
       borderStyle: GlamBorderStyle.solid,
-      borderColor: Colors.white.withOpacity(0.8),
+      borderColor: Colors.white.withAlpha((0.8 * 255).round()),
       showInnerGlow: false,
       elevation: GlamElevation.medium,
       opacity: 0.95,
@@ -115,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
                     key: ValueKey<bool>(_obscurePassword),
-                    color: context.secondaryTextColor.withOpacity(0.7),
+                    color: context.secondaryTextColor.withAlpha((0.7 * 255).round()),
                   ),
                 ),
                 onPressed: _togglePasswordVisibility,

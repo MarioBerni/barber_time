@@ -23,7 +23,7 @@ class LoginRegisterLink extends StatelessWidget {
           Text(
             '¿No tienes cuenta? ',
             style: context.bodyMedium.copyWith(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withAlpha((0.9 * 255).round()),
               fontWeight: FontWeight.w500,
             ),
           ),

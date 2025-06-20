@@ -20,7 +20,7 @@ class AppSpecialThemes {
         tertiary: christmasGreen,
       ),
       cardTheme: AppTheme.theme.cardTheme.copyWith(
-        shadowColor: christmasGreen.withOpacity(0.2),
+        shadowColor: christmasGreen.withAlpha((0.2 * 255).round()),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -66,7 +66,7 @@ class AppSpecialThemes {
         surface: elegantBlack,
       ),
       cardTheme: AppTheme.theme.cardTheme.copyWith(
-        shadowColor: celebrationGold.withOpacity(0.3),
+        shadowColor: celebrationGold.withAlpha((0.3 * 255).round()),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -112,7 +112,7 @@ class AppSpecialThemes {
         error: discountRed,
       ),
       cardTheme: AppTheme.theme.cardTheme.copyWith(
-        shadowColor: promotionalBlack.withOpacity(0.25),
+        shadowColor: promotionalBlack.withAlpha((0.25 * 255).round()),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

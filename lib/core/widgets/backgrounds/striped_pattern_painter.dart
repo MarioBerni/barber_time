@@ -26,7 +26,7 @@ class StripedPatternPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = baseColor.withOpacity(baseOpacity)
+      ..color = baseColor.withAlpha((baseOpacity * 255).round())
       ..strokeWidth = strokeWidth;
     
     // Crear líneas horizontales como detalle de diseño
@@ -35,9 +35,9 @@ class StripedPatternPainter extends CustomPainter {
     for (var i = 0; i < lineCount; i++) {
       // Alternar opacidad ligeramente para crear efecto visual más interesante
       if (i % 3 == 0) {
-        paint.color = baseColor.withOpacity(baseOpacity * 1.5);
+        paint.color = baseColor.withAlpha((baseOpacity * 1.5 * 255).round());
       } else {
-        paint.color = baseColor.withOpacity(baseOpacity);
+        paint.color = baseColor.withAlpha((baseOpacity * 255).round());
       }
       
       final y = i * lineSpacing;

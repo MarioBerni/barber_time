@@ -31,13 +31,13 @@ class ScissorsPatternPainter extends CustomPainter {
     
     // Crear paints para las tijeras
     final handlePaint = Paint()
-      ..color = primaryColor.withOpacity(opacity)
+      ..color = primaryColor.withAlpha((opacity * 255).round())
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2
       ..isAntiAlias = true;
       
     final bladePaint = Paint()
-      ..color = secondaryColor.withOpacity(opacity * 1.2)
+      ..color = secondaryColor.withAlpha((opacity * 1.2 * 255).round())
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0
       ..isAntiAlias = true;

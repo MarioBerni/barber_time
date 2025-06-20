@@ -61,7 +61,7 @@ class ThemedButton extends StatelessWidget {
   final bool isLoading;
 
   const ThemedButton({
-    Key? key,
+    super.key,
     required this.text,
     this.icon,
     this.iconLeading = true,
@@ -71,7 +71,7 @@ class ThemedButton extends StatelessWidget {
     this.fullWidth = false,
     this.customColor,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +252,6 @@ class ThemedButton extends StatelessWidget {
           foregroundColor: context.textColor,
         );
       case ThemedButtonType.primary:
-      default:
         return _ButtonColors(
           backgroundColor: baseColor ?? context.primaryColor,
           foregroundColor: Colors.white,

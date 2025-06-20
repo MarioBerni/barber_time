@@ -39,7 +39,7 @@ class GradientBackgroundPreset {
   /// Degradado horizontal de azul profundo con burbujas doradas bien visibles
   static GradientBackgroundPreset get lightBarber => GradientBackgroundPreset(
     primaryColor: AppTheme.kDeepBlue, // Azul profundo para la parte superior (masculino)
-    secondaryColor: AppTheme.kBrightBlue.withOpacity(0.7), // Azul brillante para la parte inferior
+    secondaryColor: AppTheme.kBrightBlue.withAlpha((0.7 * 255).round()), // Azul brillante para la parte inferior
     accentColor: AppTheme.kLightGold, // Dorado brillante para burbujas bien visibles
     opacity: 0.85, // Alta opacidad para un efecto más contundente
     lineCount: 0, // Sin líneas para mantener simplicidad
@@ -89,7 +89,7 @@ class GradientBackgroundPreset {
   /// Bueno para pantallas de configuración o información
   static GradientBackgroundPreset get elegant => GradientBackgroundPreset(
     primaryColor: AppTheme.kCharcoal,
-    secondaryColor: AppTheme.kDeepBlue.withOpacity(0.8),
+    secondaryColor: AppTheme.kDeepBlue.withAlpha((0.8 * 255).round()),
     accentColor: AppTheme.kMetalGray,
     opacity: 0.9,
     lineCount: 45,

@@ -116,7 +116,6 @@ class GlamContainer extends StatelessWidget {
     bool showInnerGlow = true,
   }) {
     return GlamContainer(
-      child: child,
       baseColor: baseColor,
       opacity: opacity,
       blurIntensity: 10.0,
@@ -129,6 +128,7 @@ class GlamContainer extends StatelessWidget {
       padding: padding,
       showInnerGlow: showInnerGlow,
       maxWidth: maxWidth,
+      child: child,
     );
   }
   
@@ -144,7 +144,6 @@ class GlamContainer extends StatelessWidget {
     bool showInnerGlow = false,
   }) {
     return GlamContainer(
-      child: child,
       baseColor: baseColor,
       opacity: opacity,
       blurIntensity: 6.0,
@@ -157,6 +156,7 @@ class GlamContainer extends StatelessWidget {
       padding: padding,
       showInnerGlow: showInnerGlow,
       maxWidth: maxWidth,
+      child: child,
     );
   }
   
@@ -171,7 +171,6 @@ class GlamContainer extends StatelessWidget {
     BorderRadius? borderRadius,
   }) {
     return GlamContainer(
-      child: child,
       baseColor: baseColor,
       opacity: opacity,
       blurIntensity: 4.0,
@@ -181,6 +180,7 @@ class GlamContainer extends StatelessWidget {
       margin: margin,
       padding: padding,
       showInnerGlow: false,
+      child: child,
     );
   }
 
@@ -230,7 +230,7 @@ class GlamContainer extends StatelessWidget {
       case GlamElevation.low:
         return [
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.1),
+            color: context.shadowColor.withAlpha((0.1 * 255).round()),
             blurRadius: 8.0,
             offset: const Offset(0, 2),
           ),
@@ -239,12 +239,12 @@ class GlamContainer extends StatelessWidget {
       case GlamElevation.medium:
         return [
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.05),
+            color: context.shadowColor.withAlpha((0.05 * 255).round()),
             blurRadius: 4.0,
             offset: const Offset(0, 1),
           ),
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.15),
+            color: context.shadowColor.withAlpha((0.15 * 255).round()),
             blurRadius: 10.0,
             offset: const Offset(0, 4),
           ),
@@ -253,12 +253,12 @@ class GlamContainer extends StatelessWidget {
       case GlamElevation.high:
         return [
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.05),
+            color: context.shadowColor.withAlpha((0.05 * 255).round()),
             blurRadius: 6.0,
             offset: const Offset(0, 2),
           ),
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.2),
+            color: context.shadowColor.withAlpha((0.2 * 255).round()),
             blurRadius: 16.0,
             offset: const Offset(0, 8),
           ),
@@ -267,12 +267,12 @@ class GlamContainer extends StatelessWidget {
       case GlamElevation.dramatic:
         return [
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.05),
+            color: context.shadowColor.withAlpha((0.05 * 255).round()),
             blurRadius: 10.0,
             offset: const Offset(0, 4),
           ),
           BoxShadow(
-            color: context.shadowColor.withOpacity(0.2),
+            color: context.shadowColor.withAlpha((0.2 * 255).round()),
             blurRadius: 24.0,
             offset: const Offset(0, 12),
           ),
@@ -287,7 +287,7 @@ class GlamContainer extends StatelessWidget {
     Color borderColor,
   ) {
     // Color base con opacidad
-    final containerColor = baseColor.withOpacity(opacity);
+    final containerColor = baseColor.withAlpha((opacity * 255).round());
     
     // Borde según el estilo seleccionado
     BoxBorder? border;
@@ -301,20 +301,20 @@ class GlamContainer extends StatelessWidget {
         
       case GlamBorderStyle.solid:
         border = Border.all(
-          color: borderColor.withOpacity(0.6),
+          color: borderColor.withAlpha((0.6 * 255).round()),
           width: borderWidth,
         );
         break;
         
       case GlamBorderStyle.glow:
         border = Border.all(
-          color: borderColor.withOpacity(0.5),
+          color: borderColor.withAlpha((0.5 * 255).round()),
           width: borderWidth,
         );
         
         innerShadow = [
           BoxShadow(
-            color: borderColor.withOpacity(0.3),
+            color: borderColor.withAlpha((0.3 * 255).round()),
             blurRadius: 6.0,
             spreadRadius: 1.0,
           ),
@@ -326,10 +326,10 @@ class GlamContainer extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            borderColor.withOpacity(0.7),
-            borderColor.withOpacity(0.3),
-            borderColor.withOpacity(0.1),
-            borderColor.withOpacity(0.3),
+            borderColor.withAlpha((0.7 * 255).round()),
+            borderColor.withAlpha((0.3 * 255).round()),
+            borderColor.withAlpha((0.1 * 255).round()),
+            borderColor.withAlpha((0.3 * 255).round()),
           ],
           stops: const [0.0, 0.3, 0.7, 1.0],
         );
@@ -340,7 +340,7 @@ class GlamContainer extends StatelessWidget {
     if (showInnerGlow && innerShadow == null) {
       innerShadow = [
         BoxShadow(
-          color: baseColor.withOpacity(0.15),
+          color: baseColor.withAlpha((0.15 * 255).round()),
           blurRadius: 8.0,
           spreadRadius: -2.0,
           offset: const Offset(0, 1),

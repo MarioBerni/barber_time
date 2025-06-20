@@ -47,14 +47,14 @@ class StatusBadge extends StatelessWidget {
   final Color? customColor;
 
   const StatusBadge({
-    Key? key,
+    super.key,
     required this.text,
     this.type = StatusBadgeType.info,
     this.icon,
     this.rounded = false,
     this.small = false,
     this.customColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -127,37 +127,37 @@ class StatusBadge extends StatelessWidget {
     switch (type) {
       case StatusBadgeType.success:
         return _BadgeColors(
-          backgroundColor: context.successColor.withOpacity(0.15),
+          backgroundColor: context.successColor.withAlpha((0.15 * 255).round()),
           textColor: context.successColor,
         );
       case StatusBadgeType.warning:
         return _BadgeColors(
-          backgroundColor: context.warningColor.withOpacity(0.15),
+          backgroundColor: context.warningColor.withAlpha((0.15 * 255).round()),
           textColor: context.warningColor,
         );
       case StatusBadgeType.error:
         return _BadgeColors(
-          backgroundColor: context.errorColor.withOpacity(0.15),
+          backgroundColor: context.errorColor.withAlpha((0.15 * 255).round()),
           textColor: context.errorColor,
         );
       case StatusBadgeType.neutral:
         return _BadgeColors(
-          backgroundColor: context.secondaryTextColor.withOpacity(0.15),
+          backgroundColor: context.secondaryTextColor.withAlpha((0.15 * 255).round()),
           textColor: context.secondaryTextColor,
         );
       case StatusBadgeType.primary:
         return _BadgeColors(
-          backgroundColor: context.primaryColor.withOpacity(0.15),
+          backgroundColor: context.primaryColor.withAlpha((0.15 * 255).round()),
           textColor: context.primaryColor,
         );
       case StatusBadgeType.accent:
         return _BadgeColors(
-          backgroundColor: context.accentColor.withOpacity(0.15),
+          backgroundColor: context.accentColor.withAlpha((0.15 * 255).round()),
           textColor: context.accentColor,
         );
       case StatusBadgeType.info:
         return _BadgeColors(
-          backgroundColor: context.infoColor.withOpacity(0.15),
+          backgroundColor: context.infoColor.withAlpha((0.15 * 255).round()),
           textColor: context.infoColor,
         );
     }

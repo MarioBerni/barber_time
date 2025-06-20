@@ -94,7 +94,7 @@ class AppTheme {
       colorScheme: const ColorScheme.dark().copyWith(
         primary: kPrimaryColor,
         secondary: kAccentColor,
-        background: kBackgroundColor,
+        surface: kBackgroundColor,
       ),
       textTheme: _textTheme,
       appBarTheme: const AppBarTheme(
@@ -132,7 +132,7 @@ class AppTheme {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: kBackgroundColor.withOpacity(0.7),
+        fillColor: kBackgroundColor.withAlpha((0.7 * 255).round()),
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
@@ -140,18 +140,18 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
-          borderSide: BorderSide(color: kPrimaryColor.withOpacity(0.3)),
+          borderSide: BorderSide(color: kPrimaryColor.withAlpha((0.3 * 255).round())),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
           borderSide: const BorderSide(color: kAccentColor),
         ),
         contentPadding: const EdgeInsets.all(kDefaultPadding),
-        hintStyle: TextStyle(color: kSecondaryTextColor.withOpacity(0.7)),
+        hintStyle: TextStyle(color: kSecondaryTextColor.withAlpha((0.7 * 255).round())),
       ),
       // Configuración de tarjetas como parte del tema usando propiedades individuales
       // para evitar problemas de compatibilidad entre versiones de Flutter
-      cardColor: kPrimaryColor.withOpacity(0.2),
+      cardColor: kPrimaryColor.withAlpha((0.2 * 255).round()),
       cardTheme: ThemeData.dark().cardTheme.copyWith(
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -188,7 +188,7 @@ class AppTheme {
       fontSize: 16,
     ),
     bodyMedium: TextStyle(
-      color: kTextColor.withOpacity(0.9),
+      color: kTextColor.withAlpha((0.9 * 255).round()),
       fontSize: 14,
     ),
     bodySmall: TextStyle(
@@ -205,7 +205,7 @@ class AppTheme {
       colorScheme: const ColorScheme.light().copyWith(
         primary: kPrimaryColor,
         secondary: kAccentColor,
-        background: kBackgroundColor,
+        surface: kBackgroundColor,
       ),
       textTheme: _textTheme,
       appBarTheme: const AppBarTheme(
@@ -252,14 +252,14 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
-          borderSide: BorderSide(color: kPrimaryColor.withOpacity(0.3)),
+          borderSide: BorderSide(color: kPrimaryColor.withAlpha((0.3 * 255).round())),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
           borderSide: const BorderSide(color: kAccentColor),
         ),
         contentPadding: const EdgeInsets.all(kDefaultPadding),
-        hintStyle: TextStyle(color: kSecondaryTextColor.withOpacity(0.7)),
+        hintStyle: TextStyle(color: kSecondaryTextColor.withAlpha((0.7 * 255).round())),
       ),
       cardColor: kSurfaceColor,
       cardTheme: ThemeData.light().cardTheme.copyWith(
@@ -267,7 +267,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
         ),
-        shadowColor: kPrimaryColor.withOpacity(0.1),
+        shadowColor: kPrimaryColor.withAlpha((0.1 * 255).round()),
       ),
     );
   }

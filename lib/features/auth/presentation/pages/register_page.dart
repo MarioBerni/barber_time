@@ -220,9 +220,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: context.secondaryTextColor.withOpacity(0.5)),
+                      border: Border.all(color: context.secondaryTextColor.withAlpha((0.5 * 255).round())),
                       borderRadius: context.defaultBorderRadius,
-                      color: context.backgroundColor.withOpacity(0.5),
+                      color: context.backgroundColor.withAlpha((0.5 * 255).round()),
                     ),
                     child: Column(
                       children: [

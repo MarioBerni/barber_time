@@ -21,7 +21,7 @@ class LoginHeader extends StatelessWidget {
               icon: Icons.content_cut,
               size: 110,
               iconColor: Colors.black87,
-              backgroundColor: Colors.white.withOpacity(0.95),
+              backgroundColor: Colors.white.withAlpha((0.95 * 255).round()),
             ),
           ),
         ),
@@ -36,7 +36,7 @@ class LoginHeader extends StatelessWidget {
             fontWeight: FontWeight.w700,
             shadows: [
               Shadow(
-                color: Colors.black.withOpacity(0.15),
+                color: Colors.black.withAlpha((0.15 * 255).round()),
                 blurRadius: 3,
                 offset: const Offset(0, 1),
               ),

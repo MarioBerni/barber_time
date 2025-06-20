@@ -32,7 +32,7 @@ class ThemedCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ThemedCard({
-    Key? key,
+    super.key,
     required this.child,
     this.elevation = 'medium',
     this.padding,
@@ -41,7 +41,7 @@ class ThemedCard extends StatelessWidget {
     this.fullWidth = false,
     this.borderRadius,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

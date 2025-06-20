@@ -175,7 +175,7 @@ class _AuthTextFieldState extends State<AuthTextField>
       case AuthFieldValidationState.neutral:
         return _isFocused
             ? (widget.accentColor ?? context.lightBlue) // Usando azul celeste para enfoque
-            : context.secondaryTextColor.withOpacity(0.5);
+            : context.secondaryTextColor.withAlpha((0.5 * 255).round());
     }
   }
   
@@ -223,7 +223,7 @@ class _AuthTextFieldState extends State<AuthTextField>
             boxShadow: [
               // Sombra sutil siempre presente para dar profundidad
               BoxShadow(
-                color: Colors.black.withOpacity(0.04),
+                color: Colors.black.withAlpha((0.04 * 255).round()),
                 blurRadius: 4.0,
                 spreadRadius: 0.5,
                 offset: const Offset(0, 1),
@@ -231,7 +231,7 @@ class _AuthTextFieldState extends State<AuthTextField>
               // Sombra adicional cuando tiene foco
               if (_isFocused)
                 BoxShadow(
-                  color: stateColor.withOpacity(0.12),
+                  color: stateColor.withAlpha((0.12 * 255).round()),
                   blurRadius: _elevationAnimation.value * 4,
                   spreadRadius: _elevationAnimation.value / 2,
                   offset: const Offset(0, 2),
@@ -278,21 +278,21 @@ class _AuthTextFieldState extends State<AuthTextField>
           border: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withAlpha((0.3 * 255).round()),
               width: 0.5,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.grey.withAlpha((0.2 * 255).round()),
               width: 0.5,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
-              color: stateColor.withOpacity(0.6),
+              color: stateColor.withAlpha((0.6 * 255).round()),
               width: 1.0,
             ),
           ),
@@ -315,7 +315,7 @@ class _AuthTextFieldState extends State<AuthTextField>
             fontWeight: _isFocused ? FontWeight.w500 : FontWeight.normal,
           ),
           hintStyle: context.bodySmall.copyWith(
-            color: context.secondaryTextColor.withOpacity(0.5),
+            color: context.secondaryTextColor.withAlpha((0.5 * 255).round()),
           ),
           errorStyle: context.bodySmall.copyWith(
             color: context.errorColor,
@@ -324,7 +324,7 @@ class _AuthTextFieldState extends State<AuthTextField>
           filled: true,
           fillColor: _isFocused 
               ? Colors.white
-              : Colors.white.withOpacity(0.95),
+              : Colors.white.withAlpha((0.95 * 255).round()),
           contentPadding: EdgeInsets.symmetric(
             vertical: AppSpacing.md + (_isFocused ? 1.0 : 0),
             horizontal: AppSpacing.md + (_isFocused ? 2.0 : 0),

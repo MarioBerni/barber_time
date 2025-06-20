@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_theme_extensions.dart';
 
-/// Enumeración de tipos de degradados predefinidos
-enum GradientType {
-  /// Degradado profesional de arriba hacia abajo
-  professionalVertical,
-  
-  /// Degradado con efecto de iluminación desde una esquina
-  cornerLight,
-  
-  /// Viñeta estilizada con bordes oscurecidos
-  vignette,
-  
-  /// Viñeta suave y elegante con bordes ligeramente oscurecidos
-  softVignette,
-  
-  /// Degradado radial desde el centro
-  radialCenter,
-  
-  /// Efecto de luz superior tipo "spotlight"
-  topSpotlight,
-}
+import 'gradient_types.dart';
+import 'gradient_builders.dart';
 
 /// Widget que proporciona una superposición de degradado configurable
 ///
@@ -180,7 +162,6 @@ class GradientOverlayBackground extends StatelessWidget {
         // Superposición de degradado
         Positioned.fill(
           child: _buildGradientOverlay(
-            context,
             baseColor, 
             accentColor,
           ),
@@ -191,177 +172,57 @@ class GradientOverlayBackground extends StatelessWidget {
   
   /// Construye la superposición de degradado según el tipo seleccionado
   Widget _buildGradientOverlay(
-    BuildContext context,
     Color baseColor,
     Color accentColor,
   ) {
     switch (gradientType) {
       case GradientType.professionalVertical:
-        return _buildProfessionalVerticalGradient(baseColor, accentColor);
+        return GradientBuilders.buildProfessionalVerticalGradient(
+          baseColor: baseColor,
+          accentColor: accentColor,
+          opacity: opacity,
+          intensity: intensity,
+        );
       
       case GradientType.cornerLight:
-        return _buildCornerLightGradient(baseColor, accentColor);
+        return GradientBuilders.buildCornerLightGradient(
+          baseColor: baseColor,
+          accentColor: accentColor,
+          opacity: opacity,
+          intensity: intensity,
+        );
       
       case GradientType.vignette:
-        return _buildVignetteGradient(baseColor, accentColor);
+        return GradientBuilders.buildVignetteGradient(
+          baseColor: baseColor,
+          accentColor: accentColor,
+          opacity: opacity,
+          intensity: intensity,
+        );
         
       case GradientType.softVignette:
-        return _buildSoftVignetteGradient(baseColor, accentColor);
+        return GradientBuilders.buildSoftVignetteGradient(
+          baseColor: baseColor,
+          accentColor: accentColor,
+          opacity: opacity,
+          intensity: intensity,
+        );
       
       case GradientType.radialCenter:
-        return _buildRadialGradient(baseColor, accentColor);
+        return GradientBuilders.buildRadialGradient(
+          baseColor: baseColor,
+          accentColor: accentColor,
+          opacity: opacity,
+          intensity: intensity,
+        );
       
       case GradientType.topSpotlight:
-        return _buildTopSpotlightGradient(baseColor, accentColor);
+        return GradientBuilders.buildTopSpotlightGradient(
+          baseColor: baseColor,
+          accentColor: accentColor,
+          opacity: opacity,
+          intensity: intensity,
+        );
     }
-  }
-  
-  /// Construye un degradado vertical profesional
-  Widget _buildProfessionalVerticalGradient(Color baseColor, Color accentColor) {
-    final Color darkColor = baseColor.withOpacity(opacity * 0.6 * intensity);
-    final Color lightColor = accentColor.withOpacity(opacity * 0.2 * intensity);
-    
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            darkColor,
-            lightColor,
-            darkColor.withOpacity(darkColor.opacity * 0.7),
-          ],
-          stops: const [0.0, 0.6, 1.0],
-        ),
-      ),
-    );
-  }
-  
-  /// Construye un degradado con efecto de iluminación desde una esquina
-  Widget _buildCornerLightGradient(Color baseColor, Color accentColor) {
-    final Color lightColor = accentColor.withOpacity(opacity * 0.3 * intensity);
-    final Color transparentColor = baseColor.withOpacity(0.0);
-    
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            lightColor,
-            transparentColor,
-          ],
-          stops: const [0.0, 0.7],
-        ),
-      ),
-    );
-  }
-  
-  /// Construye un efecto de viñeta estilizada
-  Widget _buildVignetteGradient(Color baseColor, Color accentColor) {
-    final Color darkColor = baseColor.withOpacity(opacity * intensity);
-    
-    return Container(
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          center: Alignment.center,
-          radius: 1.2,
-          colors: [
-            Colors.transparent,
-            darkColor.withOpacity(darkColor.opacity * 0.3),
-            darkColor,
-          ],
-          stops: const [0.6, 0.8, 1.0],
-        ),
-      ),
-    );
-  }
-  
-  /// Construye un efecto de viñeta suave y elegante
-  Widget _buildSoftVignetteGradient(Color baseColor, Color accentColor) {
-    final Color darkColor = baseColor.withOpacity(opacity * intensity);
-    final Color accentGlow = accentColor.withOpacity(opacity * 0.2 * intensity);
-    
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Viñeta suave en los bordes
-        Container(
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              center: Alignment.center,
-              radius: 1.5,
-              colors: [
-                Colors.transparent,
-                darkColor.withOpacity(darkColor.opacity * 0.15),
-                darkColor.withOpacity(darkColor.opacity * 0.45),
-              ],
-              stops: const [0.7, 0.85, 1.0],
-            ),
-          ),
-        ),
-        // Sutil resplandor central
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 150,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  accentGlow,
-                  Colors.transparent,
-                ],
-                stops: const [0.0, 1.0],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-  
-  /// Construye un degradado radial desde el centro
-  Widget _buildRadialGradient(Color baseColor, Color accentColor) {
-    final Color centerColor = accentColor.withOpacity(opacity * 0.3 * intensity);
-    final Color edgeColor = baseColor.withOpacity(opacity * intensity);
-    
-    return Container(
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          center: Alignment.center,
-          radius: 0.8,
-          colors: [
-            centerColor,
-            edgeColor,
-          ],
-          stops: const [0.1, 1.0],
-        ),
-      ),
-    );
-  }
-  
-  /// Construye un efecto de luz superior tipo "spotlight"
-  Widget _buildTopSpotlightGradient(Color baseColor, Color accentColor) {
-    final Color lightColor = accentColor.withOpacity(opacity * 0.4 * intensity);
-    final Color darkColor = baseColor.withOpacity(opacity * intensity);
-    
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            lightColor,
-            darkColor.withOpacity(darkColor.opacity * 0.3),
-            darkColor,
-          ],
-          stops: const [0.0, 0.4, 1.0],
-        ),
-      ),
-    );
   }
 }

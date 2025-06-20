@@ -32,11 +32,6 @@ Directory structure:
     │   │       │       │   └── launch_background.xml
     │   │       │       ├── drawable-v21/
     │   │       │       │   └── launch_background.xml
-    │   │       │       ├── mipmap-hdpi/
-    │   │       │       ├── mipmap-mdpi/
-    │   │       │       ├── mipmap-xhdpi/
-    │   │       │       ├── mipmap-xxhdpi/
-    │   │       │       ├── mipmap-xxxhdpi/
     │   │       │       ├── values/
     │   │       │       │   └── styles.xml
     │   │       │       └── values-night/
@@ -209,8 +204,7 @@ Directory structure:
     │   └── widget_test.dart
     ├── web/
     │   ├── index.html
-    │   ├── manifest.json
-    │   └── icons/
+    │   └── manifest.json
     ├── windows/
     │   ├── CMakeLists.txt
     │   ├── .gitignore
@@ -230,8 +224,7 @@ Directory structure:
     │       ├── utils.cpp
     │       ├── utils.h
     │       ├── win32_window.cpp
-    │       ├── win32_window.h
-    │       └── resources/
+    │       └── win32_window.h
     └── .windsurf/
         └── workflows/
             └── profesor-synapse.md

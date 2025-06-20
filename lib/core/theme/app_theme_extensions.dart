@@ -82,9 +82,9 @@ extension ThemeExtension on BuildContext {
   Color get shadowColor => Theme.of(this).cardTheme.shadowColor ?? AppTheme.kShadowColor;
   Color get shadowColorAlt => AppTheme.kShadowColorAlt;
   Color get deepShadowColor => AppTheme.kDeepShadowColor;
-  Color get lightShadowColor => AppTheme.kShadowColor.withOpacity(0.1);
-  Color get mediumShadowColor => AppTheme.kShadowColor.withOpacity(0.3);
-  Color get darkShadowColor => AppTheme.kShadowColor.withOpacity(0.5);
+  Color get lightShadowColor => AppTheme.kShadowColor.withAlpha((0.1 * 255).round());
+  Color get mediumShadowColor => AppTheme.kShadowColor.withAlpha((0.3 * 255).round());
+  Color get darkShadowColor => AppTheme.kShadowColor.withAlpha((0.5 * 255).round());
 }
 
 /// Extensión para simplificar el acceso a los estilos de texto
@@ -204,12 +204,12 @@ extension ShadowExtension on BuildContext {
   
   List<BoxShadow> get elevatedShadow => [
     BoxShadow(
-      color: shadowColor.withOpacity(0.06),
+      color: shadowColor.withAlpha((0.06 * 255).round()),
       blurRadius: 4.0,
       offset: const Offset(0, 2),
     ),
     BoxShadow(
-      color: shadowColor.withOpacity(0.16),
+      color: shadowColor.withAlpha((0.16 * 255).round()),
       blurRadius: 12.0,
       offset: const Offset(0, 8),
     ),
