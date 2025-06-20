@@ -42,7 +42,7 @@ class HomeSalonCard extends StatelessWidget {
                 return Container(
                   width: 110,
                   height: 110,
-                  color: theme.colorScheme.primary.withOpacity(0.2),
+                  color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
                   child: const Icon(Icons.image_not_supported),
                 );
               },
@@ -130,7 +130,7 @@ class HomeSalonCard extends StatelessWidget {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.secondary.withOpacity(0.1),
+                          color: theme.colorScheme.secondary.withAlpha((0.1 * 255).round()),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(

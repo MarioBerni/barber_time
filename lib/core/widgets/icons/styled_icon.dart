@@ -62,7 +62,7 @@ class StyledIcon extends StatelessWidget {
         (isActive ? context.accentColor : context.secondaryTextColor);
     
     final effectiveBackgroundColor = backgroundColor ?? 
-        (isActive ? context.accentLightColor.withOpacity(0.2) : context.surfaceColor);
+        (isActive ? context.accentLightColor.withAlpha((0.2 * 255).round()) : context.surfaceColor);
     
     return Stack(
       clipBehavior: Clip.none,
@@ -110,7 +110,7 @@ class StyledIcon extends StatelessWidget {
         Icon(
           icon,
           size: iconSize + 4,
-          color: context.accentLightColor.withOpacity(0.4),
+          color: context.accentLightColor.withAlpha((0.4 * 255).round()),
         ),
         // Icono principal
         Icon(

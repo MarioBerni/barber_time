@@ -86,7 +86,7 @@ class AppBottomNavigationBar extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.transparent,
             selectedItemColor: context.accentColor,
-            unselectedItemColor: context.surfaceColor.withOpacity(0.7),
+            unselectedItemColor: context.surfaceColor.withAlpha((0.7 * 255).round()),
             selectedLabelStyle: context.bodySmall.copyWith(
               fontWeight: FontWeight.bold,
               color: context.accentColor,
@@ -124,10 +124,10 @@ class AppBottomNavigationBar extends StatelessWidget {
       icon: iconData,
       isActive: isActive,
       hasGlowEffect: isActive,
-      iconColor: isActive ? context.accentColor : context.surfaceColor.withOpacity(0.8),
+      iconColor: isActive ? context.accentColor : context.surfaceColor.withAlpha((0.8 * 255).round()),
       backgroundColor: isActive 
-          ? context.accentLightColor.withOpacity(0.2)
-          : context.surfaceColor.withOpacity(0.15),
+          ? context.accentLightColor.withAlpha((0.2 * 255).round())
+          : context.surfaceColor.withAlpha((0.15 * 255).round()),
       iconSize: size ?? 24,
       circleSize: 42,
     );

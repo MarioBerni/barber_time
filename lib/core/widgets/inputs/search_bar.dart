@@ -77,14 +77,14 @@ class SearchBar extends StatelessWidget {
         hintStyle: (compact ? context.bodySmall : context.bodyMedium)
             .copyWith(color: context.secondaryTextColor),
         prefixIcon: showSearchIcon
-            ? Container(
+            ? SizedBox(
                 width: compact ? 40 : 48,
                 // Usamos Transform para alinear perfectamente el icono verticalmente
                 child: Center(
                   child: StyledIcon(
                     icon: Icons.search,
                     iconColor: context.deepBlue,
-                    backgroundColor: Colors.white.withOpacity(0.3), 
+                    backgroundColor: Colors.white.withAlpha((0.3 * 255).round()), 
                     circleSize: 36,
                     iconSize: 22,
                   ),
@@ -124,7 +124,7 @@ class SearchBar extends StatelessWidget {
         disabledBorder: OutlineInputBorder(
           borderRadius: effectiveBorderRadius,
           borderSide: hasBorder
-              ? BorderSide(color: context.dividerColor.withOpacity(0.5), width: 1.0)
+              ? BorderSide(color: context.dividerColor.withAlpha((0.5 * 255).round()), width: 1.0)
               : BorderSide.none,
         ),
       ),

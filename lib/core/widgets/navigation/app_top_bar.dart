@@ -130,7 +130,7 @@ class AppTopBar extends StatelessWidget {
                     StyledIcon(
                       icon: Icons.arrow_back_ios_rounded,
                       iconColor: context.surfaceColor,
-                      backgroundColor: context.surfaceColor.withOpacity(0.2),
+                      backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
                       circleSize: 36,
                       iconSize: 20,
                       onTap: onBackPressed ?? () => Navigator.of(context).pop(),
@@ -168,7 +168,7 @@ class AppTopBar extends StatelessWidget {
                             Text(
                               secondaryText!,
                               style: context.bodySmall.copyWith(
-                                color: secondaryTextColor ?? context.surfaceColor.withOpacity(0.9),
+                                color: secondaryTextColor ?? context.surfaceColor.withAlpha((0.9 * 255).round()),
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -185,7 +185,7 @@ class AppTopBar extends StatelessWidget {
                     StyledIcon(
                       icon: Icons.favorite_border_rounded,
                       iconColor: context.surfaceColor,
-                      backgroundColor: context.surfaceColor.withOpacity(0.2),
+                      backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
                       circleSize: 36,
                       iconSize: 22,
                     ),
@@ -194,7 +194,7 @@ class AppTopBar extends StatelessWidget {
                     StyledIcon(
                       icon: Icons.notifications_none_rounded,
                       iconColor: context.surfaceColor,
-                      backgroundColor: context.surfaceColor.withOpacity(0.2),
+                      backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
                       circleSize: 36,
                       iconSize: 22,
                       showBadge: true,

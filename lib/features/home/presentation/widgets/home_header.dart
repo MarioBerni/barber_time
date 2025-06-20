@@ -97,7 +97,7 @@ class HomeHeader extends StatelessWidget {
           secondaryText: 'Tuesday, March 18, 2025',
           // Colores de texto personalizados para contraste con fondo dorado
           greetingTextColor: context.deepBlue,
-          secondaryTextColor: context.midnightBlue.withOpacity(0.8),
+          secondaryTextColor: context.midnightBlue.withAlpha((0.8 * 255).round()),
           // Colores para el gradiente (acento dorado/ámbar)
           gradientStartColor: backgroundColor ?? headerBackgroundColor,
           gradientEndColor: context.accentColor,
@@ -108,7 +108,7 @@ class HomeHeader extends StatelessWidget {
             StyledIcon(
               icon: Icons.notifications_outlined,
               iconColor: context.deepBlue,
-              backgroundColor: Colors.white.withOpacity(0.3),
+              backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
               circleSize: 36,
               iconSize: 22,
               showBadge: hasNotifications,
@@ -120,7 +120,7 @@ class HomeHeader extends StatelessWidget {
             StyledIcon(
               icon: Icons.tune,
               iconColor: context.deepBlue,
-              backgroundColor: Colors.white.withOpacity(0.3),
+              backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
               circleSize: 36,
               iconSize: 22,
               onTap: () {},

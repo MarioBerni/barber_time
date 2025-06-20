@@ -31,7 +31,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    color: theme.colorScheme.primary.withOpacity(0.2),
+                    color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
                     child: Center(child: Icon(Icons.image_not_supported)),
                   );
                 },
@@ -49,7 +49,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withOpacity(0.7),
+                    Colors.black.withAlpha((0.7 * 255).round()),
                   ],
                 ),
               ),

@@ -31,7 +31,7 @@ class HomeServiceCategoryItem extends StatelessWidget {
           height: size,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: itemColor.withOpacity(0.1),
+            color: itemColor.withAlpha((0.1 * 255).round()),
           ),
           child: Center(
             child: category.iconUrl != null
