@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_theme_extensions.dart';
+import '../icons/styled_icon.dart';
 
 /// Widget reutilizable para la barra de navegación inferior de la aplicación.
 /// 
@@ -24,6 +25,9 @@ class AppBottomNavigationBar extends StatelessWidget {
   });
 
   /// Constructor con los ítems predeterminados de navegación principal.
+  /// 
+  /// En lugar de usar StyledIcon directamente en el constructor factory,
+  /// creamos íconos básicos que luego se modifican en el método build.
   factory AppBottomNavigationBar.main({
     required int currentIndex,
     required Function(int) onTap,
@@ -31,25 +35,25 @@ class AppBottomNavigationBar extends StatelessWidget {
     return AppBottomNavigationBar(
       currentIndex: currentIndex,
       onTap: onTap,
-      items: [
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined, size: 26),
-          activeIcon: Icon(Icons.home, size: 26),
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined, size: 24),
+          activeIcon: Icon(Icons.home, size: 24),
           label: 'Inicio',
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today_outlined, size: 25),
-          activeIcon: Icon(Icons.calendar_today, size: 25),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today_outlined, size: 22),
+          activeIcon: Icon(Icons.calendar_today, size: 22),
           label: 'Citas',
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.favorite_border, size: 26),
-          activeIcon: Icon(Icons.favorite, size: 26),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite_border, size: 24),
+          activeIcon: Icon(Icons.favorite, size: 24),
           label: 'Favoritos',
         ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline, size: 26),
-          activeIcon: Icon(Icons.person, size: 26),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline, size: 24),
+          activeIcon: Icon(Icons.person, size: 24),
           label: 'Perfil',
         ),
       ],
@@ -93,8 +97,8 @@ class AppBottomNavigationBar extends StatelessWidget {
             items: List.generate(
               items.length,
               (index) => BottomNavigationBarItem(
-                icon: items[index].icon,
-                activeIcon: _buildActiveIcon(context, items[index].activeIcon),
+                icon: _buildIcon(context, items[index].icon, false),
+                activeIcon: _buildIcon(context, items[index].activeIcon, true),
                 label: items[index].label,
               ),
             ),
@@ -105,9 +109,9 @@ class AppBottomNavigationBar extends StatelessWidget {
     );
   }
 
-  /// Construye un icono activo con efecto brillante
-  Widget _buildActiveIcon(BuildContext context, Widget icon) {
-    // Si el icono ya es un widget personalizado, lo devolvemos tal cual
+  /// Construye un icono con estilo uniforme para la barra de navegación
+  Widget _buildIcon(BuildContext context, Widget icon, bool isActive) {
+    // Si el icono ya es un widget personalizado o no es un Icon, lo devolvemos tal cual
     if (icon is! Icon) return icon;
     
     final IconData? iconData = icon.icon;
@@ -115,22 +119,17 @@ class AppBottomNavigationBar extends StatelessWidget {
     
     if (iconData == null) return icon;
     
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Efecto de brillo
-        Icon(
-          iconData,
-          size: size,
-          color: context.accentLightColor.withOpacity(0.4),
-        ),
-        // Icono principal
-        Icon(
-          iconData,
-          size: size,
-          color: context.accentColor,
-        ),
-      ],
+    // Usar el componente StyledIcon para mantener consistencia visual
+    return StyledIcon(
+      icon: iconData,
+      isActive: isActive,
+      hasGlowEffect: isActive,
+      iconColor: isActive ? context.accentColor : context.surfaceColor.withOpacity(0.8),
+      backgroundColor: isActive 
+          ? context.accentLightColor.withOpacity(0.2)
+          : context.surfaceColor.withOpacity(0.15),
+      iconSize: size ?? 24,
+      circleSize: 42,
     );
   }
 }

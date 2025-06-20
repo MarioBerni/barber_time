@@ -1,17 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/navigation/app_top_bar.dart';
+import '../../../../core/widgets/icons/styled_icon.dart';
 
-import '../bloc/home_cubit.dart';
+/// Enumeración para los diferentes estilos de fondo del encabezado
+enum HomeHeaderStyle {
+  /// Fondo claro (crema)
+  light,
+  
+  /// Fondo azul cielo
+  skyBlue,
+  
+  /// Fondo con color de acento (dorado claro)
+  accent,
+  
+  /// Fondo con color primario (azul claro)
+  primary,
+  
+  /// Fondo con color informativo claro (azul muy claro)
+  infoLight,
+}
 
 /// Widget para mostrar el encabezado de la página de inicio.
 ///
-/// Incluye saludo personalizado, subtítulo, botón de búsqueda y notificaciones.
+/// Incluye saludo personalizado, subtítulo, avatar de usuario,
+/// barra de búsqueda y notificaciones.
+/// 
+/// Versión refactorizada para usar componentes modulares reutilizables.
 class HomeHeader extends StatelessWidget {
   /// Nombre del usuario para mostrar en el saludo.
   final String userName;
   
+  /// URL de la imagen de avatar del usuario
+  final String? avatarUrl;
+  
   /// Indica si hay notificaciones sin leer.
   final bool hasNotifications;
+  
+  /// Controlador para el campo de búsqueda
+  final TextEditingController? searchController;
+  
+  /// Callback para cuando se realiza una búsqueda.
+  final Function(String)? onSearch;
   
   /// Callback para cuando se presiona el botón de búsqueda.
   final VoidCallback? onSearchPressed;
@@ -19,92 +49,125 @@ class HomeHeader extends StatelessWidget {
   /// Callback para cuando se presiona el botón de notificaciones.
   final VoidCallback? onNotificationsPressed;
   
+  /// Callback para cuando se presiona el avatar de usuario.
+  final VoidCallback? onUserAvatarPressed;
+  
   /// Padding exterior del encabezado.
   final EdgeInsetsGeometry padding;
   
   /// Color de fondo del encabezado.
   final Color? backgroundColor;
+  
+  /// Estilo del encabezado
+  final HomeHeaderStyle style;
 
   const HomeHeader({
     super.key,
     required this.userName,
+    this.avatarUrl,
     this.hasNotifications = false,
+    this.searchController,
+    this.onSearch,
     this.onSearchPressed,
     this.onNotificationsPressed,
+    this.onUserAvatarPressed,
     this.padding = const EdgeInsets.fromLTRB(16.0, 50.0, 16.0, 16.0),
     this.backgroundColor,
+    this.style = HomeHeaderStyle.light,
   });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    // Obtener el color de fondo según el estilo seleccionado
+    final headerBackgroundColor = _getBackgroundColor(context, style);
     
-    return Container(
-      padding: padding,
-      color: backgroundColor ?? theme.scaffoldBackgroundColor.withOpacity(0.8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Barra superior personalizada con gradiente y esquinas redondeadas, formato de dos filas
+        AppTopBar(
+          showAvatar: true,
+          avatarUrl: avatarUrl,
+          showSearchBar: true,
+          searchController: searchController,
+          onSearch: onSearch,
+          searchHint: 'Buscar servicios, barberías...',
+          // Texto de saludo y fecha
+          greetingText: 'Good Morning Jobby',
+          secondaryText: 'Tuesday, March 18, 2025',
+          // Colores de texto personalizados para contraste con fondo dorado
+          greetingTextColor: context.deepBlue,
+          secondaryTextColor: context.midnightBlue.withOpacity(0.8),
+          // Colores para el gradiente (acento dorado/ámbar)
+          gradientStartColor: backgroundColor ?? headerBackgroundColor,
+          gradientEndColor: context.accentColor,
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 20.0),
+          // Acciones para la fila superior (solo notificaciones, favoritos va en navbar inferior)
+          topActions: [
+            // Botón de notificaciones estilizado
+            StyledIcon(
+              icon: Icons.notifications_outlined,
+              iconColor: context.deepBlue,
+              backgroundColor: Colors.white.withOpacity(0.3),
+              circleSize: 36,
+              iconSize: 22,
+              showBadge: hasNotifications,
+              onTap: onNotificationsPressed,
+            ),
+          ],
+          // Acciones para la fila inferior (filtro)
+          bottomActions: [
+            StyledIcon(
+              icon: Icons.tune,
+              iconColor: context.deepBlue,
+              backgroundColor: Colors.white.withOpacity(0.3),
+              circleSize: 36,
+              iconSize: 22,
+              onTap: () {},
+            ),
+          ],
+        ),
+        
+        // Título personalizado
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.spacingMD,
+            vertical: context.spacingSM,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Hola, ${userName.isEmpty ? "Usuario" : userName}',
-                    style: theme.textTheme.headlineSmall,
-                  ),
-                  Text(
-                    'Encuentra tu estilo perfecto',
-                    style: theme.textTheme.bodyLarge,
-                  ),
-                ],
+              Text(
+                'Hola, ${userName.isEmpty ? "Usuario" : userName}',
+                style: context.h4,
               ),
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.search,
-                      size: 28,
-                    ),
-                    onPressed: onSearchPressed ?? 
-                        () => context.read<HomeCubit>().toggleSearchMode(),
-                  ),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.notifications_outlined,
-                          size: 28,
-                        ),
-                        onPressed: onNotificationsPressed ?? () {
-                          // Navegar a notificaciones
-                        },
-                      ),
-                      if (hasNotifications)
-                        Positioned(
-                          top: 10,
-                          right: 10,
-                          child: Container(
-                            width: 10,
-                            height: 10,
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.error,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
+              context.verticalSpaceXXS,
+              Text(
+                'Encuentra tu estilo perfecto',
+                style: context.bodyMedium.copyWith(
+                  color: context.secondaryTextColor,
+                ),
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
+  }
+  
+  /// Obtiene el color de fondo basado en el estilo seleccionado
+  Color _getBackgroundColor(BuildContext context, HomeHeaderStyle style) {
+    switch (style) {
+      case HomeHeaderStyle.light:
+        return context.cream;
+      case HomeHeaderStyle.skyBlue:
+        return context.skyBlue;
+      case HomeHeaderStyle.accent:
+        return context.accentLightColor;
+      case HomeHeaderStyle.primary:
+        return context.primaryLightColor;
+      case HomeHeaderStyle.infoLight:
+        return context.infoLightColor;
+    }
   }
 }
