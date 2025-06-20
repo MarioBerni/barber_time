@@ -34,7 +34,7 @@ void main() async {
   // Iniciar la aplicación
   runApp(
     BlocProvider(
-      create: (context) => sl<AuthCubit>()..checkAuthStatus(),
+      create: (context) => sl<AuthCubit>(),
       child: const BarberTimeApp(),
     ),
   );

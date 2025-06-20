@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/bloc/auth_cubit.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/home/presentation/bloc/home_cubit.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../di/service_locator.dart';
 import 'app_routes.dart';
 import 'route_transitions.dart';
@@ -20,7 +22,7 @@ class AppRouter {
 
   /// Router principal de la aplicación
   static final GoRouter _router = GoRouter(
-    initialLocation: AppRoutes.login,
+    initialLocation: AppRoutes.home,
     debugLogDiagnostics: true,
     routes: [
       // Ruta inicial - Splash Screen
@@ -63,7 +65,10 @@ class AppRouter {
         pageBuilder: (context, state) => RouteTransitions.fadeTransition(
           context: context,
           state: state,
-          child: _PlaceholderPage(title: 'Home'),
+          child: BlocProvider(
+            create: (_) => sl<HomeCubit>(),
+            child: const HomePage(),
+          ),
         ),
       ),
       
@@ -91,10 +96,25 @@ class AppRouter {
     ),
     
     // Redirecciones, por ejemplo para verificar autenticación
-    // Esto se implementará completamente cuando tengamos el módulo de autenticación
     redirect: (context, state) {
-      // Aquí irá la lógica de redirección cuando implementemos autenticación
-      // Por ahora, no hay redirecciones
+      // Permitimos el acceso a la página de inicio sin autenticación
+      // Las rutas protegidas requerirán autenticación más adelante
+      
+      // Rutas públicas permitidas sin autenticación
+      final publicRoutes = [
+        AppRoutes.home, 
+        AppRoutes.login, 
+        AppRoutes.register, 
+        AppRoutes.splash
+      ];
+      
+      // Si la ruta es pública, permitir acceso sin restricciones
+      if (publicRoutes.contains(state.matchedLocation)) {
+        return null;
+      }
+      
+      // Otras rutas requerirán autenticación en el futuro
+      // Por ahora, permitimos acceso a todas las rutas
       return null;
     },
   );

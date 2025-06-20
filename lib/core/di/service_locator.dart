@@ -8,6 +8,13 @@ import '../../features/auth/domain/usecases/login_usecase.dart';
 import '../../features/auth/domain/usecases/register_usecase.dart';
 import '../../features/auth/presentation/bloc/auth_cubit.dart';
 
+// Home Feature
+import '../../features/home/data/datasources/home_mock_datasource.dart';
+import '../../features/home/data/repositories/home_repository_impl.dart';
+import '../../features/home/domain/repositories/home_repository.dart';
+import '../../features/home/domain/usecases/get_home_data_usecase.dart';
+import '../../features/home/presentation/bloc/home_cubit.dart';
+
 /// Instancia global del ServiceLocator para inyección de dependencias
 final sl = GetIt.instance;
 
@@ -69,20 +76,18 @@ void _registerAuthServices() {
 /// Registra servicios relacionados con la home page
 void _registerHomeServices() {
   // DATASOURCES
-  // sl.registerLazySingleton<HomeDataSource>(() => MockHomeDataSource());
+  sl.registerLazySingleton(() => HomeMockDatasource());
   
   // REPOSITORIES
-  // sl.registerLazySingleton<HomeRepository>(
-  //   () => HomeRepositoryImpl(dataSource: sl<HomeDataSource>()),
-  // );
+  sl.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(sl()),
+  );
   
   // USECASES
-  // sl.registerLazySingleton(() => GetTrendingBarbersUseCase(sl<HomeRepository>()));
+  sl.registerLazySingleton(() => GetHomeDataUsecase(sl()));
   
-  // BLOCS
-  // sl.registerFactory(() => HomeBloc(
-  //   getTrendingBarbersUseCase: sl<GetTrendingBarbersUseCase>(),
-  // ));
+  // CUBITS
+  sl.registerFactory(() => HomeCubit(sl()));
 }
 
 /// Registra servicios relacionados con el perfil de usuario
