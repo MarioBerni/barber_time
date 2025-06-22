@@ -22,11 +22,11 @@ class StyledIcon extends StatelessWidget {
   /// Si es true, aplicará un efecto de brillo al icono
   final bool hasGlowEffect;
   
-  /// Tamaño del icono
-  final double iconSize;
+  /// Tamaño del icono (si es null, usará iconSizeDefault del tema)
+  final double? iconSize;
   
-  /// Tamaño del contenedor circular
-  final double circleSize;
+  /// Tamaño del contenedor circular (si es null, usará iconContainerSizeDefault del tema)
+  final double? circleSize;
   
   /// Si es true, muestra un badge de notificación
   final bool showBadge;
@@ -47,8 +47,8 @@ class StyledIcon extends StatelessWidget {
     this.backgroundColor,
     this.isActive = false,
     this.hasGlowEffect = false,
-    this.iconSize = 22,
-    this.circleSize = 40,
+    this.iconSize,
+    this.circleSize,
     this.showBadge = false,
     this.badgeCount,
     this.badgeColor,
@@ -71,8 +71,8 @@ class StyledIcon extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Container(
-            width: circleSize,
-            height: circleSize,
+            width: circleSize ?? context.iconContainerSizeDefault,
+            height: circleSize ?? context.iconContainerSizeDefault,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: effectiveBackgroundColor,
@@ -98,7 +98,7 @@ class StyledIcon extends StatelessWidget {
     if (!hasGlowEffect) {
       return Icon(
         icon,
-        size: iconSize,
+        size: iconSize ?? context.iconSizeDefault,
         color: iconColor,
       );
     }
@@ -109,13 +109,13 @@ class StyledIcon extends StatelessWidget {
         // Efecto de brillo
         Icon(
           icon,
-          size: iconSize + 4,
+          size: (iconSize ?? context.iconSizeDefault) + 4,
           color: context.accentLightColor.withAlpha((0.4 * 255).round()),
         ),
         // Icono principal
         Icon(
           icon,
-          size: iconSize,
+          size: iconSize ?? context.iconSizeDefault,
           color: iconColor,
         ),
       ],

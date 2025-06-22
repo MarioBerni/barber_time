@@ -59,6 +59,9 @@ extension ThemeExtension on BuildContext {
   Color get metalGray => AppTheme.kMetalGray;
   Color get pearlGray => AppTheme.kPearlGray;
   Color get coffee => AppTheme.kCoffee;
+  Color get coffeeDark => AppTheme.kCoffeeDark;
+  Color get coffeeLight => AppTheme.kCoffeeLight;
+  Color get coffeeLighter => AppTheme.kCoffeeLighter;
   Color get cream => AppTheme.kCream;
   
   // Acceso a colores de estado
@@ -85,6 +88,17 @@ extension ThemeExtension on BuildContext {
   Color get lightShadowColor => AppTheme.kShadowColor.withAlpha((0.1 * 255).round());
   Color get mediumShadowColor => AppTheme.kShadowColor.withAlpha((0.3 * 255).round());
   Color get darkShadowColor => AppTheme.kShadowColor.withAlpha((0.5 * 255).round());
+  
+  // Tamaños de iconos estandarizados
+  double get iconSizeSmall => AppTheme.kIconSizeSmall;
+  double get iconSizeMedium => AppTheme.kIconSizeMedium;
+  double get iconSizeDefault => AppTheme.kIconSizeDefault;
+  double get iconSizeLarge => AppTheme.kIconSizeLarge;
+  
+  // Tamaños para contenedores de iconos
+  double get iconContainerSizeSmall => AppTheme.kIconContainerSizeSmall;
+  double get iconContainerSizeDefault => AppTheme.kIconContainerSizeDefault;
+  double get iconContainerSizeLarge => AppTheme.kIconContainerSizeLarge;
 }
 
 /// Extensión para simplificar el acceso a los estilos de texto

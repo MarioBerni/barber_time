@@ -42,8 +42,8 @@ class AppBottomNavigationBar extends StatelessWidget {
           label: 'Inicio',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today_outlined, size: 22),
-          activeIcon: Icon(Icons.calendar_today, size: 22),
+          icon: Icon(Icons.calendar_today_outlined, size: 24),
+          activeIcon: Icon(Icons.calendar_today, size: 24),
           label: 'Citas',
         ),
         BottomNavigationBarItem(

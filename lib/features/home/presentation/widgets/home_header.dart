@@ -19,6 +19,12 @@ enum HomeHeaderStyle {
   
   /// Fondo con color informativo claro (azul muy claro)
   infoLight,
+  
+  /// Fondo con color café/marrón
+  coffee,
+  
+  /// Fondo con color gris metálico
+  gray,
 }
 
 /// Widget para mostrar el encabezado de la página de inicio.
@@ -98,9 +104,9 @@ class HomeHeader extends StatelessWidget {
           // Colores de texto personalizados para contraste con fondo dorado
           greetingTextColor: context.deepBlue,
           secondaryTextColor: context.midnightBlue.withAlpha((0.8 * 255).round()),
-          // Colores para el gradiente (acento dorado/ámbar)
+          // Colores para el gradiente (tonalidades de gris)
           gradientStartColor: backgroundColor ?? headerBackgroundColor,
-          gradientEndColor: context.accentColor,
+          gradientEndColor: context.charcoal,
           padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 20.0),
           // Acciones para la fila superior (solo notificaciones, favoritos va en navbar inferior)
           topActions: [
@@ -109,8 +115,6 @@ class HomeHeader extends StatelessWidget {
               icon: Icons.notifications_outlined,
               iconColor: context.deepBlue,
               backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
-              circleSize: 36,
-              iconSize: 22,
               showBadge: hasNotifications,
               onTap: onNotificationsPressed,
             ),
@@ -121,8 +125,6 @@ class HomeHeader extends StatelessWidget {
               icon: Icons.tune,
               iconColor: context.deepBlue,
               backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
-              circleSize: 36,
-              iconSize: 22,
               onTap: () {},
             ),
           ],
@@ -168,6 +170,10 @@ class HomeHeader extends StatelessWidget {
         return context.primaryLightColor;
       case HomeHeaderStyle.infoLight:
         return context.infoLightColor;
+      case HomeHeaderStyle.coffee:
+        return context.coffeeLight;
+      case HomeHeaderStyle.gray:
+        return context.metalGray;
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
 import '../../domain/entities/salon.dart';
 
@@ -43,7 +44,7 @@ class HomeSalonCard extends StatelessWidget {
                   width: 110,
                   height: 110,
                   color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
-                  child: const Icon(Icons.image_not_supported),
+                  child: Icon(Icons.image_not_supported, size: context.iconSizeDefault),
                 );
               },
             ),

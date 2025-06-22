@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
 import '../../domain/entities/special_offer.dart';
 
@@ -32,7 +33,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
-                    child: Center(child: Icon(Icons.image_not_supported)),
+                    child: Center(child: Icon(Icons.image_not_supported, size: context.iconSizeDefault)),
                   );
                 },
               ),

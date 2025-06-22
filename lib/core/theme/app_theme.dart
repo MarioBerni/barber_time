@@ -41,7 +41,7 @@ class AppTheme {
   static const Color kComplementaryColor2 = Color(0xFFF7B84B);  // Naranja complementario 
   static const Color kTertiaryColor = Color(0xFF70B0F8);       // Azul claro terciario
   
-  // Neutros expandidos (escala de grises profesional)
+  // Colores neutros expandidos (escala de grises profesional)
   static const Color kTextColor = Color(0xFF212B36);            // Texto principal (original)
   static const Color kSecondaryTextColor = Color(0xFF637381);   // Texto secundario (original)
   static const Color kDividerColor = Color(0xFFE2E8F0);         // Divisores (original)
@@ -52,6 +52,9 @@ class AppTheme {
   static const Color kMetalGray = Color(0xFF7D8597);           // Gris metálico para bordes y detalles
   static const Color kPearlGray = Color(0xFFE0E1DD);           // Gris perla para fondos alternativos
   static const Color kCoffee = Color(0xFF4F3621);              // Café oscuro complementario
+  static const Color kCoffeeDark = Color(0xFF3A2A1C);          // Café oscuro intenso
+  static const Color kCoffeeLight = Color(0xFF6B4B2F);         // Café claro
+  static const Color kCoffeeLighter = Color(0xFF8C6B43);       // Café claro cálido
   static const Color kCream = Color(0xFFF8F5F0);               // Crema para fondos suaves
   
   // Colores de estado (para feedback visual)
@@ -75,6 +78,26 @@ class AppTheme {
   static const Color kShadowColor = Color(0xFF1A1A1A);           // Color base para sombras (original)
   static const Color kShadowColorAlt = Color(0xFF2E3A59);        // Sombra alternativa con matiz azul
   static const Color kDeepShadowColor = Color(0xFF0F172A);       // Sombra profunda para efectos dramáticos
+
+  // Tamaños de fuente para utilizar en toda la aplicación
+  static const double kFontSizeH1 = 28;
+  static const double kFontSizeH2 = 24;
+  static const double kFontSizeH3 = 20;
+  static const double kFontSizeH4 = 18;
+  static const double kFontSizeBody = 16;
+  static const double kFontSizeBodySmall = 14;
+  static const double kFontSizeCaption = 12;
+  
+  // Tamaños de iconos estandarizados
+  static const double kIconSizeSmall = 18;      // Iconos pequeños (indicadores)
+  static const double kIconSizeMedium = 20;     // Iconos medianos (complementarios)
+  static const double kIconSizeDefault = 24;    // Iconos estándar (navegación, acciones principales)
+  static const double kIconSizeLarge = 32;      // Iconos grandes (destacados)
+  
+  // Tamaños para contenedores de iconos (botones circulares, etc.)
+  static const double kIconContainerSizeSmall = 32;   // Contenedores pequeños para iconos
+  static const double kIconContainerSizeDefault = 40; // Contenedores estándar para iconos
+  static const double kIconContainerSizeLarge = 48;   // Contenedores grandes para iconos
 
   // Espaciado
   static const double kDefaultPadding = 16.0;

@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
       userName: state.userName,
       hasNotifications: state.hasNotifications,
       onSearchPressed: () => context.read<HomeCubit>().toggleSearchMode(),
+      style: HomeHeaderStyle.gray,
     );
   }
   
