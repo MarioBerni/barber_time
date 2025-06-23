@@ -9,6 +9,7 @@ Directory structure:
     ├── pubspec.lock
     ├── pubspec.yaml
     ├── STRUCTURE.md
+    ├── TOOLS_AND_COMMANDS.md
     ├── .metadata
     ├── android/
     │   ├── build.gradle.kts
@@ -99,13 +100,17 @@ Directory structure:
     │   │       ├── status_badge.dart
     │   │       ├── themed_button.dart
     │   │       ├── themed_card.dart
+    │   │       ├── avatars/
+    │   │       │   └── user_avatar.dart
     │   │       ├── backgrounds/
     │   │       │   ├── animated_circle.dart
     │   │       │   ├── animated_circle_renderer.dart
     │   │       │   ├── animated_gradient_background.dart
     │   │       │   ├── gradient_background_factory.dart
     │   │       │   ├── gradient_background_preset.dart
+    │   │       │   ├── gradient_builders.dart
     │   │       │   ├── gradient_overlay_background.dart
+    │   │       │   ├── gradient_types.dart
     │   │       │   ├── pattern_background.dart
     │   │       │   ├── striped_pattern_painter.dart
     │   │       │   └── painters/
@@ -113,39 +118,80 @@ Directory structure:
     │   │       │       ├── grid_pattern_painter.dart
     │   │       │       └── scissors_pattern_painter.dart
     │   │       ├── buttons/
-    │   │       │   └── stylized_button.dart
+    │   │       │   ├── stylized_button.dart
+    │   │       │   ├── stylized_button_animations.dart
+    │   │       │   ├── stylized_button_base.dart
+    │   │       │   ├── stylized_button_style.dart
+    │   │       │   └── stylized_button_types.dart
+    │   │       ├── carousels/
+    │   │       │   └── horizontal_carousel.dart
     │   │       ├── containers/
     │   │       │   └── glam_container.dart
-    │   │       └── icons/
-    │   │           └── animated_icon_widget.dart
+    │   │       ├── icons/
+    │   │       │   ├── animated_icon_widget.dart
+    │   │       │   └── styled_icon.dart
+    │   │       ├── inputs/
+    │   │       │   └── search_bar.dart
+    │   │       └── navigation/
+    │   │           ├── app_top_bar.dart
+    │   │           └── bottom_navigation_bar.dart
     │   └── features/
-    │       └── auth/
+    │       ├── auth/
+    │       │   ├── data/
+    │       │   │   ├── datasources/
+    │       │   │   │   └── auth_data_source.dart
+    │       │   │   └── repositories/
+    │       │   │       └── auth_repository_impl.dart
+    │       │   ├── domain/
+    │       │   │   ├── entities/
+    │       │   │   │   ├── auth_credentials.dart
+    │       │   │   │   └── user.dart
+    │       │   │   ├── repositories/
+    │       │   │   │   └── auth_repository.dart
+    │       │   │   └── usecases/
+    │       │   │       ├── login_usecase.dart
+    │       │   │       └── register_usecase.dart
+    │       │   └── presentation/
+    │       │       ├── bloc/
+    │       │       │   ├── auth_cubit.dart
+    │       │       │   └── auth_state.dart
+    │       │       ├── pages/
+    │       │       │   ├── login_page.dart
+    │       │       │   └── register_page.dart
+    │       │       └── widgets/
+    │       │           ├── auth_text_field.dart
+    │       │           ├── login_form.dart
+    │       │           ├── login_header.dart
+    │       │           └── login_register_link.dart
+    │       └── home/
     │           ├── data/
     │           │   ├── datasources/
-    │           │   │   └── auth_data_source.dart
+    │           │   │   └── home_mock_datasource.dart
     │           │   └── repositories/
-    │           │       └── auth_repository_impl.dart
+    │           │       └── home_repository_impl.dart
     │           ├── domain/
     │           │   ├── entities/
-    │           │   │   ├── auth_credentials.dart
-    │           │   │   └── user.dart
+    │           │   │   ├── salon.dart
+    │           │   │   ├── service_category.dart
+    │           │   │   └── special_offer.dart
     │           │   ├── repositories/
-    │           │   │   └── auth_repository.dart
+    │           │   │   └── home_repository.dart
     │           │   └── usecases/
-    │           │       ├── login_usecase.dart
-    │           │       └── register_usecase.dart
+    │           │       └── get_home_data_usecase.dart
     │           └── presentation/
     │               ├── bloc/
-    │               │   ├── auth_cubit.dart
-    │               │   └── auth_state.dart
+    │               │   ├── home_cubit.dart
+    │               │   └── home_state.dart
     │               ├── pages/
-    │               │   ├── login_page.dart
-    │               │   └── register_page.dart
+    │               │   └── home_page.dart
     │               └── widgets/
-    │                   ├── auth_text_field.dart
-    │                   ├── login_form.dart
-    │                   ├── login_header.dart
-    │                   └── login_register_link.dart
+    │                   ├── home_header.dart
+    │                   ├── home_salon_card.dart
+    │                   ├── home_service_category_item.dart
+    │                   ├── home_special_offer_card.dart
+    │                   ├── service_categories_section.dart
+    │                   ├── special_offers_section.dart
+    │                   └── top_rated_salons_section.dart
     ├── linux/
     │   ├── CMakeLists.txt
     │   ├── .gitignore
@@ -198,6 +244,7 @@ Directory structure:
     ├── tasks/
     │   ├── TASK_configuracion_inicial.md
     │   ├── TASK_fondo_animado.md
+    │   ├── TASK_home_page.md
     │   ├── TASK_mejora_diseno_visual.md
     │   └── TASK_tema_y_estilo_centralizado.md
     ├── test/

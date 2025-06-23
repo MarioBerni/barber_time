@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import '../../theme/app_theme.dart';
 import 'animated_circle.dart';
 
-/// Widget que renderiza círculos animados para el fondo
+/// Versión simplificada del renderizador de círculos
 /// 
-/// Encapsula la lógica de renderizado de círculos animados
-/// para mantener el componente principal más limpio
+/// No muestra ningún círculo pero mantiene la compatibilidad
+/// con el código existente
 class AnimatedCircleRenderer extends StatelessWidget {
-  /// Lista de círculos a renderizar
+  /// Lista de círculos a renderizar (ignorados en esta versión)
   final List<AnimatedCircle> circles;
   
-  /// Controlador de animación
+  /// Controlador de animación (ignorado en esta versión)
   final Animation<double> animation;
   
-  /// Color personalizado para círculos (opcional)
+  /// Color personalizado para círculos (ignorado en esta versión)
   final Color? circleColor;
   
-  /// Constructor para el renderizador de círculos
+  /// Constructor simplificado
   const AnimatedCircleRenderer({
     super.key,
     required this.circles,
@@ -26,32 +25,7 @@ class AnimatedCircleRenderer extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: circles.map((circle) {
-        return AnimatedBuilder(
-          animation: animation,
-          builder: (context, child) {
-            return Positioned(
-              left: MediaQuery.of(context).size.width * circle.posX - circle.radius,
-              top: MediaQuery.of(context).size.height * circle.posY - circle.radius,
-              child: Opacity(
-                opacity: circle.opacity,
-                child: Container(
-                  width: circle.radius * 2,
-                  height: circle.radius * 2,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: circleColor ?? AppTheme.kLightGold,
-                      width: circle.strokeWidth,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      }).toList(),
-    );
+    // No renderiza nada, simplemente devuelve un contenedor vacío
+    return Container();
   }
 }

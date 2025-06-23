@@ -30,6 +30,10 @@ class HomeLoaded extends HomeState {
   final List<ServiceCategory> serviceCategories;
   final List<Salon> topRatedSalons;
   final bool isSearchActive;
+  /// Texto de búsqueda actual
+  final String searchQuery;
+  /// Salones filtrados según la búsqueda
+  final List<Salon> filteredSalons;
   
   const HomeLoaded({
     required this.userName,
@@ -38,7 +42,9 @@ class HomeLoaded extends HomeState {
     required this.serviceCategories,
     required this.topRatedSalons,
     this.isSearchActive = false,
-  });
+    this.searchQuery = '',
+    List<Salon>? filteredSalons,
+  }) : filteredSalons = filteredSalons ?? topRatedSalons;
   
   @override
   List<Object?> get props => [
@@ -48,6 +54,8 @@ class HomeLoaded extends HomeState {
     serviceCategories,
     topRatedSalons,
     isSearchActive,
+    searchQuery,
+    filteredSalons,
   ];
   
   /// Crea una copia del estado con los campos actualizados
@@ -58,6 +66,8 @@ class HomeLoaded extends HomeState {
     List<ServiceCategory>? serviceCategories,
     List<Salon>? topRatedSalons,
     bool? isSearchActive,
+    String? searchQuery,
+    List<Salon>? filteredSalons,
   }) {
     return HomeLoaded(
       userName: userName ?? this.userName,
@@ -66,6 +76,8 @@ class HomeLoaded extends HomeState {
       serviceCategories: serviceCategories ?? this.serviceCategories,
       topRatedSalons: topRatedSalons ?? this.topRatedSalons,
       isSearchActive: isSearchActive ?? this.isSearchActive,
+      searchQuery: searchQuery ?? this.searchQuery,
+      filteredSalons: filteredSalons ?? this.filteredSalons,
     );
   }
 }

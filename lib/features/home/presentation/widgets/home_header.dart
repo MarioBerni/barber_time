@@ -49,6 +49,12 @@ class HomeHeader extends StatelessWidget {
   /// Callback para cuando se realiza una búsqueda.
   final Function(String)? onSearch;
   
+  /// Callback para cuando se selecciona un barrio.
+  final Function(String)? onNeighborhoodSelected;
+  
+  /// Indica si el modo de búsqueda está activo.
+  final bool isSearchActive;
+  
   /// Callback para cuando se presiona el botón de búsqueda.
   final VoidCallback? onSearchPressed;
   
@@ -74,6 +80,8 @@ class HomeHeader extends StatelessWidget {
     this.hasNotifications = false,
     this.searchController,
     this.onSearch,
+    this.onNeighborhoodSelected,
+    this.isSearchActive = false,
     this.onSearchPressed,
     this.onNotificationsPressed,
     this.onUserAvatarPressed,
@@ -97,7 +105,7 @@ class HomeHeader extends StatelessWidget {
           showSearchBar: true,
           searchController: searchController,
           onSearch: onSearch,
-          searchHint: 'Buscar servicios, barberías...',
+          searchHint: 'Buscar barberías por nombre o ubicación...',
           // Texto de saludo y fecha
           greetingText: 'Good Morning Jobby',
           secondaryText: 'Tuesday, March 18, 2025',

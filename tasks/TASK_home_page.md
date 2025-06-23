@@ -67,7 +67,7 @@ La implementación se basará en la captura de pantalla proporcionada, que muest
    - [x] Fila superior: avatar, saludo/fecha, favoritos y notificaciones
    - [x] Fila inferior: barra de búsqueda con bordes redondeados y botón de filtros
 - [x] Mejorar el estilo de la barra de búsqueda con esquinas completamente redondeadas
-- [ ] Implementar funcionalidad de búsqueda básica y navegación
+- [x] Implementar funcionalidad de búsqueda básica y navegación
 
 ### Paso 8: Estandarización de Iconos
 - [x] Crear componente `StyledIcon` en `/lib/core/widgets/icons/styled_icon.dart`
@@ -110,10 +110,30 @@ La implementación se basará en la captura de pantalla proporcionada, que muest
 ## Problemas Pendientes
 - Verificar la correcta visualización en diferentes tamaños de pantalla
 - Realizar pruebas exhaustivas de navegación entre todas las páginas
-- Continuar la optimización de la barra de navegación superior para que se ajuste al diseño de referencia
-  - Implementar formato de dos filas en AppTopBar (avatar/info arriba, búsqueda/filtros abajo)
-  - Mejorar los bordes redondeados del campo de búsqueda
-  - Ajustar espaciado y alineación de elementos
+
+## Implementación de la Funcionalidad de Búsqueda
+
+### Componentes Actualizados
+- `HomeState`: Añadidos campos `searchQuery` y `filteredSalons` para mantener el estado de búsqueda
+- `HomeCubit`: Implementados métodos para gestionar la búsqueda:
+  - `searchSalons`: Filtra barberías por nombre o ubicación
+  - `selectNeighborhood`: Filtra por barrio específico
+  - `clearSearch`: Limpia resultados y muestra todas las barberías nuevamente
+  - `toggleSearchMode`: Activa/desactiva el modo búsqueda
+- `HomePage`: Actualizado para mostrar salones filtrados cuando la búsqueda está activa
+- `HomeHeader` y `AppTopBar`: Actualizados con parámetros necesarios para la búsqueda
+
+### Características de la Búsqueda
+- **Búsqueda por texto libre**: Filtra barberías por nombre o dirección
+- **Selección de barrio**: Permite filtrar directamente por barrio desde sugerencias
+- **Normalización de texto**: Búsqueda insensible a mayúsculas/minúsculas y acentos
+- **Estado vacío**: Mensaje amigable cuando no hay resultados
+- **Limpieza de búsqueda**: Botón para restablecer y mostrar todas las barberías
+
+### Mejoras Técnicas
+- Filtrado en tiempo real con actualizaciones inmediatas de la UI
+- Sincronización del estado entre barberías originales y filtradas
+- Mantenimiento del estado de favoritos entre ambas listas
 
 ## Mejoras de Modularización Implementadas
 
@@ -131,6 +151,7 @@ La implementación se basará en la captura de pantalla proporcionada, que muest
 - Unificar estilos de iconos entre la barra de navegación superior e inferior
 - Implementar un componente centralizado para iconos con fondo circular
 - Estandarizar tamaños y colores de iconos según el sistema de temas
+- Optimizar el rendimiento de la búsqueda con debounce para evitar filtrados excesivos
 
 ### Nuevos Componentes Creados
 - `core/widgets/navigation/bottom_navigation_bar.dart`: Barra de navegación inferior con estilo personalizado y soporte para gradientes

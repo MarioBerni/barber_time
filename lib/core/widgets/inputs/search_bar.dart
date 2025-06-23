@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme_extensions.dart';
+import '../../../core/constants/montevideo_barrios.dart';
 import '../icons/styled_icon.dart';
 
 /// Componente reutilizable para barra de búsqueda
@@ -18,6 +19,12 @@ class SearchBar extends StatelessWidget {
   
   /// Texto de placeholder
   final String hintText;
+  
+  /// Si debe mostrar sugerencias de barrios
+  final bool showNeighborhoodSuggestions;
+  
+  /// Función a ejecutar cuando se selecciona un barrio
+  final Function(String)? onNeighborhoodSelected;
   
   /// Si debe mostrar el botón de limpiar
   final bool showClearButton;
@@ -49,7 +56,9 @@ class SearchBar extends StatelessWidget {
     this.controller,
     this.onSubmitted,
     this.onChanged,
-    this.hintText = 'Buscar',
+    this.hintText = 'Buscar barberías por nombre o ubicación',
+    this.showNeighborhoodSuggestions = true,
+    this.onNeighborhoodSelected,
     this.showClearButton = true,
     this.enabled = true,
     this.backgroundColor,
@@ -65,17 +74,23 @@ class SearchBar extends StatelessWidget {
     // Calculamos el radio de borde final
     final effectiveBorderRadius = borderRadius ?? context.textFieldBorderRadius;
     
-    return TextField(
-      controller: controller,
-      onSubmitted: onSubmitted,
-      onChanged: onChanged,
-      onTap: onTap,
-      enabled: enabled,
-      style: compact ? context.bodySmall : context.bodyMedium,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          controller: controller,
+          onSubmitted: onSubmitted,
+          onChanged: _handleOnChanged,
+          onTap: onTap,
+          enabled: enabled,
+          style: compact ? context.bodySmall : context.bodyMedium,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: (compact ? context.bodySmall : context.bodyMedium)
-            .copyWith(color: context.secondaryTextColor),
+            .copyWith(color: context.secondaryTextColor.withOpacity(0.8)),
+        // Eliminar el texto de ayuda debajo del campo de búsqueda
+        helperText: null,
+        helperStyle: context.caption.copyWith(color: context.secondaryTextColor),
         prefixIcon: showSearchIcon
             ? SizedBox(
                 width: compact ? 40 : 48,
@@ -128,9 +143,76 @@ class SearchBar extends StatelessWidget {
               : BorderSide.none,
         ),
       ),
+    ),
+    
+    // Muestra sugerencias de barrios si está habilitado
+    if (showNeighborhoodSuggestions && enabled && controller != null)
+      _buildNeighborhoodSuggestions(context),
+    ],
     );
   }
 
+  /// Maneja los cambios de texto en el campo de búsqueda
+  void _handleOnChanged(String value) {
+    if (onChanged != null) {
+      onChanged!(value);
+    }
+  }
+  
+  /// Construye las sugerencias de barrios basadas en el texto actual
+  Widget _buildNeighborhoodSuggestions(BuildContext context) {
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: controller!,
+      builder: (context, textValue, child) {
+        final text = textValue.text.trim();
+        
+        // Solo mostrar sugerencias si hay texto
+        if (text.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        
+        // Obtener sugerencias de barrios
+        final suggestions = MontevideoBarrios.obtenerSugerencias(text);
+        
+        if (suggestions.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        
+        // Mostrar chips de barrios como sugerencias
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: suggestions.map((barrio) => _buildSuggestionChip(context, barrio)).toList(),
+          ),
+        );
+      },
+    );
+  }
+  
+  /// Construye un chip para una sugerencia de barrio
+  Widget _buildSuggestionChip(BuildContext context, String barrio) {
+    return ActionChip(
+      backgroundColor: context.surfaceColor,
+      side: BorderSide(color: context.dividerColor),
+      label: Text(barrio, style: context.bodySmall),
+      avatar: const Icon(Icons.location_on, size: 16),
+      onPressed: () {
+        if (onNeighborhoodSelected != null) {
+          onNeighborhoodSelected!(barrio);
+          controller?.text = barrio;
+        } else {
+          // Si no hay handler específico, usamos el normal
+          controller?.text = barrio;
+          if (onSubmitted != null) {
+            onSubmitted!(barrio);
+          }
+        }
+      },
+    );
+  }
+  
   /// Construye el icono de sufijo (limpiar texto)
   Widget? _buildSuffixIcon(BuildContext context) {
     if (!showClearButton || controller == null || !enabled) {

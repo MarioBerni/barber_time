@@ -22,10 +22,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Controlador para el campo de búsqueda
+  final TextEditingController _searchController = TextEditingController();
+  
   @override
   void initState() {
     super.initState();
     context.read<HomeCubit>().loadHomeData();
+  }
+  
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,7 +93,13 @@ class _HomePageState extends State<HomePage> {
     return HomeHeader(
       userName: state.userName,
       hasNotifications: state.hasNotifications,
+      searchController: _searchController,
+      // Conectamos las acciones de búsqueda con el HomeCubit
+      onSearch: (query) => context.read<HomeCubit>().searchSalons(query),
+      onNeighborhoodSelected: (neighborhood) => 
+          context.read<HomeCubit>().selectNeighborhood(neighborhood),
       onSearchPressed: () => context.read<HomeCubit>().toggleSearchMode(),
+      isSearchActive: state.isSearchActive,
       style: HomeHeaderStyle.gray,
     );
   }
@@ -115,8 +130,42 @@ class _HomePageState extends State<HomePage> {
   
   /// Construye un listado simplificado de salones mejor calificados
   Widget _buildSimpleTopSalonsSection(HomeLoaded state) {
+    // Mostrar los salones filtrados si la búsqueda está activa
+    final salonsToShow = state.isSearchActive ? state.filteredSalons : state.topRatedSalons;
+    
+    // Mostrar mensaje cuando no hay resultados en la búsqueda
+    if (state.isSearchActive && salonsToShow.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            children: [
+              const Icon(Icons.search_off, size: 48, color: Colors.grey),
+              const SizedBox(height: 16),
+              Text(
+                'No se encontraron barberías con "${state.searchQuery}"',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: () {
+                  _searchController.clear();
+                  context.read<HomeCubit>().clearSearch();
+                },
+                child: const Text('Limpiar búsqueda'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    
+    // Mostrar la lista de salones
     return TopRatedSalonsSection(
-      salons: state.topRatedSalons,
+      salons: salonsToShow,
       onFavoritePressed: (salonId) => context.read<HomeCubit>().toggleFavorite(salonId),
     );
   }

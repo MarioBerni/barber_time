@@ -2,37 +2,30 @@ import 'package:flutter/material.dart';
 import 'animated_gradient_background.dart';
 import 'gradient_background_preset.dart';
 
-/// Clase utilitaria para crear instancias de AnimatedGradientBackground
+/// Clase utilitaria para crear instancias de AnimatedGradientBackground 
 /// 
-/// Proporciona constructores factory para facilitar la creación 
-/// de fondos con configuraciones predefinidas
+/// Proporciona métodos factory que simplifica la creación de fondos
+/// (Versión simplificada sin efectos de degradado ni animaciones) con configuraciones predefinidas
 class GradientBackgroundFactory {
-  /// Constructor privado para prevenir instanciación
+  // Constructor privado para evitar instanciación directa
   GradientBackgroundFactory._();
   
   /// Crea una instancia de AnimatedGradientBackground desde un preset
+  /// Versión simplificada que solo utiliza el color primario
   static AnimatedGradientBackground fromPreset({
     Key? key,
     required GradientBackgroundPreset preset,
-    bool? showDecorationElements,
-    bool? showBouncingCircles,
   }) {
+    // Sólo utiliza el color primario del preset
     return AnimatedGradientBackground(
       key: key,
       primaryColor: preset.primaryColor,
-      secondaryColor: preset.secondaryColor,
-      accentColor: preset.accentColor,
-      opacity: preset.opacity,
-      showDecorationElements: showDecorationElements ?? preset.showDecorationElements,
-      showBouncingCircles: showBouncingCircles ?? preset.showBouncingCircles,
-      lineCount: preset.lineCount,
-      lineOpacity: preset.lineOpacity,
-      circleOpacityFactor: preset.circleOpacity / 0.35, // 0.35 es la opacidad base
     );
   }
   
-  /// Crea una instancia con el preset de estilo claro para Barber Time
-  /// Degradado suave y burbujas visibles para la interfaz principal
+  /// Crea una instancia con el preset barber específico
+  /// 
+  /// Este preset utiliza tonos azules (versión simplificada)
   static AnimatedGradientBackground lightBarber({Key? key}) {
     return fromPreset(
       key: key,

@@ -3,6 +3,8 @@ import '../../../core/theme/app_theme_extensions.dart';
 import '../avatars/user_avatar.dart';
 import '../inputs/search_bar.dart' as custom;
 import '../icons/styled_icon.dart';
+import '../../../core/constants/montevideo_barrios.dart';
+
 /// Barra de navegación superior personalizable y reutilizable
 /// 
 /// Diseño de dos filas con avatar de usuario, información, iconos de acción en la fila superior
@@ -17,9 +19,18 @@ class AppTopBar extends StatelessWidget {
 
   /// Callback para evento de búsqueda
   final Function(String)? onSearch;
+  
+  /// Callback para cuando se selecciona un barrio específico
+  final Function(String)? onNeighborhoodSelected;
 
   /// Texto de sugerencia para la búsqueda
   final String? searchHint;
+  
+  /// Si se deben mostrar sugerencias de barrios durante la búsqueda
+  final bool showNeighborhoodSuggestions;
+  
+  /// Indica si el modo de búsqueda está activo
+  final bool isSearchActive;
 
   /// Texto de saludo para mostrar
   final String? greetingText;
@@ -74,7 +85,10 @@ class AppTopBar extends StatelessWidget {
     this.avatarUrl,
     this.searchController,
     this.onSearch,
+    this.onNeighborhoodSelected,
     this.searchHint,
+    this.showNeighborhoodSuggestions = true,
+    this.isSearchActive = false,
     this.greetingText,
     this.secondaryText,
     this.greetingTextColor,
@@ -138,119 +152,119 @@ class AppTopBar extends StatelessWidget {
             child: Padding(
               padding: padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 20),
               child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Fila superior: avatar, saludo, acciones
-              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-
-                  
-                  // Avatar o botón de retroceso
-                  if (showBackButton) ...[
-                    StyledIcon(
-                      icon: Icons.arrow_back_ios_rounded,
-                      iconColor: context.surfaceColor,
-                      backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
-                      onTap: onBackPressed ?? () => Navigator.of(context).pop(),
-                    ),
-                    const SizedBox(width: 8),
-                  ] 
-                  else if (showAvatar) ...[
-                    GestureDetector(
-                      onTap: onAvatarPressed,
-                      child: UserAvatar(
-                        imageUrl: avatarUrl,
-                        radius: 20,
-                        showBorder: true,
-                        borderColor: context.surfaceColor,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                  ],
-                  
-                  // Textos de saludo y secundario
-                  if (greetingText != null) ...[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            greetingText!,
-                            style: context.h4.copyWith(
-                              color: greetingTextColor ?? context.surfaceColor,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                  // Fila superior: avatar, saludo, acciones
+                  Row(
+                    children: [
+                      // Avatar o botón de retroceso
+                      if (showBackButton) ...[
+                        StyledIcon(
+                          icon: Icons.arrow_back_ios_rounded,
+                          iconColor: context.surfaceColor,
+                          backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
+                          onTap: onBackPressed ?? () => Navigator.of(context).pop(),
+                        ),
+                        const SizedBox(width: 8),
+                      ] 
+                      else if (showAvatar) ...[
+                        GestureDetector(
+                          onTap: onAvatarPressed,
+                          child: UserAvatar(
+                            imageUrl: avatarUrl,
+                            radius: 20,
+                            showBorder: true,
+                            borderColor: context.surfaceColor,
                           ),
-                          if (secondaryText != null)
-                            Text(
-                              secondaryText!,
-                              style: context.bodySmall.copyWith(
-                                color: secondaryTextColor ?? context.surfaceColor.withAlpha((0.9 * 255).round()),
+                        ),
+                        const SizedBox(width: 12),
+                      ],
+                      
+                      // Textos de saludo y secundario
+                      if (greetingText != null) ...[
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                greetingText!,
+                                style: context.h4.copyWith(
+                                  color: greetingTextColor ?? context.surfaceColor,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                              if (secondaryText != null)
+                                Text(
+                                  secondaryText!,
+                                  style: context.bodySmall.copyWith(
+                                    color: secondaryTextColor ?? context.surfaceColor.withAlpha((0.9 * 255).round()),
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      
+                      // Acciones de la fila superior (derecha)
+                      if (topActions != null && topActions!.isNotEmpty) ...[
+                        ...topActions!,
+                      ] else if (showDefaultIcons) ...[
+                        // Icono de favoritos
+                        StyledIcon(
+                          icon: Icons.favorite_border_rounded,
+                          iconColor: context.surfaceColor,
+                          backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
+                        ),
+                        const SizedBox(width: 12),
+                        // Icono de notificaciones con badge
+                        StyledIcon(
+                          icon: Icons.notifications_none_rounded,
+                          iconColor: context.surfaceColor,
+                          backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
+                          showBadge: true,
+                        ),
+                      ],
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // Fila inferior: barra de búsqueda y acciones
+                  if (showSearchBar)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Barra de búsqueda con esquinas totalmente redondeadas
+                        Expanded(
+                          child: custom.SearchBar(
+                            controller: searchController,
+                            onSubmitted: onSearch,
+                            onChanged: onSearch,
+                            onNeighborhoodSelected: onNeighborhoodSelected ?? onSearch,
+                            hintText: searchHint ?? 'Buscar por barbería o barrio',
+                            showNeighborhoodSuggestions: showNeighborhoodSuggestions,
+                            compact: true,
+                            hasBorder: true,
+                            borderRadius: BorderRadius.circular(30), // Bordes completamente redondeados
+                            backgroundColor: context.surfaceColor,
+                          ),
+                        ),
+                        // Acciones de la fila inferior (derecha)
+                        if (bottomActions != null && bottomActions!.isNotEmpty) ...[  
+                          const SizedBox(width: 8),
+                          ...bottomActions!,
                         ],
-                      ),
+                      ],
                     ),
-                  ],
-                  
-                  // Acciones de la fila superior (derecha)
-                  if (topActions != null && topActions!.isNotEmpty) ...[
-                    ...topActions!,
-                  ] else if (showDefaultIcons) ...[
-                    // Icono de favoritos
-                    StyledIcon(
-                      icon: Icons.favorite_border_rounded,
-                      iconColor: context.surfaceColor,
-                      backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
-                    ),
-                    const SizedBox(width: 12),
-                    // Icono de notificaciones con badge
-                    StyledIcon(
-                      icon: Icons.notifications_none_rounded,
-                      iconColor: context.surfaceColor,
-                      backgroundColor: context.surfaceColor.withAlpha((0.2 * 255).round()),
-                      showBadge: true,
-                    ),
-                  ],
                 ],
               ),
-              
-              const SizedBox(height: 16),
-              
-              // Fila inferior: barra de búsqueda y acciones
-              Row(
-                children: [
-                  // Barra de búsqueda con esquinas totalmente redondeadas
-                  if (showSearchBar) ...[
-                    Expanded(
-                      child: custom.SearchBar(
-                        controller: searchController,
-                        onSubmitted: onSearch,
-                        onChanged: onSearch,
-                        hintText: searchHint ?? 'Buscar...',
-                        compact: true,
-                        hasBorder: true,
-                        borderRadius: BorderRadius.circular(30), // Bordes completamente redondeados
-                        backgroundColor: context.surfaceColor,
-                      ),
-                    ),
-                  ],
-                  
-                  // Acciones de la fila inferior (derecha)
-                  if (bottomActions != null && bottomActions!.isNotEmpty) ...[
-                    const SizedBox(width: 8),
-                    ...bottomActions!,
-                  ],
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
-    ]),
     );
   }
 }
