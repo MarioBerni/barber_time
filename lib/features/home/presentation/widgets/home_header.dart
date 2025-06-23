@@ -130,29 +130,7 @@ class HomeHeader extends StatelessWidget {
           ],
         ),
         
-        // Título personalizado
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.spacingMD,
-            vertical: context.spacingSM,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hola, ${userName.isEmpty ? "Usuario" : userName}',
-                style: context.h4,
-              ),
-              context.verticalSpaceXXS,
-              Text(
-                'Encuentra tu estilo perfecto',
-                style: context.bodyMedium.copyWith(
-                  color: context.secondaryTextColor,
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Se eliminó la sección de título personalizado
       ],
     );
   }

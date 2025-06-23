@@ -114,18 +114,39 @@ class AppTopBar extends StatelessWidget {
           bottom: Radius.circular(cornerRadius),
         ),
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 20),
-          child: Column(
+      child: Stack(
+        children: [
+          // Icono grande de tijera de fondo con rotación
+          Positioned(
+            left: -20,
+            top: 5,
+            child: Transform.rotate(
+              angle: -45 * 3.14159 / 180, // -45 grados en radianes (rotación hacia la izquierda)
+              child: Opacity(
+                opacity: 0.15,
+                child: Icon(
+                  Icons.content_cut,
+                  size: 160,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          // Contenido principal
+          SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 20),
+              child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Fila superior: avatar, saludo, acciones
               Row(
                 children: [
-                  // Avatar o botón de retroceso (izquierda)
+
+                  
+                  // Avatar o botón de retroceso
                   if (showBackButton) ...[
                     StyledIcon(
                       icon: Icons.arrow_back_ios_rounded,
@@ -229,6 +250,7 @@ class AppTopBar extends StatelessWidget {
           ),
         ),
       ),
+    ]),
     );
   }
 }

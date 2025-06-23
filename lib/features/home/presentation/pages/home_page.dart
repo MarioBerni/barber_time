@@ -5,7 +5,7 @@ import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
 import '../bloc/home_cubit.dart';
 import '../bloc/home_state.dart';
 import '../widgets/home_header.dart';
-import '../widgets/service_categories_section.dart';
+// Se eliminó import de service_categories_section.dart
 import '../widgets/special_offers_section.dart';
 import '../widgets/top_rated_salons_section.dart';
 
@@ -66,9 +66,7 @@ class _HomePageState extends State<HomePage> {
           _buildSimpleSectionTitle('Ofertas especiales'),
           _buildSpecialOffersSection(state),
           
-          // Sección de categorías de servicios
-          _buildSimpleSectionTitle('Servicios'),
-          _buildServiceCategoriesSection(state),
+          // Se eliminó la sección de categorías de servicios
           
           // Sección de salones mejor calificados
           _buildSimpleSectionTitle('Salones mejor calificados'),
@@ -133,11 +131,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildServiceCategoriesSection(HomeLoaded state) {
-    return ServiceCategoriesSection(
-      categories: state.serviceCategories,
-    );
-  }
+  // Se eliminó el método _buildServiceCategoriesSection
 
 
 
