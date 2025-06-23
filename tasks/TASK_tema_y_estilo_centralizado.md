@@ -37,10 +37,10 @@ Esta tarea abarca la refactorización completa del sistema de temas de la aplica
      - Acceso a constantes de radio de borde (ej. `context.buttonBorderRadius`)
 
 5. ✅ **Migración de componentes UI existentes**
-   - Refactorización de `auth_text_field.dart` para usar nuevas extensiones
-   - Refactorización de `login_page.dart` y `register_page.dart`
+   - Refactorización de componentes de UI para usar nuevas extensiones
    - Migración de `animated_gradient_background.dart` y `animated_icon_widget.dart`
    - Eliminación de colores hardcodeados y estilos duplicados
+   - Aplicación del nuevo sistema en la pantalla de inicio
 
 6. ✅ **Creación de documentación**
    - Desarrollo de guía de migración (`GUIA_MIGRACION_TEMA.md`) para el equipo

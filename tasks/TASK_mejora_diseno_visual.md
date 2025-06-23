@@ -7,7 +7,7 @@ Elevar significativamente la calidad visual y experiencia de usuario de la aplic
 18/06/2025
 
 ## Estado
-🟡 En Progreso (Componentes de UI implementados, pantalla de login rediseñada y modularizada, pendientes pantallas de registro y splash)
+🟡 En Progreso (Componentes de UI implementados, pendiente pantalla de splash)
 
 ## Descripción
 Esta tarea abarca un rediseño visual completo de la aplicación con enfoque en crear una identidad premium para un servicio de estética masculina. Se implementarán mejoras visuales significativas en colores, fondos, componentes y efectos visuales respetando la estructura de código existente y reutilizando componentes cuando sea posible.
@@ -70,8 +70,8 @@ Esta tarea abarca un rediseño visual completo de la aplicación con enfoque en 
 
 ### 3. 📱 Renovación de Componentes de Interfaz ⏳
 
-1. **✅ Rediseñar componentes de autenticación:**
-   - ✓ Mejorado `auth_text_field.dart` con nuevo estilo visual:
+1. **✅ Rediseñar componentes de texto:**
+   - ✓ Desarrollados campos de texto personalizados con estilo visual mejorado:
      - ✓ Implementados bordes más suaves con radio variable personalizable
      - ✓ Añadido efecto sutil de elevación con sombras animadas
      - ✓ Integradas animaciones suaves de enfoque con transiciones
@@ -111,21 +111,18 @@ Esta tarea abarca un rediseño visual completo de la aplicación con enfoque en 
 
 ### 5. 🔄 Implementación en Pantallas Existentes
 
-1. **✅ Rediseño de la pantalla de login:**
+1. **✅ Rediseño de la pantalla de inicio:**
    - ✓ Implementado `PatternBackground` con patrón diagonal
    - ✓ Aplicado `GradientOverlayBackground` con efecto cornerLight
-   - ✓ Creados campos de texto animados con validación visual 
+   - ✓ Creados componentes visuales con animaciones fluidas
    - ✓ Añadidos botones estilizados con efectos de resplandor
-   - ✓ Modularizada la página en componentes reutilizables:
-     - `LoginHeader` - Logo, título y subtítulo
-     - `LoginForm` - Campos de texto y botón de login
-     - `LoginRegisterLink` - Enlace a registro
+   - ✓ Modularizada la página en componentes reutilizables
    
-2. **Rediseño de la pantalla de registro:**
+2. **Implementación de nuevas pantallas para funcionalidades futuras:**
    - Aplicar `PatternBackground` con patrón "Barbershop"
-   - Implementar formulario con validación visual
-   - Añadir selección de tipo de cuenta con visual distintiva
-   - Incorporar transición suave entre pasos de registro
+   - Implementar componentes con validación visual
+   - Añadir elementos interactivos con visual distintiva
+   - Incorporar transiciones suaves entre diferentes vistas
 
 3. **Implementar pantalla de bienvenida:**
    - Crear pantalla de splash con animación de logo
@@ -153,13 +150,11 @@ Esta tarea abarca un rediseño visual completo de la aplicación con enfoque en 
    ```
    lib/core/widgets/buttons/stylized_button.dart (nuevo)
    lib/core/widgets/containers/glam_container.dart (nuevo)
-   lib/features/auth/presentation/widgets/auth_text_field.dart (modificar)
    ```
 
 4. **Pantallas:**
    ```
-   lib/features/auth/presentation/pages/login_page.dart
-   lib/features/auth/presentation/pages/register_page.dart
+   lib/features/home/presentation/pages/home_page.dart
    lib/features/splash/presentation/pages/splash_page.dart (nuevo)
    ```
 
@@ -200,8 +195,8 @@ Esta tarea abarca un rediseño visual completo de la aplicación con enfoque en 
 
 - ✓ Implementar componentes de fondos para pantallas principales
 - → Desarrollar componentes UI reutilizables (`StylizedButton` y `GlamContainer`)
-- → Actualizar `auth_text_field` con nuevo diseño visual y validación
-- → Rediseñar pantallas de autenticación con los nuevos componentes
+- → Implementar campos de texto mejorados con nuevo diseño visual y validación
+- → Aplicar nuevos componentes visuales a la pantalla de inicio
 - → Crear pantalla de splash con animaciones fluidas
 - Refinar diseños con feedback de usuario y stakeholders
 - Extender mejoras visuales a otras pantallas conforme se desarrollan

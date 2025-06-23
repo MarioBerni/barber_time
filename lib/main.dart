@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/service_locator.dart';
 import 'core/routes/app_router.dart';
 import 'core/theme/app_theme.dart';
-import 'features/auth/presentation/bloc/auth_cubit.dart';
 
 /// Punto de entrada principal de la aplicación Barber Time
 void main() async {
@@ -32,12 +30,7 @@ void main() async {
   await initServiceLocator();
   
   // Iniciar la aplicación
-  runApp(
-    BlocProvider(
-      create: (context) => sl<AuthCubit>(),
-      child: const BarberTimeApp(),
-    ),
-  );
+  runApp(const BarberTimeApp());
 }
 
 /// Widget raíz de la aplicación Barber Time

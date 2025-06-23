@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/auth/presentation/bloc/auth_cubit.dart';
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/home/presentation/bloc/home_cubit.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../di/service_locator.dart';
@@ -35,29 +32,7 @@ class AppRouter {
         ),
       ),
       
-      // Rutas de autenticación
-      GoRoute(
-        path: AppRoutes.login,
-        pageBuilder: (context, state) => RouteTransitions.slideTransition(
-          context: context,
-          state: state,
-          child: BlocProvider(
-            create: (_) => sl<AuthCubit>(),
-            child: const LoginPage(),
-          ),
-        ),
-      ),
-      GoRoute(
-        path: AppRoutes.register,
-        pageBuilder: (context, state) => RouteTransitions.slideTransition(
-          context: context,
-          state: state,
-          child: BlocProvider(
-            create: (_) => sl<AuthCubit>(),
-            child: const RegisterPage(),
-          ),
-        ),
-      ),
+      // Rutas de autenticación (temporalmente eliminadas)
       
       // Rutas principales de la aplicación
       GoRoute(
@@ -103,8 +78,6 @@ class AppRouter {
       // Rutas públicas permitidas sin autenticación
       final publicRoutes = [
         AppRoutes.home, 
-        AppRoutes.login, 
-        AppRoutes.register, 
         AppRoutes.splash
       ];
       

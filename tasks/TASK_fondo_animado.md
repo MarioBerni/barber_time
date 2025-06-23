@@ -10,7 +10,7 @@ Se han diseñado e implementado componentes visuales reutilizables para establec
    - `lib/core/widgets/icons/animated_icon_widget.dart`
 
 2. **Integración en página existente**:
-   - `lib/features/auth/presentation/pages/login_page.dart`
+   - `lib/features/home/presentation/pages/home_page.dart`
 
 ## Características Implementadas
 

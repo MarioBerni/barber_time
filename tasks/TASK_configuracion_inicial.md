@@ -54,13 +54,13 @@ Esta tarea abarca la configuración inicial del proyecto, incluyendo la creació
    - ✅ Crear función de inicialización (service_locator.dart)
    - ✅ Preparar para registro de servicios mock
 
-3. ✅ **Módulo de Autenticación**: Crear estructura base para el primer feature (auth).
+3. ✅ **Módulo de Inicio**: Crear estructura base para la aplicación.
    - ✅ Implementar estructura de carpetas siguiendo arquitectura limpia
-   - ✅ Crear modelos de dominio (User, LoginCredentials, RegisterCredentials, AuthResult)
-   - ✅ Implementar repositorio y casos de uso (login, registro)
-   - ✅ Desarrollar fuente de datos mock para pruebas
+   - ✅ Crear modelos de dominio necesarios
+   - ✅ Implementar repositorios y casos de uso requeridos
+   - ✅ Desarrollar fuentes de datos mock para pruebas
    - ✅ Implementar gestión de estado con BLoC/Cubit
-   - ✅ Crear pantallas de inicio de sesión y registro con validación
+   - ✅ Configurar pantalla de inicio
 
 ## Notas Adicionales
 
