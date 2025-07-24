@@ -1,87 +1,48 @@
-# 📱 Barber Time: Visión General del Proyecto
+# 💈 Barber Time: Visión General del Proyecto
 
-## Propósito
-Este documento presenta la visión general del proyecto Barber Time, incluyendo su propósito, público objetivo y alcance inicial.
-
-## 1. Concepto del Producto
-
-Barber Time es una aplicación móvil para la gestión de servicios de estética dirigidos al público masculino en Uruguay. La plataforma conecta a clientes con proveedores de servicios de estética masculina, facilitando el descubrimiento, comparación y reserva de citas.
-
-### Público Objetivo
-
-1. **Clientes:** Hombres en Uruguay que buscan descubrir, comparar y reservar servicios de estética.
-2. **Propietarios:** Dueños de negocios del sector de estética masculina.  
-3. **Empleados:** Profesionales que trabajan en establecimientos de estética.
-
-## 2. Funcionalidades Clave
-
-### Para Clientes
-- Registro y autenticación con múltiples métodos
-- Búsqueda y descubrimiento de proveedores de servicios
-- Visualización de perfiles de negocios, servicios, precios y disponibilidad
-- Reserva y gestión de citas online
-- Sistema de calificaciones y reseñas
-
-### Para Proveedores de Servicios
-- Gestión de agenda y calendario de citas
-- Configuración de servicios, precios y horarios de atención
-- Gestión de perfiles de empleados con roles y permisos
-- Base de datos de clientes con historial
-- Herramientas de marketing básicas
-
-## 3. Etapas de Desarrollo
-
-El desarrollo del proyecto se realizará en tres fases principales:
-
-1. **Fase 1 (Actual): Frontend**
-   - Desarrollo completo de la interfaz de usuario
-   - Implementación de flujos de navegación
-   - Gestión de estado con datos mock
-   - Diseño visual y experiencia de usuario
-
-2. **Fase 2: Testing**
-   - Implementación de pruebas unitarias
-   - Pruebas de widgets
-   - Pruebas de integración
-   - Validación de usabilidad
-
-3. **Fase 3: Backend**
-   - Integración con Firebase (Auth, Firestore, Storage)
-   - Implementación de reglas de seguridad
-   - Persistencia de datos en la nube
-   - Implementación de notificaciones
-
-## 4. Principios Fundamentales de Desarrollo
-
-### 4.1 Reutilización y Coherencia Visual
-
-El proyecto Barber Time enfatiza los siguientes principios como pilares fundamentales del desarrollo:
-
-- **Verificación antes de creación:** Antes de crear cualquier nuevo componente visual, verificar exhaustivamente si ya existe un componente similar que pueda ser reutilizado o extendido.
-
-- **Mantener coherencia visual:** Asegurar que todos los elementos visuales compartan un lenguaje de diseño consistente, referenciando siempre el sistema de temas centralizado (AppTheme).
-
-- **Documentación continua:** Documentar cada nuevo componente reutilizable inmediatamente después de su creación para facilitar su descubrimiento por otros desarrolladores.
-
-- **Modularización efectiva:** Diseñar componentes independientes pero visualmente coherentes que puedan combinarse para crear interfaces complejas.
-
-### 4.2 Tecnologías Clave
-
-- **Frontend:** Flutter (SDK) / Dart (Lenguaje)
-- **Gestión de Estado:** BLoC / Cubit (flutter_bloc)
-- **Navegación:** go_router
-- **Inyección de Dependencias:** get_it
-- **UI/Animaciones:** flutter_animate
-- **Modelos Inmutables:** freezed, equatable
-
-## 5. Ecosistema de Documentación
-
-| Documento | Propósito |
-|-----------|-----------|
-| **PROJECT_OVERVIEW.md** | **Este documento** - Visión general del proyecto |
-| **DEVELOPMENT_GUIDE.md** | Metodología, estándares y flujo de trabajo |
-| **CODE_STANDARDS.md** | Reglas específicas de codificación y estructura |
+¡Bienvenido a Barber Time! Este documento es el punto de partida para cualquier persona que se una al proyecto. Aquí encontrarás una visión general del producto, nuestros objetivos y el estado actual del desarrollo.
 
 ---
 
-*Actualizado: Junio 2025*
+## 1. ¿Qué es Barber Time?
+
+**Barber Time** es una aplicación móvil diseñada para modernizar y simplificar la forma en que los hombres en Uruguay encuentran, comparan y reservan servicios de estética. Nuestra plataforma conecta a clientes con barberías, peluquerías y otros centros de cuidado masculino.
+
+### 1.1 El Problema que Resolvemos
+El descubrimiento y agendamiento de servicios de barbería es un proceso fragmentado. Los clientes dependen de recomendaciones, redes sociales o llamadas, sin una forma centralizada de ver disponibilidad, precios y opiniones.
+
+### 1.2 Nuestra Solución
+Barber Time ofrece una experiencia de usuario fluida, enfocada inicialmente en el perfil del **Cliente**, permitiéndole descubrir, comparar y reservar citas 24/7.
+
+---
+
+## 2. Roadmap y Estado Actual
+
+El desarrollo del proyecto está dividido en fases para entregar valor de manera incremental.
+
+### Estado Actual: **Fase 1 - Prototipo Frontend**
+
+Actualmente, el proyecto se encuentra en la **primera fase de desarrollo**, con un enfoque exclusivo en la **construcción del Frontend**.
+
+**Objetivos de la Fase Actual:**
+- [x] Desarrollar la interfaz de usuario (UI) completa para el flujo del cliente.
+- [x] Implementar la navegación con `go_router`.
+- [x] Gestionar el estado con `BLoC/Cubit` utilizando **datos mock**.
+- [x] Establecer una Arquitectura Limpia y un Sistema de Diseño robustos.
+
+**Fuera del Alcance de esta Fase:**
+- **Backend:** No se realizará ninguna integración con bases de datos o servicios de backend (como Firebase). Todas las fuentes de datos son locales y simuladas (`mock`).
+- **Pruebas Automatizadas:** La escritura de pruebas unitarias, de widgets o de integración no es una prioridad en esta fase inicial.
+
+---
+
+## 3. Documentación del Proyecto
+
+Para entender cómo trabajar en Barber Time, es esencial leer nuestra documentación. Está dividida en módulos para facilitar su consulta.
+
+1.  **Para Empezar (Lectura Obligatoria):**
+    *   ➡️ **[Manual de Desarrollo (`DEVELOPMENT_GUIDE.md`)](./DEVELOPMENT_GUIDE.md):** Contiene las reglas, flujos de trabajo y estándares que debes seguir.
+
+2.  **Documentos de Referencia:**
+    *   ➡️ **[Arquitectura (`ARCHITECTURE.md`)](./ARCHITECTURE.md):** Explica la estructura del código, la Arquitectura Limpia y la organización de directorios.
+    *   ➡️ **[Sistema de Diseño (`DESIGN_SYSTEM.md`)](./DESIGN_SYSTEM.md):** Describe cómo usar el tema de la aplicación, los colores, estilos y componentes de UI.

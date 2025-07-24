@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
 import '../bloc/home_cubit.dart';
 import '../bloc/home_state.dart';
@@ -188,7 +190,21 @@ class _HomePageState extends State<HomePage> {
     return AppBottomNavigationBar.main(
       currentIndex: 0,
       onTap: (index) {
-        // Implementar navegación
+        // Navegar a la página correspondiente según el índice seleccionado
+        switch (index) {
+          case 0: // Inicio
+            // Ya estamos en la página de inicio, no es necesario navegar
+            break;
+          case 1: // Citas
+            context.go(AppRoutes.appointments);
+            break;
+          case 2: // Favoritos
+            // Podría ser una ruta específica para favoritos en el futuro
+            break;
+          case 3: // Perfil
+            context.go(AppRoutes.profile);
+            break;
+        }
       },
     );
   }

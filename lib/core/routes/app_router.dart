@@ -7,6 +7,8 @@ import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/home/presentation/bloc/home_cubit.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/profile/presentation/bloc/profile_cubit.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
 import '../di/service_locator.dart';
 import 'app_routes.dart';
 import 'route_transitions.dart';
@@ -78,7 +80,10 @@ class AppRouter {
         pageBuilder: (context, state) => RouteTransitions.slideTransition(
           context: context,
           state: state,
-          child: _PlaceholderPage(title: 'Profile'),
+          child: BlocProvider(
+            create: (_) => sl<ProfileCubit>(),
+            child: const ProfilePage(),
+          ),
         ),
       ),
     ],

@@ -15,6 +15,9 @@ import '../../features/home/domain/repositories/home_repository.dart';
 import '../../features/home/domain/usecases/get_home_data_usecase.dart';
 import '../../features/home/presentation/bloc/home_cubit.dart';
 
+// Profile Feature
+import '../../features/profile/presentation/bloc/profile_cubit.dart';
+
 /// Instancia global del ServiceLocator para inyección de dependencias
 final sl = GetIt.instance;
 
@@ -92,8 +95,14 @@ void _registerHomeServices() {
 
 /// Registra servicios relacionados con el perfil de usuario
 void _registerProfileServices() {
-  // Similar structure as other features
-  // Will be implemented when we start working on this feature
+  // Registramos el Cubit para el perfil
+  // Actualmente utiliza datos mock dentro del mismo Cubit
+  sl.registerFactory(() => ProfileCubit());
+  
+  // En futuras implementaciones, aquí se registrarían:
+  // - Repositorios de perfil
+  // - Fuentes de datos
+  // - Casos de uso
 }
 
 /// Inicialización de servicios asíncronos

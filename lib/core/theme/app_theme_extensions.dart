@@ -50,6 +50,7 @@ extension ThemeExtension on BuildContext {
   
   // Acceso a colores de texto
   Color get textColor => AppTheme.kTextColor;
+  Color get textSecondaryColor => AppTheme.kSecondaryTextColor;
   Color get secondaryTextColor => AppTheme.kSecondaryTextColor;
   
   // Colores neutros expandidos
@@ -109,6 +110,11 @@ extension TextStyleExtension on BuildContext {
   TextStyle get h3 => AppTextStyles.h3;
   TextStyle get h4 => AppTextStyles.h4;
   TextStyle get h5 => AppTextStyles.h5;
+  
+  // Material 3 Typography compatibility
+  TextStyle get titleLarge => AppTextStyles.h4;
+  TextStyle get titleMedium => AppTextStyles.h5;
+  TextStyle get titleSmall => AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold);
   
   // Estilos de cuerpo de texto
   TextStyle get bodyLarge => AppTextStyles.bodyLarge;

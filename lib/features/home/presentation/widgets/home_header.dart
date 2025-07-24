@@ -72,6 +72,15 @@ class HomeHeader extends StatelessWidget {
   
   /// Estilo del encabezado
   final HomeHeaderStyle style;
+  
+  /// Determina si se debe mostrar la barra de búsqueda
+  final bool showSearchBar;
+  
+  /// Acciones personalizadas para la fila superior del encabezado
+  final List<Widget>? customTopActions;
+  
+  /// Acciones personalizadas para la fila inferior del encabezado
+  final List<Widget>? customBottomActions;
 
   const HomeHeader({
     super.key,
@@ -88,6 +97,9 @@ class HomeHeader extends StatelessWidget {
     this.padding = const EdgeInsets.fromLTRB(16.0, 50.0, 16.0, 16.0),
     this.backgroundColor,
     this.style = HomeHeaderStyle.light,
+    this.showSearchBar = true,
+    this.customTopActions,
+    this.customBottomActions,
   });
 
   @override
@@ -102,13 +114,13 @@ class HomeHeader extends StatelessWidget {
         AppTopBar(
           showAvatar: true,
           avatarUrl: avatarUrl,
-          showSearchBar: true,
+          showSearchBar: showSearchBar,
           searchController: searchController,
           onSearch: onSearch,
           searchHint: 'Buscar barberías por nombre o ubicación...',
           // Texto de saludo y fecha
-          greetingText: 'Good Morning Jobby',
-          secondaryText: 'Tuesday, March 18, 2025',
+          greetingText: userName,
+          secondaryText: 'Tuesday, March 18, 2025',  // TODO: Usar fecha real
           // Colores de texto personalizados para contraste con fondo dorado
           greetingTextColor: context.deepBlue,
           secondaryTextColor: context.midnightBlue.withAlpha((0.8 * 255).round()),
@@ -116,9 +128,9 @@ class HomeHeader extends StatelessWidget {
           gradientStartColor: backgroundColor ?? headerBackgroundColor,
           gradientEndColor: context.charcoal,
           padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 20.0),
-          // Acciones para la fila superior (solo notificaciones, favoritos va en navbar inferior)
-          topActions: [
-            // Botón de notificaciones estilizado
+          // Acciones para la fila superior (personalizables)
+          topActions: customTopActions ?? [
+            // Botón de notificaciones estilizado por defecto
             StyledIcon(
               icon: Icons.notifications_outlined,
               iconColor: context.deepBlue,
@@ -127,15 +139,15 @@ class HomeHeader extends StatelessWidget {
               onTap: onNotificationsPressed,
             ),
           ],
-          // Acciones para la fila inferior (filtro)
-          bottomActions: [
+          // Acciones para la fila inferior (personalizables)
+          bottomActions: customBottomActions ?? (showSearchBar ? [
             StyledIcon(
               icon: Icons.tune,
               iconColor: context.deepBlue,
               backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
               onTap: () {},
             ),
-          ],
+          ] : []),
         ),
         
         // Se eliminó la sección de título personalizado

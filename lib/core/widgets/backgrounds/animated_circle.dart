@@ -15,20 +15,14 @@ class AnimatedCircle {
   
   /// Constructor simplificado
   AnimatedCircle({
-    double posX = 0,
-    double posY = 0,
-    double velocityX = 0,
-    double velocityY = 0,
-    double radius = 0,
-    double opacity = 0,
-    double strokeWidth = 0,
-  }) : this.posX = posX,
-       this.posY = posY,
-       this.velocityX = velocityX,
-       this.velocityY = velocityY,
-       this.radius = radius,
-       this.opacity = opacity,
-       this.strokeWidth = strokeWidth;
+    this.posX = 0,
+    this.posY = 0,
+    this.velocityX = 0,
+    this.velocityY = 0,
+    this.radius = 0,
+    this.opacity = 0,
+    this.strokeWidth = 0,
+  });
   
   /// Método vacío que no hace nada (mantenido para compatibilidad)
   void updatePosition() {

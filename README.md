@@ -1,60 +1,44 @@
-# Barber Time App
+# 💈 Barber Time App
 
-Aplicación móvil para reserva de servicios de barbería desarrollada con Flutter, siguiendo arquitectura limpia y principios de modularización.
+Aplicación móvil para reserva de servicios de barbería y estética masculina, desarrollada con Flutter.
 
-## Funcionalidades Implementadas
+---
 
-### Configuración Inicial
-- ✅ Estructura de directorios siguiendo arquitectura limpia y modular
-- ✅ Tema personalizado con paleta de colores corporativos
-- ✅ Sistema de navegación con go_router
-- ✅ Inyección de dependencias con get_it
+## Bienvenido al Proyecto
 
-### Módulo de Autenticación
-- ✅ Estructura completa siguiendo Clean Architecture
-- ✅ Casos de uso para login y registro
-- ✅ Mock data source para desarrollo y pruebas
-- ✅ Gestión de estado con BLoC/Cubit
-- ✅ Pantallas de login y registro con validación
+Este repositorio contiene el código fuente de la aplicación Barber Time. Para contribuir, es esencial entender nuestra visión, arquitectura y flujos de trabajo.
 
-## Tecnologías Utilizadas
+**Toda la documentación ha sido modularizada para facilitar su consulta.**
 
-- **Flutter**: Framework UI para desarrollo multiplataforma
-- **BLoC/Cubit**: Para gestión de estado
-- **get_it**: Para inyección de dependencias
-- **go_router**: Para navegación
-- **equatable**: Para comparación de objetos
+### 📖 Documentación Principal
 
-## Arquitectura
+1.  **Visión General del Proyecto (Empezar aquí)**
+    *   ➡️ **[PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)**
+    *   *Contenido: Qué es Barber Time, roadmap, estado actual.* 
 
-El proyecto sigue una arquitectura limpia con la siguiente estructura:
+2.  **Manual de Desarrollo**
+    *   ➡️ **[DEVELOPMENT_GUIDE.md](./DEVELOPMENT_GUIDE.md)**
+    *   *Contenido: Flujo de trabajo, estándares de código, comandos esenciales.*
 
-```
-lib/
-├── core/                 # Funcionalidad compartida
-│   ├── animations/       # Animaciones reusables
-│   ├── di/               # Inyección de dependencias
-│   ├── routes/           # Sistema de navegación
-│   ├── theme/            # Definición de tema
-│   ├── utils/            # Utilidades generales
-│   └── widgets/          # Widgets reutilizables
-└── features/             # Módulos por funcionalidad
-    └── auth/             # Módulo de autenticación
-        ├── data/         # Capa de datos
-        ├── domain/       # Lógica de negocio
-        └── presentation/ # Interfaz de usuario
-```
+3.  **Arquitectura de Software**
+    *   ➡️ **[ARCHITECTURE.md](./ARCHITECTURE.md)**
+    *   *Contenido: Arquitectura Limpia, estructura de directorios, modularización.*
 
-## Próximos Pasos
+4.  **Sistema de Diseño (UI/UX)**
+    *   ➡️ **[DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)**
+    *   *Contenido: Uso del tema, componentes, reglas de estilo visual.*
 
-- Implementar tests unitarios para el módulo de autenticación
-- Desarrollar el módulo de Home/Dashboard
-- Integrar con backend real
-- Añadir pantalla de splash real
+---
 
-## Ejecutar el Proyecto
+### Instalación Rápida
 
 ```bash
+# 1. Clonar el repositorio
+git clone <URL_DEL_REPOSITORIO>
+
+# 2. Obtener dependencias
 flutter pub get
+
+# 3. Ejecutar la aplicación
 flutter run
 ```
