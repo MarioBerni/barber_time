@@ -43,6 +43,13 @@ extension ThemeExtension on BuildContext {
   Color get lightGold => AppTheme.kLightGold;
   Color get amber => AppTheme.kAmber;
   
+  // Azules elegantes - Nueva paleta premium
+  Color get bluePrimary => AppTheme.kBluePrimary;
+  Color get blueDark => AppTheme.kBlueDark;
+  Color get blueLight => AppTheme.kBlueLight;
+  Color get blueSoft => AppTheme.kBlueSoft;
+  Color get bluePale => AppTheme.kBluePale;
+  
   // Acceso a colores complementarios
   Color get complementaryColor1 => AppTheme.kComplementaryColor1;
   Color get complementaryColor2 => AppTheme.kComplementaryColor2;
@@ -53,7 +60,21 @@ extension ThemeExtension on BuildContext {
   Color get textSecondaryColor => AppTheme.kSecondaryTextColor;
   Color get secondaryTextColor => AppTheme.kSecondaryTextColor;
   
-  // Colores neutros expandidos
+  // Escala de grises refinada - Armonía Negro-Gris Premium
+  Color get blackPure => AppTheme.kBlackPure;
+  Color get blackDeep => AppTheme.kBlackDeep;
+  Color get charcoalDark => AppTheme.kCharcoalDark;
+  Color get charcoalMedium => AppTheme.kCharcoalMedium;
+  Color get charcoalLight => AppTheme.kCharcoalLight;
+  Color get grayDark => AppTheme.kGrayDark;
+  Color get grayMedium => AppTheme.kGrayMedium;
+  Color get grayLight => AppTheme.kGrayLight;
+  Color get grayPale => AppTheme.kGrayPale;
+  
+  // Textos optimizados
+  Color get tertiaryTextColor => AppTheme.kTertiaryTextColor;
+  
+  // Colores neutros (compatibilidad y nuevos)
   Color get dividerColor => AppTheme.kDividerColor;
   Color get disabledColor => AppTheme.kDisabledColor;
   Color get charcoal => AppTheme.kCharcoal;

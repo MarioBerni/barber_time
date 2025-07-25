@@ -104,13 +104,10 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtener el color de fondo según el estilo seleccionado
-    final headerBackgroundColor = _getBackgroundColor(context, style);
-    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Barra superior personalizada con gradiente y esquinas redondeadas, formato de dos filas
+        // Header completamente dark con estilo premium de barbería
         AppTopBar(
           showAvatar: true,
           avatarUrl: avatarUrl,
@@ -118,60 +115,59 @@ class HomeHeader extends StatelessWidget {
           searchController: searchController,
           onSearch: onSearch,
           searchHint: 'Buscar barberías por nombre o ubicación...',
-          // Texto de saludo y fecha
+          // Texto de saludo y fecha - DARK THEME
           greetingText: userName,
           secondaryText: 'Tuesday, March 18, 2025',  // TODO: Usar fecha real
-          // Colores de texto personalizados para contraste con fondo dorado
-          greetingTextColor: context.deepBlue,
-          secondaryTextColor: context.midnightBlue.withAlpha((0.8 * 255).round()),
-          // Colores para el gradiente (tonalidades de gris)
-          gradientStartColor: backgroundColor ?? headerBackgroundColor,
-          gradientEndColor: context.charcoal,
+          // Colores de texto optimizados para dark theme
+          greetingTextColor: context.textColor, // Blanco
+          secondaryTextColor: context.secondaryTextColor, // Gris claro
+          // Fondo con nueva escala de grises refinada
+          gradientStartColor: context.blackDeep, // Negro profundo de la nueva escala
+          gradientEndColor: context.charcoalDark, // Carbón oscuro para sutil profundidad
           padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 20.0),
-          // Acciones para la fila superior (personalizables)
+          // Acciones para la fila superior con nueva paleta premium
           topActions: customTopActions ?? [
-            // Botón de notificaciones estilizado por defecto
+            // Botón de notificaciones con estilo azul elegante
             StyledIcon(
               icon: Icons.notifications_outlined,
-              iconColor: context.deepBlue,
-              backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
+              iconColor: hasNotifications ? context.bluePrimary : context.textColor, // Azul si hay notificaciones, blanco si no
+              backgroundColor: context.charcoalMedium, // Carbón medio para mejor definición
               showBadge: hasNotifications,
               onTap: onNotificationsPressed,
             ),
           ],
-          // Acciones para la fila inferior (personalizables)
+          // Acciones para la fila inferior con estilo azul elegante
           bottomActions: customBottomActions ?? (showSearchBar ? [
             StyledIcon(
               icon: Icons.tune,
-              iconColor: context.deepBlue,
-              backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
+              iconColor: context.bluePrimary, // Iconos azules elegantes
+              backgroundColor: context.charcoalMedium, // Carbón medio para consistencia
               onTap: () {},
             ),
           ] : []),
         ),
-        
-        // Se eliminó la sección de título personalizado
       ],
     );
   }
   
   /// Obtiene el color de fondo basado en el estilo seleccionado
+  /// Actualizado para dark theme - todos los estilos usan fondos oscuros
   Color _getBackgroundColor(BuildContext context, HomeHeaderStyle style) {
     switch (style) {
       case HomeHeaderStyle.light:
-        return context.cream;
+        return context.backgroundColor; // Negro profundo
       case HomeHeaderStyle.skyBlue:
-        return context.skyBlue;
+        return context.backgroundColor; // Negro profundo
       case HomeHeaderStyle.accent:
-        return context.accentLightColor;
+        return context.backgroundColor; // Negro profundo
       case HomeHeaderStyle.primary:
-        return context.primaryLightColor;
+        return context.backgroundColor; // Negro profundo
       case HomeHeaderStyle.infoLight:
-        return context.infoLightColor;
+        return context.backgroundColor; // Negro profundo
       case HomeHeaderStyle.coffee:
-        return context.coffeeLight;
+        return context.backgroundColor; // Negro profundo
       case HomeHeaderStyle.gray:
-        return context.metalGray;
+        return context.backgroundColor; // Negro profundo para uniformidad
     }
   }
 }

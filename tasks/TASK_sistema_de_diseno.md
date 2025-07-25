@@ -2,18 +2,26 @@
 
 **Objetivo:** Crear y aplicar un sistema de diseño visual coherente y de alta calidad para toda la aplicación, incluyendo temas, componentes reutilizables y efectos visuales.
 
-**Prioridad:** La finalización de los componentes base (colores, botones, contenedores) es crucial para desbloquear el desarrollo de las pantallas principales. Las animaciones y componentes complejos se pueden abordar de forma iterativa.
+**Estado Actual:** ✅ **COMPLETADO - Tema Dark Premium Implementado**
+
+**Migración Exitosa a Tema Dark:** Se ha implementado una paleta dark sofisticada con:
+- 🖤 Escala de grises armoniosa (negro puro → carbón → gris claro)
+- 💙 Acentos azules Material Design para interactividad
+- ✨ Dorados selectivos para elementos premium
+- 🎯 Aplicación estratégica en componentes clave (HomeHeader, BottomNavigationBar)
+
+**Prioridad:** ✅ Componentes base completados. Listo para aplicar lineamientos a toda la app.
 
 ---
 
 ### Checklist
 
-- [x] **Parte 1: Sistema de Tema Centralizado**
-  - [x] Eliminar tema oscuro y simplificar `AppTheme` a un único tema claro.
-  - [x] Consolidar y refinar la paleta de colores en `app_theme.dart`.
+- [x] **Parte 1: Sistema de Tema Centralizado** ✅ COMPLETADO
+  - [x] ~~Eliminar tema oscuro y simplificar `AppTheme` a un único tema claro.~~ **ACTUALIZADO:** Implementar tema dark premium con paleta refinada.
+  - [x] Consolidar y refinar la paleta de colores en `app_theme.dart` con escala de grises armoniosa.
   - [x] Crear clases de abstracción de estilos (`AppTextStyles`, `AppSpacing`, `AppBorderRadius`).
-  - [x] Implementar extensiones de `BuildContext` para un acceso fácil y consistente a los estilos (`context.primaryColor`, `context.textTheme.h1`, etc.).
-  - [x] Migrar componentes iniciales para usar las nuevas extensiones del tema.
+  - [x] Implementar extensiones de `BuildContext` para acceso a nueva paleta (azules, grises, dorados).
+  - [x] Migrar componentes clave (HomeHeader, BottomNavigationBar) para usar nueva paleta dark.
 
 - [x] **Parte 2: Componentes de Fondo**
   - [x] Crear `AnimatedGradientBackground` con burbujas y patrones de líneas.

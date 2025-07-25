@@ -64,15 +64,20 @@ class AppBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            context.deepBlue, 
-            context.primaryColor,
-          ],
-        ),
-        boxShadow: context.elevatedShadow,
+        // Fondo con nueva escala de grises refinada
+        color: context.charcoalDark, // Carbón oscuro para navigation
+        boxShadow: [
+          BoxShadow(
+            color: context.blackPure.withOpacity(0.3),
+            blurRadius: 12.0,
+            offset: const Offset(0, -4),
+          ),
+          BoxShadow(
+            color: context.bluePrimary.withOpacity(0.05),
+            blurRadius: 8.0,
+            offset: const Offset(0, -2),
+          ),
+        ],
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(20),
         ),
@@ -85,13 +90,15 @@ class AppBottomNavigationBar extends StatelessWidget {
           child: BottomNavigationBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            selectedItemColor: context.accentColor,
-            unselectedItemColor: context.surfaceColor.withAlpha((0.7 * 255).round()),
+            selectedItemColor: context.bluePrimary, // Azul para elementos activos
+            unselectedItemColor: context.grayLight, // Gris claro de la nueva escala
             selectedLabelStyle: context.bodySmall.copyWith(
               fontWeight: FontWeight.bold,
-              color: context.accentColor,
+              color: context.bluePrimary, // Azul para texto activo
             ),
-            unselectedLabelStyle: context.bodySmall,
+            unselectedLabelStyle: context.bodySmall.copyWith(
+              color: context.grayLight, // Gris claro de la nueva escala
+            ),
             type: BottomNavigationBarType.fixed,
             currentIndex: currentIndex,
             items: List.generate(
@@ -110,6 +117,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   }
 
   /// Construye un icono con estilo uniforme para la barra de navegación
+  /// Actualizado para usar la nueva paleta azul + dorado
   Widget _buildIcon(BuildContext context, Widget icon, bool isActive) {
     // Si el icono ya es un widget personalizado o no es un Icon, lo devolvemos tal cual
     if (icon is! Icon) return icon;
@@ -119,15 +127,17 @@ class AppBottomNavigationBar extends StatelessWidget {
     
     if (iconData == null) return icon;
     
-    // Usar el componente StyledIcon para mantener consistencia visual
+    // Usar el componente StyledIcon con nueva paleta premium
     return StyledIcon(
       icon: iconData,
       isActive: isActive,
       hasGlowEffect: isActive,
-      iconColor: isActive ? context.accentColor : context.surfaceColor.withAlpha((0.8 * 255).round()),
+      iconColor: isActive 
+          ? context.bluePrimary // Azul para iconos activos
+          : context.grayLight, // Gris claro de la nueva escala
       backgroundColor: isActive 
-          ? context.accentLightColor.withAlpha((0.2 * 255).round())
-          : context.surfaceColor.withAlpha((0.15 * 255).round()),
+          ? context.charcoalLight // Fondo carbón claro para activo
+          : Colors.transparent, // Sin fondo para inactivos (minimalista)
       iconSize: size ?? 24,
       circleSize: 42,
     );
