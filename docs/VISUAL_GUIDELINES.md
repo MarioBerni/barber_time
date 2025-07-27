@@ -33,14 +33,17 @@ context.grayMedium      → Iconos secundarios, elementos de apoyo
 context.grayLight       → Texto secundario, placeholders
 ```
 
-### 💙 Azul Material Design - Interactividad
+### 💙 Azul Material Design - SOLO Interactividad y Estados Activos
 
 ```dart
-// NAVEGACIÓN Y ACCIONES
-context.bluePrimary     → Tabs activos, botones primarios, links
-context.blueDark        → Estados pressed/hover
-context.blueLight       → Highlights suaves, notificaciones
+// USO RESTRINGIDO: SOLO PARA ELEMENTOS INTERACTIVOS Y ESTADOS ACTIVOS
+// NO USAR PARA ELEMENTOS ESTÁTICOS O DECORATIVOS
+context.bluePrimary     → Tabs/botones activos, links interactivos
+context.blueDark        → Estados pressed/hover en elementos interactivos
+context.blueLight       → Highlights de selección, notificaciones, indicadores de estado activo
 ```
+
+> **⚠️ Regla Estricta**: El color azul está reservado EXCLUSIVAMENTE para indicar interactividad o estados activos. Nunca debe usarse como color decorativo o en elementos estáticos.
 
 ### ✨ Dorados Premium - Elementos de Valor
 
@@ -182,9 +185,11 @@ Text('\$25.00',
 ### 🏠 Home Page - Patrón Establecido
 
 - **Header**: `charcoalDark` → `charcoalMedium` con gradiente sutil
-- **Iconos de navegación**: `bluePrimary` para activos, `grayLight` para inactivos
+- **Iconos de navegación**: `bluePrimary` SOLO para activos, `grayLight` para inactivos
 - **Cards de ofertas**: `charcoalMedium` con acentos dorados para ofertas especiales
-- **Bottom Navigation**: `charcoalDark` con iconos azules activos
+- **Bottom Navigation**: `charcoalDark` con iconos azules SOLO para elementos activos
+- **Botones interactivos**: Usar `bluePrimary` para estados activos, hover o pressed
+- **Textos interactivos**: Links y botones de texto en `bluePrimary`, texto normal en escala de grises/blanco
 
 ### 👤 Profile Page - Aplicar Consistentemente
 

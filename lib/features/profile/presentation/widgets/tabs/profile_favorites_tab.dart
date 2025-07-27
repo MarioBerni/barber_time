@@ -10,9 +10,9 @@ class ProfileFavoritesTab extends StatelessWidget {
   
   /// Constructor
   const ProfileFavoritesTab({
-    Key? key,
+    super.key,
     required this.profile,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

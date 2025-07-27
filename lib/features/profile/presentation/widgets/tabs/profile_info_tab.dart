@@ -14,9 +14,9 @@ class ProfileInfoTab extends StatelessWidget {
   
   /// Constructor
   const ProfileInfoTab({
-    Key? key,
+    super.key,
     required this.profile,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

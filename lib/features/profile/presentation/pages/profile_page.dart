@@ -19,7 +19,7 @@ import '../widgets/unauthenticated_view.dart';
 /// gestionar sus datos personales según su tipo (Cliente o Administrador)
 class ProfilePage extends StatefulWidget {
   /// Constructor
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();

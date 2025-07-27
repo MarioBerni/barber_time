@@ -128,11 +128,10 @@ class AppTheme {
         primary: kPrimaryColor, // Oro clásico
         secondary: kAccentColor, // Oro clásico
         surface: kSurfaceColor, // Negro carbón
-        background: kBackgroundColor, // Negro profundo
+        surfaceContainer: kBackgroundColor, // Negro profundo
         onPrimary: kMidnightBlue, // Negro sobre oro
         onSecondary: kMidnightBlue, // Negro sobre oro
         onSurface: kTextColor, // Blanco sobre superficies
-        onBackground: kTextColor, // Blanco sobre fondo
       ),
       textTheme: _darkTextTheme,
       appBarTheme: AppBarTheme(
@@ -195,7 +194,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
         ),
-        shadowColor: kMidnightBlue.withOpacity(0.3),
+        shadowColor: kMidnightBlue.withAlpha((0.3 * 255).round()),
       ),
     );
   }

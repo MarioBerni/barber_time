@@ -14,9 +14,9 @@ class UnauthenticatedView extends StatelessWidget {
   
   /// Constructor
   const UnauthenticatedView({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

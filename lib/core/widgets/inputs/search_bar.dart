@@ -87,7 +87,7 @@ class SearchBar extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: (compact ? context.bodySmall : context.bodyMedium)
-            .copyWith(color: context.secondaryTextColor.withOpacity(0.8)),
+            .copyWith(color: context.secondaryTextColor.withAlpha((0.8 * 255).round())),
         // Eliminar el texto de ayuda debajo del campo de búsqueda
         helperText: null,
         helperStyle: context.caption.copyWith(color: context.secondaryTextColor),

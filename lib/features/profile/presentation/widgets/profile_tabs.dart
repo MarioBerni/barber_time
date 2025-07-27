@@ -19,11 +19,11 @@ class ProfileTabs extends StatelessWidget {
 
   /// Constructor
   const ProfileTabs({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.userType,
     required this.onTabSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ProfileTabs extends StatelessWidget {
         color: context.surfaceColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha((0.05 * 255).round()),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),

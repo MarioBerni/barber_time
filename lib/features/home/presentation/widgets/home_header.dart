@@ -150,24 +150,5 @@ class HomeHeader extends StatelessWidget {
     );
   }
   
-  /// Obtiene el color de fondo basado en el estilo seleccionado
-  /// Actualizado para dark theme - todos los estilos usan fondos oscuros
-  Color _getBackgroundColor(BuildContext context, HomeHeaderStyle style) {
-    switch (style) {
-      case HomeHeaderStyle.light:
-        return context.backgroundColor; // Negro profundo
-      case HomeHeaderStyle.skyBlue:
-        return context.backgroundColor; // Negro profundo
-      case HomeHeaderStyle.accent:
-        return context.backgroundColor; // Negro profundo
-      case HomeHeaderStyle.primary:
-        return context.backgroundColor; // Negro profundo
-      case HomeHeaderStyle.infoLight:
-        return context.backgroundColor; // Negro profundo
-      case HomeHeaderStyle.coffee:
-        return context.backgroundColor; // Negro profundo
-      case HomeHeaderStyle.gray:
-        return context.backgroundColor; // Negro profundo para uniformidad
-    }
-  }
+  // Método _getBackgroundColor eliminado por no ser utilizado
 }

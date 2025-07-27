@@ -36,7 +36,7 @@ class ProfileSection extends StatelessWidget {
   
   /// Constructor
   const ProfileSection({
-    Key? key,
+    super.key,
     required this.title,
     required this.child,
     this.icon,
@@ -46,7 +46,7 @@ class ProfileSection extends StatelessWidget {
     this.contentPadding = const EdgeInsets.all(16.0),
     this.isExpandable = false,
     this.initiallyExpanded = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class ProfileSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha((0.05 * 255).round()),
             blurRadius: 6,
             offset: const Offset(0, 3),
           ),

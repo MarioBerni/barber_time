@@ -1,11 +1,10 @@
-/// Lista de barrios de Montevideo
-/// 
-/// Esta lista centralizada permite mantener consistencia en las búsquedas por ubicación
-/// y facilitar la implementación de filtros, autocompletado y sugerencias
-/// 
-/// Nota: Los barrios están ordenados alfabéticamente para facilitar la búsqueda
-
 class MontevideoBarrios {
+  /// Lista de barrios de Montevideo
+  /// 
+  /// Esta lista centralizada permite mantener consistencia en las búsquedas por ubicación
+  /// y facilitar la implementación de filtros, autocompletado y sugerencias
+  /// 
+  /// Nota: Los barrios están ordenados alfabéticamente para facilitar la búsqueda
   // Constructor privado para evitar instanciación
   MontevideoBarrios._();
   

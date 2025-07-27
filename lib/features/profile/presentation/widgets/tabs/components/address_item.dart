@@ -9,9 +9,9 @@ class AddressItem extends StatelessWidget {
   
   /// Constructor
   const AddressItem({
-    Key? key,
+    super.key,
     required this.address,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

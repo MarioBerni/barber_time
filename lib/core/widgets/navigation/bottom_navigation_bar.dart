@@ -68,12 +68,12 @@ class AppBottomNavigationBar extends StatelessWidget {
         color: context.charcoalDark, // Carbón oscuro para navigation
         boxShadow: [
           BoxShadow(
-            color: context.blackPure.withOpacity(0.3),
+            color: context.blackPure.withAlpha((0.3 * 255).round()),
             blurRadius: 12.0,
             offset: const Offset(0, -4),
           ),
           BoxShadow(
-            color: context.bluePrimary.withOpacity(0.05),
+            color: context.bluePrimary.withAlpha((0.05 * 255).round()),
             blurRadius: 8.0,
             offset: const Offset(0, -2),
           ),
