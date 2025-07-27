@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/navigation/app_top_bar.dart';
 import '../../../../core/widgets/icons/styled_icon.dart';
@@ -104,10 +105,17 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Obtener fecha actual para mostrar
+    final now = DateTime.now();
+    final formattedDate = '${_getDayName(now.weekday)}, ${_getMonthName(now.month)} ${now.day}, ${now.year}';
+    
+    // Obtener colores del nuevo theme
+    final theme = Theme.of(context);
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header completamente dark con estilo premium de barbería
+        // Header moderno con gradiente de la nueva paleta
         AppTopBar(
           showAvatar: true,
           avatarUrl: avatarUrl,
@@ -115,39 +123,68 @@ class HomeHeader extends StatelessWidget {
           searchController: searchController,
           onSearch: onSearch,
           searchHint: 'Buscar barberías por nombre o ubicación...',
-          // Texto de saludo y fecha - DARK THEME
-          greetingText: userName,
-          secondaryText: 'Tuesday, March 18, 2025',  // TODO: Usar fecha real
-          // Colores de texto optimizados para dark theme
-          greetingTextColor: context.textColor, // Blanco
-          secondaryTextColor: context.secondaryTextColor, // Gris claro
-          // Fondo con nueva escala de grises refinada
-          gradientStartColor: context.blackDeep, // Negro profundo de la nueva escala
-          gradientEndColor: context.charcoalDark, // Carbón oscuro para sutil profundidad
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 20.0),
-          // Acciones para la fila superior con nueva paleta premium
+          // Saludo con tipografía moderna
+          greetingText: '¡Hola, $userName!',
+          secondaryText: formattedDate,
+          // Colores de texto con mayor contraste para mejor legibilidad
+          greetingTextColor: AppTheme.kOffWhite,
+          secondaryTextColor: AppTheme.kPrimaryLightColor, // Turquesa-menta claro para fecha
+          // Fondo moderno con gradiente negro azulado
+          gradientStartColor: AppTheme.kBackgroundColor, 
+          gradientEndColor: AppTheme.kSurfaceColor,
+          padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 20.0), // Más espacio vertical
+          // Acciones para la fila superior con nuevo estilo
           topActions: customTopActions ?? [
-            // Botón de notificaciones con estilo azul elegante
+            // Botón de notificaciones con estilo refinado
             StyledIcon(
               icon: Icons.notifications_outlined,
-              iconColor: hasNotifications ? context.bluePrimary : context.textColor, // Azul si hay notificaciones, blanco si no
-              backgroundColor: context.charcoalMedium, // Carbón medio para mejor definición
+              iconColor: hasNotifications ? AppTheme.kAccentColor : AppTheme.kOffWhite, // Naranja terracota si hay notificaciones
+              backgroundColor: AppTheme.kSurfaceAlt,
               showBadge: hasNotifications,
+              badgeColor: AppTheme.kAccentColor, // Badge naranja para mayor distinción
               onTap: onNotificationsPressed,
             ),
           ],
-          // Acciones para la fila inferior con estilo azul elegante
+          // Acciones para la fila inferior con estilo cohesivo
           bottomActions: customBottomActions ?? (showSearchBar ? [
             StyledIcon(
               icon: Icons.tune,
-              iconColor: context.bluePrimary, // Iconos azules elegantes
-              backgroundColor: context.charcoalMedium, // Carbón medio para consistencia
+              iconColor: AppTheme.kPrimaryColor, // Turquesa-menta para indicar interactividad
+              backgroundColor: AppTheme.kSurfaceAlt,
               onTap: () {},
             ),
           ] : []),
         ),
+        
+        // Línea decorativa moderna con gradiente turquesa-menta
+        if (!isSearchActive) Container(
+          margin: const EdgeInsets.symmetric(horizontal: 24.0),
+          height: 2.0, // Ligeramente más gruesa
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppTheme.kPrimaryColor.withAlpha(0),
+                AppTheme.kPrimaryColor.withAlpha(150),
+                AppTheme.kPrimaryColor.withAlpha(0),
+              ],
+            ),
+          ),
+        ),
       ],
     );
+  }
+  
+  // Helper para obtener el nombre del día
+  String _getDayName(int weekday) {
+    const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    return days[weekday - 1];
+  }
+  
+  // Helper para obtener el nombre del mes
+  String _getMonthName(int month) {
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
+                    'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    return months[month - 1];
   }
   
   // Método _getBackgroundColor eliminado por no ser utilizado

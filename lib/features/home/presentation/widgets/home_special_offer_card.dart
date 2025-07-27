@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
 import '../../domain/entities/special_offer.dart';
@@ -18,93 +19,139 @@ class HomeSpecialOfferCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     
-    return GlamContainer(
-      fixedSize: const Size(280, 160),
-      borderRadius: BorderRadius.circular(16),
-      child: Stack(
-        children: [
-          // Imagen de fondo
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                offer.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
-                    child: Center(child: Icon(Icons.image_not_supported, size: context.iconSizeDefault)),
-                  );
-                },
-              ),
-            ),
-          ),
-          
-          // Gradiente para mejorar legibilidad del texto
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withAlpha((0.7 * 255).round()),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          
-          // Contenido de la oferta
-          Positioned(
-            bottom: 16,
-            left: 16,
-            right: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  offer.description,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      offer.discount,
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    if (offer.promoCode != null)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          offer.promoCode!,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ],
-            ),
+    // Usamos Container con sombra envolviendo al GlamContainer con nuevo diseño
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20), // Bordes más redondeados
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.kBackgroundColor.withOpacity(0.7),
+            blurRadius: 12,
+            spreadRadius: 2,
+            offset: const Offset(0, 6),
           ),
         ],
+      ),
+      child: GlamContainer(
+        fixedSize: const Size(290, 170), // Ligeramente más grande
+        borderRadius: BorderRadius.circular(20), // Bordes consistentes
+        borderColor: AppTheme.kPrimaryDarkColor.withOpacity(0.4), // Borde sutil turquesa
+        borderWidth: 1.5, // Borde más visible
+        child: Stack(
+          children: [
+            // Imagen de fondo
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  offer.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: AppTheme.kSurfaceAlt, // Nuevo color de superficie alternativa
+                      child: Center(
+                        child: Icon(
+                          Icons.image_not_supported, 
+                          color: Colors.grey[300], // Tono claro similar a grayLight
+                          size: context.iconSizeDefault,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            
+            // Gradiente moderno con nueva paleta
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withAlpha(10),
+                      Colors.black.withAlpha(200),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            
+            // Indicador de oferta premium en la esquina superior con nuevo estilo
+            Positioned(
+              top: 0,
+              right: 12,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: AppTheme.kAccentColor,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                ),
+                child: Icon(Icons.star, color: Colors.white, size: 16),
+              ),
+            ),
+            
+            // Contenido de la oferta
+            Positioned(
+              bottom: 16,
+              left: 16,
+              right: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    offer.description,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: AppTheme.kOffWhite,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 6), // Más espacio
+                  Row(
+                    children: [
+                      // Precio/descuento con color turquesa
+                      Text(
+                        offer.discount,
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          color: AppTheme.kPrimaryColor, // Color turquesa-menta
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 10), // Más espacio
+                      if (offer.promoCode != null)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppTheme.kSurfaceAlt, // Nuevo color de fondo
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: AppTheme.kAccentColor.withAlpha(160), // Borde naranja terracota
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Text(
+                            offer.promoCode!,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: AppTheme.kAccentColor, // Texto naranja terracota
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

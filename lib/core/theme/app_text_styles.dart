@@ -94,14 +94,14 @@ class AppTextStyles {
 
   // Textos con énfasis
   static TextStyle get link => const TextStyle(
-        color: AppTheme.kBrightBlue, // Usando el nuevo color brillante para links
+        color: AppTheme.kBrightBlue, // Usando el color brillante para links
         fontSize: 14,
         fontWeight: FontWeight.w500,
         decoration: TextDecoration.underline,
       );
       
   static TextStyle get linkGold => const TextStyle(
-        color: AppTheme.kDarkGold, // Usando el nuevo color dorado premium para links especiales
+        color: AppTheme.kDarkGold, // Usando el color dorado premium para links especiales
         fontSize: 14,
         fontWeight: FontWeight.w500,
         decoration: TextDecoration.underline,

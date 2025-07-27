@@ -59,10 +59,10 @@ class StyledIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     // Definir colores basados en el estado activo y los parámetros
     final effectiveIconColor = iconColor ?? 
-        (isActive ? context.accentColor : context.secondaryTextColor);
+        (isActive ? context.primaryColor : Colors.grey[400] ?? Colors.grey); // Turquesa-menta para activo, gris para inactivo
     
     final effectiveBackgroundColor = backgroundColor ?? 
-        (isActive ? context.accentLightColor.withAlpha((0.2 * 255).round()) : context.surfaceColor);
+        (isActive ? context.primaryColor.withOpacity(0.15) : context.surfaceColor); // Fondo sutil turquesa
     
     return Stack(
       clipBehavior: Clip.none,
@@ -94,12 +94,12 @@ class StyledIcon extends StatelessWidget {
   }
   
   /// Construye el icono con o sin efecto de brillo
-  Widget _buildIconWithEffect(BuildContext context, Color iconColor) {
+  Widget _buildIconWithEffect(BuildContext context, Color? iconColor) {
     if (!hasGlowEffect) {
       return Icon(
         icon,
         size: iconSize ?? context.iconSizeDefault,
-        color: iconColor,
+        color: iconColor ?? Colors.grey,
       );
     }
     
@@ -110,13 +110,13 @@ class StyledIcon extends StatelessWidget {
         Icon(
           icon,
           size: (iconSize ?? context.iconSizeDefault) + 4,
-          color: context.accentLightColor.withAlpha((0.4 * 255).round()),
+          color: context.primaryColor.withOpacity(0.4), // Usar color primario (turquesa) para brillo
         ),
         // Icono principal
         Icon(
           icon,
           size: iconSize ?? context.iconSizeDefault,
-          color: iconColor,
+          color: iconColor ?? Colors.grey,
         ),
       ],
     );

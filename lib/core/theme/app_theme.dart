@@ -4,49 +4,65 @@ import 'package:flutter/material.dart';
 /// Incluye colores, estilos de texto y otros parámetros visuales
 class AppTheme {
   // ======================================================
-  // PALETA DE COLORES DARK - BARBER TIME PREMIUM
+  // NUEVA PALETA DE COLORES - BARBER TIME MODERN
   // ======================================================
   
-  // Paleta de dorados principales (reemplaza azules)
-  static const Color kPrimaryColor = Color(0xFFD4AF37);        // Oro clásico principal
-  static const Color kPrimaryDarkColor = Color(0xFFB8860B);    // Oro oscuro
-  static const Color kPrimaryLightColor = Color(0xFFE6C757);   // Oro claro
+  // Colores principales - Nueva paleta moderna
+  static const Color kPrimaryColor = Color(0xFF3BBFAD);        // Turquesa-menta principal
+  static const Color kPrimaryDarkColor = Color(0xFF2A8F83);    // Turquesa-menta oscuro
+  static const Color kPrimaryLightColor = Color(0xFF65D8C8);   // Turquesa-menta claro
   
-  // Tonalidades de dorado para jerarquía visual
-  static const Color kMidnightBlue = Color(0xFF0A0A0A);        // Negro profundo (fondo principal)
-  static const Color kDeepBlue = Color(0xFF1A1A1A);            // Negro carbón (superficies)
-  static const Color kBrightBlue = Color(0xFFCD7F32);          // Bronce brillante
-  static const Color kLightBlue = Color(0xFFDDC371);           // Oro muy claro
-  static const Color kSkyBlue = Color(0xFFF4E99B);             // Oro pálido
+  // Colores de acción y énfasis
+  static const Color kAccentColor = Color(0xFFE57C4B);         // Naranja terracota
+  static const Color kAccentDarkColor = Color(0xFFD05F2E);     // Naranja terracota oscuro
+  static const Color kAccentLightColor = Color(0xFFF29C74);    // Naranja terracota claro
+  
+  // Base oscura moderna - Negro azulado
+  static const Color kBackgroundColor = Color(0xFF121212);      // Fondo principal negro azulado
+  static const Color kSurfaceColor = Color(0xFF1E1E1E);        // Superficie de componentes
+  static const Color kBackgroundAlt = Color(0xFF2A2A2A);        // Fondo alternativo (tarjetas)
+  static const Color kSurfaceAlt = Color(0xFF383838);          // Superficie alternativa (elevados)
+  
+  // Escala de grises neutral
+  static const Color kDarkGray = Color(0xFF2A2A2A);            // Gris oscuro
+  static const Color kMediumGray = Color(0xFF707070);          // Gris medio
+  static const Color kLightGray = Color(0xFFAAAAAA);           // Gris claro
+  static const Color kPaleGray = Color(0xFFD8D8D8);            // Gris pálido
+  static const Color kOffWhite = Color(0xFFF5F5F5);            // Casi blanco
 
-  // Colores de superficie y fondo - DARK THEME
-  static const Color kBackgroundColor = Color(0xFF0A0A0A);     // Fondo negro profundo
-  static const Color kSurfaceColor = Color(0xFF1A1A1A);        // Superficie de componentes oscura
-  static const Color kBackgroundAlt = Color(0xFF2A2A2A);       // Fondo alternativo (tarjetas)
-  static const Color kSurfaceAlt = Color(0xFF333333);          // Superficie alternativa (elevados)
+  // Colores informativos y de estado - Legacy (comentados para mantener referencia)
+  // Estos se han reemplazado por las definiciones más abajo
+  // static const Color kSuccessColor = Color(0xFF4CAF50);
+  // static const Color kErrorColor = Color(0xFFE53935);
+  // static const Color kWarningColor = Color(0xFFFFB300);
+  // static const Color kInfoColor = Color(0xFF2196F3);
   
-  // Acento dorado refinado para tema dark
-  static const Color kAccentColor = Color(0xFFD4AF37);          // Oro clásico principal
-  static const Color kAccentDarkColor = Color(0xFFB8860B);      // Oro oscuro profundo
-  static const Color kAccentLightColor = Color(0xFFE6C757);     // Oro claro elegante
+  // Colores complementarios para destacados
+  static const Color kComplementaryColor1 = Color(0xFF8367C7);  // Púrpura complementario
+  static const Color kComplementaryColor2 = Color(0xFF6D9DC5);  // Azul acero complementario
   
-  // Tonalidades de dorado premium para dark theme
-  static const Color kDarkGold = Color(0xFFB8860B);            // Oro oscuro intenso
-  static const Color kMediumGold = Color(0xFFD4AF37);          // Oro medio clásico
-  static const Color kLightGold = Color(0xFFE6C757);           // Oro claro suave
-  static const Color kAmber = Color(0xFFCD7F32);               // Bronce ámbar
-
-  // Colores azules elegantes - Nueva paleta premium
-  static const Color kBluePrimary = Color(0xFF2196F3);          // Azul principal elegante
-  static const Color kBlueDark = Color(0xFF1976D2);             // Azul oscuro  
-  static const Color kBlueLight = Color(0xFF64B5F6);            // Azul claro
-  static const Color kBlueSoft = Color(0xFF90CAF9);             // Azul suave
-  static const Color kBluePale = Color(0xFFBBDEFB);             // Azul pálido
+  // Colores azules para referencias legacy y compatibilidad
+  static const Color kMidnightBlue = Color(0xFF0F172A);         // Azul medianoche casi negro
+  static const Color kDeepBlue = Color(0xFF1E3A8A);            // Azul profundo
+  static const Color kBrightBlue = Color(0xFF3B82F6);          // Azul brillante
+  static const Color kLightBlue = Color(0xFF60A5FA);           // Azul claro
+  static const Color kSkyBlue = Color(0xFF7DD3FC);             // Azul cielo
   
-  // Colores complementarios (armónicos con dark theme, dorado y turquesa)
-  static const Color kComplementaryColor1 = Color(0xFF8A8A8A);  // Gris plateado complementario
-  static const Color kComplementaryColor2 = Color(0xFFCD7F32);  // Bronce complementario 
-  static const Color kTertiaryColor = Color(0xFF4A4A4A);       // Gris carbón terciario
+  // Colores dorados para referencias legacy y compatibilidad
+  static const Color kDarkGold = Color(0xFFB45309);            // Oro oscuro
+  static const Color kMediumGold = Color(0xFFD97706);          // Oro medio
+  static const Color kLightGold = Color(0xFFFBBF24);           // Oro claro
+  static const Color kAmber = Color(0xFFF59E0B);               // Ámbar
+  
+  // Colores azules para referencias legacy y compatibilidad
+  static const Color kBluePrimary = Color(0xFF2563EB);         // Azul primario
+  static const Color kBlueDark = Color(0xFF1D4ED8);            // Azul oscuro
+  static const Color kBlueLight = Color(0xFF60A5FA);           // Azul claro
+  static const Color kBlueSoft = Color(0xFF93C5FD);            // Azul suave
+  static const Color kBluePale = Color(0xFFBAE6FD);            // Azul pálido
+  
+  // Color terciario para compatibilidad
+  static const Color kTertiaryColor = Color(0xFF8367C7);       // Púrpura (igual que complementario 1)
   
   // Escala de grises refinada - Armonía Negro-Gris Premium
   static const Color kBlackPure = Color(0xFF000000);           // Negro puro - Elementos de máximo contraste
@@ -76,7 +92,7 @@ class AppTheme {
   static const Color kCoffeeLighter = Color(0xFF8B6F47);       // Café muy claro
   static const Color kCream = Color(0xFF2A2A2A);               // Crema oscura para superficies
   
-  // Colores de estado (para feedback visual)
+  // Colores de estado actualizados (para feedback visual)
   static const Color kSuccessColor = Color(0xFF10B981);          // Éxito (verde)
   static const Color kSuccessDarkColor = Color(0xFF059669);      // Éxito oscuro
   static const Color kSuccessLightColor = Color(0xFF6EE7B7);     // Éxito claro
@@ -125,12 +141,12 @@ class AppTheme {
       primaryColor: kPrimaryColor, // Oro clásico
       scaffoldBackgroundColor: kBackgroundColor, // Negro profundo
       colorScheme: const ColorScheme.dark().copyWith(
-        primary: kPrimaryColor, // Oro clásico
-        secondary: kAccentColor, // Oro clásico
+        primary: kPrimaryColor, // Turquesa-menta
+        secondary: kAccentColor, // Naranja terracota
         surface: kSurfaceColor, // Negro carbón
         surfaceContainer: kBackgroundColor, // Negro profundo
-        onPrimary: kMidnightBlue, // Negro sobre oro
-        onSecondary: kMidnightBlue, // Negro sobre oro
+        onPrimary: kBackgroundColor, // Negro sobre turquesa
+        onSecondary: kBackgroundColor, // Negro sobre naranja
         onSurface: kTextColor, // Blanco sobre superficies
       ),
       textTheme: _darkTextTheme,
@@ -153,8 +169,8 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: kPrimaryColor, // Oro clásico
-          foregroundColor: kMidnightBlue, // Texto negro sobre oro
+          backgroundColor: kPrimaryColor, // Turquesa-menta
+          foregroundColor: kBackgroundColor, // Texto negro sobre turquesa
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kDefaultRadius),
           ),
@@ -194,7 +210,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius),
         ),
-        shadowColor: kMidnightBlue.withAlpha((0.3 * 255).round()),
+        shadowColor: kBackgroundColor.withAlpha((0.3 * 255).round()),
       ),
     );
   }

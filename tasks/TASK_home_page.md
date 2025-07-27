@@ -30,6 +30,12 @@
   - [ ] Conectar la `SearchBar` para actualizar la UI con los resultados.
   - [ ] Mostrar un estado vacío cuando no hay resultados.
 
+- [x] **Actualización de Diseño y Tema**
+  - [x] Implementar nuevo tema oscuro moderno con acentos turquesa-menta y naranja terracota.
+  - [x] Actualizar widgets de Home para usar la nueva paleta de colores.
+  - [x] Rediseñar menú de navegación inferior con el nuevo esquema visual.
+  - [x] Corregir errores de colores duplicados y referencias a colores inexistentes.
+
 - [ ] **Finalización y Pruebas**
   - [ ] Verificar la correcta visualización y responsividad en diferentes tamaños de pantalla.
   - [ ] Realizar pruebas de navegación desde la `HomePage` a otras secciones (login, registro, etc.).

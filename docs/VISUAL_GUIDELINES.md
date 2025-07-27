@@ -11,8 +11,8 @@ Barber Time Premium representa **elegancia, sofisticación y modernidad** en el 
 ### Principios Fundamentales:
 - **🖤 Minimalismo Elegante**: Menos es más - cada elemento tiene un propósito
 - **💎 Contraste Nítido**: Máxima legibilidad y jerarquía visual clara
-- **⚡ Interactividad Intuitiva**: Elementos azules guían la navegación
-- **✨ Acentos Premium**: Dorados selectivos para elementos de alto valor
+- **💧 Interactividad Moderna**: Elementos turquesa-menta guían la navegación
+- **🍅 Acentos Premium**: Naranjas terracota para elementos de alto valor
 
 ---
 
@@ -33,19 +33,19 @@ context.grayMedium      → Iconos secundarios, elementos de apoyo
 context.grayLight       → Texto secundario, placeholders
 ```
 
-### 💙 Azul Material Design - SOLO Interactividad y Estados Activos
+### 💧 Turquesa-Menta - SOLO Interactividad y Estados Activos
 
 ```dart
 // USO RESTRINGIDO: SOLO PARA ELEMENTOS INTERACTIVOS Y ESTADOS ACTIVOS
 // NO USAR PARA ELEMENTOS ESTÁTICOS O DECORATIVOS
-context.bluePrimary     → Tabs/botones activos, links interactivos
-context.blueDark        → Estados pressed/hover en elementos interactivos
-context.blueLight       → Highlights de selección, notificaciones, indicadores de estado activo
+context.primaryColor     → Tabs/botones activos, links interactivos
+context.primaryDarkColor → Estados pressed/hover en elementos interactivos
+context.primaryLightColor → Highlights de selección, notificaciones, indicadores de estado activo
 ```
 
-> **⚠️ Regla Estricta**: El color azul está reservado EXCLUSIVAMENTE para indicar interactividad o estados activos. Nunca debe usarse como color decorativo o en elementos estáticos.
+> **⚠️ Regla Estricta**: El color turquesa-menta está reservado EXCLUSIVAMENTE para indicar interactividad o estados activos. Nunca debe usarse como color decorativo o en elementos estáticos.
 
-### ✨ Dorados Premium - Elementos de Valor
+### 🍅 Naranja Terracota - Elementos de Valor
 
 ```dart
 // USO SELECTIVO - SOLO PARA ELEMENTOS PREMIUM

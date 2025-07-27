@@ -2,14 +2,14 @@
 
 Este documento es la guía oficial para todo lo relacionado con la interfaz de usuario (UI) y la experiencia de usuario (UX) en Barber Time. Su propósito es garantizar una identidad visual coherente, profesional y fácil de mantener.
 
-## 🌟 Identidad Visual Premium
+## Identidad Visual Premium
 
 Barber Time utiliza un **tema dark elegante** con una paleta de colores refinada que transmite sofisticación, profesionalismo y modernidad. La identidad visual se basa en:
 
-- **🖤 Escala de grises armoniosa** - Para crear profundidad y jerarquía visual
-- **✨ Acentos dorados selectos** - Para elementos premium y de alta importancia
-- **💙 Azul Material Design** - Para elementos interactivos y navegación
-- **💎 Contrastes nítidos** - Para máxima legibilidad y accesibilidad
+- **Escala de grises armoniosa** - Para crear profundidad y jerarquía visual
+- **Acentos turquesa-menta** - Para elementos premium y de alta importancia
+- **Naranja terracota** - Para elementos complementarios y destacados
+- **Contrastes nítidos** - Para máxima legibilidad y accesibilidad
 
 ---
 
@@ -34,18 +34,18 @@ context.grayPale        // #AAAAAA - Gris pálido para placeholders
 
 ### 1.2 Colores de Acento Premium
 
-**Dorados Elegantes (Uso Selectivo):**
+**Turquesa-Menta (Uso Principal):**
 ```dart
-context.primaryColor    // #D4AF37 - Oro clásico para elementos premium
-context.primaryDarkColor// #B8860B - Oro oscuro para profundidad
-context.primaryLightColor// #E6C757 - Oro claro para highlights
+context.primaryColor    // #3BBFAD - Turquesa-menta para elementos premium
+context.primaryDarkColor// #2A9D8F - Turquesa-menta oscuro para profundidad
+context.primaryLightColor// #5DCFBF - Turquesa-menta claro para highlights
 ```
 
-**Azul Material Design (Interactividad):**
+**Naranja Terracota (Complementario):**
 ```dart
-context.bluePrimary     // #2196F3 - Azul principal para navegación
-context.blueDark        // #1976D2 - Azul oscuro para estados pressed
-context.blueLight       // #64B5F6 - Azul claro para elementos suaves
+context.secondaryColor  // #E57C4B - Naranja terracota para elementos destacados
+context.secondaryDarkColor// #D3632F - Naranja terracota oscuro para estados pressed
+context.secondaryLightColor// #F2936A - Naranja terracota claro para elementos suaves
 ```
 
 ### 1.3 Textos Optimizados

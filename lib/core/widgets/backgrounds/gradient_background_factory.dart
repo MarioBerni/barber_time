@@ -33,11 +33,11 @@ class GradientBackgroundFactory {
     );
   }
   
-  /// Crea una instancia con el preset profesional
+  /// Crea una instancia con el preset para auth
   static AnimatedGradientBackground professional({Key? key}) {
     return fromPreset(
       key: key,
-      preset: GradientBackgroundPreset.professional,
+      preset: GradientBackgroundPreset.darkPremiumAuth,
     );
   }
   
@@ -49,19 +49,19 @@ class GradientBackgroundFactory {
     );
   }
   
-  /// Crea una instancia con el preset de bienvenida
+  /// Crea una instancia con el preset para app más clara
   static AnimatedGradientBackground welcome({Key? key}) {
     return fromPreset(
       key: key,
-      preset: GradientBackgroundPreset.welcome,
+      preset: GradientBackgroundPreset.lightApp,
     );
   }
   
-  /// Crea una instancia con el preset elegante
+  /// Crea una instancia con el preset para datos
   static AnimatedGradientBackground elegant({Key? key}) {
     return fromPreset(
       key: key,
-      preset: GradientBackgroundPreset.elegant,
+      preset: GradientBackgroundPreset.darkData,
     );
   }
 }

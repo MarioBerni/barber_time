@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
 import '../bloc/home_cubit.dart';
 import '../bloc/home_state.dart';
@@ -64,28 +65,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeContent(HomeLoaded state) {
-    // Usamos directamente un SingleChildScrollView para garantizar scroll
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Barra superior con información de usuario
-          _buildSimpleAppBar(state),
-          
-          // Sección de ofertas especiales
-          _buildSimpleSectionTitle('Ofertas especiales'),
-          _buildSpecialOffersSection(state),
-          
-          // Se eliminó la sección de categorías de servicios
-          
-          // Sección de salones mejor calificados
-          _buildSimpleSectionTitle('Salones mejor calificados'),
-          _buildSimpleTopSalonsSection(state),
-          
-          // Espaciado final
-          const SizedBox(height: 80),
-        ],
+    final theme = Theme.of(context);
+    
+    // Usamos un SingleChildScrollView con física mejorada
+    return Container(
+      // Fondo principal con el nuevo color de fondo
+      color: AppTheme.kBackgroundColor,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Barra superior con información de usuario
+            _buildSimpleAppBar(state),
+            
+            // Espaciado superior mejorado
+            const SizedBox(height: 24), // Más espacio
+            
+            // Sección de ofertas especiales con títulos modernos
+            _buildPremiumSectionTitle('Ofertas Especiales', 'Ver todas'),
+            const SizedBox(height: 16), // Más espacio
+            _buildSpecialOffersSection(state),
+            
+            // Espaciado entre secciones mejorado
+            const SizedBox(height: 40), // Aún más espacio entre secciones
+            
+            // Sección de salones mejor calificados
+            _buildPremiumSectionTitle('Barberías Premium', 'Ver todas', showPremiumIcon: true),
+            const SizedBox(height: 16), // Más espacio
+            _buildSimpleTopSalonsSection(state),
+            
+            // Espaciado final
+            const SizedBox(height: 100),
+          ],
+        ),
       ),
     );
   }
@@ -106,28 +119,66 @@ class _HomePageState extends State<HomePage> {
     );
   }
   
-  /// Construye un título de sección simplificado
-  Widget _buildSimpleSectionTitle(String title) {
-    final theme = Theme.of(context);
-    
+  /// Construye un título de sección con estilo moderno
+  Widget _buildPremiumSectionTitle(String title, String actionText, {bool showPremiumIcon = false}) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0), // Mayor padding
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: theme.textTheme.titleLarge,
+          // Título con icono premium opcional
+          Row(
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 22, // Ligeramente más grande
+                  fontWeight: FontWeight.w700,
+                  color: AppTheme.kOffWhite, // Color blanco de la nueva paleta
+                  letterSpacing: 0.3, // Mayor espaciado
+                ),
+              ),
+              if (showPremiumIcon) ...[  
+                const SizedBox(width: 10), // Más espacio
+                Icon(
+                  Icons.verified_rounded,
+                  color: AppTheme.kAccentColor, // Naranja terracota de la nueva paleta
+                  size: 20, // Ligeramente más grande
+                )
+              ],
+            ],
           ),
+          
+          // Botón de acción con nuevo estilo
           TextButton(
             onPressed: () {
               // Navegar a ver todos
             },
-            child: const Text('Ver todos'),
+            style: TextButton.styleFrom(
+              foregroundColor: AppTheme.kPrimaryColor, // Color turquesa-menta de la nueva paleta
+              backgroundColor: AppTheme.kSurfaceAlt.withOpacity(0.3), // Fondo sutil
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10), // Mayor padding
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12), // Más redondeado
+              ),
+            ),
+            child: Text(
+              actionText,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: AppTheme.kPrimaryColor, // Turquesa-menta para cohesión
+              ),
+            ),
           ),
         ],
       ),
     );
+  }
+  
+  /// Método anterior simplificado (mantenido por compatibilidad)
+  Widget _buildSimpleSectionTitle(String title) {
+    return _buildPremiumSectionTitle(title, 'Ver todos');
   }
   
   /// Construye un listado simplificado de salones mejor calificados
@@ -142,21 +193,27 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Column(
             children: [
-              const Icon(Icons.search_off, size: 48, color: Colors.grey),
+              Icon(Icons.search_off, size: 50, color: AppTheme.kMediumGray),
               const SizedBox(height: 16),
               Text(
                 'No se encontraron barberías con "${state.searchQuery}"',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.grey[600],
+                  color: AppTheme.kLightGray,
+                  fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               TextButton(
                 onPressed: () {
                   _searchController.clear();
                   context.read<HomeCubit>().clearSearch();
                 },
+                style: TextButton.styleFrom(
+                  foregroundColor: AppTheme.kPrimaryColor,
+                  backgroundColor: AppTheme.kSurfaceAlt.withOpacity(0.3),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                ),
                 child: const Text('Limpiar búsqueda'),
               ),
             ],

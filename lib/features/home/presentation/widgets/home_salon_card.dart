@@ -104,9 +104,9 @@ class HomeSalonCard extends StatelessWidget {
                       // Calificación y número de reseñas
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: context.accentColor, // Actualizado a naranja terracota
                             size: 18,
                           ),
                           const SizedBox(width: 4),
@@ -137,7 +137,7 @@ class HomeSalonCard extends StatelessWidget {
                         child: Text(
                           salon.price,
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.secondary,
+                            color: theme.colorScheme.secondary, // Naranja terracota
                             fontWeight: FontWeight.bold,
                           ),
                         ),
