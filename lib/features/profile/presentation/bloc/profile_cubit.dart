@@ -206,32 +206,5 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  /// Método para crear un mock de perfil de administrador
-  UserProfile _getMockAdminProfile() {
-    return UserProfile(
-      id: 'admin456',
-      name: 'Carlos Rodríguez',
-      email: 'carlos.rodriguez@ejemplo.com',
-      imageUrl: 'https://i.pravatar.cc/150?img=7',
-      phoneNumber: '+598 99 234 567',
-      userType: UserType.admin,
-      isVerified: true,
-      createdAt: DateTime.now().subtract(const Duration(days: 90)),
-      adminData: const AdminData(
-        salonId: 'salon123',
-        role: 'dueño',
-        providedServices: [
-          'corte_clasico',
-          'barba',
-          'afeitado',
-        ],
-        permissions: [
-          'manage_salon',
-          'manage_services',
-          'manage_bookings',
-          'manage_staff',
-        ],
-      ),
-    );
-  }
+  // El método _getMockAdminProfile ha sido completamente eliminado
 }

@@ -3,7 +3,6 @@ import '../../../core/theme/app_theme_extensions.dart';
 import '../avatars/user_avatar.dart';
 import '../inputs/search_bar.dart' as custom;
 import '../icons/styled_icon.dart';
-import '../../../core/constants/montevideo_barrios.dart';
 
 /// Barra de navegación superior personalizable y reutilizable
 /// 
