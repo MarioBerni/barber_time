@@ -25,7 +25,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20), // Bordes más redondeados
         boxShadow: [
           BoxShadow(
-            color: AppTheme.kBackgroundColor.withOpacity(0.7),
+            color: AppTheme.kBackgroundColor.withAlpha(179),
             blurRadius: 12,
             spreadRadius: 2,
             offset: const Offset(0, 6),
@@ -35,7 +35,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
       child: GlamContainer(
         fixedSize: const Size(290, 170), // Ligeramente más grande
         borderRadius: BorderRadius.circular(20), // Bordes consistentes
-        borderColor: AppTheme.kPrimaryDarkColor.withOpacity(0.4), // Borde sutil turquesa
+        borderColor: AppTheme.kPrimaryDarkColor.withAlpha(102), // Borde sutil turquesa
         borderWidth: 1.5, // Borde más visible
         child: Stack(
           children: [

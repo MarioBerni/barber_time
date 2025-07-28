@@ -62,7 +62,7 @@ class StyledIcon extends StatelessWidget {
         (isActive ? context.primaryColor : Colors.grey[400] ?? Colors.grey); // Turquesa-menta para activo, gris para inactivo
     
     final effectiveBackgroundColor = backgroundColor ?? 
-        (isActive ? context.primaryColor.withOpacity(0.15) : context.surfaceColor); // Fondo sutil turquesa
+        (isActive ? context.primaryColor.withAlpha(38) : context.surfaceColor); // Fondo sutil turquesa
     
     return Stack(
       clipBehavior: Clip.none,
@@ -110,7 +110,7 @@ class StyledIcon extends StatelessWidget {
         Icon(
           icon,
           size: (iconSize ?? context.iconSizeDefault) + 4,
-          color: context.primaryColor.withOpacity(0.4), // Usar color primario (turquesa) para brillo
+          color: context.primaryColor.withAlpha(102), // Usar color primario (turquesa) para brillo
         ),
         // Icono principal
         Icon(

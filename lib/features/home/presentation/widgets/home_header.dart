@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/navigation/app_top_bar.dart';
 import '../../../../core/widgets/icons/styled_icon.dart';
 
@@ -108,9 +107,6 @@ class HomeHeader extends StatelessWidget {
     // Obtener fecha actual para mostrar
     final now = DateTime.now();
     final formattedDate = '${_getDayName(now.weekday)}, ${_getMonthName(now.month)} ${now.day}, ${now.year}';
-    
-    // Obtener colores del nuevo theme
-    final theme = Theme.of(context);
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

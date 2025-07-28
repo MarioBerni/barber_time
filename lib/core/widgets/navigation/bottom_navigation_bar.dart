@@ -136,7 +136,7 @@ class AppBottomNavigationBar extends StatelessWidget {
           ? context.primaryColor // Turquesa-menta para iconos activos
           : Colors.grey[400], // Gris claro para iconos inactivos
       backgroundColor: isActive 
-          ? context.primaryColor.withOpacity(0.15) // Fondo sutil turquesa para activo
+          ? context.primaryColor.withAlpha(38) // Fondo sutil turquesa para activo
           : Colors.transparent, // Sin fondo para inactivos (minimalista)
       iconSize: size ?? 24,
       circleSize: 42,

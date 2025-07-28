@@ -65,8 +65,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeContent(HomeLoaded state) {
-    final theme = Theme.of(context);
-    
     // Usamos un SingleChildScrollView con física mejorada
     return Container(
       // Fondo principal con el nuevo color de fondo
@@ -156,7 +154,7 @@ class _HomePageState extends State<HomePage> {
             },
             style: TextButton.styleFrom(
               foregroundColor: AppTheme.kPrimaryColor, // Color turquesa-menta de la nueva paleta
-              backgroundColor: AppTheme.kSurfaceAlt.withOpacity(0.3), // Fondo sutil
+              backgroundColor: AppTheme.kSurfaceAlt.withAlpha(77), // Fondo sutil
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10), // Mayor padding
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12), // Más redondeado
@@ -176,10 +174,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
   
-  /// Método anterior simplificado (mantenido por compatibilidad)
-  Widget _buildSimpleSectionTitle(String title) {
-    return _buildPremiumSectionTitle(title, 'Ver todos');
-  }
+  // Método eliminado por no ser usado
   
   /// Construye un listado simplificado de salones mejor calificados
   Widget _buildSimpleTopSalonsSection(HomeLoaded state) {
@@ -211,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 style: TextButton.styleFrom(
                   foregroundColor: AppTheme.kPrimaryColor,
-                  backgroundColor: AppTheme.kSurfaceAlt.withOpacity(0.3),
+                  backgroundColor: AppTheme.kSurfaceAlt.withAlpha(77),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 ),
                 child: const Text('Limpiar búsqueda'),
