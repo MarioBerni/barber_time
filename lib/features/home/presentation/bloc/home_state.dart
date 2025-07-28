@@ -4,6 +4,18 @@ import '../../domain/entities/salon.dart';
 import '../../domain/entities/service_category.dart';
 import '../../domain/entities/special_offer.dart';
 
+/// Enum que define las pestañas disponibles en la página de inicio
+enum HomeTab {
+  /// Pestaña de destacados (muestra el contenido principal)
+  destacados,
+  
+  /// Pestaña de barberías cercanas (filtradas por distancia)
+  cercanos,
+  
+  /// Pestaña de mejor valorados (filtrados por rating)
+  mejorValorados,
+}
+
 /// Representa los diferentes estados de la página de inicio
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -34,6 +46,10 @@ class HomeLoaded extends HomeState {
   final String searchQuery;
   /// Salones filtrados según la búsqueda
   final List<Salon> filteredSalons;
+  /// Pestaña actualmente seleccionada
+  final HomeTab selectedTab;
+  /// Salones filtrados según la pestaña seleccionada
+  final List<Salon> tabFilteredSalons;
   
   const HomeLoaded({
     required this.userName,
@@ -44,7 +60,10 @@ class HomeLoaded extends HomeState {
     this.isSearchActive = false,
     this.searchQuery = '',
     List<Salon>? filteredSalons,
-  }) : filteredSalons = filteredSalons ?? topRatedSalons;
+    this.selectedTab = HomeTab.destacados,
+    List<Salon>? tabFilteredSalons,
+  }) : filteredSalons = filteredSalons ?? topRatedSalons,
+       tabFilteredSalons = tabFilteredSalons ?? topRatedSalons;
   
   @override
   List<Object?> get props => [
@@ -56,6 +75,8 @@ class HomeLoaded extends HomeState {
     isSearchActive,
     searchQuery,
     filteredSalons,
+    selectedTab,
+    tabFilteredSalons,
   ];
   
   /// Crea una copia del estado con los campos actualizados
@@ -68,6 +89,8 @@ class HomeLoaded extends HomeState {
     bool? isSearchActive,
     String? searchQuery,
     List<Salon>? filteredSalons,
+    HomeTab? selectedTab,
+    List<Salon>? tabFilteredSalons,
   }) {
     return HomeLoaded(
       userName: userName ?? this.userName,
@@ -78,6 +101,8 @@ class HomeLoaded extends HomeState {
       isSearchActive: isSearchActive ?? this.isSearchActive,
       searchQuery: searchQuery ?? this.searchQuery,
       filteredSalons: filteredSalons ?? this.filteredSalons,
+      selectedTab: selectedTab ?? this.selectedTab,
+      tabFilteredSalons: tabFilteredSalons ?? this.tabFilteredSalons,
     );
   }
 }

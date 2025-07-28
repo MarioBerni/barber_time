@@ -18,12 +18,15 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       final homeData = await _getHomeDataUsecase.execute();
       
+      final salons = homeData.topRatedSalons;
+      
       emit(HomeLoaded(
         userName: homeData.userName,
         hasNotifications: homeData.hasNotifications,
         specialOffers: homeData.specialOffers,
         serviceCategories: homeData.serviceCategories,
-        topRatedSalons: homeData.topRatedSalons,
+        topRatedSalons: salons,
+        tabFilteredSalons: _getFilteredSalonsByTab(salons, HomeTab.destacados),
       ));
     } catch (e) {
       emit(HomeError('Error al cargar los datos: ${e.toString()}'));
@@ -171,10 +174,73 @@ class HomeCubit extends Cubit<HomeState> {
         return salon;
       }).toList();
       
+      // Actualizar también los salones filtrados por pestaña
+      final updatedTabFilteredSalons = currentState.tabFilteredSalons.map((salon) {
+        if (salon.id == salonId) {
+          return Salon(
+            id: salon.id,
+            name: salon.name,
+            address: salon.address,
+            imageUrl: salon.imageUrl,
+            additionalImages: salon.additionalImages,
+            rating: salon.rating,
+            reviewCount: salon.reviewCount,
+            price: salon.price,
+            isFavorite: !salon.isFavorite,
+            distance: salon.distance,
+          );
+        }
+        return salon;
+      }).toList();
+      
       emit(currentState.copyWith(
         topRatedSalons: updatedSalons,
         filteredSalons: updatedFilteredSalons,
+        tabFilteredSalons: updatedTabFilteredSalons,
       ));
+    }
+  }
+  
+  /// Cambia la pestaña seleccionada y filtra los salones según corresponda
+  void selectTab(HomeTab tab) {
+    final currentState = state;
+    if (currentState is HomeLoaded) {
+      final salonsToFilter = currentState.isSearchActive 
+          ? currentState.filteredSalons 
+          : currentState.topRatedSalons;
+          
+      final filteredSalons = _getFilteredSalonsByTab(salonsToFilter, tab);
+      
+      emit(currentState.copyWith(
+        selectedTab: tab,
+        tabFilteredSalons: filteredSalons,
+      ));
+    }
+  }
+  
+  /// Filtra los salones según la pestaña seleccionada
+  List<Salon> _getFilteredSalonsByTab(List<Salon> salons, HomeTab tab) {
+    switch (tab) {
+      case HomeTab.destacados:
+        // Para destacados, mostramos todos sin filtrar
+        return List.from(salons);
+        
+      case HomeTab.cercanos:
+        // Para cercanos, ordenamos por distancia (menor a mayor)
+        final sorted = List<Salon>.from(salons);
+        sorted.sort((a, b) {
+          // Convertimos de String a double (distance es String? en la clase Salon)
+          final distanceA = a.distance != null ? double.tryParse(a.distance!) ?? double.infinity : double.infinity;
+          final distanceB = b.distance != null ? double.tryParse(b.distance!) ?? double.infinity : double.infinity;
+          return distanceA.compareTo(distanceB);
+        });
+        return sorted;
+        
+      case HomeTab.mejorValorados:
+        // Para mejor valorados, ordenamos por rating (mayor a menor)
+        final sorted = List<Salon>.from(salons);
+        sorted.sort((a, b) => b.rating.compareTo(a.rating));
+        return sorted;
     }
   }
 }
