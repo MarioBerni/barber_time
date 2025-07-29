@@ -305,16 +305,124 @@ La carpeta `lib/core/widgets/` contiene widgets genéricos y reutilizables en to
 
 Para asegurar una experiencia de usuario consistente al manejar datos, es fundamental usar componentes estandarizados para los estados comunes de la lógica de negocio (BLoC/Cubit).
 
-Se deben crear y utilizar los siguientes widgets reutilizables desde `lib/core/widgets/`:
+Los siguientes widgets reutilizables están disponibles en `lib/core/widgets/states/` y pueden importarse fácilmente mediante el archivo barrel:
 
-*   **`LoadingIndicatorWidget`:**
-    *   **Propósito:** Mostrar cuando la aplicación está esperando una respuesta (ej: cargando datos de la red).
-    *   **Diseño:** Debe ser una animación sutil y no intrusiva que se alinee con la identidad visual de la marca.
+```dart
+import 'package:barber_time/core/widgets/states/states.dart';
+```
 
-*   **`ErrorMessageWidget`:**
-    *   **Propósito:** Mostrar un mensaje de error amigable cuando una operación falla.
-    *   **Diseño:** Debe incluir un icono de error, un título claro y un mensaje descriptivo. Opcionalmente, puede incluir un botón de "Reintentar".
+### 5.1 LoadingIndicatorWidget
 
-*   **`EmptyStateWidget`:**
-    *   **Propósito:** Mostrar cuando una lista o una búsqueda no devuelve resultados.
-    *   **Diseño:** Debe ser visualmente agradable, con un icono o ilustración, un título (ej: "No se encontraron barberías") y un subtítulo que sugiera una acción.
+*   **Propósito:** Mostrar cuando la aplicación está esperando una respuesta (ej: cargando datos de la red).
+*   **Diseño:** Animación sutil y no intrusiva que se alinea con la identidad visual de la marca.
+
+#### Parámetros
+
+```dart
+LoadingIndicatorWidget({
+  super.key,
+  this.size = 40.0, // Tamaño del indicador
+  this.message, // Mensaje opcional bajo el indicador
+  this.withOverlay = true, // Si debe mostrar un fondo semitransparente
+  this.color, // Color personalizado (si se omite usa el color primario del tema)
+})
+```
+
+#### Ejemplo de uso
+
+```dart
+// Uso básico en respuesta a un estado de carga
+BlocBuilder<MiBloc, MiEstado>(
+  builder: (context, state) {
+    if (state is EstadoCargando) {
+      return const LoadingIndicatorWidget();
+    }
+    // ...
+  },
+);
+
+// Uso con mensaje y sin overlay
+const LoadingIndicatorWidget(
+  message: 'Cargando barberías cercanas...',
+  withOverlay: false,
+);
+```
+
+### 5.2 ErrorMessageWidget
+
+*   **Propósito:** Mostrar un mensaje de error amigable cuando una operación falla.
+*   **Diseño:** Incluye un icono de error, un título claro y un mensaje descriptivo. Opcionalmente, incluye un botón de "Reintentar".
+
+#### Parámetros
+
+```dart
+ErrorMessageWidget({
+  super.key,
+  required this.title, // Título del error
+  required this.message, // Mensaje descriptivo
+  this.onRetry, // Función callback para reintentar (opcional)
+  this.icon, // Icono personalizado (opcional)
+})
+```
+
+#### Ejemplo de uso
+
+```dart
+// Uso básico para mostrar un error
+BlocBuilder<MiBloc, MiEstado>(
+  builder: (context, state) {
+    if (state is EstadoError) {
+      return ErrorMessageWidget(
+        title: 'No pudimos cargar los datos',
+        message: state.errorMessage,
+        onRetry: () => context.read<MiBloc>().add(CargarDatosEvent()),
+      );
+    }
+    // ...
+  },
+);
+```
+
+### 5.3 EmptyStateWidget
+
+*   **Propósito:** Mostrar cuando una lista o una búsqueda no devuelve resultados.
+*   **Diseño:** Visualmente agradable, con un icono o ilustración, un título y un subtítulo que sugiere una acción.
+
+#### Parámetros
+
+```dart
+EmptyStateWidget({
+  super.key,
+  required this.title, // Título principal
+  required this.message, // Mensaje descriptivo
+  this.icon, // Icono personalizado (opcional)
+  this.actionLabel, // Texto del botón de acción (opcional)
+  this.onAction, // Función callback para la acción (opcional)
+})
+```
+
+#### Ejemplo de uso
+
+```dart
+// Uso básico para mostrar un estado vacío
+BlocBuilder<BusquedaBloc, BusquedaEstado>(
+  builder: (context, state) {
+    if (state is ResultadosVacios) {
+      return EmptyStateWidget(
+        title: 'No encontramos resultados',
+        message: 'Intenta con otros términos de búsqueda',
+        icon: Icons.search_off,
+        actionLabel: 'Limpiar filtros',
+        onAction: () => context.read<BusquedaBloc>().add(LimpiarFiltrosEvent()),
+      );
+    }
+    // ...
+  },
+);
+```
+
+### 5.4 Buenas Prácticas
+
+- **Consistencia:** Usa estos componentes en toda la aplicación para mantener una experiencia de usuario uniforme.
+- **Personaliza con Cuidado:** Aunque estos widgets son personalizables, mantente dentro de las directrices visuales del proyecto.
+- **Mensajes Amigables:** Escribe mensajes de error y estados vacíos claros, amigables y orientados a soluciones.

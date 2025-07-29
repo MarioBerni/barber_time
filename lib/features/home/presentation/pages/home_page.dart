@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
+import '../../../../core/widgets/states/states.dart';
 import '../bloc/home_cubit.dart';
 import '../bloc/home_state.dart';
 import '../controllers/home_navigation_controller.dart';
@@ -67,17 +68,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         builder: (context, state) {
           if (state is HomeInitial) {
             context.read<HomeCubit>().loadHomeData();
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingIndicatorWidget(
+              size: LoadingIndicatorSize.large,
+              message: 'Preparando tu experiencia personalizada...',
+              showBackground: true,
+            );
           } else if (state is HomeLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingIndicatorWidget(
+              size: LoadingIndicatorSize.large,
+              message: 'Cargando las mejores barberías para ti...',
+              showBackground: true,
+            );
           } else if (state is HomeError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return ErrorMessageWidget(
+              title: 'Ups, algo salió mal',
+              message: state.message,
+              onRetry: () => context.read<HomeCubit>().loadHomeData(),
+            );
           } else if (state is HomeLoaded) {
             return _buildHomeContent(state);
           }
           
           // Estado por defecto
-          return const Center(child: CircularProgressIndicator());
+          return const LoadingIndicatorWidget(
+            size: LoadingIndicatorSize.medium,
+            showBackground: true,
+          );
         },
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),

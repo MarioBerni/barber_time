@@ -69,7 +69,49 @@ La duplicación de código es la forma más rápida de introducir inconsistencia
 
 ---
 
-## 4. Comandos Esenciales
+## 4. Calidad de Código y Comandos Esenciales
+
+### 4.1 Linter Estricto
+
+Barber Time utiliza un conjunto estricto de reglas de análisis estático y linter definidas en el archivo `analysis_options.yaml` para mantener un código limpio y consistente. Este linter estricto:
+
+- **Es obligatorio:** Todo el código debe pasar sin errores ni advertencias antes de ser considerado listo para commit.
+- **Es automático:** Configura tu editor para que formatee automáticamente el código al guardar.
+- **Es consistente:** Asegura que todo el código siga las mismas convenciones independientemente del desarrollador.
+
+#### Reglas Principales
+
+- **Límite de líneas:** Los archivos no deben exceder las 200 líneas (regla manual) y las líneas individuales no deben exceder 80 caracteres.
+- **Documentación:** Todas las clases y métodos públicos deben tener documentación con `///`.
+- **Inmutabilidad:** Preferencia por variables `final` cuando sea posible.
+- **Uso de super parámetros:** Utilizar la sintaxis de super parámetros en constructores.
+- **Comillas simples:** Usar comillas simples para strings.
+
+#### Configuración del Editor
+
+##### VS Code
+1. Instalar la extensión **Dart** oficial.
+2. Activar "Format On Save" en la configuración:
+   ```json
+   "editor.formatOnSave": true,
+   "[dart]": {
+     "editor.formatOnSave": true,
+     "editor.formatOnType": true,
+     "editor.rulers": [80],
+     "editor.codeActionsOnSave": {
+       "source.fixAll": true
+     }
+   }
+   ```
+
+##### Android Studio / IntelliJ IDEA
+1. Instalar el plugin **Dart** y **Flutter**.
+2. Activar en Preferences > Languages & Frameworks > Dart > Dart Code Style:
+   - "Format code on save"
+   - "Organize imports on save"
+   - "Automatically format code on typing"
+
+### 4.2 Comandos Esenciales
 
 ```bash
 # Obtener/actualizar dependencias
@@ -87,6 +129,24 @@ flutter pub run build_runner build --delete-conflicting-outputs
 # Ejecutar la aplicación
 flutter run
 ```
+
+### 4.3 Resolvión de Problemas de Linter
+
+Si encuentras advertencias o errores que no puedes resolver fácilmente:
+
+1. **Consulta la documentación:** Cada regla está documentada en https://dart.dev/linter-rules
+2. **Suppression selectiva:** Si es absolutamente necesario, puedes suprimir una regla específica:
+   ```dart
+   // ignore: nombre_de_la_regla
+   código que genera la advertencia;
+   ```
+   
+   O para todo un archivo:
+   ```dart
+   // ignore_for_file: nombre_de_la_regla
+   ```
+   
+3. **Nunca deshabilites reglas globalmente** en el archivo `analysis_options.yaml` sin discusión previa con el equipo.
 
 ---
 

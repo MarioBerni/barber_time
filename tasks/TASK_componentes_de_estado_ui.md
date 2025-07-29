@@ -8,20 +8,21 @@
 
 ### Checklist
 
-- [ ] **Widget de Carga**
-  - [ ] Crear `LoadingIndicatorWidget` en `lib/core/widgets/`.
-  - [ ] Diseñar una animación de carga sutil que se alinee con la identidad visual de la marca.
+- [x] **Widget de Carga**
+  - [x] Crear `LoadingIndicatorWidget` en `lib/core/widgets/states/`.
+  - [x] Diseñar una animación de carga sutil que se alinee con la identidad visual de la marca.
 
-- [ ] **Widget de Error**
-  - [ ] Crear `ErrorMessageWidget` en `lib/core/widgets/`.
-  - [ ] Diseñar una vista que incluya un icono, un título, un mensaje descriptivo y un botón opcional de "Reintentar".
+- [x] **Widget de Error**
+  - [x] Crear `ErrorMessageWidget` en `lib/core/widgets/states/`.
+  - [x] Diseñar una vista que incluya un icono, un título, un mensaje descriptivo y un botón opcional de "Reintentar".
 
-- [ ] **Widget de Estado Vacío**
-  - [ ] Crear `EmptyStateWidget` en `lib/core/widgets/`.
-  - [ ] Diseñar una vista con un icono o ilustración, un título y un subtítulo para contextos como "No se encontraron resultados".
+- [x] **Widget de Estado Vacío**
+  - [x] Crear `EmptyStateWidget` en `lib/core/widgets/states/`.
+  - [x] Diseñar una vista con un icono o ilustración, un título y un subtítulo para contextos como "No se encontraron resultados".
 
-- [ ] **Integración**
-  - [ ] Reemplazar los posibles `CircularProgressIndicator` o `Text('Error')` hardcodeados con los nuevos widgets estandarizados.
+- [x] **Integración**
+  - [x] Reemplazar los posibles `CircularProgressIndicator` o `Text('Error')` hardcodeados con los nuevos widgets estandarizados.
+  - [x] Crear archivo barrel `states.dart` para facilitar la importación de los componentes.
 
 ---
 
