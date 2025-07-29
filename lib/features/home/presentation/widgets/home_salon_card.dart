@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
@@ -34,19 +35,25 @@ class HomeSalonCard extends StatelessWidget {
               topLeft: Radius.circular(12),
               bottomLeft: Radius.circular(12),
             ),
-            child: Image.network(
-              salon.imageUrl,
+            child: CachedNetworkImage(
+              imageUrl: salon.imageUrl,
               width: 110,
               height: 110,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  width: 110,
-                  height: 110,
-                  color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
-                  child: Icon(Icons.image_not_supported, size: context.iconSizeDefault),
-                );
-              },
+              placeholder: (context, url) => Container(
+                width: 110,
+                height: 110,
+                color: theme.colorScheme.primary.withAlpha((0.1 * 255).round()),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                width: 110,
+                height: 110,
+                color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
+                child: Icon(Icons.image_not_supported, size: context.iconSizeDefault),
+              ),
             ),
           ),
           

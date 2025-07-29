@@ -29,12 +29,12 @@
     - [x] Añadir botón de acción más prominente para cada oferta.
     - [x] Crear transición 3D entre tarjetas al desplazar.
 
-- [ ] **Optimizar la Carga y Desempeño**
-  - [ ] Refactorizar la estructura a `CustomScrollView` con `SliverAppBar` y `SliverList`.
-  - [ ] Implementar carga progresiva (lazy loading) para salones.
-  - [ ] Optimizar carga de imágenes con `cached_network_image`:
-    - [ ] Configurar placeholders animados durante la carga.
-    - [ ] Implementar desvanecimiento suave al cargar imágenes.
+- [x] **Optimizar la Carga y Desempeño**
+  - [x] Refactorizar la estructura a `CustomScrollView` con componentes `Sliver`.
+  - [x] Implementar carga progresiva (lazy loading) para salones con `SliverList` y `SliverChildBuilderDelegate`.
+  - [x] Optimizar carga de imágenes con `cached_network_image`:
+    - [x] Configurar placeholders animados durante la carga.
+    - [x] Implementar manejo adecuado de errores de carga.
   - [ ] Aplicar compresión y caching para mejorar tiempo de carga inicial.
 
 - [ ] **Añadir Funcionalidades de Valor**
@@ -55,6 +55,10 @@
     - [x] Crear `HomeTabContent` para el contenido de cada pestaña.
   - [x] Extraer lógica de navegación a `HomeNavigationController`.
   - [x] Refactorizar `HomeCubit` para manejar estados relacionados de manera más cohesiva.
+  - [x] Corregir advertencias y deprecaciones detectadas por el analizador:
+    - [x] Reemplazar `withOpacity` por `withAlpha` para evitar pérdida de precisión.
+    - [x] Actualizar APIs deprecadas como `MaterialStateProperty` a `WidgetStateProperty`.
+    - [x] Eliminar imports innecesarios para mantener el código limpio.
   - [ ] Aplicar técnicas de memoización para evitar reconstrucciones innecesarias de widgets.
   - [ ] Implementar `const constructors` donde sea apropiado para mejorar rendimiento.
 

@@ -90,9 +90,68 @@ flutter run
 
 ---
 
-## 5. Infraestructura de Desarrollo
+## 5. Optimización de UI y Rendimiento
 
-### 5.1 Análisis de Código (Linter)
+### 5.1 Mejores Prácticas de Optimización
+
+#### Carga Eficiente de Listas
+- **Lazy Loading con Slivers:** Utilizar `CustomScrollView` con componentes `Sliver` en lugar de combinaciones de `SingleChildScrollView` y `Column` para mejorar el rendimiento.
+- **Construcción Bajo Demanda:** Implementar `SliverList` con `SliverChildBuilderDelegate` para construir elementos solo cuando sean visibles.
+
+```dart
+// Enfoque NO optimizado
+SingleChildScrollView(
+  child: Column(
+    children: salones.map((salon) => SalonCard(salon: salon)).toList(),
+  ),
+)
+
+// Enfoque optimizado con lazy loading
+CustomScrollView(
+  slivers: [
+    SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => SalonCard(salon: salones[index]),
+        childCount: salones.length,
+      ),
+    ),
+  ],
+)
+```
+
+#### Optimización de Imágenes
+- **Uso Obligatorio de Caching:** Utilizar `cached_network_image` para todas las imágenes de red.
+- **Placeholders y Errores:** Configurar siempre placeholders y widgets de error para mejorar la experiencia de usuario.
+
+```dart
+// Implementación Correcta
+CachedNetworkImage(
+  imageUrl: url,
+  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+  errorWidget: (context, url, error) => Icon(Icons.error),
+)
+```
+
+#### APIs Deprecadas y Actualizaciones
+- Reemplazar `withOpacity` por `withAlpha` para evitar pérdida de precisión: 
+  ```dart
+  // Incorrecto
+  color: Colors.black.withOpacity(0.5)
+  
+  // Correcto
+  color: Colors.black.withAlpha((0.5 * 255).round())
+  ```
+
+- Usar `WidgetStateProperty` en lugar de `MaterialStateProperty` (APIs actualizadas):
+  ```dart
+  // Deprecado
+  overlayColor: MaterialStateProperty.resolveWith((states) => color)
+  
+  // Actual
+  overlayColor: WidgetStateProperty.resolveWith((states) => color)
+  ```
+
+### 5.2 Análisis de Código (Linter)
 
 El proyecto utiliza un linter estricto para garantizar la calidad y consistencia del código. **Es obligatorio que todo el código pase el análisis sin errores antes de cualquier commit.**
 

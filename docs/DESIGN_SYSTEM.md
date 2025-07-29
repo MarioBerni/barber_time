@@ -1,17 +1,179 @@
-# 🎨 Barber Time: Sistema de Diseño y UI
+# 🎨 Barber Time: Sistema de Diseño
 
-Este documento es la guía oficial para todo lo relacionado con la interfaz de usuario (UI) y la experiencia de usuario (UX) en Barber Time. Su propósito es garantizar una identidad visual coherente, profesional y fácil de mantener.
+> **Guía oficial para interfaces consistentes, elegantes y de alto rendimiento**
 
-## Identidad Visual Premium
+## 🔸 Filosofía de Diseño
 
-Barber Time utiliza un **tema dark elegante** con una paleta de colores refinada que transmite sofisticación, profesionalismo y modernidad. La identidad visual se basa en:
+Barber Time representa **elegancia, sofisticación y modernidad** con un tema dark premium que comunica profesionalismo y exclusividad. Nuestros principios fundamentales son:
 
-- **Escala de grises armoniosa** - Para crear profundidad y jerarquía visual
-- **Acentos turquesa-menta** - Para elementos premium y de alta importancia
-- **Naranja terracota** - Para elementos complementarios y destacados
-- **Contrastes nítidos** - Para máxima legibilidad y accesibilidad
+- **🖤 Minimalismo Elegante**: Menos es más - cada elemento tiene un propósito
+- **💎 Contraste Nítido**: Máxima legibilidad y jerarquía visual clara
+- **💧 Interactividad Intuitiva**: Elementos turquesa-menta guían la navegación
+- **🍅 Acentos Premium**: Naranjas terracota para elementos destacados
 
 ---
+
+## 🎨 Paleta de Colores
+
+### Escala de Grises - Base del Diseño
+
+```dart
+// De más profundo a más claro
+context.blackPure       // #000000 - Negro puro para máximo contraste
+context.blackDeep       // #0A0A0A - Fondo principal de pantallas
+context.charcoalDark    // #1A1A1A - Navegación, headers, footers
+context.charcoalMedium  // #2A2A2A - Cards principales, contenedores
+context.charcoalLight   // #3A3A3A - Elementos elevados, modals
+context.grayDark        // #4A4A4A - Divisores, borders importantes
+context.grayMedium      // #6A6A6A - Iconos secundarios
+context.grayLight       // #8A8A8A - Texto secundario
+context.grayPale        // #AAAAAA - Placeholders
+```
+
+### Colores de Acento
+
+```dart
+// TURQUESA-MENTA - SOLO INTERACTIVIDAD
+context.primaryColor     // #3BBFAD - Elementos interactivos/activos
+context.primaryDarkColor // #2A9D8F - Estados pressed/hover 
+context.primaryLightColor// #5DCFBF - Highlights, notificaciones
+
+// NARANJA TERRACOTA - ELEMENTOS DESTACADOS
+context.secondaryColor    // #E57C4B - Precios, ofertas, rating
+context.secondaryDarkColor// #D3632F - Estados pressed
+context.secondaryLightColor// #F2936A - Highlights suaves
+
+// TEXTOS
+context.textColor         // #FFFFFF - Texto principal
+context.secondaryTextColor// #E0E0E0 - Texto secundario
+context.tertiaryTextColor // #AAAAAA - Placeholders
+```
+
+> ⚠️ **IMPORTANTE**: El color turquesa-menta (primaryColor) está reservado SOLO para interactividad o estados activos. Nunca debe usarse como decorativo o en elementos estáticos.
+
+---
+
+## 🗽 Tipografía y Espaciado
+
+### Jerarquía Tipográfica (Poppins)
+
+```dart
+// TÍTULOS
+headlineLarge  // 28px, bold     - Títulos principales
+headlineMedium // 24px, semibold - Subtitulos
+headlineSmall  // 20px, semibold - Títulos de sección
+
+// TEXTO
+bodyLarge      // 16px, normal   - Texto principal
+bodyMedium     // 14px, normal   - Texto estándar
+bodySmall      // 12px, normal   - Texto pequeño
+
+// ETIQUETAS
+labelLarge     // 14px, medium   - Etiquetas destacadas
+labelMedium    // 12px, medium   - Etiquetas estándar
+labelSmall     // 10px, medium   - Etiquetas pequeñas
+```
+
+### Espaciado Consistente
+
+```dart
+context.spacing.xxs   // 4.0  - Mínimo (entre icono y texto)
+context.spacing.xs    // 8.0  - Padding interno compacto
+context.spacing.sm    // 12.0 - Padding estándar
+context.spacing.md    // 16.0 - Margen entre elementos relacionados
+context.spacing.lg    // 24.0 - Margen entre secciones
+context.spacing.xl    // 32.0 - Separación entre bloques
+context.spacing.xxl   // 48.0 - Separación entre secciones principales
+```
+
+---
+
+## 🔨 Componentes Principales
+
+### Estructura de Pantalla Estándar
+
+```dart
+Scaffold(
+  backgroundColor: context.blackDeep,          // Fondo principal
+  appBar: AppBar(
+    backgroundColor: context.charcoalDark,     // Headers oscuros
+    foregroundColor: context.textColor,        // Texto blanco
+  ),
+  bottomNavigationBar: BarberBottomNavigationBar(),  // Nav oscuro con iconos turquesa activos
+)
+```
+
+### Cards y Contenedores
+
+```dart
+// CARD ESTÁNDAR
+Container(
+  decoration: BoxDecoration(
+    color: context.charcoalMedium,             // Fondo de card
+    borderRadius: BorderRadius.circular(12),   // Radio estándar
+  ),
+)
+```
+
+### Botones
+
+```dart
+// BOTÓN PRIMARIO
+ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    backgroundColor: context.primaryColor,     // Turquesa para acciones principales
+    foregroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  ),
+)
+```
+
+---
+
+## 🚀 Optimización Visual
+
+### Carga de Imágenes
+
+- Usar `CachedNetworkImage` para mejor rendimiento
+- Implementar placeholders durante la carga
+- Aplicar desvanecimientos suaves (300ms)
+
+```dart
+CachedNetworkImage(
+  imageUrl: imageUrl,
+  placeholder: (context, url) => Container(
+    color: context.charcoalMedium,
+    child: Center(
+      child: CircularProgressIndicator(
+        color: context.primaryColor,
+      ),
+    ),
+  ),
+  fit: BoxFit.cover,
+  fadeInDuration: const Duration(milliseconds: 300),
+)
+```
+
+### Rendimiento de Listas
+
+- Usar `SliverList` con `SliverChildBuilderDelegate` para lazy loading
+- Implementar técnicas de memoización para evitar reconstrucciones
+- Usar `const constructors` donde sea apropiado
+
+```dart
+SliverList(
+  delegate: SliverChildBuilderDelegate(
+    (context, index) => _buildOptimizedSalonItem(context, salones[index]),
+    childCount: salones.length,
+  ),
+)
+```
+
+---
+
+> **💡 Recuerda**: La simplicidad y consistencia son clave. Este documento define los estándares para toda la aplicación - ¡síguelos con confianza!
 
 ## 1. Paleta de Colores Refinada
 

@@ -85,10 +85,6 @@ Directory structure:
 └── marioberni-barber_time/
     ├── README.md
     ├── analysis_options.yaml
-    ├── ARCHITECTURE.md
-    ├── DESIGN_SYSTEM.md
-    ├── DEVELOPMENT_GUIDE.md
-    ├── PROJECT_OVERVIEW.md
     ├── pubspec.lock
     ├── pubspec.yaml
     ├── .metadata
@@ -122,6 +118,13 @@ Directory structure:
     │   └── gradle/
     │       └── wrapper/
     │           └── gradle-wrapper.properties
+    ├── docs/
+    │   ├── ARCHITECTURE.md
+    │   ├── DESIGN_SYSTEM.md
+    │   ├── DEVELOPMENT_GUIDE.md
+    │   ├── LINTING_CHANGES.md
+    │   ├── PROJECT_OVERVIEW.md
+    │   └── VISUAL_GUIDELINES.md
     ├── ios/
     │   ├── Flutter/
     │   │   ├── AppFrameworkInfo.plist
@@ -246,6 +249,8 @@ Directory structure:
     │       │       ├── bloc/
     │       │       │   ├── home_cubit.dart
     │       │       │   └── home_state.dart
+    │       │       ├── controllers/
+    │       │       │   └── home_navigation_controller.dart
     │       │       ├── pages/
     │       │       │   └── home_page.dart
     │       │       └── widgets/
@@ -253,6 +258,10 @@ Directory structure:
     │       │           ├── home_salon_card.dart
     │       │           ├── home_service_category_item.dart
     │       │           ├── home_special_offer_card.dart
+    │       │           ├── home_tab_bar.dart
+    │       │           ├── home_tab_content.dart
+    │       │           ├── search_empty_state.dart
+    │       │           ├── section_title_widget.dart
     │       │           ├── service_categories_section.dart
     │       │           ├── special_offers_section.dart
     │       │           └── top_rated_salons_section.dart
@@ -322,6 +331,7 @@ Directory structure:
     │   ├── TASK_configuracion_inicial.md
     │   ├── TASK_fortalecer_entorno_desarrollo.md
     │   ├── TASK_home_page.md
+    │   ├── TASK_optimizacion_home_page.md
     │   ├── TASK_profile_page.md
     │   └── TASK_sistema_de_diseno.md
     ├── test/

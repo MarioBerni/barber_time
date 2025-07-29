@@ -42,7 +42,7 @@ class SectionTitleWidget extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 8),
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: AppTheme.kPrimaryColor.withOpacity(0.15),
+                      color: AppTheme.kPrimaryColor.withAlpha((0.15 * 255).round()),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Icon(

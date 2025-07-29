@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../bloc/home_state.dart';
+import '../../domain/entities/salon.dart';
 import 'section_title_widget.dart';
 import 'search_empty_state.dart';
-import 'top_rated_salons_section.dart';
+import 'home_salon_card.dart';
 import 'special_offers_section.dart';
 
 /// Widget que representa el contenido de una pestaña en la Home Page
@@ -30,40 +31,53 @@ class HomeTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.zero,
+    return CustomScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 24),
-          
-          // Título de sección filtrada
-          _buildTabSectionTitle(),
-          
-          const SizedBox(height: 16),
-          
-          // Lista de salones filtrados por pestaña
-          _buildTabFilteredSalonsSection(),
-          
-          const SizedBox(height: 24),
-          
-          // Título para ofertas especiales
-          const SectionTitleWidget(
+      slivers: [
+        // Espacio superior
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 24),
+        ),
+        
+        // Título de sección filtrada
+        SliverToBoxAdapter(
+          child: _buildTabSectionTitle(),
+        ),
+        
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 16),
+        ),
+        
+        // Lista de salones filtrados por pestaña
+        _buildTabFilteredSalonsSection(),
+        
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 24),
+        ),
+        
+        // Título para ofertas especiales
+        const SliverToBoxAdapter(
+          child: SectionTitleWidget(
             title: 'Ofertas Especiales',
             actionText: 'Ver todas',
           ),
-          
-          const SizedBox(height: 16),
-          
-          // Ofertas especiales
-          SpecialOffersSection(
+        ),
+        
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 16),
+        ),
+        
+        // Ofertas especiales
+        SliverToBoxAdapter(
+          child: SpecialOffersSection(
             offers: state.specialOffers,
           ),
-          
-          const SizedBox(height: 32),
-        ],
-      ),
+        ),
+        
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 32),
+        ),
+      ],
     );
   }
   
@@ -98,16 +112,37 @@ class HomeTabContent extends StatelessWidget {
     
     // Mostrar mensaje cuando no hay resultados en la búsqueda
     if (state.isSearchActive && salonsToShow.isEmpty) {
-      return SearchEmptyState(
-        searchQuery: state.searchQuery,
-        onClearSearch: onClearSearch,
+      return SliverToBoxAdapter(
+        child: SearchEmptyState(
+          searchQuery: state.searchQuery,
+          onClearSearch: onClearSearch,
+        ),
       );
     }
     
-    // Mostrar la lista de salones
-    return TopRatedSalonsSection(
-      salons: salonsToShow,
-      onFavoritePressed: onFavoritePressed,
+    // Mostrar la lista de salones con lazy loading
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => _buildSalonCard(salonsToShow[index]),
+          childCount: salonsToShow.length,
+        ),
+      ),
+    );
+  }
+  
+  /// Construye una tarjeta de salón individual con padding vertical
+  Widget _buildSalonCard(Salon salon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: GestureDetector(
+        onTap: () {}, // Aquí se puede implementar la navegación al detalle
+        child: HomeSalonCard(
+          salon: salon,
+          onFavoritePressed: () => onFavoritePressed(salon.id),
+        ),
+      ),
     );
   }
 }

@@ -32,7 +32,7 @@ class HomeTabBar extends StatelessWidget {
         // Sombra sutil para separación visual
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha((0.05 * 255).round()),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -55,8 +55,8 @@ class HomeTabBar extends StatelessWidget {
         },
         // Efectos visuales mejorados
         splashFactory: NoSplash.splashFactory,
-        overlayColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) => Colors.transparent,
+        overlayColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) => Colors.transparent,
         ),
         // Indicador personalizado con animación
         indicator: UnderlineTabIndicator(

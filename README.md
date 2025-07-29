@@ -24,9 +24,10 @@ Este repositorio contiene el código fuente de la aplicación Barber Time. Para 
     *   ➡️ **[ARCHITECTURE.md](./ARCHITECTURE.md)**
     *   *Contenido: Arquitectura Limpia, estructura de directorios, modularización.*
 
-4.  **Sistema de Diseño (UI/UX)**
-    *   ➡️ **[DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)**
-    *   *Contenido: Uso del tema, componentes, reglas de estilo visual.*
+4.  **Sistema de Diseño Unificado (UI/UX)**
+    *   ➡️ **[DESIGN_SYSTEM_UNIFIED.md](./docs/DESIGN_SYSTEM_UNIFIED.md)**
+    *   *Contenido: Filosofía de diseño, paleta de colores, tipografía, componentes y patrones de implementación.*
+    *   ❗️ **Nota:** Este documento reemplaza a los anteriores DESIGN_SYSTEM.md y VISUAL_GUIDELINES.md
 
 ---
 
