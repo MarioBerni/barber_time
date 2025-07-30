@@ -32,12 +32,22 @@ class GetHomeDataUsecase {
 
 /// Clase que encapsula todos los datos necesarios para la página de inicio
 class HomeData {
+  /// Nombre de usuario para el saludo personalizado.
   final String userName;
+
+  /// Indica si hay notificaciones no leídas.
   final bool hasNotifications;
+
+  /// Lista de ofertas especiales.
   final List<SpecialOffer> specialOffers;
+
+  /// Lista de categorías de servicios.
   final List<ServiceCategory> serviceCategories;
+
+  /// Lista de salones mejor valorados.
   final List<Salon> topRatedSalons;
 
+  /// Constructor de HomeData.
   HomeData({
     required this.userName,
     required this.hasNotifications,

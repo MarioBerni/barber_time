@@ -3,7 +3,8 @@ import '../entities/user.dart';
 
 /// Contrato para el repositorio de autenticación
 ///
-/// Define las operaciones que pueden realizarse relacionadas con la autenticación,
+/// Define las operaciones que pueden realizarse relacionadas
+/// con la autenticación,
 /// independientemente de la implementación concreta (API real, mock, etc.)
 abstract class AuthRepository {
   /// Inicia sesión con email y contraseña
@@ -38,9 +39,7 @@ abstract class AuthRepository {
 
   /// Actualiza la información de perfil del usuario actual
   ///
-  /// Retorna el [User] actualizado si la operación fue exitosa, o null en caso contrario
-  Future<User?> updateUserProfile({
-    String? name,
-    String? profileImage,
-  });
+  /// Retorna el [User] actualizado si la operación fue exitosa,
+  /// o null en caso contrario
+  Future<User?> updateUserProfile({String? name, String? profileImage});
 }

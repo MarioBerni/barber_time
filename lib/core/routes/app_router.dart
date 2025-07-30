@@ -10,9 +10,9 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/profile/presentation/bloc/profile_cubit.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../di/service_locator.dart';
+import '../theme/app_theme.dart';
 import 'app_routes.dart';
 import 'route_transitions.dart';
-import '../theme/app_theme.dart';
 
 /// Configuración principal del router de la aplicación
 ///
@@ -36,7 +36,7 @@ class AppRouter {
           child: _PlaceholderPage(title: 'Splash Screen'),
         ),
       ),
-      
+
       // Rutas de autenticación
       GoRoute(
         path: AppRoutes.login,
@@ -60,7 +60,7 @@ class AppRouter {
           ),
         ),
       ),
-      
+
       // Rutas principales de la aplicación
       GoRoute(
         path: AppRoutes.home,
@@ -73,7 +73,7 @@ class AppRouter {
           ),
         ),
       ),
-      
+
       // Rutas de perfil
       GoRoute(
         path: AppRoutes.profile,
@@ -87,37 +87,35 @@ class AppRouter {
         ),
       ),
     ],
-    
+
     // Manejo de rutas no encontradas
     errorPageBuilder: (context, state) => RouteTransitions.fadeTransition(
       context: context,
       state: state,
       child: Scaffold(
         appBar: AppBar(title: const Text('Página no encontrada')),
-        body: const Center(
-          child: Text('La ruta solicitada no existe'),
-        ),
+        body: const Center(child: Text('La ruta solicitada no existe')),
       ),
     ),
-    
+
     // Redirecciones, por ejemplo para verificar autenticación
     redirect: (context, state) {
       // Permitimos el acceso a la página de inicio sin autenticación
       // Las rutas protegidas requerirán autenticación más adelante
-      
+
       // Rutas públicas permitidas sin autenticación
       final publicRoutes = [
-        AppRoutes.home, 
-        AppRoutes.login, 
-        AppRoutes.register, 
-        AppRoutes.splash
+        AppRoutes.home,
+        AppRoutes.login,
+        AppRoutes.register,
+        AppRoutes.splash,
       ];
-      
+
       // Si la ruta es pública, permitir acceso sin restricciones
       if (publicRoutes.contains(state.matchedLocation)) {
         return null;
       }
-      
+
       // Otras rutas requerirán autenticación en el futuro
       // Por ahora, permitimos acceso a todas las rutas
       return null;
@@ -125,34 +123,29 @@ class AppRouter {
   );
 }
 
-/// Widget temporal para mostrar páginas en construcción
-/// 
-/// Esta clase se utiliza como placeholder hasta que se implementen las pantallas reales
+/// Widget temporal para mostrar páginas en construcción.
+///
+/// Esta clase se utiliza como placeholder hasta que se implementen
+/// las pantallas reales.
 class _PlaceholderPage extends StatelessWidget {
   final String title;
-  
+
   const _PlaceholderPage({required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBar(title: Text(title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.construction,
-              size: 80,
-              color: AppTheme.kAccentColor,
-            ),
+            Icon(Icons.construction, size: 80, color: AppTheme.kAccentColor),
             const SizedBox(height: 16),
             Text(
               'Página en desarrollo',
               style: TextStyle(
-                fontSize: 22, 
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: AppTheme.kTextColor,
               ),
@@ -169,9 +162,7 @@ class _PlaceholderPage extends StatelessWidget {
             Text(
               'Esta página será implementada pronto',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppTheme.kSecondaryTextColor,
-              ),
+              style: TextStyle(color: AppTheme.kSecondaryTextColor),
             ),
           ],
         ),

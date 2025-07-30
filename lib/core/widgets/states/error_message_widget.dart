@@ -48,18 +48,14 @@ class ErrorMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final secondaryColor = theme.colorScheme.error;
-    
+
     return Padding(
       padding: padding,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: iconSize,
-            color: secondaryColor,
-          ),
+          Icon(icon, size: iconSize, color: secondaryColor),
           const SizedBox(height: 24),
           if (title != null) ...[
             Text(

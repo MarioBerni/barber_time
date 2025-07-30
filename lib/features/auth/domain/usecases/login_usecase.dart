@@ -5,8 +5,10 @@ import '../repositories/auth_repository.dart';
 ///
 /// Encapsula la lógica de negocio relacionada con la autenticación de usuarios
 class LoginUseCase {
+  /// Repositorio de autenticación.
   final AuthRepository repository;
 
+  /// Constructor de LoginUseCase.
   const LoginUseCase(this.repository);
 
   /// Ejecuta el caso de uso para iniciar sesión
@@ -19,11 +21,13 @@ class LoginUseCase {
     }
 
     if (credentials.password.isEmpty || credentials.password.length < 6) {
-      return AuthResult.failure('La contraseña debe tener al menos 6 caracteres');
+      return AuthResult.failure(
+        'La contraseña debe tener al menos 6 caracteres',
+      );
     }
 
     // Delega la operación al repositorio
-    return await repository.login(credentials);
+    return repository.login(credentials);
   }
 
   /// Verifica si un email tiene formato válido

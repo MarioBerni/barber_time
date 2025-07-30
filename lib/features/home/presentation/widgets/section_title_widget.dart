@@ -7,16 +7,16 @@ import '../../../../core/theme/app_theme.dart';
 class SectionTitleWidget extends StatelessWidget {
   /// Título principal de la sección
   final String title;
-  
+
   /// Texto del botón de acción
   final String actionText;
-  
+
   /// Determina si se muestra el icono premium junto al título
   final bool showPremiumIcon;
-  
+
   /// Acción al presionar el botón de ver todo
   final VoidCallback? onActionPressed;
-  
+
   /// Constructor
   const SectionTitleWidget({
     super.key,
@@ -42,7 +42,9 @@ class SectionTitleWidget extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 8),
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: AppTheme.kPrimaryColor.withAlpha((0.15 * 255).round()),
+                      color: AppTheme.kPrimaryColor.withAlpha(
+                        (0.15 * 255).round(),
+                      ),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Icon(
@@ -56,10 +58,10 @@ class SectionTitleWidget extends StatelessWidget {
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

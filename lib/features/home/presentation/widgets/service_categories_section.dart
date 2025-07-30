@@ -4,10 +4,11 @@ import '../../../../core/widgets/carousels/horizontal_carousel.dart';
 import '../../domain/entities/service_category.dart';
 import 'home_service_category_item.dart';
 
-/// Widget para mostrar la sección de categorías de servicios en un carrusel horizontal.
+/// Widget para mostrar la sección de categorías de servicios.
 ///
-/// Muestra un carrusel deslizable de categorías de servicios utilizando [HomeServiceCategoryItem].
-/// Diseñado para ser reutilizable en diferentes partes de la aplicación.
+/// Muestra un carrusel deslizable de categorías de servicios utilizando
+/// [HomeServiceCategoryItem]. Diseñado para ser reutilizable en diferentes
+/// partes de la aplicación.
 class ServiceCategoriesSection extends StatelessWidget {
   /// Lista de categorías de servicios a mostrar.
   final List<ServiceCategory> categories;
@@ -22,11 +23,12 @@ class ServiceCategoriesSection extends StatelessWidget {
   final double itemSpacing;
 
   /// Callback opcional que se ejecuta cuando se selecciona una categoría.
-  final Function(ServiceCategory)? onCategorySelected;
+  final ValueChanged<ServiceCategory>? onCategorySelected;
 
-  /// Física de desplazamiento para el ListView. Por defecto es BouncingScrollPhysics.
+  /// Física de desplazamiento para el ListView.
   final ScrollPhysics? physics;
 
+  /// Constructor de la sección de categorías de servicio.
   const ServiceCategoriesSection({
     super.key,
     required this.categories,
@@ -46,7 +48,8 @@ class ServiceCategoriesSection extends StatelessWidget {
       itemSpacing: itemSpacing,
       physics: physics,
       onItemSelected: onCategorySelected,
-      itemBuilder: (context, category, index) => HomeServiceCategoryItem(category: category),
+      itemBuilder: (context, category, index) =>
+          HomeServiceCategoryItem(category: category),
     );
   }
 }

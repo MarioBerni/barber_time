@@ -7,12 +7,9 @@ import '../profile_section.dart';
 class ProfileSettingsTab extends StatelessWidget {
   /// Datos del perfil del usuario
   final UserProfile profile;
-  
+
   /// Constructor
-  const ProfileSettingsTab({
-    super.key,
-    required this.profile,
-  });
+  const ProfileSettingsTab({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {

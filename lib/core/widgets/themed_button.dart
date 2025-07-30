@@ -5,13 +5,13 @@ import '../theme/app_theme_extensions.dart';
 enum ThemedButtonType {
   /// Botón principal con fondo de color y texto en contraste
   primary,
-  
+
   /// Botón secundario con fondo transparente y borde
   outlined,
-  
+
   /// Botón terciario con fondo transparente y sin borde
   text,
-  
+
   /// Botón con acento dorado para acciones destacadas
   accent,
 }
@@ -20,46 +20,53 @@ enum ThemedButtonType {
 enum ThemedButtonSize {
   /// Botón pequeño para interfaces densas
   small,
-  
+
   /// Tamaño estándar para la mayoría de casos
   medium,
-  
+
   /// Botón grande para acciones principales
   large,
 }
 
 /// Un componente de botón que utiliza el sistema de temas centralizado
-/// 
-/// Este widget permite crear botones con apariencia consistente en toda la aplicación
-/// y aprovecha las extensiones de contexto para acceder a colores, bordes y estilos de texto.
+///
+/// Este widget permite crear botones con apariencia consistente
+/// en toda la aplicación
+/// y aprovecha las extensiones de contexto para acceder a colores,
+/// bordes y estilos de texto.
 class ThemedButton extends StatelessWidget {
   /// Texto a mostrar en el botón
   final String text;
-  
+
   /// Icono opcional para mostrar junto al texto
   final IconData? icon;
-  
+
   /// Posición del icono (true = izquierda, false = derecha)
   final bool iconLeading;
-  
+
   /// Tipo de botón a mostrar
   final ThemedButtonType type;
-  
+
   /// Tamaño del botón
   final ThemedButtonSize size;
-  
+
   /// Función que se ejecuta al presionar el botón
   final VoidCallback? onPressed;
-  
+
   /// Si el botón ocupa todo el ancho disponible
   final bool fullWidth;
-  
+
   /// Color personalizado para el botón (anula el color determinado por el tipo)
   final Color? customColor;
-  
+
   /// Si es verdadero, muestra un indicador de carga en lugar del contenido
   final bool isLoading;
 
+  /// Constructor para el botón temático.
+  ///
+  /// Requiere un [text] para mostrar y permite personalizar la apariencia
+  /// mediante [icon], [iconLeading], [type], [size], [fullWidth], [rounded],
+  /// [onPressed], [customColor] y [isLoading].
   const ThemedButton({
     super.key,
     required this.text,
@@ -73,6 +80,7 @@ class ThemedButton extends StatelessWidget {
     this.isLoading = false,
   });
 
+  /// Construye el widget ThemedButton.
   @override
   Widget build(BuildContext context) {
     // Obtener propiedades basadas en el tamaño
@@ -80,13 +88,14 @@ class ThemedButton extends StatelessWidget {
     final double? minWidth = fullWidth ? double.infinity : null;
     final TextStyle textStyle = _getTextStyle(context);
     final double iconSize = _getIconSize();
-    
+
     // Obtener colores según el tipo de botón
     final buttonColors = _getButtonColors(context);
-    
+
     // Contenido del botón (texto con o sin icono)
+    /// Contenido del botón (texto con o sin icono).
     Widget buttonContent = _buildButtonContent(context, textStyle, iconSize);
-    
+
     // Si está cargando, mostrar indicador de progreso en lugar del contenido
     if (isLoading) {
       buttonContent = SizedBox(
@@ -94,11 +103,13 @@ class ThemedButton extends StatelessWidget {
         width: _getLoadingSize(),
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
-          valueColor: AlwaysStoppedAnimation<Color>(buttonColors.foregroundColor),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            buttonColors.foregroundColor,
+          ),
         ),
       );
     }
-    
+
     // Construir el botón según su tipo
     switch (type) {
       case ThemedButtonType.outlined:
@@ -147,32 +158,33 @@ class ThemedButton extends StatelessWidget {
         );
     }
   }
-  
+
   /// Construye el contenido del botón (texto con o sin icono)
-  Widget _buildButtonContent(BuildContext context, TextStyle textStyle, double iconSize) {
-    final Widget textWidget = Text(
-      text,
-      style: textStyle,
-    );
-    
+  Widget _buildButtonContent(
+    BuildContext context,
+    TextStyle textStyle,
+    double iconSize,
+  ) {
+    final Widget textWidget = Text(text, style: textStyle);
+
     // Si no hay icono, retornar solo el texto
     if (icon == null) {
       return textWidget;
     }
-    
+
     // Construir fila con icono y texto en el orden adecuado
     final iconWidget = Icon(icon, size: iconSize);
     final spacing = SizedBox(width: context.spacingXS);
-    
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: iconLeading 
+      children: iconLeading
           ? [iconWidget, spacing, textWidget]
           : [textWidget, spacing, iconWidget],
     );
   }
-  
+
   /// Obtiene el padding adecuado según el tamaño del botón
   EdgeInsets _getPadding(BuildContext context) {
     switch (size) {
@@ -193,7 +205,7 @@ class ThemedButton extends StatelessWidget {
         );
     }
   }
-  
+
   /// Obtiene el estilo de texto adecuado según el tamaño del botón
   TextStyle _getTextStyle(BuildContext context) {
     switch (size) {
@@ -205,7 +217,7 @@ class ThemedButton extends StatelessWidget {
         return context.button;
     }
   }
-  
+
   /// Obtiene el tamaño de icono adecuado según el tamaño del botón
   double _getIconSize() {
     switch (size) {
@@ -217,7 +229,7 @@ class ThemedButton extends StatelessWidget {
         return 20;
     }
   }
-  
+
   /// Obtiene el tamaño del indicador de carga según el tamaño del botón
   double _getLoadingSize() {
     switch (size) {
@@ -229,12 +241,12 @@ class ThemedButton extends StatelessWidget {
         return 16;
     }
   }
-  
+
   /// Obtiene los colores adecuados según el tipo de botón
   _ButtonColors _getButtonColors(BuildContext context) {
     // Usar color personalizado si se proporciona
     final baseColor = customColor;
-    
+
     switch (type) {
       case ThemedButtonType.outlined:
         return _ButtonColors(
@@ -264,11 +276,8 @@ class ThemedButton extends StatelessWidget {
 class _ButtonColors {
   final Color backgroundColor;
   final Color foregroundColor;
-  
-  _ButtonColors({
-    required this.backgroundColor,
-    required this.foregroundColor,
-  });
+
+  _ButtonColors({required this.backgroundColor, required this.foregroundColor});
 }
 
 /// Ejemplo de uso:

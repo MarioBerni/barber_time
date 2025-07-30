@@ -7,9 +7,11 @@ import '../../../../core/widgets/buttons/stylized_button.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
 
 /// Componente que muestra el enlace para registro en la página de login
-/// 
-/// Presenta un contenedor estilizado con texto y botón para ir a la página de registro
+///
+/// Presenta un contenedor estilizado con texto y botón para ir
+/// a la página de registro
 class LoginRegisterLink extends StatelessWidget {
+  /// Constructor de LoginRegisterLink.
   const LoginRegisterLink({super.key});
 
   @override

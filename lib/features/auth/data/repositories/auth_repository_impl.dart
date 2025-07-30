@@ -8,8 +8,10 @@ import '../datasources/auth_data_source.dart';
 /// Conecta la capa de dominio con las fuentes de datos,
 /// implementando el contrato definido por AuthRepository
 class AuthRepositoryImpl implements AuthRepository {
+  /// Fuente de datos de autenticación.
   final AuthDataSource dataSource;
 
+  /// Constructor de AuthRepositoryImpl.
   const AuthRepositoryImpl({required this.dataSource});
 
   @override
@@ -73,10 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<User?> updateUserProfile({
-    String? name,
-    String? profileImage,
-  }) async {
+  Future<User?> updateUserProfile({String? name, String? profileImage}) async {
     try {
       return await dataSource.updateUserProfile(
         name: name,

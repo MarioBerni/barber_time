@@ -5,23 +5,20 @@ import '../../domain/entities/service_category.dart';
 class HomeServiceCategoryItem extends StatelessWidget {
   /// La categoría de servicio a mostrar
   final ServiceCategory category;
-  
+
   /// Constructor del widget de categoría de servicio
-  const HomeServiceCategoryItem({
-    super.key,
-    required this.category,
-  });
+  const HomeServiceCategoryItem({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = 70.0;
-    
+
     // Color para el ítem, usa el color de la categoría o el primario del tema
     final itemColor = category.colorHex != null
         ? Color(int.parse('0xFF${category.colorHex!.replaceAll('#', '')}'))
         : theme.colorScheme.primary;
-    
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -70,7 +67,7 @@ class HomeServiceCategoryItem extends StatelessWidget {
       ],
     );
   }
-  
+
   /// Convierte el nombre del icono a un IconData de Material
   IconData _getIconData(String iconName) {
     switch (iconName.toLowerCase()) {

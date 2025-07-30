@@ -4,9 +4,10 @@ import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/icons/animated_icon_widget.dart';
 
 /// Componente que muestra el encabezado de la página de login
-/// 
+///
 /// Incluye el logo animado, título y subtítulo
 class LoginHeader extends StatelessWidget {
+  /// Constructor de LoginHeader.
   const LoginHeader({super.key});
 
   @override
@@ -26,7 +27,7 @@ class LoginHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 24),
-        
+
         // Título principal
         Text(
           'Barber Time',
@@ -44,7 +45,7 @@ class LoginHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        
+
         // Subtítulo
         Text(
           'Ingresa tus datos para continuar',

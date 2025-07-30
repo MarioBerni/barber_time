@@ -11,12 +11,9 @@ import 'components/profile_info_row.dart';
 class ProfileInfoTab extends StatelessWidget {
   /// Datos del perfil del usuario
   final UserProfile profile;
-  
+
   /// Constructor
-  const ProfileInfoTab({
-    super.key,
-    required this.profile,
-  });
+  const ProfileInfoTab({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,7 @@ class ProfileInfoTab extends StatelessWidget {
             ),
             child: _buildPersonalInfoContent(context),
           ),
-          
+
           // Otras secciones específicas según el tipo de usuario
           if (profile.userType == UserType.client)
             ..._buildClientSpecificSections(context)
@@ -85,7 +82,7 @@ class ProfileInfoTab extends StatelessWidget {
 
     return [
       const SizedBox(height: 16),
-      
+
       // Sección de preferencias
       ProfileSection(
         title: 'Preferencias',
@@ -99,17 +96,19 @@ class ProfileInfoTab extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: clientData.preferences.entries
-                  .map((entry) => Chip(
-                        label: Text('${entry.key}: ${entry.value}'),
-                        backgroundColor: context.primaryLightColor,
-                        padding: const EdgeInsets.all(4),
-                      ))
+                  .map(
+                    (entry) => Chip(
+                      label: Text('${entry.key}: ${entry.value}'),
+                      backgroundColor: context.primaryLightColor,
+                      padding: const EdgeInsets.all(4),
+                    ),
+                  )
                   .toList(),
             ),
           ],
         ),
       ),
-      
+
       // Sección de direcciones
       if (clientData.savedAddresses.isNotEmpty)
         ProfileSection(
@@ -134,7 +133,7 @@ class ProfileInfoTab extends StatelessWidget {
 
     return [
       const SizedBox(height: 16),
-      
+
       // Sección de rol administrativo
       ProfileSection(
         title: 'Información Administrativa',

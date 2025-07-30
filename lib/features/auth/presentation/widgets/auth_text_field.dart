@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_theme_extensions.dart';
+
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_theme_extensions.dart';
 
 /// Estado de validación para el campo de autenticación
 enum AuthFieldValidationState {
@@ -16,48 +17,49 @@ enum AuthFieldValidationState {
 
 /// Widget de campo de texto premium para formularios de autenticación
 ///
-/// Proporciona un estilo consistente y moderno para todos los campos de formulario
-/// en las pantallas de autenticación, con animaciones y efectos visuales mejorados
+/// Proporciona un estilo consistente y moderno para todos los campos
+/// de formulario en las pantallas de autenticación, con animaciones
+/// y efectos visuales mejorados
 class AuthTextField extends StatefulWidget {
   /// Controlador del campo de texto
   final TextEditingController controller;
-  
+
   /// Texto de la etiqueta
   final String labelText;
-  
+
   /// Texto de sugerencia opcional
   final String? hintText;
-  
+
   /// Icono prefijo opcional
   final IconData? prefixIcon;
-  
+
   /// Widget sufijo opcional
   final Widget? suffixIcon;
-  
+
   /// Si el texto debe ocultarse (para contraseñas)
   final bool obscureText;
-  
+
   /// Tipo de teclado para la entrada
   final TextInputType keyboardType;
-  
+
   /// Función de validación opcional
   final String? Function(String?)? validator;
-  
+
   /// Callback cuando cambia el texto
   final void Function(String)? onChanged;
-  
+
   /// Límite de líneas (1 por defecto)
   final int? maxLines;
-  
+
   /// Si el campo está habilitado
   final bool enabled;
-  
+
   /// Radio de borde personalizado (opcional)
   final double? customBorderRadius;
-  
+
   /// Color de acento personalizado (opcional)
   final Color? accentColor;
-  
+
   /// Estado de validación inicial
   final AuthFieldValidationState initialValidationState;
 
@@ -84,44 +86,40 @@ class AuthTextField extends StatefulWidget {
   State<AuthTextField> createState() => _AuthTextFieldState();
 }
 
-class _AuthTextFieldState extends State<AuthTextField> 
+class _AuthTextFieldState extends State<AuthTextField>
     with SingleTickerProviderStateMixin {
   // Controlador para la animación de enfoque
   late AnimationController _focusController;
   // Animación para elevar el campo cuando tiene foco
   late Animation<double> _elevationAnimation;
-  
+
   // Estado de enfoque
   bool _isFocused = false;
-  
+
   // Estado de validación
   AuthFieldValidationState _validationState = AuthFieldValidationState.neutral;
-  
+
   // Controlador de foco
   final FocusNode _focusNode = FocusNode();
-  
+
   @override
   void initState() {
     super.initState();
-    
+
     // Inicializar estado de validación
     _validationState = widget.initialValidationState;
-    
+
     // Configurar animaciones
     _focusController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    
+
     // Configuramos la animación de elevación
-    _elevationAnimation = Tween<double>(
-      begin: 0.0,
-      end: 4.0,
-    ).animate(CurvedAnimation(
-      parent: _focusController,
-      curve: Curves.easeOutCubic,
-    ));
-    
+    _elevationAnimation = Tween<double>(begin: 0.0, end: 4.0).animate(
+      CurvedAnimation(parent: _focusController, curve: Curves.easeOutCubic),
+    );
+
     // Configurar listener de foco
     _focusNode.addListener(_handleFocusChange);
   }
@@ -129,42 +127,43 @@ class _AuthTextFieldState extends State<AuthTextField>
   @override
   void dispose() {
     _focusController.dispose();
-    _focusNode.removeListener(_handleFocusChange);
-    _focusNode.dispose();
+    _focusNode
+      ..removeListener(_handleFocusChange)
+      ..dispose();
     super.dispose();
   }
-  
+
   // Manejar cambios en el estado de foco
   void _handleFocusChange() {
     setState(() {
       _isFocused = _focusNode.hasFocus;
     });
-    
+
     if (_isFocused) {
       _focusController.forward();
     } else {
       _focusController.reverse();
     }
   }
-  
+
   // Actualizar el estado de validación
   void _updateValidationState(String? value) {
     if (widget.validator == null) return;
-    
+
     final String? errorText = widget.validator!(value);
     final AuthFieldValidationState newState = errorText == null
         ? (value != null && value.isNotEmpty)
-            ? AuthFieldValidationState.valid
-            : AuthFieldValidationState.neutral
+              ? AuthFieldValidationState.valid
+              : AuthFieldValidationState.neutral
         : AuthFieldValidationState.error;
-    
+
     if (newState != _validationState) {
       setState(() {
         _validationState = newState;
       });
     }
   }
-  
+
   // Obtener color según el estado de validación
   Color _getStateColor(BuildContext context) {
     switch (_validationState) {
@@ -174,30 +173,23 @@ class _AuthTextFieldState extends State<AuthTextField>
         return context.errorColor;
       case AuthFieldValidationState.neutral:
         return _isFocused
-            ? (widget.accentColor ?? context.lightBlue) // Usando azul celeste para enfoque
+            ? (widget.accentColor ??
+                  context.lightBlue) // Usando azul celeste para enfoque
             : context.secondaryTextColor.withAlpha((0.5 * 255).round());
     }
   }
-  
+
   // Obtener icono de estado para el sufijo
   Widget? _getStateIcon() {
     if (!_isFocused && widget.controller.text.isEmpty) {
       return null;
     }
-    
+
     switch (_validationState) {
       case AuthFieldValidationState.valid:
-        return Icon(
-          Icons.check_circle,
-          color: context.successColor,
-          size: 20,
-        );
+        return Icon(Icons.check_circle, color: context.successColor, size: 20);
       case AuthFieldValidationState.error:
-        return Icon(
-          Icons.error,
-          color: context.errorColor,
-          size: 20,
-        );
+        return Icon(Icons.error, color: context.errorColor, size: 20);
       case AuthFieldValidationState.neutral:
         return null;
     }
@@ -210,14 +202,14 @@ class _AuthTextFieldState extends State<AuthTextField>
     final borderRadius = widget.customBorderRadius != null
         ? BorderRadius.circular(widget.customBorderRadius!)
         : BorderRadius.circular(18.0);
-    
+
     final stateIcon = _getStateIcon();
     final stateColor = _getStateColor(context);
 
     return AnimatedBuilder(
       animation: _focusController,
       builder: (context, child) {
-        return Container(
+        return DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: borderRadius,
             boxShadow: [
@@ -235,7 +227,7 @@ class _AuthTextFieldState extends State<AuthTextField>
                   blurRadius: _elevationAnimation.value * 4,
                   spreadRadius: _elevationAnimation.value / 2,
                   offset: const Offset(0, 2),
-                )
+                ),
             ],
           ),
           child: child,
@@ -257,7 +249,6 @@ class _AuthTextFieldState extends State<AuthTextField>
         enabled: widget.enabled,
         style: context.bodyMedium,
         cursorColor: widget.accentColor ?? context.accentColor,
-        cursorWidth: 2.0,
         cursorRadius: const Radius.circular(2.0),
         decoration: InputDecoration(
           labelText: widget.labelText,
@@ -278,7 +269,7 @@ class _AuthTextFieldState extends State<AuthTextField>
           border: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide(
-              color: Colors.grey.withAlpha((0.3 * 255).round()),
+              color: Colors.grey.withAlpha(76),
               width: 0.5,
             ),
           ),
@@ -293,22 +284,15 @@ class _AuthTextFieldState extends State<AuthTextField>
             borderRadius: borderRadius,
             borderSide: BorderSide(
               color: stateColor.withAlpha((0.6 * 255).round()),
-              width: 1.0,
             ),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: borderRadius,
-            borderSide: BorderSide(
-              color: context.errorColor,
-              width: 1.0,
-            ),
+            borderSide: BorderSide(color: context.errorColor),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: borderRadius,
-            borderSide: BorderSide(
-              color: context.errorColor,
-              width: 1.0,
-            ),
+            borderSide: BorderSide(color: context.errorColor),
           ),
           labelStyle: context.bodyMedium.copyWith(
             color: _isFocused ? stateColor : context.secondaryTextColor,
@@ -322,7 +306,7 @@ class _AuthTextFieldState extends State<AuthTextField>
             fontWeight: FontWeight.w500,
           ),
           filled: true,
-          fillColor: _isFocused 
+          fillColor: _isFocused
               ? Colors.white
               : Colors.white.withAlpha((0.95 * 255).round()),
           contentPadding: EdgeInsets.symmetric(

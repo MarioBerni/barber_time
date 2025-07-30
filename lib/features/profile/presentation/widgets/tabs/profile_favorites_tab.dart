@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities/user_profile.dart';
 import '../profile_section.dart';
 
-/// Widget para la pestaña de barberías favoritas del perfil (solo para clientes)
+/// Widget para la pestaña de barberías favoritas del perfil
+/// (solo para clientes)
 class ProfileFavoritesTab extends StatelessWidget {
   /// Datos del perfil del usuario
   final UserProfile profile;
-  
+
   /// Constructor
-  const ProfileFavoritesTab({
-    super.key,
-    required this.profile,
-  });
+  const ProfileFavoritesTab({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {

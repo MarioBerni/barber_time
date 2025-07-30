@@ -8,15 +8,16 @@ import '../bloc/auth_cubit.dart';
 import 'auth_text_field.dart';
 
 /// Componente que muestra el formulario de inicio de sesión
-/// 
+///
 /// Incluye campos de email, contraseña y botón de inicio de sesión
 class LoginForm extends StatefulWidget {
   /// Función a ejecutar al intentar iniciar sesión
-  final Function(BuildContext) onLoginPressed;
-  
+  final void Function(BuildContext) onLoginPressed;
+
   /// Si el formulario está en estado de carga
   final bool isLoading;
 
+  /// Constructor del formulario de login.
   const LoginForm({
     super.key,
     required this.onLoginPressed,
@@ -62,10 +63,7 @@ class _LoginFormState extends State<LoginForm> {
     return GlamContainer(
       padding: const EdgeInsets.all(28),
       baseColor: Colors.white,
-      borderStyle: GlamBorderStyle.solid,
       borderColor: Colors.white.withAlpha((0.8 * 255).round()),
-      showInnerGlow: false,
-      elevation: GlamElevation.medium,
       opacity: 0.95,
       borderRadius: BorderRadius.circular(24),
       child: Form(
@@ -106,16 +104,16 @@ class _LoginFormState extends State<LoginForm> {
               suffixIcon: IconButton(
                 icon: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 200),
-                  transitionBuilder: (child, animation) => FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  ),
+                  transitionBuilder: (child, animation) =>
+                      FadeTransition(opacity: animation, child: child),
                   child: Icon(
                     _obscurePassword
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
                     key: ValueKey<bool>(_obscurePassword),
-                    color: context.secondaryTextColor.withAlpha((0.7 * 255).round()),
+                    color: context.secondaryTextColor.withAlpha(
+                      (0.7 * 255).round(),
+                    ),
                   ),
                 ),
                 onPressed: _togglePasswordVisibility,
@@ -148,11 +146,8 @@ class _LoginFormState extends State<LoginForm> {
             StylizedButton.primary(
               text: 'INICIAR SESIÓN',
               icon: Icons.login_rounded,
-              showGlowEffect: true,
               fullWidth: true,
-              onPressed: widget.isLoading
-                  ? null
-                  : () => _processLogin(context),
+              onPressed: widget.isLoading ? null : () => _processLogin(context),
               customPadding: const EdgeInsets.symmetric(vertical: 18),
             ),
           ],

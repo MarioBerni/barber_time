@@ -4,10 +4,11 @@ import '../../../../core/widgets/carousels/horizontal_carousel.dart';
 import '../../domain/entities/special_offer.dart';
 import 'home_special_offer_card.dart';
 
-/// Widget para mostrar la sección de ofertas especiales en un carrusel horizontal.
+/// Widget para mostrar la sección de ofertas especiales.
 ///
-/// Muestra un carrusel deslizable de ofertas especiales utilizando [HomeSpecialOfferCard].
-/// Diseñado para ser reutilizable en diferentes partes de la aplicación.
+/// Muestra un carrusel deslizable de ofertas especiales utilizando
+/// [HomeSpecialOfferCard]. Diseñado para ser reutilizable en diferentes
+/// partes de la aplicación.
 class SpecialOffersSection extends StatelessWidget {
   /// Lista de ofertas especiales a mostrar.
   final List<SpecialOffer> offers;
@@ -22,11 +23,12 @@ class SpecialOffersSection extends StatelessWidget {
   final double itemSpacing;
 
   /// Callback opcional que se ejecuta cuando se selecciona una oferta.
-  final Function(SpecialOffer)? onOfferSelected;
+  final ValueChanged<SpecialOffer>? onOfferSelected;
 
-  /// Física de desplazamiento para el ListView. Por defecto es BouncingScrollPhysics.
+  /// Física de desplazamiento para el ListView.
   final ScrollPhysics? physics;
 
+  /// Constructor de la sección de ofertas especiales.
   const SpecialOffersSection({
     super.key,
     required this.offers,
@@ -46,7 +48,8 @@ class SpecialOffersSection extends StatelessWidget {
       itemSpacing: itemSpacing,
       physics: physics,
       onItemSelected: onOfferSelected,
-      itemBuilder: (context, offer, index) => HomeSpecialOfferCard(offer: offer),
+      itemBuilder: (context, offer, index) =>
+          HomeSpecialOfferCard(offer: offer),
     );
   }
 }

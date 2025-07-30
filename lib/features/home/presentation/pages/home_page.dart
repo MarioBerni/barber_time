@@ -25,25 +25,26 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   // Controlador para el campo de búsqueda
   final TextEditingController _searchController = TextEditingController();
-  
+
   // Controladores para las pestañas y navegación
   late TabController _tabController;
   late PageController _pageController;
   late HomeNavigationController _navigationController;
-  
+
   @override
   void initState() {
     super.initState();
     // Cargar datos iniciales
     context.read<HomeCubit>().loadHomeData();
-    
+
     // Inicializar controladores
     _pageController = PageController();
     _tabController = TabController(length: 3, vsync: this);
-    
+
     // Inicializar controlador de navegación
     _navigationController = HomeNavigationController(
       tabController: _tabController,
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       homeCubit: context.read<HomeCubit>(),
     );
   }
-  
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -88,12 +89,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           } else if (state is HomeLoaded) {
             return _buildHomeContent(state);
           }
-          
+
           // Estado por defecto
-          return const LoadingIndicatorWidget(
-            size: LoadingIndicatorSize.medium,
-            showBackground: true,
-          );
+          return const LoadingIndicatorWidget(showBackground: true);
         },
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
@@ -128,7 +126,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget _buildHomeContent(HomeLoaded state) {
     // Sincronizar el TabController con el estado actual
     _navigationController.syncWithState(state);
-    
+
     return Container(
       // Fondo principal con el color de fondo
       color: AppTheme.kBackgroundColor,
@@ -137,16 +135,16 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         children: [
           // Barra superior con información de usuario
           _buildSimpleAppBar(state),
-          
+
           // Espaciado superior mejorado
           const SizedBox(height: 16),
-          
+
           // TabBar para navegación entre categorías con animaciones
           HomeTabBar(
             tabController: _tabController,
             pageController: _pageController,
           ),
-          
+
           // Contenido principal con PageView para deslizamiento lateral
           Expanded(
             child: PageView(
@@ -158,19 +156,22 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 HomeTabContent(
                   state: state,
                   tab: HomeTab.destacados,
-                  onFavoritePressed: (salonId) => context.read<HomeCubit>().toggleFavorite(salonId),
+                  onFavoritePressed: (salonId) =>
+                      context.read<HomeCubit>().toggleFavorite(salonId),
                   onClearSearch: _clearSearch,
                 ),
                 HomeTabContent(
                   state: state,
                   tab: HomeTab.cercanos,
-                  onFavoritePressed: (salonId) => context.read<HomeCubit>().toggleFavorite(salonId),
+                  onFavoritePressed: (salonId) =>
+                      context.read<HomeCubit>().toggleFavorite(salonId),
                   onClearSearch: _clearSearch,
                 ),
                 HomeTabContent(
                   state: state,
                   tab: HomeTab.mejorValorados,
-                  onFavoritePressed: (salonId) => context.read<HomeCubit>().toggleFavorite(salonId),
+                  onFavoritePressed: (salonId) =>
+                      context.read<HomeCubit>().toggleFavorite(salonId),
                   onClearSearch: _clearSearch,
                 ),
               ],
@@ -180,7 +181,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     );
   }
-  
+
   /// Método para limpiar la búsqueda
   void _clearSearch() {
     _searchController.clear();
@@ -193,7 +194,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 8),
       color: AppTheme.kSurfaceColor, // Corregido, antes era kSurfaceContainer
       child: HomeHeader(
-        userName: "Usuario", // Añadido parámetro requerido
+        userName: 'Usuario', // Añadido parámetro requerido
       ),
     );
   }

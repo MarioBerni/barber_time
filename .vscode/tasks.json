@@ -1,0 +1,550 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // ===== TAREAS DE FLUTTER BÁSICAS =====
+    {
+      "label": "Flutter: Get Dependencies",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["pub", "get"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Clean",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["clean"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Build Runner",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["packages", "pub", "run", "build_runner", "build", "--delete-conflicting-outputs"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Build Runner Watch",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["packages", "pub", "run", "build_runner", "watch", "--delete-conflicting-outputs"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE ANÁLISIS Y LINTING =====
+    {
+      "label": "Flutter: Analyze",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["analyze"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Format",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["format", "."],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Lint",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["analyze", "--no-fatal-infos"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE TESTING =====
+    {
+      "label": "Flutter: Test All",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["test"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Test Coverage",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["test", "--coverage"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Test Widget",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["test", "test/widget_test.dart"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE BUILD =====
+    {
+      "label": "Flutter: Build APK Debug",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["build", "apk", "--debug"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Build APK Release",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["build", "apk", "--release"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Build iOS",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["build", "ios", "--release"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Build Web",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["build", "web"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE DESARROLLO =====
+    {
+      "label": "Flutter: Run Debug",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["run", "--debug"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Run Profile",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["run", "--profile"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Run Release",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["run", "--release"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE DOCTOR Y DIAGNÓSTICO =====
+    {
+      "label": "Flutter: Doctor",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["doctor"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Doctor -v",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["doctor", "-v"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE GESTIÓN DE DISPOSITIVOS =====
+    {
+      "label": "Flutter: Devices",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["devices"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Emulators",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["emulators"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE GESTIÓN DE PAQUETES =====
+    {
+      "label": "Flutter: Outdated",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["pub", "outdated"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: Upgrade",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["pub", "upgrade"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE PERFORMANCE =====
+    {
+      "label": "Flutter: Performance Overlay",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["run", "--profile", "--enable-software-rendering"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE GIT =====
+    {
+      "label": "Git: Status",
+      "type": "shell",
+      "command": "git",
+      "args": ["status"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Git: Pull",
+      "type": "shell",
+      "command": "git",
+      "args": ["pull"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Git: Push",
+      "type": "shell",
+      "command": "git",
+      "args": ["push"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE LIMPIEZA Y MANTENIMIENTO =====
+    {
+      "label": "Clean All",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Flutter: Clean",
+        "Delete Build Folders"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Delete Build Folders",
+      "type": "shell",
+      "command": "Remove-Item",
+      "args": ["-Recurse", "-Force", "build", "android/build", "ios/build", ".dart_tool"],
+      "windows": {
+        "command": "Remove-Item",
+        "args": ["-Recurse", "-Force", "build", "android/build", "ios/build", ".dart_tool"]
+      },
+      "linux": {
+        "command": "rm",
+        "args": ["-rf", "build", "android/build", "ios/build", ".dart_tool"]
+      },
+      "osx": {
+        "command": "rm",
+        "args": ["-rf", "build", "android/build", "ios/build", ".dart_tool"]
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+
+    // ===== TAREAS DE WORKFLOW COMPLETO =====
+    {
+      "label": "Full Setup",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Flutter: Doctor",
+        "Flutter: Get Dependencies",
+        "Flutter: Build Runner",
+        "Flutter: Analyze"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Pre-commit Check",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Flutter: Format",
+        "Flutter: Analyze",
+        "Flutter: Test All"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}

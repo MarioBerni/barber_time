@@ -5,10 +5,10 @@ import '../../../../core/widgets/states/states.dart';
 class SearchEmptyState extends StatelessWidget {
   /// Texto de la consulta de búsqueda
   final String searchQuery;
-  
+
   /// Acción al presionar el botón de limpiar búsqueda
   final VoidCallback onClearSearch;
-  
+
   /// Constructor
   const SearchEmptyState({
     super.key,
@@ -31,7 +31,6 @@ class SearchEmptyState extends StatelessWidget {
         ),
         child: const Text('Limpiar búsqueda'),
       ),
-      padding: const EdgeInsets.all(24.0),
     );
   }
 }

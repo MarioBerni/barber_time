@@ -6,12 +6,9 @@ import '../../../../../../core/theme/app_theme_extensions.dart';
 class AddressItem extends StatelessWidget {
   /// La dirección a mostrar
   final String address;
-  
+
   /// Constructor
-  const AddressItem({
-    super.key,
-    required this.address,
-  });
+  const AddressItem({super.key, required this.address});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +22,7 @@ class AddressItem extends StatelessWidget {
             color: context.primaryColor,
           ),
           const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              address,
-              style: context.bodyMedium,
-            ),
-          ),
+          Expanded(child: Text(address, style: context.bodyMedium)),
         ],
       ),
     );

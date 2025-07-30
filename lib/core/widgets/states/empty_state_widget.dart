@@ -40,13 +40,16 @@ class EmptyStateWidget extends StatelessWidget {
   /// Padding alrededor del widget completo.
   final EdgeInsets padding;
 
-  /// Widget de ilustración personalizado que reemplaza al icono si se proporciona.
+  /// Widget de ilustración personalizado que reemplaza al icono
+  /// si se proporciona.
   final Widget? illustration;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final grayMedium = theme.colorScheme.onSurface.withAlpha((0.6 * 255).round());
+    final grayMedium = theme.colorScheme.onSurface.withAlpha(
+      (0.6 * 255).toInt(),
+    );
 
     return Padding(
       padding: padding,
@@ -54,12 +57,7 @@ class EmptyStateWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          illustration ??
-              Icon(
-                icon,
-                size: iconSize,
-                color: grayMedium,
-              ),
+          illustration ?? Icon(icon, size: iconSize, color: grayMedium),
           const SizedBox(height: 24),
           Text(
             title,
@@ -72,16 +70,11 @@ class EmptyStateWidget extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               message!,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: grayMedium,
-              ),
+              style: theme.textTheme.bodyLarge?.copyWith(color: grayMedium),
               textAlign: TextAlign.center,
             ),
           ],
-          if (action != null) ...[
-            const SizedBox(height: 24),
-            action!,
-          ],
+          if (action != null) ...[const SizedBox(height: 24), action!],
         ],
       ),
     );

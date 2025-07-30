@@ -17,10 +17,7 @@ class RouteTransitions {
       key: state.pageKey,
       child: child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
+        return FadeTransition(opacity: animation, child: child);
       },
       transitionDuration: duration,
     );
@@ -64,27 +61,26 @@ class RouteTransitions {
       key: state.pageKey,
       child: child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
-          CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-        );
-        
-        final fadeAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
-          CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-        );
-        
+        final scaleAnimation = Tween<double>(
+          begin: 0.9,
+          end: 1.0,
+        ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
+
+        final fadeAnimation = Tween<double>(
+          begin: 0.5,
+          end: 1.0,
+        ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
+
         return FadeTransition(
           opacity: fadeAnimation,
-          child: ScaleTransition(
-            scale: scaleAnimation,
-            child: child,
-          ),
+          child: ScaleTransition(scale: scaleAnimation, child: child),
         );
       },
       transitionDuration: duration,
     );
   }
-  
-  /// Transición personalizada combinada para botones flotantes o acciones especiales
+
+  /// Transición combinada para botones flotantes o acciones especiales.
   static CustomTransitionPage<void> heroFadeTransition({
     required BuildContext context,
     required GoRouterState state,

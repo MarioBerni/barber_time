@@ -1,0 +1,390 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // ===== CONFIGURACIONES DE DEBUGGING PARA FLUTTER =====
+    {
+      "name": "Flutter: Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1"
+      }
+    },
+    {
+      "name": "Flutter: Profile",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--profile"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_PROFILE": "1"
+      }
+    },
+    {
+      "name": "Flutter: Release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--release"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_RELEASE": "1"
+      }
+    },
+    {
+      "name": "Flutter: Hot Reload",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--hot"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_HOT_RELOAD": "1"
+      }
+    },
+
+    // ===== CONFIGURACIONES ESPECÍFICAS POR PLATAFORMA =====
+    {
+      "name": "Flutter: Android Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "android",
+      "args": [
+        "--debug"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "FLUTTER_PLATFORM": "android"
+      }
+    },
+    {
+      "name": "Flutter: iOS Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "ios",
+      "args": [
+        "--debug"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "FLUTTER_PLATFORM": "ios"
+      }
+    },
+    {
+      "name": "Flutter: Web Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "chrome",
+      "args": [
+        "--debug",
+        "--web-port=8080"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "FLUTTER_PLATFORM": "web"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE TESTING =====
+    {
+      "name": "Flutter: Test All",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/",
+      "args": [
+        "--coverage"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_TEST": "1"
+      }
+    },
+    {
+      "name": "Flutter: Test Widget",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/widget_test.dart",
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_TEST": "1"
+      }
+    },
+    {
+      "name": "Flutter: Test Unit",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/unit/",
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_TEST": "1"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE PERFORMANCE =====
+    {
+      "name": "Flutter: Performance Debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--profile",
+        "--enable-software-rendering",
+        "--trace-startup"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_PROFILE": "1",
+        "FLUTTER_PERFORMANCE": "1"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE DESARROLLO =====
+    {
+      "name": "Flutter: Development",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--verbose"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "FLUTTER_VERBOSE": "1",
+        "FLUTTER_DEVELOPMENT": "1"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE STAGING =====
+    {
+      "name": "Flutter: Staging",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--profile",
+        "--dart-define=ENVIRONMENT=staging"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_PROFILE": "1",
+        "FLUTTER_ENVIRONMENT": "staging"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE PRODUCCIÓN =====
+    {
+      "name": "Flutter: Production",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--release",
+        "--dart-define=ENVIRONMENT=production"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_RELEASE": "1",
+        "FLUTTER_ENVIRONMENT": "production"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE DEBUGGING AVANZADO =====
+    {
+      "name": "Flutter: Debug with Observatory",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--observatory-port=8888"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "FLUTTER_OBSERVATORY": "1"
+      }
+    },
+    {
+      "name": "Flutter: Debug with VM Service",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--vm-service-port=8888"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "FLUTTER_VM_SERVICE": "1"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE TESTING AVANZADO =====
+    {
+      "name": "Flutter: Integration Test",
+      "request": "launch",
+      "type": "dart",
+      "program": "integration_test/",
+      "args": [
+        "--coverage"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_INTEGRATION_TEST": "1"
+      }
+    },
+    {
+      "name": "Flutter: Golden Test",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/golden/",
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_GOLDEN_TEST": "1"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE DEBUGGING ESPECÍFICAS =====
+    {
+      "name": "Flutter: Debug Auth Feature",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--dart-define=DEBUG_AUTH=true"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "DEBUG_AUTH": "true"
+      }
+    },
+    {
+      "name": "Flutter: Debug Home Feature",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--dart-define=DEBUG_HOME=true"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "DEBUG_HOME": "true"
+      }
+    },
+    {
+      "name": "Flutter: Debug Profile Feature",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--dart-define=DEBUG_PROFILE=true"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "DEBUG_PROFILE": "true"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE DEBUGGING DE RED =====
+    {
+      "name": "Flutter: Debug Network",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--dart-define=DEBUG_NETWORK=true"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "DEBUG_NETWORK": "true"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE DEBUGGING DE ESTADO =====
+    {
+      "name": "Flutter: Debug State",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--dart-define=DEBUG_STATE=true"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "DEBUG_STATE": "true"
+      }
+    },
+
+    // ===== CONFIGURACIONES DE DEBUGGING DE UI =====
+    {
+      "name": "Flutter: Debug UI",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--debug",
+        "--dart-define=DEBUG_UI=true"
+      ],
+      "console": "debugConsole",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "FLUTTER_DEBUG": "1",
+        "DEBUG_UI": "true"
+      }
+    }
+  ]
+}

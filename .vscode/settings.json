@@ -1,0 +1,364 @@
+{
+  // ===== CONFIGURACIONES DE MEMORIA Y RENDIMIENTO =====
+
+  // Optimización de memoria para Cursor
+  "files.watcherExclude": {
+    "**/build/**": true,
+    "**/node_modules/**": true,
+    "**/.dart_tool/**": true,
+    "**/.flutter-plugins/**": true,
+    "**/.flutter-plugins-dependencies": true,
+    "**/.pub-cache/**": true,
+    "**/.pub/**": true,
+    "**/ios/Pods/**": true,
+    "**/android/.gradle/**": true
+  },
+
+  // Excluir archivos del indexado para mejorar rendimiento
+  "search.exclude": {
+    "**/build/**": true,
+    "**/node_modules/**": true,
+    "**/.dart_tool/**": true,
+    "**/.flutter-plugins/**": true,
+    "**/.pub-cache/**": true,
+    "**/.pub/**": true,
+    "**/ios/Pods/**": true,
+    "**/android/.gradle/**": true,
+    "**/*.g.dart": true,
+    "**/*.freezed.dart": true
+  },
+
+  // Configuración de archivos para mejorar rendimiento
+  "files.exclude": {
+    "**/.dart_tool": true,
+    "**/.flutter-plugins": true,
+    "**/.flutter-plugins-dependencies": true,
+    "**/.pub-cache": true,
+    "**/.pub": true,
+    "**/build": true,
+    "**/ios/Pods": true,
+    "**/android/.gradle": true
+  },
+
+  // ===== CONFIGURACIONES DE FLUTTER/DART =====
+
+  // Configuración específica para Dart
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [80],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "off",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // Configuración específica para Flutter
+  "[yaml]": {
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+
+  // Configuración para archivos de configuración
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+
+  // ===== CONFIGURACIONES DE PRODUCTIVIDAD =====
+
+  // Autoguardado
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+
+  // Configuración del explorador de archivos
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+
+  // Configuración de la terminal
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.2,
+
+  // Configuración de minimap
+  "editor.minimap.enabled": true,
+  "editor.minimap.maxColumn": 80,
+  "editor.minimap.showSlider": "always",
+
+  // Configuración de breadcrumbs
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.showFiles": true,
+  "breadcrumbs.showSymbols": true,
+
+  // Configuración de outline
+  "outline.showVariables": true,
+  "outline.showFunctions": true,
+  "outline.showClasses": true,
+
+  // ===== CONFIGURACIONES DE IA Y CURSOR =====
+
+  // Configuración de Cursor AI
+  "cursor.chat.enabled": true,
+  "cursor.chat.autoComplete": true,
+  "cursor.chat.autoCompleteTriggerMode": "automatic",
+  // --- Configuración avanzada para plan Pro ---
+  "cursor.chat.maxTokens": 2000,                // Limita la longitud de cada respuesta AI
+  "cursor.chat.maxMessages": 30,                // Limita la longitud de cada conversación
+  "cursor.autocomplete.enabled": true,          // Habilita autocompletado AI
+  "cursor.autocomplete.maxTokens": 500,         // Limita sugerencias para ahorrar tokens
+  "cursor.chat.usageAlerts": true,              // Activa alertas de uso
+  "cursor.chat.usageThreshold": 0.8,            // Alerta al 80% del límite
+  "cursor.chat.useMaxMode": false,              // Evita modo MAX (costoso)
+  "cursor.chat.maxContextLength": 10000,        // Limita el contexto para ahorrar tokens
+  "cursor.chat.clearContextOnNewChat": true,    // Limpia contexto en nuevos chats
+
+  // Configuración de GitHub Copilot (si lo usas)
+  "github.copilot.enable": {
+    "*": true,
+    "dart": true,
+    "yaml": true,
+    "json": true
+  },
+
+  // Configuración de autocompletado
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+
+  // Configuración de snippets
+  "editor.snippetSuggestions": "top",
+
+  // ===== CONFIGURACIONES DE TEMAS Y UI =====
+
+  // Configuración de tema
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "material-icon-theme",
+
+  // Configuración de fuentes
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 1.5,
+
+  // Configuración de espaciado
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+
+  // Configuración de guías de indentación
+  "editor.guides.indentation": true,
+  "editor.guides.bracketPairs": true,
+
+  // ===== CONFIGURACIONES DE DEBUGGING =====
+
+  // Configuración de debugging para Flutter
+  "dart.flutterSdkPath": null,
+  "dart.sdkPath": null,
+  "dart.checkForSdkUpdates": false,
+
+  // Configuración de hot reload
+  "dart.hotReloadOnSave": "all",
+
+  // Configuración de análisis
+  "dart.analysisServerFolding": true,
+  "dart.analysisServerSnippets": true,
+
+  // ===== CONFIGURACIONES DE GIT =====
+
+  // Configuración de Git
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.autofetchPeriod": 180,
+
+  // Configuración de GitLens (si lo tienes instalado)
+  "gitlens.codeLens.enabled": true,
+  "gitlens.hovers.enabled": true,
+
+  // ===== CONFIGURACIONES DE EXTENSIONES =====
+
+  // Configuración de extensiones recomendadas
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+
+  // Configuración de extensiones específicas
+  "material-icon-theme.folders.associations": {
+    "lib": "lib",
+    "test": "test",
+    "docs": "docs",
+    "assets": "assets",
+    "build": "build",
+    "android": "android",
+    "ios": "ios",
+    "web": "web",
+    "windows": "windows",
+    "linux": "linux",
+    "macos": "macos"
+  },
+
+  // ===== CONFIGURACIONES DE RENDIMIENTO ADICIONALES =====
+
+  // Configuración de TypeScript (si usas algún proyecto con TS)
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Configuración de JavaScript
+  "javascript.suggest.autoImports": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // Configuración de CSS
+  "css.validate": true,
+  "less.validate": true,
+  "scss.validate": true,
+
+  // Configuración de HTML
+  "html.autoClosingTags": true,
+  "html.autoCreateQuotes": true,
+  "html.autoWrap": "auto",
+
+  // Configuración de emmet
+  "emmet.includeLanguages": {
+    "dart": "html"
+  },
+
+  // Configuración de formateo
+  "editor.formatOnPaste": true,
+  "editor.formatOnSaveMode": "file",
+
+  // Configuración de linting
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // Configuración de problemas
+  "problems.decorations.enabled": true,
+
+  // Configuración de workspace
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+
+  // Configuración de búsqueda
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+
+  // Configuración de archivos
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+
+  // Configuración de editor
+  "editor.wordWrap": "off",
+  "editor.scrollBeyondLastLine": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.renderControlCharacters": false,
+  "editor.renderLineHighlight": "all",
+
+  // Configuración de sugerencias
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.wordBasedSuggestions": "off",
+
+  // Configuración de brackets
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+
+  // Configuración de parámetros
+  "editor.parameterHints.enabled": true,
+  "editor.parameterHints.cycle": true,
+
+  // Configuración de hover
+  "editor.hover.enabled": true,
+  "editor.hover.delay": 300,
+
+  // Configuración de links
+  "editor.links": true,
+
+  // Configuración de drag and drop
+  "editor.dragAndDrop": true,
+
+  // Configuración de multi cursor
+  "editor.multiCursorModifier": "alt",
+  "editor.multiCursorPaste": "full",
+
+  // Configuración de selección
+  "editor.selectionClipboard": false,
+  "editor.find.seedSearchStringFromSelection": "always",
+  "editor.find.addExtraSpaceOnTop": false,
+
+  // Configuración de scroll
+  "editor.smoothScrolling": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "blink",
+
+  // Configuración de zoom
+  "window.zoomLevel": 0,
+
+  // Configuración de panel
+  "panel.defaultLocation": "bottom",
+
+  // Configuración de sidebar
+  "workbench.sideBar.location": "left",
+
+  // Configuración de status bar
+  "workbench.statusBar.visible": true,
+
+  // Configuración de menú bar
+  "window.menuBarVisibility": "visible",
+
+  // Configuración de título
+  "window.titleBarStyle": "custom",
+
+  // Configuración de centrado
+  "workbench.centerLayout": "auto",
+
+  // Configuración de grid
+  "workbench.editor.showTabs": "multiple",
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.editor.wrapTabs": false,
+
+  // Configuración de editor groups
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.editor.enablePreview": false,
+
+  // Configuración de notificaciones
+  "notifications.doNotDisturbMode": false,
+
+  // Configuración de telemetría
+  "telemetry.telemetryLevel": "off",
+
+  // Configuración de actualizaciones
+  "update.mode": "default",
+  "update.showReleaseNotes": true,
+
+  // Configuración de seguridad
+  "security.workspace.trust.enabled": true,
+
+  // Configuración de workspace
+  "workbench.settings.enableNaturalLanguageSearch": true,
+  "workbench.settings.useSplitJSON": true,
+
+  // Configuración de keybindings
+  "keyboard.dispatch": "keyCode",
+
+  // Configuración de accessibility
+  "accessibility.support": "off",
+
+  // Configuración de performance
+  "workbench.enableExperiments": false,
+
+  // Configuración de experimental features
+  "workbench.experimental.settingsProfiles.enabled": false
+}

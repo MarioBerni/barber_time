@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Widget genérico para mostrar un carrusel horizontal de elementos.
 ///
-/// Proporciona una base reutilizable para cualquier carrusel horizontal en la aplicación,
-/// con opciones personalizables de estilo, desplazamiento y comportamiento.
+/// Proporciona una base reutilizable para cualquier carrusel horizontal en la
+/// aplicación, con opciones personalizables de estilo, desplazamiento y
+/// comportamiento.
 class HorizontalCarousel<T> extends StatelessWidget {
   /// Lista de elementos a mostrar en el carrusel.
   final List<T> items;
@@ -20,14 +21,14 @@ class HorizontalCarousel<T> extends StatelessWidget {
   /// Padding entre elementos del carrusel. Por defecto es 4.0.
   final double itemSpacing;
 
-  /// Física de desplazamiento para el ListView. Por defecto es BouncingScrollPhysics.
+  /// Física de desplazamiento para el ListView.
   final ScrollPhysics? physics;
 
   /// Controlador opcional para el ListView.
   final ScrollController? controller;
 
   /// Callback opcional que se ejecuta cuando se selecciona un elemento.
-  final Function(T item)? onItemSelected;
+  final ValueChanged<T>? onItemSelected;
 
   /// Offset inicial del carrusel.
   final double? initialScrollOffset;
@@ -35,7 +36,8 @@ class HorizontalCarousel<T> extends StatelessWidget {
   /// Si es true, el carrusel hace loop infinito.
   final bool infiniteScroll;
 
-  /// Velocidad de auto-desplazamiento en segundos por pantalla (null para deshabilitar).
+  /// Velocidad de auto-desplazamiento en segundos por pantalla (null para
+  /// deshabilitar).
   final double? autoScrollSpeed;
 
   /// Si es true, muestra indicadores de página.
@@ -77,11 +79,13 @@ class HorizontalCarousel<T> extends StatelessWidget {
           // para que la lista sea infinita
           final effectiveIndex = infiniteScroll ? index % items.length : index;
           final item = items[effectiveIndex];
-          
+
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: itemSpacing),
             child: GestureDetector(
-              onTap: onItemSelected != null ? () => onItemSelected!(item) : null,
+              onTap: onItemSelected != null
+                  ? () => onItemSelected!(item)
+                  : null,
               child: itemBuilder(context, item, effectiveIndex),
             ),
           );

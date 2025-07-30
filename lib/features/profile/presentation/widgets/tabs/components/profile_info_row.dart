@@ -6,13 +6,13 @@ import '../../../../../../core/theme/app_theme_extensions.dart';
 class ProfileInfoRow extends StatelessWidget {
   /// Etiqueta descriptiva de la información
   final String label;
-  
+
   /// Valor/información a mostrar
   final String value;
-  
+
   /// Icono asociado a este tipo de información
   final IconData icon;
-  
+
   /// Constructor
   const ProfileInfoRow({
     super.key,
@@ -28,11 +28,7 @@ class ProfileInfoRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            size: 22,
-            color: context.primaryColor,
-          ),
+          Icon(icon, size: 22, color: context.primaryColor),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -45,10 +41,7 @@ class ProfileInfoRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  value,
-                  style: context.bodyMedium,
-                ),
+                Text(value, style: context.bodyMedium),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
@@ -10,17 +11,14 @@ class HomeSpecialOfferCard extends StatelessWidget {
   final SpecialOffer offer;
 
   /// Constructor del widget de oferta especial
-  const HomeSpecialOfferCard({
-    super.key,
-    required this.offer,
-  });
+  const HomeSpecialOfferCard({super.key, required this.offer});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     // Usamos Container con sombra envolviendo al GlamContainer con nuevo diseño
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20), // Bordes más redondeados
         boxShadow: [
@@ -35,7 +33,9 @@ class HomeSpecialOfferCard extends StatelessWidget {
       child: GlamContainer(
         fixedSize: const Size(290, 170), // Ligeramente más grande
         borderRadius: BorderRadius.circular(20), // Bordes consistentes
-        borderColor: AppTheme.kPrimaryDarkColor.withAlpha(102), // Borde sutil turquesa
+        borderColor: AppTheme.kPrimaryDarkColor.withAlpha(
+          102,
+        ), // Borde sutil turquesa
         borderWidth: 1.5, // Borde más visible
         child: Stack(
           children: [
@@ -48,11 +48,13 @@ class HomeSpecialOfferCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
-                      color: AppTheme.kSurfaceAlt, // Nuevo color de superficie alternativa
+                      color: AppTheme
+                          .kSurfaceAlt, // Nuevo color de superficie alternativa
                       child: Center(
                         child: Icon(
-                          Icons.image_not_supported, 
-                          color: Colors.grey[300], // Tono claro similar a grayLight
+                          Icons.image_not_supported,
+                          color: Colors
+                              .grey[300], // Tono claro similar a grayLight
                           size: context.iconSizeDefault,
                         ),
                       ),
@@ -61,7 +63,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Gradiente moderno con nueva paleta
             Positioned.fill(
               child: Container(
@@ -78,13 +80,17 @@ class HomeSpecialOfferCard extends StatelessWidget {
                 ),
               ),
             ),
-            
-            // Indicador de oferta premium en la esquina superior con nuevo estilo
+
+            // Indicador de oferta premium en la esquina superior
+            // con nuevo estilo
             Positioned(
               top: 0,
               right: 12,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: AppTheme.kAccentColor,
                   borderRadius: const BorderRadius.only(
@@ -95,7 +101,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
                 child: Icon(Icons.star, color: Colors.white, size: 16),
               ),
             ),
-            
+
             // Contenido de la oferta
             Positioned(
               bottom: 16,
@@ -133,14 +139,17 @@ class HomeSpecialOfferCard extends StatelessWidget {
                             color: AppTheme.kSurfaceAlt, // Nuevo color de fondo
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color: AppTheme.kAccentColor.withAlpha(160), // Borde naranja terracota
+                              color: AppTheme.kAccentColor.withAlpha(
+                                160,
+                              ), // Borde naranja terracota
                               width: 1.5,
                             ),
                           ),
                           child: Text(
                             offer.promoCode!,
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              color: AppTheme.kAccentColor, // Texto naranja terracota
+                              color: AppTheme.kAccentColor, // Texto naranja
+                              // terracota
                               fontWeight: FontWeight.bold,
                             ),
                           ),

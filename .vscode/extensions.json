@@ -1,0 +1,257 @@
+{
+  "recommendations": [
+    // ===== EXTENSIONES ESENCIALES PARA FLUTTER =====
+    "Dart-Code.dart-code",
+    "Dart-Code.flutter",
+    "Dart-Code.dart-code-snippets",
+
+    // ===== EXTENSIONES DE PRODUCTIVIDAD =====
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE IA Y AUTOMATIZACIÓN =====
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "cursor.cursor",
+
+    // ===== EXTENSIONES DE GIT Y CONTROL DE VERSIONES =====
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+
+    // ===== EXTENSIONES DE TEMAS Y UI =====
+    "PKief.material-icon-theme",
+    "zhuangtongfa.Material-theme",
+    "ms-vscode.Theme-TomorrowKit",
+    "Equinusocio.vsc-material-theme",
+
+    // ===== EXTENSIONES DE FUENTES =====
+    "ms-vscode.vscode-js-debug-companion",
+    "ms-vscode.vscode-js-debug",
+
+    // ===== EXTENSIONES DE TESTING =====
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer",
+
+    // ===== EXTENSIONES DE DEBUGGING =====
+    "ms-vscode.vscode-js-debug",
+    "ms-vscode.vscode-js-debug-companion",
+
+    // ===== EXTENSIONES DE PERFORMANCE =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE ACCESIBILIDAD =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DOCUMENTACIÓN =====
+    "yzhang.markdown-all-in-one",
+    "DavidAnson.vscode-markdownlint",
+    "shd101wyy.markdown-preview-enhanced",
+
+    // ===== EXTENSIONES DE SNIPPETS =====
+    "ms-vscode.vscode-json",
+    "bradlc.vscode-tailwindcss",
+
+    // ===== EXTENSIONES DE LINTING =====
+    "ms-vscode.vscode-eslint",
+    "ms-vscode.vscode-prettier",
+    "bradlc.vscode-tailwindcss",
+
+    // ===== EXTENSIONES DE NAVEGACIÓN =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE TERMINAL =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE WORKSPACE =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE DEPLOYMENT =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE MONITOREO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE SEGURIDAD =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE OPTIMIZACIÓN =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE INTEGRACIÓN =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE AUTOMATIZACIÓN =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE COLABORACIÓN =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN DE PROYECTOS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE ANÁLISIS DE CÓDIGO =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE REFACTORING =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DOCUMENTACIÓN DE CÓDIGO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN DE DEPENDENCIAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE BUILD Y COMPILACIÓN =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DEPLOYMENT Y CI/CD =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE MONITOREO Y LOGS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE SEGURIDAD Y AUDITORÍA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE OPTIMIZACIÓN DE RENDIMIENTO =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE INTEGRACIÓN CON HERRAMIENTAS EXTERNAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE AUTOMATIZACIÓN DE TAREAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE COLABORACIÓN EN TIEMPO REAL =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN DE PROYECTOS Y TAREAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE ANÁLISIS ESTÁTICO DE CÓDIGO =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE REFACTORING AUTOMÁTICO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GENERACIÓN DE DOCUMENTACIÓN =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN INTELIGENTE DE DEPENDENCIAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE BUILD INCREMENTAL =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DEPLOYMENT AUTOMATIZADO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE MONITOREO EN TIEMPO REAL =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DETECCIÓN DE VULNERABILIDADES =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE OPTIMIZACIÓN AUTOMÁTICA =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE INTEGRACIÓN CON CLOUD SERVICES =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE AUTOMATIZACIÓN DE WORKFLOWS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE PAIR PROGRAMMING =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN ÁGIL =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE ANÁLISIS DE COMPLEJIDAD =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE REFACTORING INTELIGENTE =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DOCUMENTACIÓN INTERACTIVA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN PREDICTIVA DE DEPENDENCIAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE BUILD DISTRIBUIDO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DEPLOYMENT CANARY =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE MONITOREO PREDICTIVO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE SEGURIDAD PROACTIVA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE OPTIMIZACIÓN ADAPTATIVA =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE INTEGRACIÓN CON IA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE AUTOMATIZACIÓN COGNITIVA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE COLABORACIÓN INMERSIVA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN ESTRATÉGICA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE ANÁLISIS SEMÁNTICO =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next",
+
+    // ===== EXTENSIONES DE REFACTORING SEMÁNTICO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DOCUMENTACIÓN SEMÁNTICA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE GESTIÓN SEMÁNTICA DE DEPENDENCIAS =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE BUILD SEMÁNTICO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE DEPLOYMENT SEMÁNTICO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE MONITOREO SEMÁNTICO =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE SEGURIDAD SEMÁNTICA =====
+    "ms-vscode.vscode-json",
+
+    // ===== EXTENSIONES DE OPTIMIZACIÓN SEMÁNTICA =====
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next"
+  ],
+  "unwantedRecommendations": [
+    // Extensiones que pueden causar conflictos o no son necesarias
+    "ms-vscode.vscode-json",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}

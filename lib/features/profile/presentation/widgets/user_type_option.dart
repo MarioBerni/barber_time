@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme_extensions.dart';
 
-/// Widget para mostrar una opción de tipo de usuario en la pantalla de selección
+/// Widget para mostrar una opción de tipo de usuario
+/// en la pantalla de selección
 class UserTypeOption extends StatelessWidget {
   /// Título de la opción
   final String title;
-  
+
   /// Descripción de la opción
   final String description;
-  
+
   /// Icono para la opción
   final IconData icon;
-  
+
   /// Callback cuando se selecciona esta opción
   final VoidCallback onTap;
-  
+
   /// Constructor
   const UserTypeOption({
     super.key,
@@ -31,10 +32,7 @@ class UserTypeOption extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: context.primaryLightColor,
-          width: 1,
-        ),
+        side: BorderSide(color: context.primaryLightColor),
       ),
       child: InkWell(
         onTap: onTap,
@@ -49,11 +47,7 @@ class UserTypeOption extends StatelessWidget {
                   color: context.primaryLightColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  icon,
-                  color: context.primaryColor,
-                  size: 28,
-                ),
+                child: Icon(icon, color: context.primaryColor, size: 28),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -62,15 +56,10 @@ class UserTypeOption extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: context.h5.copyWith(
-                        color: context.primaryColor,
-                      ),
+                      style: context.h5.copyWith(color: context.primaryColor),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      description,
-                      style: context.bodySmall,
-                    ),
+                    Text(description, style: context.bodySmall),
                   ],
                 ),
               ),

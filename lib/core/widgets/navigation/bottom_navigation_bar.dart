@@ -4,7 +4,7 @@ import '../../theme/app_theme_extensions.dart';
 import '../icons/styled_icon.dart';
 
 /// Widget reutilizable para la barra de navegación inferior de la aplicación.
-/// 
+///
 /// Proporciona una barra de navegación estilizada con gradiente, efectos
 /// visuales para los íconos activos, y diseño consistente con el tema.
 class AppBottomNavigationBar extends StatelessWidget {
@@ -12,11 +12,12 @@ class AppBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
 
   /// Callback que se ejecuta cuando se selecciona un nuevo ítem.
-  final Function(int) onTap;
+  final ValueChanged<int> onTap;
 
   /// Lista de ítems de la barra de navegación.
   final List<BottomNavigationBarItem> items;
 
+  /// Constructor principal.
   const AppBottomNavigationBar({
     super.key,
     required this.currentIndex,
@@ -25,12 +26,12 @@ class AppBottomNavigationBar extends StatelessWidget {
   });
 
   /// Constructor con los ítems predeterminados de navegación principal.
-  /// 
+  ///
   /// En lugar de usar StyledIcon directamente en el constructor factory,
   /// creamos íconos básicos que luego se modifican en el método build.
   factory AppBottomNavigationBar.main({
     required int currentIndex,
-    required Function(int) onTap,
+    required ValueChanged<int> onTap,
   }) {
     return AppBottomNavigationBar(
       currentIndex: currentIndex,
@@ -62,42 +63,38 @@ class AppBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         // Fondo oscuro moderno para el tema dark
         color: context.surfaceColor, // Superficie oscura para navigation
         boxShadow: [
           BoxShadow(
             color: Colors.black.withAlpha((0.3 * 255).round()),
-            blurRadius: 12.0,
+            blurRadius: 12,
             offset: const Offset(0, -4),
           ),
           BoxShadow(
             color: context.primaryColor.withAlpha((0.05 * 255).round()),
-            blurRadius: 8.0,
+            blurRadius: 8,
             offset: const Offset(0, -2),
           ),
         ],
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: context.spacingXS,
-          ),
+          padding: EdgeInsets.symmetric(vertical: context.spacingXS),
           child: BottomNavigationBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            selectedItemColor: context.primaryColor, // Turquesa-menta para elementos activos
-            unselectedItemColor: Colors.grey[400], // Gris claro para elementos inactivos
+            selectedItemColor: context.primaryColor,
+            unselectedItemColor: Colors.grey[400],
             selectedLabelStyle: context.bodySmall.copyWith(
               fontWeight: FontWeight.bold,
-              color: context.primaryColor, // Turquesa-menta para texto activo
+              color: context.primaryColor,
             ),
             unselectedLabelStyle: context.bodySmall.copyWith(
-              color: Colors.grey[400], // Gris claro para texto inactivo
+              color: Colors.grey[400],
             ),
             type: BottomNavigationBarType.fixed,
             currentIndex: currentIndex,
@@ -116,28 +113,23 @@ class AppBottomNavigationBar extends StatelessWidget {
     );
   }
 
-  /// Construye un icono con estilo uniforme para la barra de navegación
-  /// Actualizado para usar la nueva paleta azul + dorado
+  /// Construye un icono con estilo uniforme para la barra de navegación.
   Widget _buildIcon(BuildContext context, Widget icon, bool isActive) {
-    // Si el icono ya es un widget personalizado o no es un Icon, lo devolvemos tal cual
     if (icon is! Icon) return icon;
-    
+
     final IconData? iconData = icon.icon;
     final double? size = icon.size;
-    
+
     if (iconData == null) return icon;
-    
-    // Usar el componente StyledIcon con nuevo esquema moderno turquesa y naranja
+
     return StyledIcon(
       icon: iconData,
       isActive: isActive,
       hasGlowEffect: isActive,
-      iconColor: isActive 
-          ? context.primaryColor // Turquesa-menta para iconos activos
-          : Colors.grey[400], // Gris claro para iconos inactivos
-      backgroundColor: isActive 
-          ? context.primaryColor.withAlpha(38) // Fondo sutil turquesa para activo
-          : Colors.transparent, // Sin fondo para inactivos (minimalista)
+      iconColor: isActive ? context.primaryColor : Colors.grey[400],
+      backgroundColor: isActive
+          ? context.primaryColor.withAlpha(38)
+          : Colors.transparent,
       iconSize: size ?? 24,
       circleSize: 42,
     );

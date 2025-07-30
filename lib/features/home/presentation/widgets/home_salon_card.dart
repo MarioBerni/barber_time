@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
@@ -23,7 +23,7 @@ class HomeSalonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return GlamContainer(
       fixedSize: const Size.fromHeight(110),
       borderRadius: BorderRadius.circular(12),
@@ -44,19 +44,20 @@ class HomeSalonCard extends StatelessWidget {
                 width: 110,
                 height: 110,
                 color: theme.colorScheme.primary.withAlpha((0.1 * 255).round()),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                child: const Center(child: CircularProgressIndicator()),
               ),
               errorWidget: (context, url, error) => Container(
                 width: 110,
                 height: 110,
                 color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
-                child: Icon(Icons.image_not_supported, size: context.iconSizeDefault),
+                child: Icon(
+                  Icons.image_not_supported,
+                  size: context.iconSizeDefault,
+                ),
               ),
             ),
           ),
-          
+
           // Información del salón
           Expanded(
             child: Padding(
@@ -93,7 +94,7 @@ class HomeSalonCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
+
                   // Dirección
                   Text(
                     salon.address,
@@ -101,9 +102,9 @@ class HomeSalonCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
+
                   const Spacer(),
-                  
+
                   // Calificación, reseñas y precio
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +114,8 @@ class HomeSalonCard extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.star,
-                            color: context.accentColor, // Actualizado a naranja terracota
+                            color: context
+                                .accentColor, // Actualizado a naranja terracota
                             size: 18,
                           ),
                           const SizedBox(width: 4),
@@ -130,7 +132,7 @@ class HomeSalonCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      
+
                       // Precio
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -138,13 +140,17 @@ class HomeSalonCard extends StatelessWidget {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.secondary.withAlpha((0.1 * 255).round()),
+                          color: theme.colorScheme.secondary.withAlpha(
+                            (0.1 * 255).round(),
+                          ),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
                           salon.price,
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.secondary, // Naranja terracota
+                            color: theme
+                                .colorScheme
+                                .secondary, // Naranja terracota
                             fontWeight: FontWeight.bold,
                           ),
                         ),

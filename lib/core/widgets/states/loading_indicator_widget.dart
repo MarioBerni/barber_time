@@ -9,9 +9,11 @@ class LoadingIndicatorWidget extends StatelessWidget {
   /// Crea un indicador de carga personalizado.
   ///
   /// [size] controla el tamaño del indicador (pequeño, medio, grande).
-  /// [color] permite personalizar el color (por defecto usa el color primario del tema).
+  /// [color] permite personalizar el color (por defecto usa el color
+  /// primario del tema).
   /// [message] opcional para mostrar texto descriptivo debajo del indicador.
-  /// [showBackground] determina si mostrar un fondo semi-transparente alrededor del indicador.
+  /// [showBackground] determina si mostrar un fondo semi-transparente
+  /// alrededor del indicador.
   const LoadingIndicatorWidget({
     super.key,
     this.size = LoadingIndicatorSize.medium,
@@ -37,14 +39,14 @@ class LoadingIndicatorWidget extends StatelessWidget {
   /// Alineación del indicador dentro de su contenedor padre.
   final Alignment alignment;
 
-  /// Relleno alrededor del indicador.
+  /// [padding] es el relleno alrededor del indicador.
   final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final actualColor = color ?? theme.colorScheme.primary;
-    
+
     final Widget indicator = _buildIndicator(theme, actualColor);
     final Widget content = message != null
         ? Column(
@@ -92,10 +94,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
 
     return Align(
       alignment: alignment,
-      child: Padding(
-        padding: padding,
-        child: content,
-      ),
+      child: Padding(padding: padding, child: content),
     );
   }
 
@@ -126,10 +125,10 @@ class LoadingIndicatorWidget extends StatelessWidget {
 enum LoadingIndicatorSize {
   /// Tamaño pequeño (20px) para indicadores en línea o dentro de componentes.
   small,
-  
+
   /// Tamaño mediano (36px) para uso general.
   medium,
-  
+
   /// Tamaño grande (48px) para pantallas completas de carga.
   large,
 }

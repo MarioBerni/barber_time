@@ -9,32 +9,34 @@ import 'core/theme/app_theme.dart';
 void main() async {
   // Asegurar que los widgets estén inicializados
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Configuración para orientación vertical únicamente (diseño para móviles)
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  
-  // Establecer el color de la barra de estado para combinar con nuestro tema claro
+
+  // Establecer el color de la barra de estado
+  // para combinar con nuestro tema claro
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark, // Iconos oscuros para tema claro
+      statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: AppTheme.kBackgroundColor,
-      systemNavigationBarIconBrightness: Brightness.dark, // Iconos oscuros para tema claro
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
-  
+
   // Inicializar el service locator para inyección de dependencias
   await initServiceLocator();
-  
+
   // Iniciar la aplicación
   runApp(const BarberTimeApp());
 }
 
-/// Widget raíz de la aplicación Barber Time
+/// Widget raíz de la aplicación Barber Time.
 class BarberTimeApp extends StatelessWidget {
+  /// Constructor del widget raíz de la aplicación.
   const BarberTimeApp({super.key});
 
   @override

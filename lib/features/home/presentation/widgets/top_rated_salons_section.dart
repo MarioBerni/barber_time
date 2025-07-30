@@ -20,11 +20,12 @@ class TopRatedSalonsSection extends StatelessWidget {
   final double verticalPadding;
 
   /// Callback opcional que se ejecuta cuando se selecciona un salón.
-  final Function(Salon)? onSalonSelected;
-  
-  /// Callback opcional que se ejecuta cuando se presiona el botón de favorito.
-  final Function(String)? onFavoritePressed;
+  final ValueChanged<Salon>? onSalonSelected;
 
+  /// Callback opcional que se ejecuta cuando se presiona el botón de favorito.
+  final ValueChanged<String>? onFavoritePressed;
+
+  /// Constructor de la sección de salones mejor valorados.
   const TopRatedSalonsSection({
     super.key,
     required this.salons,
@@ -37,23 +38,28 @@ class TopRatedSalonsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: salons.map((salon) => 
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding, 
-            vertical: verticalPadding,
-          ),
-          child: GestureDetector(
-            onTap: onSalonSelected != null ? () => onSalonSelected!(salon) : null,
-            child: HomeSalonCard(
-              salon: salon,
-              onFavoritePressed: onFavoritePressed != null 
-                  ? () => onFavoritePressed!(salon.id) 
-                  : () => context.read<HomeCubit>().toggleFavorite(salon.id),
+      children: salons
+          .map(
+            (salon) => Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
+              ),
+              child: GestureDetector(
+                onTap: onSalonSelected != null
+                    ? () => onSalonSelected!(salon)
+                    : null,
+                child: HomeSalonCard(
+                  salon: salon,
+                  onFavoritePressed: onFavoritePressed != null
+                      ? () => onFavoritePressed!(salon.id)
+                      : () =>
+                            context.read<HomeCubit>().toggleFavorite(salon.id),
+                ),
+              ),
             ),
-          ),
-        )
-      ).toList(),
+          )
+          .toList(),
     );
   }
 }

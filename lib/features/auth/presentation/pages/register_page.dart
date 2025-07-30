@@ -12,6 +12,7 @@ import '../widgets/auth_text_field.dart';
 
 /// Pantalla de registro de usuarios
 class RegisterPage extends StatefulWidget {
+  /// Constructor de RegisterPage.
   const RegisterPage({super.key});
 
   @override
@@ -24,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   String _selectedRole = 'client'; // Valor por defecto: cliente
@@ -64,20 +65,18 @@ class _RegisterPageState extends State<RegisterPage> {
 
       FocusScope.of(context).unfocus();
       context.read<AuthCubit>().register(
-            _nameController.text.trim(),
-            _emailController.text.trim(),
-            _passwordController.text,
-            _selectedRole,
-          );
+        _nameController.text.trim(),
+        _emailController.text.trim(),
+        _passwordController.text,
+        _selectedRole,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Crear Cuenta'),
-      ),
+      appBar: AppBar(title: const Text('Crear Cuenta')),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           // Mostrar mensajes de error si los hay
@@ -212,17 +211,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 24),
 
                   // Selección de rol
-                  Text(
-                    'Tipo de cuenta:',
-                    style: context.bodyMedium,
-                  ),
+                  Text('Tipo de cuenta:', style: context.bodyMedium),
                   SizedBox(height: AppSpacing.xs),
-                  
-                  Container(
+
+                  DecoratedBox(
                     decoration: BoxDecoration(
-                      border: Border.all(color: context.secondaryTextColor.withAlpha((0.5 * 255).round())),
+                      border: Border.all(
+                        color: context.secondaryTextColor.withAlpha(
+                          (0.5 * 255).round(),
+                        ),
+                      ),
                       borderRadius: context.defaultBorderRadius,
-                      color: context.backgroundColor.withAlpha((0.5 * 255).round()),
+                      color: context.backgroundColor.withAlpha(
+                        (0.5 * 255).round(),
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -275,10 +277,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               strokeWidth: 2,
                             ),
                           )
-                        : Text(
-                            'REGISTRARSE',
-                            style: context.button,
-                          ),
+                        : Text('REGISTRARSE', style: context.button),
                   ),
                   const SizedBox(height: 24),
 
@@ -288,9 +287,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       Text(
                         '¿Ya tienes cuenta? ',
-                        style: TextStyle(
-                          color: AppTheme.kSecondaryTextColor,
-                        ),
+                        style: TextStyle(color: AppTheme.kSecondaryTextColor),
                       ),
                       TextButton(
                         onPressed: () {

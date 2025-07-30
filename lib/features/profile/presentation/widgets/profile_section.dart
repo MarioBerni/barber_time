@@ -9,31 +9,31 @@ import '../../../../core/theme/app_theme_extensions.dart';
 class ProfileSection extends StatelessWidget {
   /// Título de la sección
   final String title;
-  
+
   /// Icono opcional para la sección
   final IconData? icon;
-  
+
   /// Color del icono (usa el color de acento si es nulo)
   final Color? iconColor;
-  
+
   /// Acción opcional para la sección (ej: editar)
   final Widget? action;
-  
+
   /// Si se debe mostrar un borde inferior
   final bool showBottomBorder;
 
   /// Contenido de la sección
   final Widget child;
-  
+
   /// Padding para el contenido
   final EdgeInsets contentPadding;
-  
+
   /// Si la sección es expandible
   final bool isExpandable;
-  
+
   /// Si está expandida inicialmente (solo aplica si es expandible)
   final bool initiallyExpanded;
-  
+
   /// Constructor
   const ProfileSection({
     super.key,
@@ -54,22 +54,18 @@ class ProfileSection extends StatelessWidget {
       children: [
         // Icono si está disponible
         if (icon != null) ...[
-          Icon(
-            icon,
-            color: iconColor ?? context.accentColor,
-            size: 20,
-          ),
+          Icon(icon, color: iconColor ?? context.accentColor, size: 20),
           const SizedBox(width: 8),
         ],
-        
+
         // Título de la sección
         Text(
           title,
           style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
-        
+
         const Spacer(),
-        
+
         // Widget de acción si está disponible
         if (action != null) action!,
       ],
@@ -101,9 +97,9 @@ class ProfileSection extends StatelessWidget {
           // Usamos un ExpansionTile si la sección es expandible
           if (isExpandable)
             Theme(
-              data: Theme.of(context).copyWith(
-                dividerColor: Colors.transparent,
-              ),
+              data: Theme.of(
+                context,
+              ).copyWith(dividerColor: Colors.transparent),
               child: ExpansionTile(
                 title: headerRow,
                 initiallyExpanded: initiallyExpanded,
@@ -111,9 +107,7 @@ class ProfileSection extends StatelessWidget {
                 childrenPadding: EdgeInsets.zero,
                 expandedCrossAxisAlignment: CrossAxisAlignment.start,
                 iconColor: context.accentColor,
-                children: [
-                  content,
-                ],
+                children: [content],
               ),
             )
           else
@@ -125,11 +119,7 @@ class ProfileSection extends StatelessWidget {
                   child: headerRow,
                 ),
                 if (showBottomBorder)
-                  Divider(
-                    color: context.dividerColor,
-                    thickness: 1,
-                    height: 1,
-                  ),
+                  Divider(color: context.dividerColor, thickness: 1, height: 1),
                 content,
               ],
             ),

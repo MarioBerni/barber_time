@@ -3,15 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
-import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
-import '../../../../core/widgets/icons/styled_icon.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/icons/styled_icon.dart';
+import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
 import '../../../home/presentation/widgets/home_header.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import '../widgets/profile_info_view.dart';
 import '../widgets/unauthenticated_view.dart';
-
 
 /// Página principal del perfil de usuario
 ///
@@ -57,16 +56,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   /// Construye la vista de carga
   Widget _buildLoadingView() {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+    return const Center(child: CircularProgressIndicator());
   }
 
   /// Construye la vista principal del perfil para usuarios autenticados
   Widget _buildProfileView(ProfileLoaded state) {
     return Column(
       children: [
-        // Reutilizar el HomeHeader para mantener la coherencia visual en toda la app
+        // Reutilizar el HomeHeader para mantener la coherencia
+        // visual en toda la app
         HomeHeader(
           userName: state.profile.name,
           avatarUrl: state.profile.imageUrl,
@@ -97,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-        
+
         // Contenido principal del perfil
         Expanded(
           child: SingleChildScrollView(
@@ -108,19 +106,13 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-
-
   /// Construye la vista en caso de error
   Widget _buildErrorView(ProfileError state) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
-            Icons.error_outline,
-            size: 48,
-            color: Colors.red,
-          ),
+          const Icon(Icons.error_outline, size: 48, color: Colors.red),
           const SizedBox(height: 16),
           Text(
             'Error al cargar el perfil',

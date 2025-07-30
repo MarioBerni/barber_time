@@ -7,12 +7,9 @@ import '../profile_section.dart';
 class ProfileBusinessTab extends StatelessWidget {
   /// Datos del perfil del usuario
   final UserProfile profile;
-  
+
   /// Constructor
-  const ProfileBusinessTab({
-    super.key,
-    required this.profile,
-  });
+  const ProfileBusinessTab({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +23,9 @@ class ProfileBusinessTab extends StatelessWidget {
             child: const Center(
               child: Padding(
                 padding: EdgeInsets.all(32.0),
-                child: Text('Información de negocio pendiente de implementación'),
+                child: Text(
+                  'Información de negocio pendiente de implementación',
+                ),
               ),
             ),
           ),

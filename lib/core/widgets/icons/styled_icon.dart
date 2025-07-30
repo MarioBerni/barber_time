@@ -2,44 +2,50 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme_extensions.dart';
 
 /// Componente reutilizable para iconos con estilo estandarizado.
-/// 
+///
 /// Proporciona un diseño consistente para los iconos en toda la aplicación,
-/// con soporte para fondo circular, badges (indicadores), diferentes tamaños
+/// con soporte para fondo circular, badges (indicadores), diferentes
+/// tamaños
 /// y estados (normal, activo, deshabilitado).
 class StyledIcon extends StatelessWidget {
   /// Icono a mostrar
   final IconData icon;
-  
+
   /// Color del icono (si es null, usará colores del tema)
   final Color? iconColor;
-  
+
   /// Color de fondo del círculo (si es null, usará colores del tema)
   final Color? backgroundColor;
-  
+
   /// Si es true, usará el estilo activo (colores destacados)
   final bool isActive;
-  
+
   /// Si es true, aplicará un efecto de brillo al icono
   final bool hasGlowEffect;
-  
+
   /// Tamaño del icono (si es null, usará iconSizeDefault del tema)
   final double? iconSize;
-  
-  /// Tamaño del contenedor circular (si es null, usará iconContainerSizeDefault del tema)
+
+  /// Tamaño del contenedor circular
+  /// (si es null, usará iconContainerSizeDefault del tema)
   final double? circleSize;
-  
+
   /// Si es true, muestra un badge de notificación
   final bool showBadge;
-  
+
   /// Contador para el badge (si es null, muestra un punto rojo)
   final int? badgeCount;
-  
+
   /// Color del badge (si es null, usará errorColor del tema)
   final Color? badgeColor;
-  
+
   /// Callback al presionar el icono
   final VoidCallback? onTap;
 
+  /// Constructor para el widget de icono estilizado.
+  ///
+  /// Requiere un [icon] y permite personalizar la apariencia
+  /// con varios parámetros opcionales como colores, tamaños y efectos.
   const StyledIcon({
     super.key,
     required this.icon,
@@ -55,15 +61,24 @@ class StyledIcon extends StatelessWidget {
     this.onTap,
   });
 
+  /// Construye el widget StyledIcon.
   @override
   Widget build(BuildContext context) {
     // Definir colores basados en el estado activo y los parámetros
-    final effectiveIconColor = iconColor ?? 
-        (isActive ? context.primaryColor : Colors.grey[400] ?? Colors.grey); // Turquesa-menta para activo, gris para inactivo
-    
-    final effectiveBackgroundColor = backgroundColor ?? 
-        (isActive ? context.primaryColor.withAlpha(38) : context.surfaceColor); // Fondo sutil turquesa
-    
+    final effectiveIconColor =
+        iconColor ??
+        (isActive
+            ? context.primaryColor
+            : Colors.grey[400] ??
+                  Colors
+                      .grey); // Turquesa-menta para activo, gris para inactivo
+
+    final effectiveBackgroundColor =
+        backgroundColor ??
+        (isActive
+            ? context.primaryColor.withAlpha(38)
+            : context.surfaceColor); // Fondo sutil turquesa
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -81,18 +96,14 @@ class StyledIcon extends StatelessWidget {
             child: _buildIconWithEffect(context, effectiveIconColor),
           ),
         ),
-        
+
         // Badge de notificación (si está habilitado)
         if (showBadge)
-          Positioned(
-            top: 0,
-            right: 0,
-            child: _buildBadge(context),
-          ),
+          Positioned(top: 0, right: 0, child: _buildBadge(context)),
       ],
     );
   }
-  
+
   /// Construye el icono con o sin efecto de brillo
   Widget _buildIconWithEffect(BuildContext context, Color? iconColor) {
     if (!hasGlowEffect) {
@@ -102,7 +113,7 @@ class StyledIcon extends StatelessWidget {
         color: iconColor ?? Colors.grey,
       );
     }
-    
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -110,7 +121,9 @@ class StyledIcon extends StatelessWidget {
         Icon(
           icon,
           size: (iconSize ?? context.iconSizeDefault) + 4,
-          color: context.primaryColor.withAlpha(102), // Usar color primario (turquesa) para brillo
+          color: context.primaryColor.withAlpha(
+            102,
+          ), // Usar color primario (turquesa) para brillo
         ),
         // Icono principal
         Icon(
@@ -121,11 +134,11 @@ class StyledIcon extends StatelessWidget {
       ],
     );
   }
-  
+
   /// Construye el badge de notificación
   Widget _buildBadge(BuildContext context) {
     final effectiveBadgeColor = badgeColor ?? context.errorColor;
-    
+
     // Si no hay contador, mostrar un punto rojo simple
     if (badgeCount == null) {
       return Container(
@@ -134,29 +147,20 @@ class StyledIcon extends StatelessWidget {
         decoration: BoxDecoration(
           color: effectiveBadgeColor,
           shape: BoxShape.circle,
-          border: Border.all(
-            color: context.backgroundColor,
-            width: 1.5,
-          ),
+          border: Border.all(color: context.backgroundColor, width: 1.5),
         ),
       );
     }
-    
+
     // Si hay contador, mostrar el número
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: effectiveBadgeColor,
         shape: BoxShape.circle,
-        border: Border.all(
-          color: context.backgroundColor,
-          width: 1.5,
-        ),
+        border: Border.all(color: context.backgroundColor, width: 1.5),
       ),
-      constraints: const BoxConstraints(
-        minWidth: 16,
-        minHeight: 16,
-      ),
+      constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
       child: Center(
         child: Text(
           badgeCount! > 99 ? '99+' : badgeCount.toString(),
