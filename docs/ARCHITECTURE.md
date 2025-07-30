@@ -85,8 +85,12 @@ Directory structure:
 └── marioberni-barber_time/
     ├── README.md
     ├── analysis_options.yaml
+    ├── CHANGELOG.md
+    ├── CURSOR_SETUP.md
     ├── pubspec.lock
     ├── pubspec.yaml
+    ├── .cursorrules
+    ├── .env.example
     ├── .metadata
     ├── android/
     │   ├── build.gradle.kts
@@ -123,8 +127,7 @@ Directory structure:
     │   ├── DESIGN_SYSTEM.md
     │   ├── DEVELOPMENT_GUIDE.md
     │   ├── LINTING_CHANGES.md
-    │   ├── PROJECT_OVERVIEW.md
-    │   └── VISUAL_GUIDELINES.md
+    │   └── PROJECT_OVERVIEW.md
     ├── ios/
     │   ├── Flutter/
     │   │   ├── AppFrameworkInfo.plist
@@ -198,10 +201,17 @@ Directory structure:
     │   │       │   ├── animated_icon_widget.dart
     │   │       │   └── styled_icon.dart
     │   │       ├── inputs/
-    │   │       │   └── search_bar.dart
-    │   │       └── navigation/
-    │   │           ├── app_top_bar.dart
-    │   │           └── bottom_navigation_bar.dart
+    │   │       │   ├── search_bar.dart
+    │   │       │   ├── themed_phone_field.dart
+    │   │       │   └── themed_text_field.dart
+    │   │       ├── navigation/
+    │   │       │   ├── app_top_bar.dart
+    │   │       │   └── bottom_navigation_bar.dart
+    │   │       └── states/
+    │   │           ├── empty_state_widget.dart
+    │   │           ├── error_message_widget.dart
+    │   │           ├── loading_indicator_widget.dart
+    │   │           └── states.dart
     │   └── features/
     │       ├── auth/
     │       │   ├── data/
@@ -277,6 +287,7 @@ Directory structure:
     │               ├── pages/
     │               │   └── profile_page.dart
     │               └── widgets/
+    │                   ├── client_registration_form.dart
     │                   ├── profile_info_view.dart
     │                   ├── profile_section.dart
     │                   ├── profile_tabs.dart
@@ -361,3 +372,4 @@ Directory structure:
     └── .windsurf/
         └── workflows/
             └── profesor-synapse.md
+
