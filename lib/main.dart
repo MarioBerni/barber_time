@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 import 'core/di/service_locator.dart';
 import 'core/routes/app_router.dart';
@@ -45,8 +46,74 @@ class BarberTimeApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Barber Time',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme, // Cambiado a tema claro
       routerConfig: AppRouter.router,
+
+      // Configuración de localización para phone_form_field
+      localizationsDelegates: [...PhoneFieldLocalization.delegates],
+      supportedLocales: const [
+        Locale('es', ''), // Español
+        Locale('en', ''), // Inglés
+      ],
+      locale: const Locale('es', ''), // Español por defecto
+      // Tema personalizado que incluye el selector de países premium
+      theme: AppTheme.lightTheme.copyWith(
+        // Personalizar BottomSheet para el selector de países
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: AppTheme.kSurfaceColor,
+          modalBackgroundColor: AppTheme.kSurfaceColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          ),
+        ),
+        // Personalizar AppBar del selector
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppTheme.kSurfaceColor,
+          foregroundColor: AppTheme.kOffWhite,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+            color: AppTheme.kOffWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        // Personalizar ListTile para países
+        listTileTheme: ListTileThemeData(
+          textColor: AppTheme.kOffWhite,
+          iconColor: AppTheme.kPrimaryColor,
+          tileColor: Colors.transparent,
+        ),
+        // Personalizar TextField de búsqueda
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: AppTheme.kCharcoalDark,
+          hintStyle: TextStyle(
+            color: AppTheme.kOffWhite.withAlpha((0.5 * 255).round()),
+          ),
+          prefixIconColor: AppTheme.kPrimaryColor,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: AppTheme.kPrimaryColor.withAlpha((0.3 * 255).round()),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: AppTheme.kCharcoalLight.withAlpha((0.6 * 255).round()),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: AppTheme.kPrimaryColor, width: 2),
+          ),
+        ),
+        // Personalizar Divider
+        dividerTheme: DividerThemeData(
+          color: AppTheme.kPrimaryColor.withAlpha((0.2 * 255).round()),
+          thickness: 1,
+          space: 1,
+        ),
+      ),
     );
   }
 }

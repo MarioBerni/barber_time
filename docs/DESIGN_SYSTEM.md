@@ -238,6 +238,61 @@ SearchBar(
 - ✅ Animaciones de estado
 - ✅ Responsive (modo compacto)
 
+### ThemedPhoneField
+
+**🆕 NUEVO** Campo de teléfono internacional con diseño premium integrado y selector de países personalizado:
+
+```dart
+ThemedPhoneField(
+  controller: phoneController, // PhoneController
+  labelText: 'WhatsApp',
+  hintText: 'Número de WhatsApp',
+  prefixIcon: Icons.phone_outlined,
+  showValidation: true,
+  validator: (value) => value?.isValid() == false ? 'Número inválido' : null,
+  accentColor: AppTheme.kPrimaryColor,
+  backgroundColor: AppTheme.kSurfaceColor.withAlpha((0.6 * 255).round()),
+  onChanged: (phoneNumber) => print('Teléfono: ${phoneNumber?.international}'),
+)
+```
+
+**Características Avanzadas:**
+- ✅ **Internacionalización completa** con paquete `phone_form_field`
+- ✅ **País por defecto**: Uruguay (+598) precargado automáticamente
+- ✅ **Validación nativa**: Regex internacional + validación del paquete
+- ✅ **Selector de países premium**:
+  - Modal bottom sheet con altura 600px
+  - Favoritos: Uruguay, Argentina, Brasil, Chile, Paraguay
+  - Búsqueda de países con tema dark
+  - Banderas, códigos ISO y dial codes
+- ✅ **Tema consistente**: Mismo sistema de colores que ThemedTextField
+- ✅ **Localización**: Español e inglés configurados globalmente
+- ✅ **Estados visuales**: Habilitado, enfocado, error, deshabilitado
+
+**Configuración Global Requerida:**
+```dart
+// En main.dart - MaterialApp.router
+localizationsDelegates: [...PhoneFieldLocalization.delegates],
+supportedLocales: [Locale('es', ''), Locale('en', '')],
+locale: const Locale('es', ''),
+```
+
+**Inicialización del Controller:**
+```dart
+// Inicializar con país por defecto
+_phoneController = PhoneController();
+_phoneController.value = PhoneNumber.parse('+598'); // Uruguay
+
+// O con número existente
+if (existingPhone.isNotEmpty) {
+  try {
+    _phoneController.value = PhoneNumber.parse(existingPhone);
+  } catch (e) {
+    _phoneController.value = PhoneNumber.parse('+598');
+  }
+}
+```
+
 ---
 
 ## 🚀 Optimización Visual

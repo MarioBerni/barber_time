@@ -4,7 +4,7 @@
 
 **Dependencia Crítica:** ✅ **RESUELTA** - Componentes `ThemedTextField` y `SearchBar` completados. Sistema de diseño dark premium establecido.
 
-**Estado Actual:** **95% COMPLETADO** - Formulario premium con diseño dorado completamente funcional y optimizado. **Siguiente paso:** Implementar vista del perfil del Cliente.
+**Estado Actual:** **98% COMPLETADO** - Formulario premium con campo telefónico internacional, botón mejorado y diálogo de confirmación implementados. **Siguiente paso:** Implementar vista del perfil del Cliente.
 
 ---
 
@@ -21,7 +21,7 @@
   - [x] Implementar la vista para usuarios no autenticados, incluyendo el selector de tipo de cuenta (Cliente/Admin).
   - [x] Crear `ProfileSection` como un contenedor genérico para las secciones de contenido.
 
-- [x] **Flujo de Registro y Perfil de Cliente** ⚠️ **EN PROGRESO (95%)**
+- [x] **Flujo de Registro y Perfil de Cliente** ✅ **COMPLETADO (98%)**
   - [x] Implementar el formulario de registro para Clientes con sus validaciones.
   - [x] Conectar estados de registro con ProfileCubit y navegación.
   - [x] Implementar validaciones en tiempo real y manejo de errores.
@@ -39,6 +39,25 @@
     - ✅ **PREMIUM:** Solo botón dorado como elemento exclusivo destacado
     - ✅ **TOQUES DORADOS:** Estrella del divider y borde del botón activo
     - ✅ **GRADIENTE SUTIL:** Divider con transición dorado → turquesa → transparente
+  - [x] **NUEVO - CAMPO TELEFÓNICO INTERNACIONAL:**
+    - ✅ **INTEGRACIÓN:** Paquete `phone_form_field` para números internacionales
+    - ✅ **WIDGET CUSTOM:** `ThemedPhoneField` con diseño premium consistente
+    - ✅ **PAÍS DEFAULT:** Uruguay (+598) precargado automáticamente
+    - ✅ **MODAL PAÍSES:** Selector personalizado con tema dark premium
+    - ✅ **VALIDACIÓN:** Regex internacional + validación nativa del paquete
+    - ✅ **LOCALIZACIÓN:** Español e inglés configurados globalmente
+  - [x] **NUEVO - REGISTRO CON GOOGLE:**
+    - ✅ **BOTÓN GOOGLE:** Diseño premium con icono 'G' personalizado
+    - ✅ **DIVIDER ELEGANTE:** "O continúa con tu email" con líneas laterales
+    - ✅ **FLUJO SEPARADO:** Google vs formulario manual claramente divididos
+    - ✅ **COHERENCIA:** Mismo sistema de colores y efectos visuales
+  - [x] **NUEVO - BOTÓN Y CONFIRMACIÓN MEJORADOS:**
+    - ✅ **BOTÓN DINÁMICO:** "Crear Cuenta Premium" vs "Completa los campos"
+    - ✅ **ICONOS ANIMADOS:** Rocket vs Edit con AnimatedSwitcher
+    - ✅ **EFECTOS PREMIUM:** AnimatedContainer + gradientes + sombras múltiples
+    - ✅ **DIÁLOGO CONFIRMACIÓN:** Modal premium con resumen de datos
+    - ✅ **UX MEJORADA:** Prevención de errores + feedback visual claro
+    - ✅ **LOADING STATE:** "Creando cuenta..." con spinner elegante
   - [ ] **SIGUIENTE:** Implementar la vista del perfil del Cliente (información personal, favoritos, historial).
 
 - [ ] **Flujo de Registro y Perfil de Administrador**

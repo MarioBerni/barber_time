@@ -23,7 +23,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       // Para testing: simular usuario no autenticado para probar formularios
       // Cambiar hasValidSession a true para simular usuario autenticado
-      // ignore: dead_code
       const hasValidSession = false; // ← Cambiar a true/false para probar
 
       if (hasValidSession) {
@@ -91,9 +90,14 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     // Validar teléfono (opcional pero si se provee debe ser válido)
     final phone = formData['phone']?.trim() ?? '';
-    if (phone.isNotEmpty &&
-        !RegExp(r'^\+598\s?\d{2}\s?\d{3}\s?\d{3}$').hasMatch(phone)) {
-      errors['phone'] = 'Formato: +598 99 123 456';
+    if (phone.isNotEmpty) {
+      // Validación mejorada para números internacionales
+      // Acepta formato internacional completo (ej: +598 99 123 456)
+      if (!RegExp(
+        r'^\+\d{1,4}\s?\d{6,15}$',
+      ).hasMatch(phone.replaceAll(RegExp(r'\s+'), ' '))) {
+        errors['phone'] = 'Número de teléfono inválido';
+      }
     }
 
     return errors;
