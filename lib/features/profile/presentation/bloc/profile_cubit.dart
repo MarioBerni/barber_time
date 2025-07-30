@@ -21,9 +21,19 @@ class ProfileCubit extends Cubit<ProfileState> {
       // Simulamos una carga de datos
       await Future<void>.delayed(const Duration(milliseconds: 800));
 
-      // En una implementación real, esto vendría de un use case/repositorio
-      final mockProfile = _getMockProfile();
-      emit(ProfileLoaded(profile: mockProfile));
+      // Para testing: simular usuario no autenticado para probar formularios
+      // Cambiar hasValidSession a true para simular usuario autenticado
+      // ignore: dead_code
+      const hasValidSession = false; // ← Cambiar a true/false para probar
+
+      if (hasValidSession) {
+        // En una implementación real, esto vendría de un use case/repositorio
+        final mockProfile = _getMockProfile();
+        emit(ProfileLoaded(profile: mockProfile));
+      } else {
+        // Usuario no autenticado - mostrar selección de tipo de usuario
+        emit(const ProfileUnauthenticated());
+      }
     } catch (e) {
       emit(ProfileError(message: 'Error al cargar el perfil: ${e.toString()}'));
     }
@@ -31,12 +41,121 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   /// Comienza flujo de registro como cliente
   void startClientRegistration() {
-    emit(const ProfileUnauthenticated());
+    emit(const ProfileClientRegistration());
   }
 
   /// Comienza flujo de registro como administrador
   void startAdminRegistration() {
+    emit(const ProfileAdminRegistration());
+  }
+
+  /// Actualiza datos del formulario de registro de cliente
+  void updateClientFormField(String field, String value) {
+    final currentState = state;
+    if (currentState is ProfileClientRegistration) {
+      final updatedFormData = Map<String, String>.from(currentState.formData);
+      updatedFormData[field] = value;
+
+      // Limpiar errores del campo si hay
+      final updatedErrors = Map<String, String>.from(currentState.fieldErrors);
+      updatedErrors.remove(field);
+
+      emit(
+        currentState.copyWith(
+          formData: updatedFormData,
+          fieldErrors: updatedErrors,
+        ),
+      );
+    }
+  }
+
+  /// Valida los campos del formulario de cliente
+  Map<String, String> _validateClientForm(Map<String, String> formData) {
+    final errors = <String, String>{};
+
+    // Validar nombre
+    final name = formData['name']?.trim() ?? '';
+    if (name.isEmpty) {
+      errors['name'] = 'El nombre es requerido';
+    } else if (name.length < 2) {
+      errors['name'] = 'El nombre debe tener al menos 2 caracteres';
+    }
+
+    // Validar email
+    final email = formData['email']?.trim() ?? '';
+    if (email.isEmpty) {
+      errors['email'] = 'El email es requerido';
+    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      errors['email'] = 'Ingresa un email válido';
+    }
+
+    // Validar teléfono (opcional pero si se provee debe ser válido)
+    final phone = formData['phone']?.trim() ?? '';
+    if (phone.isNotEmpty &&
+        !RegExp(r'^\+598\s?\d{2}\s?\d{3}\s?\d{3}$').hasMatch(phone)) {
+      errors['phone'] = 'Formato: +598 99 123 456';
+    }
+
+    return errors;
+  }
+
+  /// Envía el formulario de registro de cliente
+  Future<void> submitClientRegistration() async {
+    final currentState = state;
+    if (currentState is ProfileClientRegistration) {
+      // Validar formulario
+      final errors = _validateClientForm(currentState.formData);
+
+      if (errors.isNotEmpty) {
+        emit(currentState.copyWith(fieldErrors: errors));
+        return;
+      }
+
+      emit(currentState.copyWith(isSubmitting: true));
+
+      try {
+        // Simular registro en servidor
+        await Future<void>.delayed(const Duration(milliseconds: 1500));
+
+        // Crear perfil de cliente mock con los datos del formulario
+        final newProfile = UserProfile(
+          id: 'client_${DateTime.now().millisecondsSinceEpoch}',
+          name: currentState.formData['name']!,
+          email: currentState.formData['email']!,
+          phoneNumber: currentState.formData['phone']?.isNotEmpty == true
+              ? currentState.formData['phone']
+              : null,
+          userType: UserType.client,
+          createdAt: DateTime.now(),
+          clientData: const ClientData(),
+        );
+
+        emit(ProfileLoaded(profile: newProfile));
+      } catch (e) {
+        emit(
+          currentState.copyWith(
+            isSubmitting: false,
+            registrationError: 'Error al registrar: ${e.toString()}',
+          ),
+        );
+      }
+    }
+  }
+
+  /// Regresa a la selección de tipo de usuario
+  void backToUserTypeSelection() {
     emit(const ProfileUnauthenticated());
+  }
+
+  /// Método para testing: simula logout y muestra selección de usuario
+  void logout() {
+    emit(const ProfileUnauthenticated());
+  }
+
+  /// Método para testing: simula login con perfil mock
+  void loginWithMockProfile() {
+    final mockProfile = _getMockProfile();
+    emit(ProfileLoaded(profile: mockProfile));
   }
 
   /// Avanza al siguiente paso en el flujo de registro

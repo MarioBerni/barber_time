@@ -190,12 +190,27 @@ class _HomePageState extends State<HomePage>
 
   /// Construye una barra de aplicación simplificada
   Widget _buildSimpleAppBar(HomeLoaded state) {
-    return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 8),
-      color: AppTheme.kSurfaceColor, // Corregido, antes era kSurfaceContainer
-      child: HomeHeader(
-        userName: 'Usuario', // Añadido parámetro requerido
-      ),
+    return HomeHeader(
+      userName: state.userName,
+      hasNotifications: state.hasNotifications,
+      searchController: _searchController,
+      onSearch: (query) {
+        context.read<HomeCubit>().searchSalons(query);
+      },
+      onNeighborhoodSelected: (neighborhood) {
+        _searchController.text = neighborhood;
+        context.read<HomeCubit>().selectNeighborhood(neighborhood);
+      },
+      isSearchActive: state.isSearchActive,
+      onSearchPressed: () {
+        context.read<HomeCubit>().toggleSearchMode();
+      },
+      onNotificationsPressed: () {
+        // TODO: Implementar navegación a notificaciones
+      },
+      onUserAvatarPressed: () {
+        context.go(AppRoutes.profile);
+      },
     );
   }
 }

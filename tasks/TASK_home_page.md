@@ -14,9 +14,10 @@
   - [x] Crear `HomeCubit` y `HomeState` para la gestión de estado.
   - [x] Implementar modelos, repositorios y fuentes de datos mock.
 
-- [ ] **Componentes de UI Principales**
+- [x] **Componentes de UI Principales**
   - [x] Crear `AppTopBar` reutilizable con saludo, avatar y notificaciones.
-  - [ ] Crear `SearchBar` reutilizable (depende de `ThemedTextField`).
+  - [x] Crear `SearchBar` reutilizable con icono integrado y tema dark premium.
+  - [x] Crear `ThemedTextField` como componente base reutilizable.
   - [x] Crear `HorizontalCarousel` genérico para las secciones.
   - [x] Crear `AppBottomNavigationBar` reutilizable.
 
@@ -25,10 +26,12 @@
   - [x] Implementar sección de Categorías de Servicios (`ServiceCategoriesSection`).
   - [x] Implementar sección de Salones Mejor Valorados (`TopRatedSalonsSection`).
 
-- [ ] **Funcionalidad de Búsqueda**
-  - [ ] Implementar lógica de filtrado en el `HomeCubit`.
-  - [ ] Conectar la `SearchBar` para actualizar la UI con los resultados.
-  - [ ] Mostrar un estado vacío cuando no hay resultados.
+- [x] **Funcionalidad de Búsqueda**
+  - [x] Implementar lógica de filtrado en el `HomeCubit` con normalización de texto.
+  - [x] Conectar la `SearchBar` para actualizar la UI con los resultados.
+  - [x] Mostrar un estado vacío cuando no hay resultados.
+  - [x] Integrar sugerencias de barrios de Montevideo.
+  - [x] Implementar limpieza de búsqueda.
 
 - [x] **Actualización de Diseño y Tema**
   - [x] Implementar nuevo tema oscuro moderno con acentos turquesa-menta y naranja terracota.
@@ -36,9 +39,11 @@
   - [x] Rediseñar menú de navegación inferior con el nuevo esquema visual.
   - [x] Corregir errores de colores duplicados y referencias a colores inexistentes.
 
-- [ ] **Finalización y Pruebas**
-  - [ ] Verificar la correcta visualización y responsividad en diferentes tamaños de pantalla.
-  - [ ] Realizar pruebas de navegación desde la `HomePage` a otras secciones (login, registro, etc.).
+- [x] **Finalización y Pruebas**
+  - [x] Verificar la correcta visualización y responsividad en diferentes tamaños de pantalla.
+  - [x] Realizar pruebas de navegación desde la `HomePage` a otras secciones (login, registro, etc.).
+  - [x] Optimizar icono de búsqueda para integración visual perfecta.
+  - [x] Conectar todos los callbacks de búsqueda con HomeCubit.
 
 ---
 

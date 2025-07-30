@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/montevideo_barrios.dart';
 import '../../../core/theme/app_theme_extensions.dart';
-import '../icons/styled_icon.dart';
 
 /// Componente reutilizable para barra de búsqueda
 ///
 /// Permite personalizar el diseño, colores y comportamiento
 /// siguiendo el sistema de temas centralizado de la aplicación
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   /// Controlador para el campo de texto
   final TextEditingController? controller;
 
@@ -71,23 +70,53 @@ class SearchBar extends StatelessWidget {
   });
 
   @override
+  State<SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  final FocusNode _focusNode = FocusNode();
+  bool _isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    setState(() {
+      _isFocused = _focusNode.hasFocus;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Calculamos el radio de borde final
-    final effectiveBorderRadius = borderRadius ?? context.textFieldBorderRadius;
+    final effectiveBorderRadius =
+        widget.borderRadius ?? context.textFieldBorderRadius;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextField(
-          controller: controller,
-          onSubmitted: onSubmitted,
+          controller: widget.controller,
+          focusNode: _focusNode,
+          onSubmitted: widget.onSubmitted,
           onChanged: _handleOnChanged,
-          onTap: onTap,
-          enabled: enabled,
-          style: compact ? context.bodySmall : context.bodyMedium,
+          onTap: widget.onTap,
+          enabled: widget.enabled,
+          style: (widget.compact ? context.bodySmall : context.bodyMedium)
+              .copyWith(color: context.textColor),
           decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: (compact ? context.bodySmall : context.bodyMedium)
+            hintText: widget.hintText,
+            hintStyle: (widget.compact ? context.bodySmall : context.bodyMedium)
                 .copyWith(
                   color: context.secondaryTextColor.withAlpha(
                     (0.8 * 255).round(),
@@ -96,49 +125,50 @@ class SearchBar extends StatelessWidget {
             helperStyle: context.caption.copyWith(
               color: context.secondaryTextColor,
             ),
-            prefixIcon: showSearchIcon
-                ? SizedBox(
-                    width: compact ? 40 : 48,
-                    // Usamos Transform para alinear perfectamente el icono
-                    // verticalmente
-                    child: Center(
-                      child: StyledIcon(
-                        icon: Icons.search,
-                        iconColor: context.deepBlue,
-                        backgroundColor: Colors.white.withAlpha(
-                          (0.3 * 255).round(),
-                        ),
-                        circleSize: 36,
-                        iconSize: 22,
-                      ),
+            prefixIcon: widget.showSearchIcon
+                ? Padding(
+                    padding: EdgeInsets.only(
+                      left: widget.compact
+                          ? context.spacingXS
+                          : context.spacingSM,
+                      right: context.spacingXXS,
+                    ),
+                    child: Icon(
+                      Icons.search_rounded,
+                      color: _isFocused
+                          ? context.primaryColor
+                          : context.grayMedium,
+                      size: widget.compact ? 20 : 24,
                     ),
                   )
                 : null,
             suffixIcon: _buildSuffixIcon(context),
             contentPadding: EdgeInsets.symmetric(
-              horizontal: compact ? context.spacingXS : context.spacingSM,
-              vertical: compact ? 0 : context.spacingXXS,
+              horizontal: widget.compact
+                  ? context.spacingXS
+                  : context.spacingSM,
+              vertical: widget.compact ? 0 : context.spacingXXS,
             ),
             filled: true,
-            fillColor: backgroundColor ?? context.backgroundColor,
+            fillColor: widget.backgroundColor ?? context.charcoalMedium,
             // Usar OutlineInputBorder para todos los estados
             // con el radio efectivo
             border: OutlineInputBorder(
               borderRadius: effectiveBorderRadius,
-              borderSide: hasBorder
-                  ? BorderSide(color: context.dividerColor)
+              borderSide: widget.hasBorder
+                  ? BorderSide(color: context.grayDark)
                   : BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: effectiveBorderRadius,
-              borderSide: hasBorder
-                  ? BorderSide(color: context.primaryColor)
+              borderSide: widget.hasBorder
+                  ? BorderSide(color: context.primaryColor, width: 1.5)
                   : BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: effectiveBorderRadius,
-              borderSide: hasBorder
-                  ? BorderSide(color: context.dividerColor)
+              borderSide: widget.hasBorder
+                  ? BorderSide(color: context.grayDark)
                   : BorderSide.none,
             ),
             errorBorder: OutlineInputBorder(
@@ -147,11 +177,9 @@ class SearchBar extends StatelessWidget {
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: effectiveBorderRadius,
-              borderSide: hasBorder
+              borderSide: widget.hasBorder
                   ? BorderSide(
-                      color: context.dividerColor.withAlpha(
-                        (0.5 * 255).round(),
-                      ),
+                      color: context.grayMedium.withAlpha((0.5 * 255).round()),
                     )
                   : BorderSide.none,
             ),
@@ -159,7 +187,9 @@ class SearchBar extends StatelessWidget {
         ),
 
         // Muestra sugerencias de barrios si está habilitado
-        if (showNeighborhoodSuggestions && enabled && controller != null)
+        if (widget.showNeighborhoodSuggestions &&
+            widget.enabled &&
+            widget.controller != null)
           _buildNeighborhoodSuggestions(context),
       ],
     );
@@ -167,15 +197,15 @@ class SearchBar extends StatelessWidget {
 
   /// Maneja los cambios de texto en el campo de búsqueda
   void _handleOnChanged(String value) {
-    if (onChanged != null) {
-      onChanged!(value);
+    if (widget.onChanged != null) {
+      widget.onChanged!(value);
     }
   }
 
   /// Construye las sugerencias de barrios basadas en el texto actual
   Widget _buildNeighborhoodSuggestions(BuildContext context) {
     return ValueListenableBuilder<TextEditingValue>(
-      valueListenable: controller!,
+      valueListenable: widget.controller!,
       builder: (context, textValue, child) {
         final text = textValue.text.trim();
 
@@ -214,14 +244,14 @@ class SearchBar extends StatelessWidget {
       label: Text(barrio, style: context.bodySmall),
       avatar: const Icon(Icons.location_on, size: 16),
       onPressed: () {
-        if (onNeighborhoodSelected != null) {
-          onNeighborhoodSelected!(barrio);
-          controller!.text = barrio;
+        if (widget.onNeighborhoodSelected != null) {
+          widget.onNeighborhoodSelected!(barrio);
+          widget.controller!.text = barrio;
         } else {
           // Si no hay handler específico, usamos el normal
-          controller!.text = barrio;
-          if (onSubmitted != null) {
-            onSubmitted!(barrio);
+          widget.controller!.text = barrio;
+          if (widget.onSubmitted != null) {
+            widget.onSubmitted!(barrio);
           }
         }
       },
@@ -230,12 +260,14 @@ class SearchBar extends StatelessWidget {
 
   /// Construye el icono de sufijo (limpiar texto)
   Widget? _buildSuffixIcon(BuildContext context) {
-    if (!showClearButton || controller == null || !enabled) {
+    if (!widget.showClearButton ||
+        widget.controller == null ||
+        !widget.enabled) {
       return null;
     }
 
     return ValueListenableBuilder<TextEditingValue>(
-      valueListenable: controller!,
+      valueListenable: widget.controller!,
       builder: (context, value, child) {
         if (value.text.isEmpty) {
           return const SizedBox.shrink();
@@ -245,15 +277,15 @@ class SearchBar extends StatelessWidget {
           icon: Icon(
             Icons.close,
             color: context.secondaryTextColor,
-            size: compact ? 16 : 20,
+            size: widget.compact ? 16 : 20,
           ),
           onPressed: () {
-            controller!.clear();
-            if (onChanged != null) {
-              onChanged!('');
+            widget.controller!.clear();
+            if (widget.onChanged != null) {
+              widget.onChanged!('');
             }
           },
-          splashRadius: compact ? 16 : 20,
+          splashRadius: widget.compact ? 16 : 20,
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
         );

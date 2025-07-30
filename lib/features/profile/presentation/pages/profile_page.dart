@@ -9,6 +9,7 @@ import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
 import '../../../home/presentation/widgets/home_header.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
+import '../widgets/client_registration_form.dart';
 import '../widgets/profile_info_view.dart';
 import '../widgets/unauthenticated_view.dart';
 
@@ -41,6 +42,13 @@ class _ProfilePageState extends State<ProfilePage> {
             return _buildLoadingView();
           } else if (state is ProfileUnauthenticated) {
             return UnauthenticatedView(state: state);
+          } else if (state is ProfileClientRegistration) {
+            return ClientRegistrationForm(state: state);
+          } else if (state is ProfileAdminRegistration) {
+            // TODO: Implementar AdminRegistrationForm
+            return const Center(
+              child: Text('Formulario de Admin - Por implementar'),
+            );
           } else if (state is ProfileLoaded) {
             return _buildProfileView(state);
           } else if (state is ProfileError) {

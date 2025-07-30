@@ -35,7 +35,7 @@ context.grayPale        // #AAAAAA - Placeholders
 ```dart
 // TURQUESA-MENTA - SOLO INTERACTIVIDAD
 context.primaryColor     // #3BBFAD - Elementos interactivos/activos
-context.primaryDarkColor // #2A9D8F - Estados pressed/hover 
+context.primaryDarkColor // #2A9D8F - Estados pressed/hover
 context.primaryLightColor// #5DCFBF - Highlights, notificaciones
 
 // NARANJA TERRACOTA - ELEMENTOS DESTACADOS
@@ -90,18 +90,75 @@ context.spacing.xxl   // 48.0 - Separación entre secciones principales
 
 ## 🔨 Componentes Principales
 
+### Formularios Premium
+
+Patrón de diseño para formularios de registro/configuración siguiendo la paleta dark premium:
+
+```dart
+// Fondo con gradiente sutil
+Stack(
+  children: [
+    AnimatedGradientBackground(
+      primaryColor: AppTheme.kBackgroundColor,
+      secondaryColor: AppTheme.kSurfaceColor,
+      showBouncingCircles: false,
+      lineOpacity: 0.02,
+    ),
+
+    // Contenedor del formulario
+    Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: AppTheme.kSurfaceColor.withAlpha((0.4 * 255).round()),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppTheme.kPrimaryDarkColor.withAlpha(76),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha((0.1 * 255).round()),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: // ... campos de formulario
+    ),
+  ],
+)
+```
+
+**Características del diseño premium:**
+- ✅ Fondo con gradiente sutil usando `AnimatedGradientBackground`
+- ✅ Contenedor con transparencia, bordes sutiles y sombras
+- ✅ Botones con gradientes y efectos de resplandor
+- ✅ Tipografía con `ShaderMask` para efectos de gradiente en títulos
+- ✅ Paleta consistente con Home Page
+
+---
+
 ### Estructura de Pantalla Estándar
 
 ```dart
 Scaffold(
   backgroundColor: context.blackDeep,          // Fondo principal
-  appBar: AppBar(
-    backgroundColor: context.charcoalDark,     // Headers oscuros
-    foregroundColor: context.textColor,        // Texto blanco
+  body: Column(
+    children: [
+      // Usar HomeHeader para navbar unificado
+      HomeHeader(
+        userName: userName,
+        showSearchBar: true,           // Mostrar/ocultar según pantalla
+        onSearch: (query) => ...,      // Funcionalidad de búsqueda
+      ),
+      // Contenido principal
+      Expanded(child: ...),
+    ],
   ),
-  bottomNavigationBar: BarberBottomNavigationBar(),  // Nav oscuro con iconos turquesa activos
+  bottomNavigationBar: AppBottomNavigationBar.main(),
 )
 ```
+
+**🎯 Navbar Unificado:** Todas las pantallas usan `HomeHeader` sin márgenes adicionales para consistencia visual perfecta.
 
 ### Cards y Contenedores
 
@@ -129,6 +186,57 @@ ElevatedButton(
   ),
 )
 ```
+
+---
+
+## 📝 Componentes de Entrada (Input)
+
+### ThemedTextField
+
+Campo de texto reutilizable con tema dark premium, validación visual y animaciones sutiles:
+
+```dart
+ThemedTextField(
+  controller: controller,
+  labelText: 'Email',
+  hintText: 'Ingresa tu email',
+  prefixIcon: Icons.email,
+  showValidation: true,
+  validator: (value) => value?.isEmpty == true ? 'Campo requerido' : null,
+  accentColor: AppTheme.kPrimaryColor,
+  backgroundColor: AppTheme.kSurfaceColor.withAlpha((0.6 * 255).round()),
+  onChanged: (value) => print('Cambiado: $value'),
+)
+```
+
+**Características:**
+- ✅ Tema dark premium integrado
+- ✅ Animaciones sutiles de foco
+- ✅ Validación visual opcional
+- ✅ Estados: neutral, valid, error
+- ✅ Modo compacto disponible
+- ✅ **NUEVO:** Personalización de colores de acento y fondo
+
+### SearchBar
+
+Componente de búsqueda optimizado con sugerencias de barrios y tema cohesivo:
+
+```dart
+SearchBar(
+  controller: searchController,
+  hintText: 'Buscar barberías...',
+  showNeighborhoodSuggestions: true,
+  onChanged: (query) => cubit.searchSalons(query),
+  onNeighborhoodSelected: (barrio) => cubit.selectNeighborhood(barrio),
+)
+```
+
+**Características:**
+- ✅ Icono de búsqueda integrado con estados de foco
+- ✅ Sugerencias inteligentes de barrios de Montevideo
+- ✅ Botón de limpiar texto
+- ✅ Animaciones de estado
+- ✅ Responsive (modo compacto)
 
 ---
 

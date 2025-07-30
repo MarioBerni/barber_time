@@ -91,6 +91,98 @@ class ProfileLoaded extends ProfileState {
   }
 }
 
+/// Estado durante el proceso de registro de cliente
+class ProfileClientRegistration extends ProfileState {
+  /// Datos del formulario en proceso
+  final Map<String, String> formData;
+
+  /// Errores de validación por campo
+  final Map<String, String> fieldErrors;
+
+  /// Indica si está enviando el formulario
+  final bool isSubmitting;
+
+  /// Error general del registro
+  final String? registrationError;
+
+  /// Constructor
+  const ProfileClientRegistration({
+    this.formData = const {},
+    this.fieldErrors = const {},
+    this.isSubmitting = false,
+    this.registrationError,
+  });
+
+  @override
+  List<Object?> get props => [
+    formData,
+    fieldErrors,
+    isSubmitting,
+    registrationError,
+  ];
+
+  /// Crea una copia con campos actualizados
+  ProfileClientRegistration copyWith({
+    Map<String, String>? formData,
+    Map<String, String>? fieldErrors,
+    bool? isSubmitting,
+    String? registrationError,
+  }) {
+    return ProfileClientRegistration(
+      formData: formData ?? this.formData,
+      fieldErrors: fieldErrors ?? this.fieldErrors,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      registrationError: registrationError,
+    );
+  }
+}
+
+/// Estado durante el proceso de registro de administrador
+class ProfileAdminRegistration extends ProfileState {
+  /// Datos del formulario en proceso
+  final Map<String, String> formData;
+
+  /// Errores de validación por campo
+  final Map<String, String> fieldErrors;
+
+  /// Indica si está enviando el formulario
+  final bool isSubmitting;
+
+  /// Error general del registro
+  final String? registrationError;
+
+  /// Constructor
+  const ProfileAdminRegistration({
+    this.formData = const {},
+    this.fieldErrors = const {},
+    this.isSubmitting = false,
+    this.registrationError,
+  });
+
+  @override
+  List<Object?> get props => [
+    formData,
+    fieldErrors,
+    isSubmitting,
+    registrationError,
+  ];
+
+  /// Crea una copia con campos actualizados
+  ProfileAdminRegistration copyWith({
+    Map<String, String>? formData,
+    Map<String, String>? fieldErrors,
+    bool? isSubmitting,
+    String? registrationError,
+  }) {
+    return ProfileAdminRegistration(
+      formData: formData ?? this.formData,
+      fieldErrors: fieldErrors ?? this.fieldErrors,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      registrationError: registrationError,
+    );
+  }
+}
+
 /// Estado de error al cargar el perfil
 class ProfileError extends ProfileState {
   /// Mensaje de error
