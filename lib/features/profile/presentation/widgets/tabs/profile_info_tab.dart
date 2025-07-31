@@ -126,34 +126,7 @@ class ProfileInfoTab extends StatelessWidget {
 
   /// Construye secciones específicas para administradores
   List<Widget> _buildAdminSpecificSections(BuildContext context) {
-    final adminData = profile.adminData;
-    if (adminData == null) {
-      return [];
-    }
-
-    return [
-      const SizedBox(height: 16),
-
-      // Sección de rol administrativo
-      ProfileSection(
-        title: 'Información Administrativa',
-        icon: Icons.admin_panel_settings,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ProfileInfoRow(
-              label: 'Rol',
-              value: adminData.role == 'owner' ? 'Propietario' : adminData.role,
-              icon: Icons.work_outline,
-            ),
-            ProfileInfoRow(
-              label: 'Permisos',
-              value: adminData.permissions.join(', '),
-              icon: Icons.key,
-            ),
-          ],
-        ),
-      ),
-    ];
+    // TODO: Implementar cuando se agregue adminData al modelo UserProfile
+    return [];
   }
 }

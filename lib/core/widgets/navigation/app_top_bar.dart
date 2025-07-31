@@ -1,10 +1,10 @@
-import 'package:barber_time/core/widgets/spacers/spacers.dart';
-import 'package:flutter/material.dart' hide SearchBar;
+import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_theme_extensions.dart';
+import '../../theme/app_theme_extensions.dart';
 import '../avatars/user_avatar.dart';
 import '../icons/styled_icon.dart';
 import '../inputs/search_bar.dart' as custom;
+import '../spacers/app_spacers.dart';
 
 /// Barra de navegación superior personalizable y reutilizable.
 ///
@@ -282,4 +282,3 @@ class AppTopBar extends StatelessWidget {
     );
   }
 }
-

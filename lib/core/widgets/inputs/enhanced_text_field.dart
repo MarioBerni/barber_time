@@ -1,9 +1,9 @@
-import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
+import '../spacers/app_spacers.dart';
 
 /// Campo de texto mejorado con animaciones y validación en tiempo real
 class EnhancedTextField extends StatefulWidget {

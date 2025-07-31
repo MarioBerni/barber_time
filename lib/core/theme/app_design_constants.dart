@@ -317,6 +317,32 @@ class AppDesignConstants {
     ],
   );
 
+  /// Decoración para cards con color turquesa sólido
+  static BoxDecoration get turquoiseCardDecoration => BoxDecoration(
+    color: AppTheme.kPrimaryColor,
+    borderRadius: premiumBorderRadius,
+    boxShadow: [
+      BoxShadow(
+        color: AppTheme.kPrimaryColor.withAlpha(77),
+        blurRadius: 12,
+        offset: const Offset(0, 6),
+        spreadRadius: 2,
+      ),
+      BoxShadow(
+        color: AppTheme.kBackgroundColor.withAlpha(102),
+        blurRadius: 20,
+        offset: const Offset(0, 10),
+      ),
+    ],
+  );
+
+  /// Decoración para contenedores de iconos turquesa
+  static BoxDecoration get turquoiseIconDecoration => BoxDecoration(
+    color: AppTheme.kPrimaryLightColor.withAlpha(77),
+    borderRadius: BorderRadius.circular(borderRadiusMD),
+    border: Border.all(color: AppTheme.kPrimaryLightColor.withAlpha(128)),
+  );
+
   /// Decoración para diálogos
   static BoxDecoration get dialogDecoration => BoxDecoration(
     color: AppTheme.kSurfaceColor.withAlpha(204),

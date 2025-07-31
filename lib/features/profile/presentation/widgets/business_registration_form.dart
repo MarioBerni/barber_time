@@ -113,13 +113,13 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
 
   /// Muestra el diálogo de confirmación
   void _showConfirmationDialog() {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (dialogContext) => ConfirmationDialog(
         formData: {
           'Nombre de Barbería': _businessNameController.text,
           'Dirección': _addressController.text,
-          'Teléfono': _phoneController.value.international ?? '',
+          'Teléfono': _phoneController.value.international,
         },
         onConfirm: _submitForm,
       ),
@@ -180,9 +180,9 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  AppTheme.kBackgroundColor.withOpacity(0.4),
-                  AppTheme.kBackgroundColor.withOpacity(0.2),
-                  AppTheme.kBackgroundColor.withOpacity(0.4),
+                  AppTheme.kBackgroundColor.withAlpha(102),
+                  AppTheme.kBackgroundColor.withAlpha(51),
+                  AppTheme.kBackgroundColor.withAlpha(102),
                 ],
               ),
             ),
@@ -245,11 +245,9 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
         children: [
           DecoratedBox(
             decoration: BoxDecoration(
-              color: AppTheme.kSurfaceColor.withOpacity(0.8),
+              color: AppTheme.kSurfaceColor.withAlpha(204),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppTheme.kPrimaryColor.withOpacity(0.3),
-              ),
+              border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(77)),
               boxShadow: [
                 BoxShadow(
                   color: AppTheme.kBackgroundColor.withAlpha(51),
@@ -357,9 +355,9 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppTheme.kSurfaceColor.withOpacity(0.3),
+        color: AppTheme.kSurfaceColor.withAlpha(77),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppTheme.kPrimaryColor.withOpacity(0.2)),
+        border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(51)),
       ),
       child: Column(
         children: [
@@ -381,7 +379,7 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
           AppSpacers.sm,
           LinearProgressIndicator(
             value: 1.0,
-            backgroundColor: AppTheme.kSurfaceColor.withOpacity(0.3),
+            backgroundColor: AppTheme.kSurfaceColor.withAlpha(77),
             valueColor: AlwaysStoppedAnimation<Color>(AppTheme.kPrimaryColor),
             borderRadius: BorderRadius.circular(4),
           ),
@@ -457,7 +455,7 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
     required String hint,
     required IconData icon,
     required String? Function(String?) validator,
-    required Function(String) onChanged,
+    required void Function(String) onChanged,
   }) {
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -485,19 +483,17 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
             fontWeight: FontWeight.w500,
           ),
           hintStyle: context.bodyMedium.copyWith(
-            color: AppTheme.kOffWhite.withOpacity(0.5),
+            color: AppTheme.kOffWhite.withAlpha(128),
           ),
           filled: true,
-          fillColor: AppTheme.kSurfaceColor.withOpacity(0.8),
+          fillColor: AppTheme.kSurfaceColor.withAlpha(204),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
-              color: AppTheme.kPrimaryColor.withOpacity(0.3),
-            ),
+            borderSide: BorderSide(color: AppTheme.kPrimaryColor.withAlpha(77)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
@@ -505,14 +501,14 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Colors.red.withOpacity(0.7)),
+            borderSide: BorderSide(color: Colors.red.withAlpha(179)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(color: Colors.red, width: 2),
           ),
           errorStyle: context.bodySmall.copyWith(
-            color: Colors.red.withOpacity(0.8),
+            color: Colors.red.withAlpha(204),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -546,19 +542,17 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
             fontWeight: FontWeight.w500,
           ),
           hintStyle: context.bodyMedium.copyWith(
-            color: AppTheme.kOffWhite.withOpacity(0.5),
+            color: AppTheme.kOffWhite.withAlpha(128),
           ),
           filled: true,
-          fillColor: AppTheme.kSurfaceColor.withOpacity(0.8),
+          fillColor: AppTheme.kSurfaceColor.withAlpha(204),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
-              color: AppTheme.kPrimaryColor.withOpacity(0.3),
-            ),
+            borderSide: BorderSide(color: AppTheme.kPrimaryColor.withAlpha(77)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
@@ -566,14 +560,14 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Colors.red.withOpacity(0.7)),
+            borderSide: BorderSide(color: Colors.red.withAlpha(179)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(color: Colors.red, width: 2),
           ),
           errorStyle: context.bodySmall.copyWith(
-            color: Colors.red.withOpacity(0.8),
+            color: Colors.red.withAlpha(204),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -583,7 +577,9 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
           }
           return null;
         },
-        onChanged: (value) => _updateField('phone', value.international ?? ''),
+        onChanged: (value) {
+          _updateField('phone', value.international);
+        },
       ),
     );
   }

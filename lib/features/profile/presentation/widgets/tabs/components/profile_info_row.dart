@@ -1,7 +1,7 @@
-import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/theme/app_theme_extensions.dart';
+import '../../../../../../core/widgets/spacers/app_spacers.dart';
 
 /// Widget reutilizable que muestra una fila de información del perfil
 class ProfileInfoRow extends StatelessWidget {

@@ -1,8 +1,8 @@
-import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
+import '../spacers/app_spacers.dart';
 
 /// Sección de formulario con título y descripción
 /// Mantiene consistencia visual en todas las secciones
@@ -75,4 +75,3 @@ class FormSection extends StatelessWidget {
     );
   }
 }
-

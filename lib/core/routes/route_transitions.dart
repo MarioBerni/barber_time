@@ -243,8 +243,6 @@ class RouteTransitions {
             return forwardTransition(child: child, animation: animation);
           case TransitionType.fade:
             return simpleFadeTransition(child: child, animation: animation);
-          default:
-            return stateTransition(child: child, animation: animation);
         }
       },
       child: child,

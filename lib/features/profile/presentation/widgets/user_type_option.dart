@@ -81,23 +81,18 @@ class _UserTypeOptionState extends State<UserTypeOption>
                     });
                   },
                   borderRadius: AppDesignConstants.premiumBorderRadius,
-                  splashColor: AppTheme.kPrimaryColor.withOpacity(0.3),
-                  highlightColor: AppTheme.kPrimaryColor.withOpacity(0.1),
+                  splashColor: AppTheme.kPrimaryColor.withAlpha(77),
+                  highlightColor: AppTheme.kPrimaryColor.withAlpha(26),
                   child: Container(
                     padding: const EdgeInsets.all(24.0),
-                    decoration: AppDesignConstants.premiumDecoration,
+                    decoration: AppDesignConstants.turquoiseCardDecoration,
                     child: Row(
                       children: [
-                        // Icono con mejor contraste
+                        // Icono con contenedor turquesa claro del sistema
                         Container(
                           padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.3),
-                            ),
-                          ),
+                          decoration:
+                              AppDesignConstants.turquoiseIconDecoration,
                           child: Icon(
                             widget.icon,
                             color: Colors.white,
@@ -111,7 +106,7 @@ class _UserTypeOptionState extends State<UserTypeOption>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Título con mejor contraste
+                              // Título con color blanco para máximo contraste
                               Text(
                                 widget.title,
                                 style: context.titleLarge.copyWith(
@@ -123,11 +118,11 @@ class _UserTypeOptionState extends State<UserTypeOption>
                                 ),
                               ),
                               AppSpacers.sm,
-                              // Descripción con mejor legibilidad
+                              // Descripción con color blanco semi-transparente
                               Text(
                                 widget.description,
                                 style: context.bodyLarge.copyWith(
-                                  color: Colors.white.withOpacity(0.9),
+                                  color: Colors.white.withAlpha(230),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                   height: 1.4,
@@ -138,16 +133,11 @@ class _UserTypeOptionState extends State<UserTypeOption>
                           ),
                         ),
 
-                        // Flecha con mejor contraste
+                        // Flecha con contenedor turquesa claro del sistema
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.4),
-                            ),
-                          ),
+                          decoration:
+                              AppDesignConstants.turquoiseIconDecoration,
                           child: Icon(
                             Icons.arrow_forward_ios,
                             size: 20,

@@ -39,23 +39,25 @@ class UnauthenticatedView extends StatelessWidget {
           body: Stack(
             children: [
               // Fondo con gradiente premium mejorado
+              // (como en las páginas de registro)
               AnimatedGradientBackground(
                 primaryColor: AppTheme.kBackgroundColor,
                 secondaryColor: AppTheme.kSurfaceColor,
-                lineOpacity: 0.08,
-                lineCount: 30,
+                lineOpacity: 0.03, // Sutil como en registration_scaffold
+                lineCount: 25, // Como en registration_scaffold
               ),
 
               // Overlay sutil para mejorar contraste
+              // (como en business_registration_form)
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      AppTheme.kBackgroundColor.withOpacity(0.3),
-                      AppTheme.kBackgroundColor.withOpacity(0.1),
-                      AppTheme.kBackgroundColor.withOpacity(0.3),
+                      AppTheme.kBackgroundColor.withAlpha(102),
+                      AppTheme.kBackgroundColor.withAlpha(51),
+                      AppTheme.kBackgroundColor.withAlpha(102),
                     ],
                   ),
                 ),
@@ -84,16 +86,10 @@ class UnauthenticatedView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Título con gradiente mejorado
+          // (como en business_registration_form)
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                AppTheme.kPrimaryColor,
-                AppTheme.kPrimaryLightColor,
-                AppTheme.kPrimaryDarkColor,
-              ],
-              stops: const [0.0, 0.5, 1.0],
+              colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
             ).createShader(bounds),
             child: Text(
               'Selecciona tu tipo de usuario',
@@ -110,15 +106,14 @@ class UnauthenticatedView extends StatelessWidget {
 
           AppSpacers.lg,
 
-          // Subtítulo mejorado
+          // Subtítulo mejorado con estilo premium
+          // (como en business_registration_form)
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppTheme.kSurfaceColor.withOpacity(0.3),
+              color: AppTheme.kSurfaceColor.withAlpha(77),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: AppTheme.kPrimaryColor.withOpacity(0.2),
-              ),
+              border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(51)),
             ),
             child: Text(
               'Para brindarte la mejor experiencia, necesitamos saber '

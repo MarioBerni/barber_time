@@ -153,8 +153,8 @@ class _EnhancedButtonState extends State<EnhancedButton>
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: isDisabled ? null : widget.onPressed,
-                      splashColor: Colors.white.withOpacity(0.1),
-                      highlightColor: Colors.white.withOpacity(0.05),
+                      splashColor: Colors.white.withAlpha(26),
+                      highlightColor: Colors.white.withAlpha(13),
                       child: SizedBox(
                         width: double.infinity,
                         height: double.infinity,

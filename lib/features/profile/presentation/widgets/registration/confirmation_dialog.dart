@@ -4,7 +4,8 @@ import '../../../../../core/theme/app_design_constants.dart';
 import '../../../../../core/theme/app_theme_extensions.dart';
 import '../../../../../core/widgets/spacers/spacers.dart';
 
-/// Diálogo de confirmación para mostrar los datos del formulario antes de enviar
+/// Diálogo de confirmación para mostrar los datos del formulario
+/// antes de enviar
 class ConfirmationDialog extends StatelessWidget {
   /// Datos del formulario a confirmar
   final Map<String, String> formData;

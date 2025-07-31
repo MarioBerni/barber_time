@@ -128,27 +128,41 @@ class ClientData extends Equatable {
 /// Datos específicos para negocio/barbería
 class BusinessData extends Equatable {
   /// Información básica del negocio
+  /// Nombre del negocio
   final String businessName;
+
+  /// Dirección del negocio
   final String address;
+
+  /// Barrio donde se encuentra el negocio
   final String neighborhood;
+
+  /// Número de teléfono del negocio
   final String phoneNumber;
+
+  /// Correo electrónico del negocio
   final String email;
 
-  /// Horarios de atención
-  final Map<String, String> businessHours; // {"lunes": "09:00-18:00"}
+  /// Horarios de atención del negocio
+  /// Formato: {"lunes": "09:00-18:00"}
+  final Map<String, String> businessHours;
 
-  /// Servicios ofrecidos
+  /// Lista de servicios ofrecidos por el negocio
   final List<String> services;
 
-  /// Estado del negocio
+  /// Indica si el negocio está activo
   final bool isActive;
+
+  /// Indica si el negocio está verificado
   final bool isVerified;
 
-  /// Representante legal
+  /// Nombre del representante legal del negocio
   final String legalRepresentative;
+
+  /// Teléfono del representante legal
   final String legalRepresentativePhone;
 
-  /// Empleados del negocio
+  /// Lista de empleados del negocio
   final List<EmployeeData> employees;
 
   /// Constructor
@@ -183,7 +197,8 @@ class BusinessData extends Equatable {
     employees,
   ];
 
-  /// Crea una copia con campos actualizados
+  /// Crea una copia del BusinessData con campos actualizados
+  /// Permite modificar campos específicos manteniendo el resto sin cambios
   BusinessData copyWith({
     String? businessName,
     String? address,
