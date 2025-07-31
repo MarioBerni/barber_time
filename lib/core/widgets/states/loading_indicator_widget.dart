@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
+
 /// Un widget de indicador de carga personalizado y consistente con el sistema
 /// de diseño de Barber Time.
 ///
@@ -53,7 +55,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               indicator,
-              const SizedBox(height: 16),
+              SizedBox(height: AppDesignConstants.spacingMD),
               Text(
                 message!,
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -76,14 +78,10 @@ class LoadingIndicatorWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha((0.2 * 255).round()),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusLG,
+                ),
+                boxShadow: AppDesignConstants.shadowStandard,
               ),
               child: content,
             ),

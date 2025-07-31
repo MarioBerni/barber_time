@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
 
@@ -55,14 +56,14 @@ class InfoCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusMD),
         border: Border.all(color: borderColor!),
       ),
       child: Row(
         children: [
           if (icon != null) ...[
             Icon(icon, color: iconColor, size: 20),
-            const SizedBox(width: 8),
+            SizedBox(width: AppDesignConstants.spacingXS),
           ],
           Expanded(
             child: Text(

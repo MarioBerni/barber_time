@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
@@ -112,7 +113,9 @@ class UnauthenticatedView extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: AppTheme.kSurfaceColor.withAlpha(77),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(
+                AppDesignConstants.borderRadiusLG,
+              ),
               border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(51)),
             ),
             child: Text(

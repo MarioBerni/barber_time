@@ -1,5 +1,8 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 
 /// Nivel de elevación para el contenedor glamoroso
@@ -123,7 +126,7 @@ class GlamContainer extends StatelessWidget {
       borderStyle: borderStyle,
       borderColor: borderColor,
       borderWidth: 0.8,
-      borderRadius: BorderRadius.circular(16.0),
+      borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusLG),
       margin: margin,
       padding: padding,
       showInnerGlow: showInnerGlow,
@@ -149,7 +152,7 @@ class GlamContainer extends StatelessWidget {
       blurIntensity: 6.0,
       elevation: elevation,
       borderWidth: 0.5,
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusMD),
       margin: margin,
       padding: padding,
       showInnerGlow: showInnerGlow,
@@ -177,7 +180,8 @@ class GlamContainer extends StatelessWidget {
       blurIntensity: 4.0,
       elevation: elevation,
       borderStyle: GlamBorderStyle.none,
-      borderRadius: borderRadius ?? BorderRadius.circular(8.0),
+      borderRadius:
+          borderRadius ?? BorderRadius.circular(AppDesignConstants.spacingXS),
       margin: margin,
       padding: padding,
       child: child,
@@ -200,11 +204,15 @@ class GlamContainer extends StatelessWidget {
       ),
       margin: margin,
       decoration: BoxDecoration(
-        borderRadius: borderRadius ?? BorderRadius.circular(12.0),
+        borderRadius:
+            borderRadius ??
+            BorderRadius.circular(AppDesignConstants.borderRadiusMD),
         boxShadow: _getShadows(context),
       ),
       child: ClipRRect(
-        borderRadius: borderRadius ?? BorderRadius.circular(12.0),
+        borderRadius:
+            borderRadius ??
+            BorderRadius.circular(AppDesignConstants.borderRadiusMD),
         child: BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: blurIntensity,
@@ -351,7 +359,9 @@ class GlamContainer extends StatelessWidget {
     // Construir la decoración final
     return BoxDecoration(
       color: containerColor,
-      borderRadius: borderRadius ?? BorderRadius.circular(12.0),
+      borderRadius:
+          borderRadius ??
+          BorderRadius.circular(AppDesignConstants.borderRadiusMD),
       border: border,
       boxShadow: innerShadow,
       gradient: gradient,

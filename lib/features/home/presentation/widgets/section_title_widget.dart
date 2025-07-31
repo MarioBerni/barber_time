@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 
 /// Widget reutilizable para títulos de sección con estilo moderno
@@ -45,7 +47,9 @@ class SectionTitleWidget extends StatelessWidget {
                       color: AppTheme.kPrimaryColor.withAlpha(
                         (0.15 * 255).round(),
                       ),
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(
+                        AppDesignConstants.borderRadiusSM2,
+                      ),
                     ),
                     child: Icon(
                       Icons.star_rounded,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 import '../icons/styled_icon.dart';
 
@@ -79,7 +80,9 @@ class AppBottomNavigationBar extends StatelessWidget {
             offset: const Offset(0, -2),
           ),
         ],
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppDesignConstants.borderRadiusXL),
+        ),
       ),
       child: SafeArea(
         child: Padding(

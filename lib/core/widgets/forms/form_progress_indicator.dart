@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
 
@@ -33,7 +34,9 @@ class FormProgressIndicator extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             color: AppTheme.kSurfaceColor.withAlpha(51),
-            borderRadius: BorderRadius.circular(height / 2),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusCircular,
+            ),
           ),
           child: FractionallySizedBox(
             alignment: Alignment.centerLeft,
@@ -43,14 +46,10 @@ class FormProgressIndicator extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
                 ),
-                borderRadius: BorderRadius.circular(height / 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.kPrimaryColor.withAlpha(77),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusCircular,
+                ),
+                boxShadow: AppDesignConstants.shadowSubtle,
               ),
             ),
           ),
@@ -58,7 +57,7 @@ class FormProgressIndicator extends StatelessWidget {
 
         // Texto de progreso (opcional)
         if (progressText != null) ...[
-          const SizedBox(height: 8),
+          SizedBox(height: AppDesignConstants.spacingXS),
           Text(
             progressText!,
             style: context.textTheme.bodySmall!.copyWith(

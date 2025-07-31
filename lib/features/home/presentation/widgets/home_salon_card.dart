@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
 import '../../domain/entities/salon.dart';
@@ -26,14 +27,14 @@ class HomeSalonCard extends StatelessWidget {
 
     return GlamContainer(
       fixedSize: const Size.fromHeight(110),
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusMD),
       child: Row(
         children: [
           // Imagen del salón
           ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
+              topLeft: Radius.circular(AppDesignConstants.borderRadiusMD),
+              bottomLeft: Radius.circular(AppDesignConstants.borderRadiusMD),
             ),
             child: CachedNetworkImage(
               imageUrl: salon.imageUrl,
@@ -143,7 +144,9 @@ class HomeSalonCard extends StatelessWidget {
                           color: theme.colorScheme.secondary.withAlpha(
                             (0.1 * 255).round(),
                           ),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(
+                            AppDesignConstants.borderRadiusXS,
+                          ),
                         ),
                         child: Text(
                           salon.price,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
@@ -154,7 +155,9 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
             backgroundColor: AppTheme.kPrimaryColor,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(
+                AppDesignConstants.borderRadiusMD,
+              ),
             ),
           ),
         );
@@ -249,20 +252,18 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
           DecoratedBox(
             decoration: BoxDecoration(
               color: AppTheme.kSurfaceColor.withAlpha(204),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(
+                AppDesignConstants.borderRadiusMD,
+              ),
               border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(77)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppTheme.kBackgroundColor.withAlpha(51),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              boxShadow: AppDesignConstants.shadowSubtle,
             ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusMD,
+                ),
                 onTap: () {
                   // Navegar hacia atrás usando el cubit
                   context.read<ProfileCubit>().backToUserTypeSelection();
@@ -307,14 +308,10 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
             gradient: LinearGradient(
               colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
             ),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: AppTheme.kPrimaryColor.withAlpha(77),
-                blurRadius: 12,
-                offset: const Offset(0, 6),
-              ),
-            ],
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusXL,
+            ),
+            boxShadow: AppDesignConstants.shadowPronounced,
           ),
           child: Icon(Icons.person_add_rounded, color: Colors.white, size: 40),
         ),
@@ -359,7 +356,7 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppTheme.kSurfaceColor.withAlpha(77),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusLG),
         border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(51)),
       ),
       child: Column(
@@ -384,7 +381,9 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
             value: 1.0,
             backgroundColor: AppTheme.kSurfaceColor.withAlpha(77),
             valueColor: AlwaysStoppedAnimation<Color>(AppTheme.kPrimaryColor),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusXS,
+            ),
           ),
         ],
       ),
@@ -462,14 +461,8 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
   }) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppTheme.kBackgroundColor.withAlpha(51),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusLG),
+        boxShadow: AppDesignConstants.shadowSubtle,
       ),
       child: TextFormField(
         controller: controller,
@@ -491,23 +484,33 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
           filled: true,
           fillColor: AppTheme.kSurfaceColor.withAlpha(204),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: AppTheme.kPrimaryColor.withAlpha(77)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: AppTheme.kPrimaryColor, width: 2),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: Colors.red.withAlpha(179)),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: Colors.red, width: 2),
           ),
           errorStyle: context.bodySmall.copyWith(
@@ -525,14 +528,8 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
   Widget _buildPhoneField() {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppTheme.kBackgroundColor.withAlpha(51),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusLG),
+        boxShadow: AppDesignConstants.shadowSubtle,
       ),
       child: PhoneFormField(
         controller: _phoneController,
@@ -550,23 +547,33 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
           filled: true,
           fillColor: AppTheme.kSurfaceColor.withAlpha(204),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: AppTheme.kPrimaryColor.withAlpha(77)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: AppTheme.kPrimaryColor, width: 2),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: Colors.red.withAlpha(179)),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: Colors.red, width: 2),
           ),
           errorStyle: context.bodySmall.copyWith(

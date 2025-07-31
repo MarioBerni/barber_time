@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
 
@@ -37,7 +38,9 @@ class RegistrationAppBar extends StatelessWidget
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                 color: AppTheme.kSurfaceColor.withAlpha((0.9 * 255).round()),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusMD,
+                ),
                 border: Border.all(
                   color: AppTheme.kPrimaryColor.withAlpha((0.3 * 255).round()),
                 ),
@@ -49,7 +52,7 @@ class RegistrationAppBar extends StatelessWidget
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: AppDesignConstants.spacingSM),
           // Título con gradiente centrado
           Expanded(
             child: Center(

@@ -370,12 +370,14 @@ Directory structure:
     │   ├── TASK_auditoria_sistema_unificado.md
     │   ├── TASK_componentes_de_estado_ui.md
     │   ├── TASK_configuracion_inicial.md
+    │   ├── TASK_correccion_linting_errors.md
     │   ├── TASK_fortalecer_entorno_desarrollo.md
     │   ├── TASK_home_page.md
     │   ├── TASK_optimizacion_home_page.md
     │   ├── TASK_profile_page.md
     │   ├── TASK_refactorizacion_sistema_unificado.md
     │   ├── TASK_sistema_de_diseno.md
+    │   ├── TASK_sistema_transiciones_centralizado.md
     │   └── TASK_sistema_unificado_constantes.md
     ├── test/
     │   └── widget_test.dart
@@ -404,6 +406,7 @@ Directory structure:
     └── .windsurf/
         └── workflows/
             └── profesor-synapse.md
+
 
 ---
 

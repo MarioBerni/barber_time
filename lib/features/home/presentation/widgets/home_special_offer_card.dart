@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/containers/glam_container.dart';
@@ -20,7 +21,9 @@ class HomeSpecialOfferCard extends StatelessWidget {
     // Usamos Container con sombra envolviendo al GlamContainer con nuevo diseño
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20), // Bordes más redondeados
+        borderRadius: BorderRadius.circular(
+          AppDesignConstants.borderRadiusXL,
+        ), // Bordes más redondeados
         boxShadow: [
           BoxShadow(
             color: AppTheme.kBackgroundColor.withAlpha(179),
@@ -32,7 +35,9 @@ class HomeSpecialOfferCard extends StatelessWidget {
       ),
       child: GlamContainer(
         fixedSize: const Size(290, 170), // Ligeramente más grande
-        borderRadius: BorderRadius.circular(20), // Bordes consistentes
+        borderRadius: BorderRadius.circular(
+          AppDesignConstants.borderRadiusXL,
+        ), // Bordes consistentes
         borderColor: AppTheme.kPrimaryDarkColor.withAlpha(
           102,
         ), // Borde sutil turquesa
@@ -42,7 +47,9 @@ class HomeSpecialOfferCard extends StatelessWidget {
             // Imagen de fondo
             Positioned.fill(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusXL,
+                ),
                 child: Image.network(
                   offer.imageUrl,
                   fit: BoxFit.cover,
@@ -68,7 +75,9 @@ class HomeSpecialOfferCard extends StatelessWidget {
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(
+                    AppDesignConstants.borderRadiusXL,
+                  ),
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -94,8 +103,12 @@ class HomeSpecialOfferCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppTheme.kAccentColor,
                   borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(
+                      AppDesignConstants.borderRadiusMD,
+                    ),
+                    bottomRight: Radius.circular(
+                      AppDesignConstants.borderRadiusMD,
+                    ),
                   ),
                 ),
                 child: Icon(Icons.star, color: Colors.white, size: 16),

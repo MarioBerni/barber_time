@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 
 /// Contenedor circular para iconos con efecto de brillo
@@ -49,14 +50,7 @@ class IconWithShimmer extends StatelessWidget {
         decoration: BoxDecoration(
           color: effectiveBackgroundColor,
           shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha((0.2 * 255).round()),
-              // TODO: Considerar añadir shadowColor a las extensiones
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: AppDesignConstants.shadowStandard,
         ),
         child: Center(
           child: Icon(icon, size: size * 0.5, color: effectiveIconColor),

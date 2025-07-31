@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../theme/app_design_constants.dart';
 import '../theme/app_theme_extensions.dart';
 
 /// Enumeración para definir los tipos de badge disponibles
@@ -71,7 +73,13 @@ class StatusBadge extends StatelessWidget {
     final double iconSize = small ? 12 : 14;
 
     // Determinar el radio de borde
-    final double borderRadius = rounded ? (small ? 12 : 16) : (small ? 4 : 6);
+    final double borderRadius = rounded
+        ? (small
+              ? AppDesignConstants.borderRadiusMD
+              : AppDesignConstants.borderRadiusLG)
+        : (small
+              ? AppDesignConstants.borderRadiusXS
+              : AppDesignConstants.borderRadiusSM2);
 
     // Determinar el padding
     final EdgeInsets padding = small

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 
 /// Estado de validación para campos de texto
@@ -254,7 +255,7 @@ class _ThemedTextFieldState extends State<ThemedTextField>
             ? context.bodySmall.copyWith(color: context.textColor)
             : context.bodyMedium.copyWith(color: context.textColor),
         cursorColor: widget.accentColor ?? context.primaryColor,
-        cursorRadius: const Radius.circular(2.0),
+        cursorRadius: Radius.circular(AppDesignConstants.borderRadiusXS),
         decoration: InputDecoration(
           labelText: widget.labelText,
           hintText: widget.hintText,

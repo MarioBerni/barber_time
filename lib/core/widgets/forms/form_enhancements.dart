@@ -76,7 +76,9 @@ class FormEnhancements {
       padding: padding ?? const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppTheme.kSurfaceColor.withAlpha(102),
-        borderRadius: BorderRadius.circular(borderRadius ?? 16),
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? AppDesignConstants.borderRadiusLG,
+        ),
         border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(26)),
         boxShadow: [
           BoxShadow(
@@ -103,7 +105,7 @@ class FormEnhancements {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: (iconColor ?? AppTheme.kPrimaryColor).withAlpha(26),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(AppDesignConstants.spacingXS),
           ),
           child: Icon(
             icon,
@@ -170,12 +172,16 @@ class FormEnhancements {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(borderRadius ?? 12),
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? AppDesignConstants.borderRadiusMD,
+        ),
         child: Container(
           padding: padding ?? const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: AppTheme.kSurfaceColor.withAlpha(102),
-            borderRadius: BorderRadius.circular(borderRadius ?? 12),
+            borderRadius: BorderRadius.circular(
+              borderRadius ?? AppDesignConstants.borderRadiusMD,
+            ),
             border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(26)),
           ),
           child: child,
@@ -221,7 +227,9 @@ class FormEnhancements {
           height: 4,
           decoration: BoxDecoration(
             color: AppTheme.kSurfaceColor.withAlpha(51),
-            borderRadius: BorderRadius.circular(2),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusXS,
+            ),
           ),
           child: FractionallySizedBox(
             alignment: Alignment.centerLeft,
@@ -231,7 +239,9 @@ class FormEnhancements {
                 gradient: LinearGradient(
                   colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
                 ),
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusXS,
+                ),
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
 import '../spacers/app_spacers.dart';
@@ -173,19 +174,15 @@ class _EnhancedTextFieldState extends State<EnhancedTextField>
               DecoratedBox(
                 decoration: BoxDecoration(
                   color: AppTheme.kSurfaceColor.withAlpha(102),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(
+                    AppDesignConstants.borderRadiusMD,
+                  ),
                   border: Border.all(
                     color: _getBorderColor(),
                     width: _isFocused ? 2 : 1,
                   ),
                   boxShadow: _isFocused
-                      ? [
-                          BoxShadow(
-                            color: AppTheme.kPrimaryColor.withAlpha(51),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          ),
-                        ]
+                      ? AppDesignConstants.shadowSubtle
                       : null,
                 ),
                 child: Focus(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 import '../avatars/user_avatar.dart';
 import '../icons/styled_icon.dart';
@@ -260,7 +261,7 @@ class AppTopBar extends StatelessWidget {
                                 showNeighborhoodSuggestions,
                             compact: true,
                             borderRadius: BorderRadius.circular(
-                              30,
+                              AppDesignConstants.borderRadiusCircular,
                             ), // Bordes completamente redondeados
                             backgroundColor: context.surfaceColor,
                           ),
