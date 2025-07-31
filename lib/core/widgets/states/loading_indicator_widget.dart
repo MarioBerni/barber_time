@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_design_constants.dart';
+import '../../theme/app_theme.dart';
+import '../../theme/app_theme_extensions.dart';
 
 /// Un widget de indicador de carga personalizado y consistente con el sistema
 /// de diseño de Barber Time.
@@ -47,9 +49,9 @@ class LoadingIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final actualColor = color ?? theme.colorScheme.primary;
+    final actualColor = color ?? AppTheme.kPrimaryColor;
 
-    final Widget indicator = _buildIndicator(theme, actualColor);
+    final Widget indicator = _buildCustomSpinner(context, actualColor);
     final Widget content = message != null
         ? Column(
             mainAxisSize: MainAxisSize.min,
@@ -59,7 +61,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
               Text(
                 message!,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface,
+                  color: Colors.white,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -77,7 +79,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
+                color: context.charcoalMedium,
                 borderRadius: BorderRadius.circular(
                   AppDesignConstants.borderRadiusLG,
                 ),
@@ -96,24 +98,49 @@ class LoadingIndicatorWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildIndicator(ThemeData theme, Color color) {
+  /// Construye el spinner personalizado basado en el diseño propuesto
+  Widget _buildCustomSpinner(BuildContext context, Color color) {
     double getSize() {
       switch (size) {
         case LoadingIndicatorSize.small:
-          return 20.0;
+          return 32.0;
         case LoadingIndicatorSize.medium:
-          return 36.0;
-        case LoadingIndicatorSize.large:
           return 48.0;
+        case LoadingIndicatorSize.large:
+          return 64.0;
       }
     }
 
+    final spinnerSize = getSize();
+    final strokeWidth = size == LoadingIndicatorSize.small ? 3.0 : 4.0;
+
     return SizedBox(
-      width: getSize(),
-      height: getSize(),
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(color),
-        strokeWidth: size == LoadingIndicatorSize.small ? 2.0 : 3.0,
+      width: spinnerSize,
+      height: spinnerSize,
+      child: Stack(
+        children: [
+          // Spinner principal (blanco)
+          SizedBox(
+            width: spinnerSize,
+            height: spinnerSize,
+            child: CircularProgressIndicator(
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+              strokeWidth: strokeWidth,
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+          // Spinner secundario (color de acento)
+          SizedBox(
+            width: spinnerSize,
+            height: spinnerSize,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(color),
+              strokeWidth: strokeWidth,
+              backgroundColor: Colors.transparent,
+              value: 0.5, // Offset para crear el efecto de dos colores
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -121,12 +148,12 @@ class LoadingIndicatorWidget extends StatelessWidget {
 
 /// Tamaños predefinidos para el indicador de carga.
 enum LoadingIndicatorSize {
-  /// Tamaño pequeño (20px) para indicadores en línea o dentro de componentes.
+  /// Tamaño pequeño (32px) para indicadores en línea o dentro de componentes.
   small,
 
-  /// Tamaño mediano (36px) para uso general.
+  /// Tamaño mediano (48px) para uso general.
   medium,
 
-  /// Tamaño grande (48px) para pantallas completas de carga.
+  /// Tamaño grande (64px) para pantallas completas de carga.
   large,
 }

@@ -596,8 +596,8 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm>
     return EnhancedButton(
       text: _isSubmitting ? 'Registrando barbería...' : 'Registrar mi barbería',
       onPressed: _isFormValid() && !_isSubmitting
-          ? _showConfirmationDialog
-          : null,
+          ? () => _showConfirmationDialog()
+          : () {},
       isLoading: _isSubmitting,
       isEnabled: _isFormValid() && !_isSubmitting,
       icon: _isSubmitting ? null : Icons.store_rounded,

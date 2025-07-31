@@ -7,6 +7,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/spacers/spacers.dart';
+import '../../../../core/widgets/states/states.dart';
 import '../bloc/auth_cubit.dart';
 import '../bloc/auth_state.dart';
 import '../widgets/auth_text_field.dart';
@@ -270,14 +271,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     child: state.isLoading
-                        ? SizedBox(
-                            height: 24,
-                            width: 24,
-                            child: CircularProgressIndicator(
-                              color: context.textColor,
-                              strokeWidth: 2,
-                            ),
-                          )
+                        ? LoadingIndicatorWidget()
                         : Text('REGISTRARSE', style: context.button),
                   ),
                   const SizedBox(height: 24),

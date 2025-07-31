@@ -85,17 +85,43 @@ class _UserTypeOptionState extends State<UserTypeOption>
                   highlightColor: AppTheme.kPrimaryColor.withAlpha(26),
                   child: Container(
                     padding: const EdgeInsets.all(24.0),
-                    decoration: AppDesignConstants.turquoiseCardDecoration,
+                    decoration: BoxDecoration(
+                      color: context.charcoalMedium,
+                      borderRadius: AppDesignConstants.premiumBorderRadius,
+                      border: Border.all(
+                        color: AppTheme.kPrimaryColor.withAlpha(51),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withAlpha(102),
+                          blurRadius: 12,
+                          offset: const Offset(0, 6),
+                          spreadRadius: 2,
+                        ),
+                        BoxShadow(
+                          color: AppTheme.kPrimaryColor.withAlpha(26),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
                     child: Row(
                       children: [
-                        // Icono con contenedor turquesa claro del sistema
+                        // Icono con contenedor de superficie
                         Container(
                           padding: const EdgeInsets.all(16),
-                          decoration:
-                              AppDesignConstants.turquoiseIconDecoration,
+                          decoration: BoxDecoration(
+                            color: context.charcoalLight,
+                            borderRadius: BorderRadius.circular(
+                              AppDesignConstants.borderRadiusMD,
+                            ),
+                            border: Border.all(
+                              color: AppTheme.kPrimaryColor.withAlpha(77),
+                            ),
+                          ),
                           child: Icon(
                             widget.icon,
-                            color: Colors.white,
+                            color: AppTheme.kPrimaryColor,
                             size: 32,
                           ),
                         ),
@@ -118,11 +144,11 @@ class _UserTypeOptionState extends State<UserTypeOption>
                                 ),
                               ),
                               AppSpacers.sm,
-                              // Descripción con color blanco semi-transparente
+                              // Descripción con color gris claro
                               Text(
                                 widget.description,
                                 style: context.bodyLarge.copyWith(
-                                  color: Colors.white.withAlpha(230),
+                                  color: context.grayLight,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                   height: 1.4,
@@ -133,15 +159,22 @@ class _UserTypeOptionState extends State<UserTypeOption>
                           ),
                         ),
 
-                        // Flecha con contenedor turquesa claro del sistema
+                        // Flecha con contenedor de superficie
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              AppDesignConstants.turquoiseIconDecoration,
+                          decoration: BoxDecoration(
+                            color: context.charcoalLight,
+                            borderRadius: BorderRadius.circular(
+                              AppDesignConstants.borderRadiusMD,
+                            ),
+                            border: Border.all(
+                              color: AppTheme.kPrimaryColor.withAlpha(77),
+                            ),
+                          ),
                           child: Icon(
                             Icons.arrow_forward_ios,
                             size: 20,
-                            color: Colors.white,
+                            color: AppTheme.kPrimaryColor,
                           ),
                         ),
                       ],

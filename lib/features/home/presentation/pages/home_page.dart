@@ -70,16 +70,8 @@ class _HomePageState extends State<HomePage>
         builder: (context, state) {
           if (state is HomeInitial) {
             context.read<HomeCubit>().loadHomeData();
-            return const LoadingIndicatorWidget(
-              size: LoadingIndicatorSize.large,
-              message: 'Preparando tu experiencia personalizada...',
-              showBackground: true,
-            );
-          } else if (state is HomeLoading) {
-            return const LoadingIndicatorWidget(
-              size: LoadingIndicatorSize.large,
-              message: 'Cargando las mejores barberías para ti...',
-              showBackground: true,
+            return const Center(
+              child: LoadingIndicatorWidget(size: LoadingIndicatorSize.large),
             );
           } else if (state is HomeError) {
             return ErrorMessageWidget(
@@ -91,8 +83,10 @@ class _HomePageState extends State<HomePage>
             return _buildHomeContent(state);
           }
 
-          // Estado por defecto
-          return const LoadingIndicatorWidget(showBackground: true);
+          // Estado por defecto (incluye cualquier otro estado de carga)
+          return const Center(
+            child: LoadingIndicatorWidget(size: LoadingIndicatorSize.large),
+          );
         },
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),

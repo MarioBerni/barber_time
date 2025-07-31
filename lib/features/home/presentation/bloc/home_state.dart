@@ -32,12 +32,6 @@ class HomeInitial extends HomeState {
   const HomeInitial();
 }
 
-/// Estado de carga de datos
-class HomeLoading extends HomeState {
-  /// Constructor del estado de carga de la página de inicio.
-  const HomeLoading();
-}
-
 /// Estado cuando la carga de datos es exitosa
 class HomeLoaded extends HomeState {
   /// Nombre de usuario para el saludo personalizado.

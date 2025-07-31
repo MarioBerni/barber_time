@@ -4,6 +4,10 @@
 
 **Dependencia Crítica:** Esta tarea es una continuación y optimización de la implementación base en `TASK_home_page.md`. Se requiere que la página Home actual esté funcionando correctamente antes de implementar estas mejoras.
 
+**Estado Actual:** 🔄 **EN PROGRESO** - Funcionalidad base completada, pendiente rediseño completo con sistema centralizado.
+
+**Fecha de Última Actualización:** 2025-01-27
+
 ---
 
 ### Checklist
@@ -72,11 +76,46 @@
   - [x] Añadir gestos de navegación intuitivos como deslizamiento lateral entre pestañas.
   - [x] Optimizar la interacción entre la barra de navegación inferior y el contenido principal.
 
+- [x] **Sistema de Loading Unificado** ✅ COMPLETADO RECIENTEMENTE
+  - [x] Implementar `LoadingIndicatorWidget` centralizado:
+    - [x] Diseño personalizado con colores blanco + turquesa
+    - [x] Tamaños predefinidos: `small`, `medium`, `large`
+    - [x] Animación suave con `CircularProgressIndicator` superpuestos
+    - [x] Opción de fondo opcional
+  - [x] Reemplazar todos los `CircularProgressIndicator` en la app:
+    - [x] `HomePage` - Spinner centrado sin caja contenedora
+    - [x] `HomeSalonCard` - Spinner pequeño para carga de imágenes
+    - [x] `ProfilePage`, `RegisterPage`, `SubmitButton`, `ThemedButton`, `EnhancedButton`
+  - [x] Eliminar loading cards redundantes:
+    - [x] "Cargando las mejores barberías para ti..."
+    - [x] "Preparando tu experiencia personalizada..."
+  - [x] Corregir layout issues en `HomeSalonCard`:
+    - [x] Reemplazar `Spacer()` problemático con `SizedBox(height: 8)`
+    - [x] Resolver error de constraints de RenderFlex
+
 - [ ] **Finalización y Pruebas**
   - [ ] Verificar la correcta visualización y responsividad en diferentes tamaños de pantalla.
   - [ ] Medir y comparar rendimiento antes y después de las optimizaciones.
   - [ ] Realizar pruebas de usuario para validar mejoras en la experiencia de navegación.
   - [ ] Documentar todos los cambios y patrones nuevos implementados.
+
+---
+
+## 🎯 **Próxima Fase: Rediseño Completo con Sistema Centralizado**
+
+**Nueva Tarea Creada:** `TASK_rediseno_home_sistema_centralizado.md`
+
+### 🎨 **Objetivos del Rediseño**
+- **0% hardcoding** en HomePage
+- **100% uso** del sistema centralizado
+- **Consistencia visual** total con design system
+- **Rendimiento optimizado** y código limpio
+
+### 📋 **Componentes a Rediseñar**
+- `HomeHeader` - Implementar `AppContainers.glass()` y `AppSpacers`
+- `HomeSalonCard` - Usar `AppContainers.card()` y sistema de colores centralizado
+- `HomeTabBar` - Aplicar `AppDesignConstants` y transiciones consistentes
+- `HomeTabContent` - Verificar uso completo de `AppSpacers.sliver*`
 
 ---
 
@@ -86,3 +125,4 @@
 - Todos los componentes visuales nuevos o modificados deben usar estilos de `DESIGN_SYSTEM.md`.
 - Las mejoras de rendimiento deben seguir las recomendaciones en `DEVELOPMENT_GUIDE.md`.
 - Las animaciones y transiciones deben ser coherentes con la identidad visual definida en `VISUAL_GUIDELINES.md`.
+- **NUEVO:** El rediseño debe seguir completamente el sistema centralizado documentado en `TASK_sistema_unificado_constantes.md`.

@@ -8,6 +8,7 @@ import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/icons/styled_icon.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
 import '../../../../core/widgets/spacers/spacers.dart';
+import '../../../../core/widgets/states/states.dart';
 import '../../../home/presentation/widgets/home_header.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
@@ -39,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.blackDeep,
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           return RouteTransitions.animatedStateSwitcher(
@@ -84,14 +86,15 @@ class _ProfilePageState extends State<ProfilePage> {
       return _buildProfileView(state);
     } else if (state is ProfileError) {
       return _buildErrorView(state);
-    } else {
-      return const SizedBox.shrink();
     }
+
+    // Estado por defecto
+    return _buildLoadingView();
   }
 
   /// Construye la vista de carga
   Widget _buildLoadingView() {
-    return const Center(child: CircularProgressIndicator());
+    return const LoadingIndicatorWidget();
   }
 
   /// Construye la vista principal del perfil para usuarios autenticados

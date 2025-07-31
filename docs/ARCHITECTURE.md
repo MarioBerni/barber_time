@@ -407,7 +407,6 @@ Directory structure:
         └── workflows/
             └── profesor-synapse.md
 
-
 ---
 
 ## 4. Sistema de Transiciones Centralizado

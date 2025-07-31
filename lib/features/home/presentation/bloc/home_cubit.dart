@@ -13,7 +13,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   /// Carga los datos iniciales para la página de inicio
   Future<void> loadHomeData() async {
-    emit(const HomeLoading());
+    // Mantener el estado inicial durante la carga
+    // El LoadingIndicatorWidget ya se muestra en HomeInitial
 
     try {
       final homeData = await _getHomeDataUsecase.execute();

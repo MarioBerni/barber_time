@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_theme_extensions.dart';
+import 'states/states.dart';
 
 /// Enumeración para definir los tipos de botón disponibles
 enum ThemedButtonType {
@@ -28,69 +30,55 @@ enum ThemedButtonSize {
   large,
 }
 
-/// Un componente de botón que utiliza el sistema de temas centralizado
-///
-/// Este widget permite crear botones con apariencia consistente
-/// en toda la aplicación
-/// y aprovecha las extensiones de contexto para acceder a colores,
-/// bordes y estilos de texto.
+/// Botón temático personalizado que sigue el sistema de diseño de Barber Time
 class ThemedButton extends StatelessWidget {
-  /// Texto a mostrar en el botón
+  /// Constructor
+  const ThemedButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.type = ThemedButtonType.primary,
+    this.size = ThemedButtonSize.medium,
+    this.icon,
+    this.iconLeading = false,
+    this.isLoading = false,
+    this.fullWidth = false,
+    this.minWidth,
+  });
+
+  /// Texto del botón
   final String text;
 
-  /// Icono opcional para mostrar junto al texto
-  final IconData? icon;
+  /// Callback cuando se presiona el botón
+  final VoidCallback onPressed;
 
-  /// Posición del icono (true = izquierda, false = derecha)
-  final bool iconLeading;
-
-  /// Tipo de botón a mostrar
+  /// Tipo de botón
   final ThemedButtonType type;
 
   /// Tamaño del botón
   final ThemedButtonSize size;
 
-  /// Función que se ejecuta al presionar el botón
-  final VoidCallback? onPressed;
+  /// Icono opcional
+  final IconData? icon;
 
-  /// Si el botón ocupa todo el ancho disponible
-  final bool fullWidth;
+  /// Si el icono va antes del texto
+  final bool iconLeading;
 
-  /// Color personalizado para el botón (anula el color determinado por el tipo)
-  final Color? customColor;
-
-  /// Si es verdadero, muestra un indicador de carga en lugar del contenido
+  /// Si está cargando
   final bool isLoading;
 
-  /// Constructor para el botón temático.
-  ///
-  /// Requiere un [text] para mostrar y permite personalizar la apariencia
-  /// mediante [icon], [iconLeading], [type], [size], [fullWidth], [rounded],
-  /// [onPressed], [customColor] y [isLoading].
-  const ThemedButton({
-    super.key,
-    required this.text,
-    this.icon,
-    this.iconLeading = true,
-    this.type = ThemedButtonType.primary,
-    this.size = ThemedButtonSize.medium,
-    this.onPressed,
-    this.fullWidth = false,
-    this.customColor,
-    this.isLoading = false,
-  });
+  /// Si ocupa todo el ancho disponible
+  final bool fullWidth;
 
-  /// Construye el widget ThemedButton.
+  /// Ancho mínimo del botón
+  final double? minWidth;
+
   @override
   Widget build(BuildContext context) {
-    // Obtener propiedades basadas en el tamaño
-    final EdgeInsets padding = _getPadding(context);
-    final double? minWidth = fullWidth ? double.infinity : null;
-    final TextStyle textStyle = _getTextStyle(context);
-    final double iconSize = _getIconSize();
-
-    // Obtener colores según el tipo de botón
     final buttonColors = _getButtonColors(context);
+    final textStyle = _getTextStyle(context, buttonColors.foregroundColor);
+    final iconSize = _getIconSize();
+    final padding = _getPadding(context);
 
     // Contenido del botón (texto con o sin icono)
     /// Contenido del botón (texto con o sin icono).
@@ -98,15 +86,9 @@ class ThemedButton extends StatelessWidget {
 
     // Si está cargando, mostrar indicador de progreso en lugar del contenido
     if (isLoading) {
-      buttonContent = SizedBox(
-        height: _getLoadingSize(),
-        width: _getLoadingSize(),
-        child: CircularProgressIndicator(
-          strokeWidth: 2.0,
-          valueColor: AlwaysStoppedAnimation<Color>(
-            buttonColors.foregroundColor,
-          ),
-        ),
+      buttonContent = LoadingIndicatorWidget(
+        size: LoadingIndicatorSize.small,
+        color: buttonColors.foregroundColor,
       );
     }
 
@@ -207,14 +189,14 @@ class ThemedButton extends StatelessWidget {
   }
 
   /// Obtiene el estilo de texto adecuado según el tamaño del botón
-  TextStyle _getTextStyle(BuildContext context) {
+  TextStyle _getTextStyle(BuildContext context, Color foregroundColor) {
     switch (size) {
       case ThemedButtonSize.small:
-        return context.buttonSmall;
+        return context.buttonSmall.copyWith(color: foregroundColor);
       case ThemedButtonSize.large:
-        return context.button.copyWith(fontSize: 16);
+        return context.button.copyWith(fontSize: 16, color: foregroundColor);
       case ThemedButtonSize.medium:
-        return context.button;
+        return context.button.copyWith(color: foregroundColor);
     }
   }
 
@@ -230,42 +212,30 @@ class ThemedButton extends StatelessWidget {
     }
   }
 
-  /// Obtiene el tamaño del indicador de carga según el tamaño del botón
-  double _getLoadingSize() {
-    switch (size) {
-      case ThemedButtonSize.small:
-        return 12;
-      case ThemedButtonSize.large:
-        return 20;
-      case ThemedButtonSize.medium:
-        return 16;
-    }
-  }
-
   /// Obtiene los colores adecuados según el tipo de botón
   _ButtonColors _getButtonColors(BuildContext context) {
     // Usar color personalizado si se proporciona
-    final baseColor = customColor;
+    final baseColor = context.primaryColor; // Default to primary color
 
     switch (type) {
       case ThemedButtonType.outlined:
         return _ButtonColors(
           backgroundColor: Colors.transparent,
-          foregroundColor: baseColor ?? context.primaryColor,
+          foregroundColor: baseColor,
         );
       case ThemedButtonType.text:
         return _ButtonColors(
           backgroundColor: Colors.transparent,
-          foregroundColor: baseColor ?? context.accentColor,
+          foregroundColor: baseColor,
         );
       case ThemedButtonType.accent:
         return _ButtonColors(
-          backgroundColor: baseColor ?? context.accentColor,
+          backgroundColor: baseColor,
           foregroundColor: context.textColor,
         );
       case ThemedButtonType.primary:
         return _ButtonColors(
-          backgroundColor: baseColor ?? context.primaryColor,
+          backgroundColor: baseColor,
           foregroundColor: Colors.white,
         );
     }

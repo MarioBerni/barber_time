@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/app_design_constants.dart';
 import '../../../../../core/theme/app_theme_extensions.dart';
+import '../../../../../core/widgets/states/states.dart';
 
 /// Botón de envío personalizado para formularios
 class SubmitButton extends StatelessWidget {
@@ -44,13 +45,9 @@ class SubmitButton extends StatelessWidget {
           elevation: 0,
         ),
         child: isLoading
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
+            ? const LoadingIndicatorWidget(
+                size: LoadingIndicatorSize.small,
+                color: Colors.white,
               )
             : Text(
                 text,

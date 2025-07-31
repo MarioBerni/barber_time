@@ -1,40 +1,49 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
-import '../../../../core/widgets/containers/glam_container.dart';
+import '../../../../core/widgets/states/states.dart';
 import '../../domain/entities/salon.dart';
 
-/// Widget que muestra una tarjeta de salón con información básica
+/// Widget para mostrar una tarjeta de salón en la página de inicio
 class HomeSalonCard extends StatelessWidget {
-  /// El salón a mostrar
-  final Salon salon;
-
-  /// Callback cuando se presiona el botón de favorito
-  final VoidCallback onFavoritePressed;
-
-  /// Constructor del widget de tarjeta de salón
+  /// Constructor
   const HomeSalonCard({
     super.key,
     required this.salon,
     required this.onFavoritePressed,
   });
 
+  /// Datos del salón a mostrar
+  final Salon salon;
+
+  /// Callback cuando se presiona el botón de favorito
+  final VoidCallback onFavoritePressed;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return GlamContainer(
-      fixedSize: const Size.fromHeight(110),
-      borderRadius: BorderRadius.circular(AppDesignConstants.borderRadiusMD),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha((0.1 * 255).round()),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Row(
         children: [
           // Imagen del salón
           ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(AppDesignConstants.borderRadiusMD),
-              bottomLeft: Radius.circular(AppDesignConstants.borderRadiusMD),
+              topLeft: Radius.circular(12),
+              bottomLeft: Radius.circular(12),
             ),
             child: CachedNetworkImage(
               imageUrl: salon.imageUrl,
@@ -45,7 +54,11 @@ class HomeSalonCard extends StatelessWidget {
                 width: 110,
                 height: 110,
                 color: theme.colorScheme.primary.withAlpha((0.1 * 255).round()),
-                child: const Center(child: CircularProgressIndicator()),
+                child: const Center(
+                  child: LoadingIndicatorWidget(
+                    size: LoadingIndicatorSize.small,
+                  ),
+                ),
               ),
               errorWidget: (context, url, error) => Container(
                 width: 110,
@@ -104,7 +117,7 @@ class HomeSalonCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
 
-                  const Spacer(),
+                  const SizedBox(height: 8),
 
                   // Calificación, reseñas y precio
                   Row(
@@ -144,9 +157,7 @@ class HomeSalonCard extends StatelessWidget {
                           color: theme.colorScheme.secondary.withAlpha(
                             (0.1 * 255).round(),
                           ),
-                          borderRadius: BorderRadius.circular(
-                            AppDesignConstants.borderRadiusXS,
-                          ),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
                           salon.price,

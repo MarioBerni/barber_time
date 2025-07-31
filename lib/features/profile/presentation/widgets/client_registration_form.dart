@@ -599,8 +599,8 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm>
     return EnhancedButton(
       text: _isSubmitting ? 'Creando cuenta...' : 'Crear mi cuenta',
       onPressed: _isFormValid() && !_isSubmitting
-          ? _showConfirmationDialog
-          : null,
+          ? () => _showConfirmationDialog()
+          : () {},
       isLoading: _isSubmitting,
       isEnabled: _isFormValid() && !_isSubmitting,
       icon: _isSubmitting ? null : Icons.check_circle_outline,

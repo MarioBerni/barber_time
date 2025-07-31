@@ -83,7 +83,7 @@ class ErrorMessageWidget extends StatelessWidget {
             AppSpacers.lg,
             EnhancedButton(
               text: retryText,
-              onPressed: onRetry,
+              onPressed: onRetry!,
               icon: Icons.refresh,
               color: secondaryColor,
               textColor: theme.colorScheme.onError,
