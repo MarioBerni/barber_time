@@ -21,18 +21,22 @@ class ProfileCubit extends Cubit<ProfileState> {
       // Simulamos una carga de datos
       await Future<void>.delayed(const Duration(milliseconds: 800));
 
-      // Para testing: simular usuario no autenticado para probar formularios
-      // Cambiar hasValidSession a true para simular usuario autenticado
-      const hasValidSession = false; // ← Cambiar a true/false para probar
+      // Para testing: actualmente configurado para simular
+      // usuario no autenticado
+      // Para simular usuario autenticado, descomenta el código comentado abajo
 
+      // Usuario no autenticado - mostrar selección de tipo de usuario
+      emit(const ProfileUnauthenticated());
+      
+      // Código para cuando el usuario está autenticado - 
+      // descomentar cuando sea necesario
+      /*
       if (hasValidSession) {
         // En una implementación real, esto vendría de un use case/repositorio
         final mockProfile = _getMockProfile();
         emit(ProfileLoaded(profile: mockProfile));
-      } else {
-        // Usuario no autenticado - mostrar selección de tipo de usuario
-        emit(const ProfileUnauthenticated());
       }
+      */
     } catch (e) {
       emit(ProfileError(message: 'Error al cargar el perfil: ${e.toString()}'));
     }
@@ -56,8 +60,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       updatedFormData[field] = value;
 
       // Limpiar errores del campo si hay
-      final updatedErrors = Map<String, String>.from(currentState.fieldErrors);
-      updatedErrors.remove(field);
+      final updatedErrors = Map<String, String>.from(currentState.fieldErrors)
+        ..remove(field);
 
       emit(
         currentState.copyWith(

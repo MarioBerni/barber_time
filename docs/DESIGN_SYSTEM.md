@@ -584,8 +584,35 @@ BlocBuilder<BusquedaBloc, BusquedaEstado>(
 );
 ```
 
-### 5.4 Buenas Prácticas
+### 5.4 UserTypeOption
+
+**🆕 NUEVO** Componente especializado para selección de tipo de usuario con diseño premium y máxima legibilidad:
+
+```dart
+UserTypeOption(
+  title: 'Cliente',
+  description: 'Para personas que buscan servicios de barbería',
+  icon: Icons.person,
+  onTap: () => cubit.startClientRegistration(),
+)
+```
+
+**Características de Diseño:**
+- ✅ **Máxima legibilidad**: Texto con contraste optimizado usando `AppTheme.kOffWhite` puro
+- ✅ **Jerarquía visual clara**: Títulos con `FontWeight.w800` y descripciones con `FontWeight.w500`
+- ✅ **Efectos premium**: Sombras sutiles, gradientes refinados y bordes con opacidad controlada
+- ✅ **Interactividad mejorada**: Efectos de toque con opacidad optimizada para feedback visual
+- ✅ **Espaciado consistente**: Padding y márgenes siguiendo el sistema de espaciado del tema
+
+**Mejoras de Accesibilidad:**
+- **Contraste**: Texto de descripción sin opacidad para máximo contraste
+- **Tamaño**: Iconos de 32px y texto de 20px para mejor visibilidad
+- **Espaciado**: `letterSpacing` y `height` optimizados para legibilidad
+- **Interactividad**: Estados de hover y press claramente definidos
+
+### 5.5 Buenas Prácticas
 
 - **Consistencia:** Usa estos componentes en toda la aplicación para mantener una experiencia de usuario uniforme.
 - **Personaliza con Cuidado:** Aunque estos widgets son personalizables, mantente dentro de las directrices visuales del proyecto.
 - **Mensajes Amigables:** Escribe mensajes de error y estados vacíos claros, amigables y orientados a soluciones.
+- **Legibilidad Primero:** Prioriza siempre la legibilidad del texto sobre efectos decorativos.

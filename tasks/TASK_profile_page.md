@@ -39,6 +39,9 @@
     - ✅ **PREMIUM:** Solo botón dorado como elemento exclusivo destacado
     - ✅ **TOQUES DORADOS:** Estrella del divider y borde del botón activo
     - ✅ **GRADIENTE SUTIL:** Divider con transición dorado → turquesa → transparente
+    - ✅ **LEGIBILIDAD MEJORADA:** Componente `UserTypeOption` con contraste optimizado
+    - ✅ **JERARQUÍA VISUAL:** Títulos con `FontWeight.w800` y descripciones con `FontWeight.w500`
+    - ✅ **ACCESIBILIDAD:** Texto sin opacidad para máximo contraste y mejor legibilidad
   - [x] **NUEVO - CAMPO TELEFÓNICO INTERNACIONAL:**
     - ✅ **INTEGRACIÓN:** Paquete `phone_form_field` para números internacionales
     - ✅ **WIDGET CUSTOM:** `ThemedPhoneField` con diseño premium consistente

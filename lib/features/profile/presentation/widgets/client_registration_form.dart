@@ -93,15 +93,14 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
           // Contenido principal
           SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
+              padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 24), // Espacio para el AppBar
-                  // Header premium
+                  // Header premium - con menos espaciado vertical
                   const RegistrationHeader(),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 32),
 
                   // Formulario premium modular
                   _buildModularForm(context),

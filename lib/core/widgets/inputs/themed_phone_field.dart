@@ -91,7 +91,7 @@ class ThemedPhoneField extends StatelessWidget {
           IsoCode.CL,
           IsoCode.PY,
         ],
-        showCountryCode: true,
+        showDialCode: true,
         sortCountries: true,
         noResultMessage: 'No se encontraron países',
       ),

@@ -38,15 +38,7 @@ class PremiumAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: AppTheme.kOffWhite,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      centerTitle: true,
+      centerTitle: false,
     );
   }
 

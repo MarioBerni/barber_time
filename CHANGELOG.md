@@ -2,6 +2,21 @@
 
 ## [Versión Desarrollo] - 2024-12-28
 
+### 🎨 Mejoras de Legibilidad y Accesibilidad
+
+#### 👁️ Componente UserTypeOption Optimizado
+- **Contraste mejorado**: Texto de descripción sin opacidad para máxima legibilidad
+- **Jerarquía visual clara**: Títulos con `FontWeight.w800` y descripciones con `FontWeight.w500`
+- **Tamaños optimizados**: Iconos de 32px y texto de 20px para mejor visibilidad
+- **Espaciado refinado**: `letterSpacing` y `height` optimizados para legibilidad
+- **Interactividad mejorada**: Efectos de toque con opacidad optimizada para feedback visual
+- **Efectos premium**: Sombras sutiles, gradientes refinados y bordes con opacidad controlada
+
+#### 📱 Vista de Selección de Usuario Mejorada
+- **Subtítulo optimizado**: Eliminada opacidad y aumentado peso de fuente para mejor contraste
+- **Espaciado consistente**: Márgenes y padding siguiendo el sistema de diseño
+- **Documentación actualizada**: `DESIGN_SYSTEM.md` con guías de accesibilidad
+
 ### ✨ Nuevas Funcionalidades
 
 #### 🌍 Campo de Teléfono Internacional
@@ -69,10 +84,13 @@ dependencies:
 - `lib/main.dart` - Configuración global de localización y temas
 - `lib/core/widgets/inputs/themed_phone_field.dart` - Nuevo componente
 - `lib/features/profile/presentation/widgets/client_registration_form.dart` - Formulario mejorado
+- `lib/features/profile/presentation/widgets/user_type_option.dart` - **LEGIBILIDAD MEJORADA**
+- `lib/features/profile/presentation/widgets/unauthenticated_view.dart` - **CONTRASTE OPTIMIZADO**
 - `lib/features/profile/presentation/bloc/profile_cubit.dart` - Validación actualizada
 - `pubspec.yaml` - Nueva dependencia
-- `docs/DESIGN_SYSTEM.md` - Documentación del nuevo componente
-- `tasks/TASK_profile_page.md` - Estado actualizado
+- `docs/DESIGN_SYSTEM.md` - Documentación del nuevo componente y mejoras de accesibilidad
+- `tasks/TASK_profile_page.md` - Estado actualizado con mejoras de legibilidad
+- `CHANGELOG.md` - Documentación de mejoras de accesibilidad
 
 ### 🗑️ Archivos Eliminados
 - `lib/core/widgets/inputs/premium_country_selector.dart` - Reemplazado por solución integrada

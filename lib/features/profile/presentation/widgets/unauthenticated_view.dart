@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import 'user_type_option.dart';
@@ -18,8 +20,28 @@ class UnauthenticatedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(child: _buildUserTypeSelection(context)),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          // Fondo con gradiente premium
+          AnimatedGradientBackground(
+            primaryColor: AppTheme.kBackgroundColor,
+            secondaryColor: AppTheme.kSurfaceColor,
+            showBouncingCircles: false,
+            lineOpacity: 0.03,
+            lineCount: 25,
+          ),
+
+          // Contenido
+          Center(
+            child: SingleChildScrollView(
+              child: SafeArea(child: _buildUserTypeSelection(context)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -32,36 +54,68 @@ class UnauthenticatedView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'Selecciona tu tipo de usuario',
-            style: context.titleLarge.copyWith(color: context.primaryColor),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Para brindarte la mejor experiencia, necesitamos saber '
-            'qué tipo de usuario eres.',
-            style: context.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-
-          // Opción de cliente
-          UserTypeOption(
-            title: 'Cliente',
-            description: 'Para personas que buscan servicios de barbería',
-            icon: Icons.person,
-            onTap: () => cubit.startClientRegistration(),
+          // Título con gradiente
+          ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
+            ).createShader(bounds),
+            child: Text(
+              'Selecciona tu tipo de usuario',
+              style: context.h2.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 28,
+                letterSpacing: 0.5,
+                height: 1.2,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
 
           const SizedBox(height: 16),
 
-          // Opción de administrador
-          UserTypeOption(
-            title: 'Administrador',
-            description: 'Para propietarios y empleados de barberías',
-            icon: Icons.business,
-            onTap: () => cubit.startAdminRegistration(),
+          // Subtítulo
+          Text(
+            'Para brindarte la mejor experiencia, necesitamos saber '
+            'qué tipo de usuario eres.',
+            style: context.bodyLarge.copyWith(
+              color: AppTheme.kOffWhite,
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+              height: 1.5,
+              letterSpacing: 0.2,
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 48),
+
+          // Opciones de usuario con animación
+          AnimatedOpacity(
+            opacity: 1.0,
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+            child: Column(
+              children: [
+                // Opción de cliente
+                UserTypeOption(
+                  title: 'Cliente',
+                  description: 'Para personas que buscan servicios de barbería',
+                  icon: Icons.person,
+                  onTap: () => cubit.startClientRegistration(),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Opción de administrador
+                UserTypeOption(
+                  title: 'Administrador',
+                  description: 'Para propietarios y empleados de barberías',
+                  icon: Icons.business,
+                  onTap: () => cubit.startAdminRegistration(),
+                ),
+              ],
+            ),
           ),
         ],
       ),

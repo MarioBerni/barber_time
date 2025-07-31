@@ -251,7 +251,8 @@ class ManualFormSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Tu información está encriptada y nunca será compartida con terceros.',
+                  'Tu información está encriptada y nunca será compartida '
+                  'con terceros.',
                   style: context.caption.copyWith(
                     color: AppTheme.kPrimaryColor.withAlpha(
                       (0.8 * 255).round(),

@@ -17,43 +17,29 @@ class RegistrationHeader extends StatelessWidget {
   /// Constructor
   const RegistrationHeader({
     super.key,
-    this.title = 'Crear Tu Cuenta Premium',
-    this.subtitle = 'Únete a la experiencia premium de Barber Time',
+    this.title = 'Crear tu cuenta',
+    this.subtitle = 'Únete a Barber Time para disfrutar de nuestros servicios',
     this.icon = Icons.content_cut_rounded,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return AnimatedOpacity(
+      opacity: 1.0,
+      duration: const Duration(milliseconds: 800),
+      curve: Curves.easeInOut,
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Icono con contenedor premium
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppTheme.kPrimaryColor.withAlpha((0.2 * 255).round()),
-                AppTheme.kPrimaryLightColor.withAlpha((0.1 * 255).round()),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: AppTheme.kPrimaryColor.withAlpha((0.3 * 255).round()),
-            ),
-          ),
-          child: Icon(icon, color: AppTheme.kPrimaryColor, size: 28),
-        ),
 
-        const SizedBox(height: 20),
 
-        // Título con gradiente dorado
+        // Título con gradiente turquesa (color primario)
         ShaderMask(
           shaderCallback: (bounds) => LinearGradient(
             colors: [
-              AppTheme.kMediumGold,
-              AppTheme.kLightGold,
-              AppTheme.kDarkGold,
+              AppTheme.kPrimaryColor,
+              AppTheme.kPrimaryLightColor,
+              AppTheme.kPrimaryDarkColor,
             ],
             stops: const [0.0, 0.5, 1.0],
           ).createShader(bounds),
@@ -62,7 +48,8 @@ class RegistrationHeader extends StatelessWidget {
             style: context.h1.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w800,
-              fontSize: 28,
+              fontSize: 32,
+              letterSpacing: 0.5,
               height: 1.2,
             ),
           ),
@@ -80,6 +67,7 @@ class RegistrationHeader extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }

@@ -115,7 +115,8 @@ class ConfirmationDialog extends StatelessWidget {
   /// Construye el mensaje
   Widget _buildMessage(BuildContext context) {
     return Text(
-      'Estás a punto de crear tu cuenta premium.\n¿Confirmas que todos los datos son correctos?',
+      'Estás a punto de crear tu cuenta premium.\n'
+      '¿Confirmas que todos los datos son correctos?',
       style: context.bodyMedium.copyWith(
         color: AppTheme.kOffWhite.withAlpha((0.8 * 255).round()),
         fontWeight: FontWeight.w400,
