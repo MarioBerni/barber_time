@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/containers/app_containers.dart';
+import '../../../../core/widgets/spacers/app_spacers.dart';
 import '../../../profile/domain/entities/user_type.dart';
 
 /// Componente de pestañas para navegación en la página de perfil
@@ -30,23 +33,16 @@ class ProfileTabs extends StatelessWidget {
     // Definir las pestañas según el tipo de usuario
     final tabs = _getTabs(userType);
 
-    return Container(
-      height: 60,
-      decoration: BoxDecoration(
-        color: context.surfaceColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha((0.05 * 255).round()),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+    return AppContainers.bordered(
+      boxShadow: AppDesignConstants.shadowSubtle,
+      child: SizedBox(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(
+            tabs.length,
+            (index) => _buildTab(context, index, tabs[index]),
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(
-          tabs.length,
-          (index) => _buildTab(context, index, tabs[index]),
         ),
       ),
     );
@@ -69,7 +65,7 @@ class ProfileTabs extends StatelessWidget {
                   : context.textSecondaryColor,
               size: 24,
             ),
-            const SizedBox(height: 4),
+            AppSpacers.xs,
             Text(
               tab.label,
               style: context.bodySmall.copyWith(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/spacers/app_spacers.dart';
 
 /// Widget para mostrar una opción de tipo de usuario
 /// en la pantalla de selección
@@ -36,9 +38,12 @@ class UserTypeOption extends StatelessWidget {
         shadowColor: AppTheme.kPrimaryColor.withOpacity(0.2),
         color: AppTheme.kSurfaceColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: AppDesignConstants.premiumBorderRadius,
           side: BorderSide(
-            color: AppTheme.kPrimaryColor.withOpacity(0.2),
+            color: AppDesignConstants.colorWithOpacity(
+              AppTheme.kPrimaryColor,
+              AppDesignConstants.opacityLow,
+            ),
             width: 1.5,
           ),
         ),
@@ -53,13 +58,16 @@ class UserTypeOption extends StatelessWidget {
               vertical: 20.0,
             ),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: AppDesignConstants.premiumBorderRadius,
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
                   AppTheme.kSurfaceColor,
-                  AppTheme.kSurfaceColor.withOpacity(0.95),
+                  AppDesignConstants.colorWithOpacity(
+                    AppTheme.kSurfaceColor,
+                    AppDesignConstants.opacityVeryHigh,
+                  ),
                 ],
               ),
             ),
@@ -73,25 +81,25 @@ class UserTypeOption extends StatelessWidget {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        AppTheme.kPrimaryColor.withAlpha((0.25 * 255).round()),
-                        AppTheme.kPrimaryLightColor.withAlpha(
-                          (0.15 * 255).round(),
+                        AppDesignConstants.colorWithOpacity(
+                          AppTheme.kPrimaryColor,
+                          AppDesignConstants.opacityLow,
+                        ),
+                        AppDesignConstants.colorWithOpacity(
+                          AppTheme.kPrimaryLightColor,
+                          AppDesignConstants.opacityLow,
                         ),
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.kPrimaryColor.withOpacity(0.25),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    borderRadius: BorderRadius.circular(
+                      AppDesignConstants.borderRadiusLG,
+                    ),
+                    boxShadow: AppDesignConstants.shadowStandard,
                   ),
                   child: Icon(icon, color: AppTheme.kPrimaryColor, size: 32),
                 ),
 
-                const SizedBox(width: 20),
+                AppSpacers.hMd,
 
                 Expanded(
                   child: Column(
@@ -108,7 +116,7 @@ class UserTypeOption extends StatelessWidget {
                           height: 1.2,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      AppSpacers.xs,
                       // Descripción con mejor legibilidad
                       Text(
                         description,
@@ -128,18 +136,20 @@ class UserTypeOption extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: AppTheme.kPrimaryColor.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: AppTheme.kPrimaryColor.withOpacity(0.3),
+                    color: AppDesignConstants.colorWithOpacity(
+                      AppTheme.kPrimaryColor,
+                      AppDesignConstants.opacityLow,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.kPrimaryColor.withOpacity(0.1),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
+                    borderRadius: BorderRadius.circular(
+                      AppDesignConstants.borderRadiusMD,
+                    ),
+                    border: Border.all(
+                      color: AppDesignConstants.colorWithOpacity(
+                        AppTheme.kPrimaryColor,
+                        AppDesignConstants.opacityMedium,
                       ),
-                    ],
+                    ),
+                    boxShadow: AppDesignConstants.shadowSubtle,
                   ),
                   child: Icon(
                     Icons.arrow_forward_ios,

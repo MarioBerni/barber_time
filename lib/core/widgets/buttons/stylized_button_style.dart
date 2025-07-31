@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 import 'stylized_button_types.dart';
 
@@ -23,7 +25,9 @@ class StylizedButtonStyleHelper {
             (0.3 * 255).round(),
           ), // Sombra consistente con el tema
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
           ),
           padding: EdgeInsets.zero,
         );
@@ -47,8 +51,10 @@ class StylizedButtonStyleHelper {
           foregroundColor: context.primaryColor,
           elevation: 0,
           shadowColor: Colors.transparent,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusXS,
+            ),
           ),
           padding: EdgeInsets.zero,
         );
@@ -81,7 +87,8 @@ class StylizedButtonStyleHelper {
         return baseStyle.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 14.0, // Tamaño de fuente reducido para proporcionalidad
+          fontSize: AppDesignConstants
+              .iconSizeSM, // Tamaño de fuente reducido para proporcionalidad
         );
 
       case StylizedButtonType.secondary:
@@ -106,10 +113,16 @@ class StylizedButtonStyleHelper {
     switch (type) {
       case StylizedButtonType.primary:
       case StylizedButtonType.secondary:
-        return const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0);
+        return EdgeInsets.symmetric(
+          horizontal: AppDesignConstants.spacingLG,
+          vertical: AppDesignConstants.spacingSM,
+        );
 
       case StylizedButtonType.tertiary:
-        return const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0);
+        return EdgeInsets.symmetric(
+          horizontal: AppDesignConstants.spacingMD,
+          vertical: AppDesignConstants.spacingXS,
+        );
     }
   }
 
@@ -118,8 +131,8 @@ class StylizedButtonStyleHelper {
     return [
       BoxShadow(
         color: context.accentColor.withAlpha((0.6 * 255).round()),
-        blurRadius: 20.0,
-        spreadRadius: 2.0,
+        blurRadius: AppDesignConstants.spacingLG,
+        spreadRadius: AppDesignConstants.spacingXS,
       ),
     ];
   }

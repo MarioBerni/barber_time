@@ -202,11 +202,10 @@ class _BusinessRegistrationFormState extends State<BusinessRegistrationForm> {
 
             // Botón de envío
             SubmitButton(
+              text: _isSubmitting ? 'Registrando...' : 'Registrar Barbería',
               isEnabled: _isFormValid(),
               isLoading: _isSubmitting,
               onPressed: _showConfirmationDialog,
-              enabledText: 'Registrar Barbería',
-              loadingText: 'Registrando...',
             ),
           ],
         ),

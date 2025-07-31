@@ -45,8 +45,17 @@ class AppDesignConstants {
   /// Radio de borde extra grande (20px)
   static const double borderRadiusXL = 20.0;
 
+  /// Radio de borde extra extra grande (24px)
+  static const double borderRadiusXXL = 24.0;
+
   /// Radio de borde circular (50%)
   static const double borderRadiusCircular = 50.0;
+
+  /// Radio de borde extra pequeño (4px)
+  static const double borderRadiusXS = 4.0;
+
+  /// Radio de borde pequeño (6px)
+  static const double borderRadiusSM2 = 6.0;
 
   // ===== ALTURAS =====
 
@@ -58,6 +67,9 @@ class AppDesignConstants {
 
   /// Altura de botón grande (56px)
   static const double buttonHeightLarge = 56.0;
+
+  /// Altura de botón extra grande (62px)
+  static const double buttonHeightSubmit = 62.0;
 
   /// Altura de botón extra grande (64px)
   static const double buttonHeightXL = 64.0;
@@ -252,4 +264,57 @@ class AppDesignConstants {
   /// Crea border radius circular
   static BorderRadius get circularBorderRadius =>
       BorderRadius.circular(borderRadiusCircular);
+
+  // ===== CONSTANTES ESPECÍFICAS PARA COMPONENTES =====
+
+  /// Radio de borde para diálogos
+  static BorderRadius get dialogBorderRadius =>
+      BorderRadius.circular(borderRadiusXXL);
+
+  /// Radio de borde para badges
+  static BorderRadius get badgeBorderRadius =>
+      BorderRadius.circular(borderRadiusXS);
+
+  /// Radio de borde para chips
+  static BorderRadius get chipBorderRadius =>
+      BorderRadius.circular(borderRadiusSM2);
+
+  /// Radio de borde para elementos premium
+  static BorderRadius get premiumBorderRadius =>
+      BorderRadius.circular(borderRadiusLG);
+
+  /// Radio de borde para elementos de navegación
+  static BorderRadius get navigationBorderRadius =>
+      BorderRadius.circular(borderRadiusSM);
+
+  // ===== DECORACIONES ESPECÍFICAS =====
+
+  /// Decoración para elementos premium
+  static BoxDecoration get premiumDecoration => BoxDecoration(
+    borderRadius: premiumBorderRadius,
+    gradient: LinearGradient(
+      colors: [AppTheme.kAccentColor, AppTheme.kAccentDarkColor],
+    ),
+    boxShadow: shadowStandard,
+  );
+
+  /// Decoración para diálogos
+  static BoxDecoration get dialogDecoration => BoxDecoration(
+    color: AppTheme.kSurfaceColor.withAlpha(204),
+    borderRadius: dialogBorderRadius,
+    boxShadow: shadowPronounced,
+  );
+
+  /// Decoración para badges
+  static BoxDecoration get badgeDecoration => BoxDecoration(
+    color: AppTheme.kPrimaryColor,
+    borderRadius: badgeBorderRadius,
+  );
+
+  /// Decoración para chips
+  static BoxDecoration get chipDecoration => BoxDecoration(
+    color: AppTheme.kSurfaceColor.withAlpha(102),
+    borderRadius: chipBorderRadius,
+    border: Border.all(color: AppTheme.kPrimaryColor.withAlpha(51)),
+  );
 }

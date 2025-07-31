@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/containers/app_containers.dart';
+import '../../../../core/widgets/spacers/app_spacers.dart';
 
 /// Contenedor para secciones en la página de perfil
 ///
@@ -55,7 +58,7 @@ class ProfileSection extends StatelessWidget {
         // Icono si está disponible
         if (icon != null) ...[
           Icon(icon, color: iconColor ?? context.accentColor, size: 20),
-          const SizedBox(width: 8),
+          AppSpacers.hSm,
         ],
 
         // Título de la sección
@@ -77,19 +80,13 @@ class ProfileSection extends StatelessWidget {
       child: child,
     );
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: context.surfaceColor,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha((0.05 * 255).round()),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
-        ],
+    return AppContainers.bordered(
+      margin: EdgeInsets.symmetric(
+        horizontal: AppDesignConstants.spacingMD,
+        vertical: AppDesignConstants.spacingSM,
       ),
+      borderRadius: AppDesignConstants.borderRadiusMD,
+      boxShadow: AppDesignConstants.shadowSubtle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -115,7 +112,12 @@ class ProfileSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+                  padding: EdgeInsets.fromLTRB(
+                    AppDesignConstants.spacingMD,
+                    AppDesignConstants.spacingMD,
+                    AppDesignConstants.spacingMD,
+                    AppDesignConstants.spacingSM,
+                  ),
                   child: headerRow,
                 ),
                 if (showBottomBorder)

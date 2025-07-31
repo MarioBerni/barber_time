@@ -1,3 +1,4 @@
+import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/theme/app_theme_extensions.dart';
@@ -29,7 +30,7 @@ class ProfileInfoRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, size: 22, color: context.primaryColor),
-          const SizedBox(width: 16),
+          AppSpacers.hMd,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +41,7 @@ class ProfileInfoRow extends StatelessWidget {
                     color: context.textSecondaryColor,
                   ),
                 ),
-                const SizedBox(height: 4),
+                AppSpacers.xxs,
                 Text(value, style: context.bodyMedium),
               ],
             ),

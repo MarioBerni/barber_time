@@ -1,3 +1,4 @@
+import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 
 import '../../../core/theme/app_theme_extensions.dart';
@@ -167,7 +168,7 @@ class AppTopBar extends StatelessWidget {
                               onBackPressed ??
                               () => Navigator.of(context).pop(),
                         ),
-                        const SizedBox(width: 8),
+                        AppSpacers.hXs,
                       ] else if (showAvatar) ...[
                         GestureDetector(
                           onTap: onAvatarPressed,
@@ -177,7 +178,7 @@ class AppTopBar extends StatelessWidget {
                             borderColor: context.surfaceColor,
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        AppSpacers.hSm,
                       ],
 
                       // Textos de saludo y secundario
@@ -224,7 +225,7 @@ class AppTopBar extends StatelessWidget {
                             (0.2 * 255).round(),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        AppSpacers.hSm,
                         // Icono de notificaciones con badge
                         StyledIcon(
                           icon: Icons.notifications_none_rounded,
@@ -238,7 +239,7 @@ class AppTopBar extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 16),
+                  AppSpacers.md,
 
                   // Fila inferior: barra de búsqueda y acciones
                   if (showSearchBar)
@@ -267,7 +268,7 @@ class AppTopBar extends StatelessWidget {
                         // Acciones de la fila inferior (derecha)
                         if (bottomActions != null &&
                             bottomActions!.isNotEmpty) ...[
-                          const SizedBox(width: 8),
+                          AppSpacers.hXs,
                           ...bottomActions!,
                         ],
                       ],
@@ -281,3 +282,4 @@ class AppTopBar extends StatelessWidget {
     );
   }
 }
+

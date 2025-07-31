@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme.dart';
 import '../backgrounds/animated_gradient_background.dart';
 import '../navigation/registration_app_bar.dart';
@@ -48,7 +49,9 @@ class RegistrationScaffold extends StatelessWidget {
           // Contenido
           SafeArea(
             child: SingleChildScrollView(
-              padding: contentPadding ?? const EdgeInsets.all(24.0),
+              padding:
+                  contentPadding ??
+                  EdgeInsets.all(AppDesignConstants.spacingLG),
               child: child,
             ),
           ),

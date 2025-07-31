@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../spacers/app_spacers.dart';
+
 /// Un widget para mostrar estados vacíos de manera estandarizada.
 ///
 /// Este componente muestra una interfaz amigable cuando no hay datos
@@ -58,7 +60,7 @@ class EmptyStateWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           illustration ?? Icon(icon, size: iconSize, color: grayMedium),
-          const SizedBox(height: 24),
+          AppSpacers.lg,
           Text(
             title,
             style: theme.textTheme.titleLarge?.copyWith(
@@ -67,14 +69,14 @@ class EmptyStateWidget extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           if (message != null) ...[
-            const SizedBox(height: 8),
+            AppSpacers.xs,
             Text(
               message!,
               style: theme.textTheme.bodyLarge?.copyWith(color: grayMedium),
               textAlign: TextAlign.center,
             ),
           ],
-          if (action != null) ...[const SizedBox(height: 24), action!],
+          if (action != null) ...[AppSpacers.lg, action!],
         ],
       ),
     );

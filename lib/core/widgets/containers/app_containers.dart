@@ -326,6 +326,76 @@ class AppContainers {
     );
   }
 
+  // ===== CONTENEDORES ESPECÍFICOS =====
+
+  /// Contenedor para elementos premium (diálogos, modales)
+  static Widget premium({
+    required Widget child,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+  }) {
+    return Container(
+      padding: padding ?? AppDesignConstants.paddingLG,
+      margin: margin,
+      decoration: AppDesignConstants.premiumDecoration,
+      child: child,
+    );
+  }
+
+  /// Contenedor para diálogos
+  static Widget dialog({
+    required Widget child,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+  }) {
+    return Container(
+      padding: padding ?? AppDesignConstants.paddingXL,
+      margin: margin,
+      decoration: AppDesignConstants.dialogDecoration,
+      child: child,
+    );
+  }
+
+  /// Contenedor para chips
+  static Widget chip({
+    required Widget child,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+  }) {
+    return Container(
+      padding: padding ?? AppDesignConstants.paddingCompact,
+      margin: margin,
+      decoration: AppDesignConstants.chipDecoration,
+      child: child,
+    );
+  }
+
+  /// Contenedor para elementos de navegación
+  static Widget navigation({
+    required Widget child,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+  }) {
+    return Container(
+      padding: padding ?? AppDesignConstants.paddingSM,
+      margin: margin,
+      decoration: BoxDecoration(
+        color: AppDesignConstants.colorWithOpacity(
+          AppTheme.kSurfaceColor,
+          AppDesignConstants.opacityMedium,
+        ),
+        borderRadius: AppDesignConstants.navigationBorderRadius,
+        border: Border.all(
+          color: AppDesignConstants.colorWithOpacity(
+            AppTheme.kPrimaryColor,
+            AppDesignConstants.opacityLow,
+          ),
+        ),
+      ),
+      child: child,
+    );
+  }
+
   // ===== MÉTODOS UTILITARIOS =====
 
   /// Crea un contenedor con decoración personalizada

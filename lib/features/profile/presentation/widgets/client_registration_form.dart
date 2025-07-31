@@ -2,23 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
-import '../../../../core/utils/form_validation_helper.dart';
-import '../../../../core/widgets/containers/containers.dart';
-import '../../../../core/widgets/forms/form_section.dart';
+import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/forms/info_card.dart';
-import '../../../../core/widgets/inputs/enhanced_text_field.dart';
-import '../../../../core/widgets/inputs/themed_phone_field.dart';
 import '../../../../core/widgets/spacers/spacers.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import 'registration/confirmation_dialog.dart';
-import 'registration/continue_divider.dart';
-import 'registration/google_signup_button.dart';
 import 'registration/submit_button.dart';
 
-/// Formulario de registro para nuevos clientes - Versión Refactorizada
+/// Formulario simplificado de registro para clientes
+/// Solicita solo la información esencial para agilizar el proceso
 class ClientRegistrationForm extends StatefulWidget {
-  /// Estado del registro de cliente
+  /// Estado del perfil para mostrar datos existentes
   final ProfileClientRegistration state;
 
   /// Constructor
@@ -29,199 +24,238 @@ class ClientRegistrationForm extends StatefulWidget {
 }
 
 class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
-  // Controladores para los campos de texto
-  late final TextEditingController _nameController;
-  late final TextEditingController _emailController;
-  late final PhoneController _phoneController;
+  final _formKey = GlobalKey<FormState>();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _phoneController = PhoneController(
+    initialValue: PhoneNumber.parse('+598'),
+  );
+
+  bool _isSubmitting = false;
 
   @override
   void initState() {
     super.initState();
-
-    // Inicializar controladores con datos existentes del estado
-    _nameController = TextEditingController(
-      text: widget.state.formData['name'] ?? '',
-    );
-    _emailController = TextEditingController(
-      text: widget.state.formData['email'] ?? '',
-    );
-
-    // Inicializar controlador de teléfono con Uruguay por defecto
-    _phoneController = PhoneController();
-
-    // Establecer valor inicial si existe
-    final phoneValue = widget.state.formData['phone'];
-    if (phoneValue?.isNotEmpty == true) {
-      try {
-        _phoneController.value = PhoneNumber.parse(phoneValue!);
-      } catch (e) {
-        // Si hay error en el parsing, usar valor por defecto
-        _phoneController.value = PhoneNumber.parse('+598');
-      }
-    } else {
-      // Establecer Uruguay por defecto
-      _phoneController.value = PhoneNumber.parse('+598');
-    }
+    _loadExistingData();
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return RegistrationScaffold(
-      title: 'Crear tu cuenta',
-      onBackPressed: () =>
-          context.read<ProfileCubit>().backToUserTypeSelection(),
-      child: _buildForm(context),
-    );
-  }
-
-  /// Construye el formulario sin contenedor
-  Widget _buildForm(BuildContext context) {
-    return Column(
-      children: [
-        // Opción de Google
-        GoogleSignUpButton(onPressed: _handleGoogleSignUp),
-
-        const SizedBox(height: 24),
-
-        // Divider elegante
-        const ContinueDivider(),
-
-        const SizedBox(height: 24),
-
-        // Sección de información personal
-        AppContainers.card(
-          child: FormSection(
-            title: 'Información Personal',
-            description: 'Completa tus datos para crear tu cuenta',
-            icon: Icons.person_outline,
-            child: Column(
-              children: [
-                // Campo de nombre
-                EnhancedTextField(
-                  controller: _nameController,
-                  labelText: 'Nombre completo',
-                  hintText: 'Juan Pérez',
-                  prefixIcon: Icons.person_outline,
-                  isRequired: true,
-                  validator: (value) => FormValidationHelper.validateRequired(
-                    value,
-                    'Nombre completo',
-                  ),
-                  onChanged: (value) => _updateField('name', value),
-                ),
-
-                AppSpacers.md,
-
-                // Campo de email
-                EnhancedTextField(
-                  controller: _emailController,
-                  labelText: 'Email',
-                  hintText: 'juan@ejemplo.com',
-                  prefixIcon: Icons.email_outlined,
-                  isRequired: true,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: FormValidationHelper.validateEmail,
-                  onChanged: (value) => _updateField('email', value),
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        // Sección de WhatsApp
-        AppContainers.glass(
-          child: FormSection(
-            title: 'Número de WhatsApp (Recomendado)',
-            description:
-                'Para notificaciones de citas y promociones exclusivas',
-            icon: Icons.phone_outlined,
-            child: ThemedPhoneField(
-              controller: _phoneController,
-              labelText: 'WhatsApp',
-              hintText: 'Número de WhatsApp',
-              prefixIcon: Icons.phone_outlined,
-              showValidation: true,
-              validator: (value) =>
-                  value?.isValid() == false ? 'Número inválido' : null,
-              onChanged: (phoneNumber) =>
-                  _updateField('phone', phoneNumber.international ?? ''),
-            ),
-          ),
-        ),
-
-        AppSpacers.xl,
-
-        // Botón de envío
-        SubmitButton(
-          isEnabled: _isFormValid(),
-          isLoading: widget.state.isSubmitting,
-          onPressed: _showConfirmationDialog,
-        ),
-
-        // Mensaje de error
-        if (widget.state.registrationError?.isNotEmpty == true) ...[
-          AppSpacers.md,
-          AppContainers.bordered(
-            borderColor: Colors.red.withAlpha(100),
-            child: InfoCard.error(
-              message: widget.state.registrationError!,
-              icon: Icons.error_outline,
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-
-  /// Valida si el formulario es válido
-  bool _isFormValid() {
-    final name = _nameController.text.trim();
-    final email = _emailController.text.trim();
-
-    // Validar nombre
-    if (name.isEmpty) return false;
-
-    // Validar email
-    if (email.isEmpty || !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email)) {
-      return false;
+  /// Carga datos existentes del estado
+  void _loadExistingData() {
+    final existingFirstName = widget.state.formData['firstName'];
+    if (existingFirstName != null && existingFirstName.isNotEmpty) {
+      _firstNameController.text = existingFirstName;
     }
 
-    return true;
+    final existingLastName = widget.state.formData['lastName'];
+    if (existingLastName != null && existingLastName.isNotEmpty) {
+      _lastNameController.text = existingLastName;
+    }
+
+    if (widget.state.formData['phone']?.isNotEmpty == true) {
+      try {
+        _phoneController.value = PhoneNumber.parse(
+          widget.state.formData['phone']!,
+        );
+      } catch (e) {
+        _phoneController.value = PhoneNumber.parse('+598');
+      }
+    }
   }
 
-  /// Maneja el registro con Google
-  void _handleGoogleSignUp() {
-    // TODO: Implementar lógica de Google Sign-Up
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Google Sign-Up próximamente')),
-    );
+  /// Actualiza un campo del formulario
+  void _updateField(String field, String value) {
+    context.read<ProfileCubit>().updateClientFormField(field, value);
   }
 
-  /// Actualiza los datos del formulario
-  void _updateField(String key, String value) {
-    context.read<ProfileCubit>().updateClientFormField(key, value);
+  /// Verifica si el formulario es válido
+  bool _isFormValid() {
+    return _formKey.currentState?.validate() == true &&
+        _firstNameController.text.isNotEmpty &&
+        _lastNameController.text.isNotEmpty &&
+        _phoneController.value.isValid();
   }
 
   /// Muestra el diálogo de confirmación
-  Future<void> _showConfirmationDialog() async {
-    final formData = {
-      'name': _nameController.text.trim(),
-      'email': _emailController.text.trim(),
-      'phone': _phoneController.value.international,
-    };
+  void _showConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => ConfirmationDialog(
+        formData: {
+          'Nombre': _firstNameController.text,
+          'Apellido': _lastNameController.text,
+          'Teléfono': _phoneController.value.international ?? '',
+        },
+        onConfirm: _submitForm,
+      ),
+    );
+  }
 
-    final result = await ConfirmationDialog.show(context, formData: formData);
+  /// Envía el formulario
+  void _submitForm() {
+    if (!_isFormValid()) return;
 
-    if (result == true && mounted) {
-      context.read<ProfileCubit>().submitClientRegistration();
-    }
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    // Simular envío
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+
+        // Navegar de vuelta o mostrar éxito
+        Navigator.of(context).pop();
+
+        // Mostrar mensaje de éxito
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Perfil actualizado correctamente'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppSpacers.lg,
+
+              // Título
+              Text(
+                'Completa tu Perfil',
+                style: context.textTheme.headlineMedium?.copyWith(
+                  color: context.textColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              AppSpacers.sm,
+
+              Text(
+                'Cuéntanos un poco sobre ti para personalizar tu experiencia',
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: context.secondaryTextColor,
+                ),
+              ),
+
+              AppSpacers.lg,
+
+              // Información del formulario
+              InfoCard.info(
+                message: 'Solo necesitamos algunos datos básicos para comenzar',
+                icon: Icons.person_outline,
+              ),
+
+              AppSpacers.md,
+
+              // Campos del formulario
+              Text(
+                'Datos Personales',
+                style: context.textTheme.headlineSmall?.copyWith(
+                  color: context.textColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+
+              AppSpacers.sm,
+
+              // Nombre
+              TextFormField(
+                controller: _firstNameController,
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                  hintText: 'Tu nombre',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'El nombre es requerido';
+                  }
+                  return null;
+                },
+                onChanged: (value) => _updateField('firstName', value),
+              ),
+
+              AppSpacers.sm,
+
+              // Apellido
+              TextFormField(
+                controller: _lastNameController,
+                decoration: InputDecoration(
+                  labelText: 'Apellido',
+                  hintText: 'Tu apellido',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'El apellido es requerido';
+                  }
+                  return null;
+                },
+                onChanged: (value) => _updateField('lastName', value),
+              ),
+
+              AppSpacers.sm,
+
+              // Teléfono
+              TextFormField(
+                controller: TextEditingController(
+                  text: _phoneController.value.international ?? '',
+                ),
+                decoration: InputDecoration(
+                  labelText: 'Teléfono',
+                  hintText: '+598 9X XXX XXX',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'El teléfono es requerido';
+                  }
+                  return null;
+                },
+                onChanged: (value) => _updateField('phone', value),
+              ),
+
+              AppSpacers.xl,
+
+              // Botón de envío
+              SubmitButton(
+                text: 'Completar Registro',
+                isLoading: _isSubmitting,
+                isEnabled: _isFormValid(),
+                onPressed: _showConfirmationDialog,
+              ),
+
+              AppSpacers.lg,
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

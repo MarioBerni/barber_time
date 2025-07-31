@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../buttons/enhanced_button.dart';
+import '../spacers/app_spacers.dart';
 
 /// Un widget para mostrar mensajes de error de forma estandarizada.
 ///
@@ -58,7 +60,7 @@ class ErrorMessageWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: iconSize, color: secondaryColor),
-          const SizedBox(height: 24),
+          AppSpacers.lg,
           if (title != null) ...[
             Text(
               title!,
@@ -68,7 +70,7 @@ class ErrorMessageWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            AppSpacers.xs,
           ],
           Text(
             message,
@@ -78,14 +80,14 @@ class ErrorMessageWidget extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           if (onRetry != null) ...[
-            const SizedBox(height: 24),
+            AppSpacers.lg,
             EnhancedButton(
               text: retryText,
               onPressed: onRetry,
               icon: Icons.refresh,
               color: secondaryColor,
               textColor: theme.colorScheme.onError,
-              height: 48,
+              height: AppDesignConstants.buttonHeightStandard,
             ),
           ],
         ],

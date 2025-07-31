@@ -161,11 +161,14 @@ Directory structure:
     │   │   │   └── route_transitions.dart
     │   │   ├── theme/
     │   │   │   ├── app_border_radius.dart
+    │   │   │   ├── app_design_constants.dart
     │   │   │   ├── app_spacing.dart
     │   │   │   ├── app_special_themes.dart
     │   │   │   ├── app_text_styles.dart
     │   │   │   ├── app_theme.dart
     │   │   │   └── app_theme_extensions.dart
+    │   │   ├── utils/
+    │   │   │   └── form_validation_helper.dart
     │   │   └── widgets/
     │   │       ├── status_badge.dart
     │   │       ├── themed_button.dart
@@ -188,6 +191,8 @@ Directory structure:
     │   │       │       ├── grid_pattern_painter.dart
     │   │       │       └── scissors_pattern_painter.dart
     │   │       ├── buttons/
+    │   │       │   ├── buttons.dart
+    │   │       │   ├── enhanced_button.dart
     │   │       │   ├── stylized_button.dart
     │   │       │   ├── stylized_button_animations.dart
     │   │       │   ├── stylized_button_base.dart
@@ -196,17 +201,33 @@ Directory structure:
     │   │       ├── carousels/
     │   │       │   └── horizontal_carousel.dart
     │   │       ├── containers/
-    │   │       │   └── glam_container.dart
+    │   │       │   ├── app_containers.dart
+    │   │       │   ├── containers.dart
+    │   │       │   ├── glam_container.dart
+    │   │       │   └── registration_scaffold.dart
+    │   │       ├── forms/
+    │   │       │   ├── form_enhancements.dart
+    │   │       │   ├── form_progress_indicator.dart
+    │   │       │   ├── form_section.dart
+    │   │       │   ├── forms.dart
+    │   │       │   └── info_card.dart
     │   │       ├── icons/
     │   │       │   ├── animated_icon_widget.dart
     │   │       │   └── styled_icon.dart
     │   │       ├── inputs/
+    │   │       │   ├── enhanced_text_field.dart
+    │   │       │   ├── inputs.dart
     │   │       │   ├── search_bar.dart
     │   │       │   ├── themed_phone_field.dart
     │   │       │   └── themed_text_field.dart
     │   │       ├── navigation/
     │   │       │   ├── app_top_bar.dart
-    │   │       │   └── bottom_navigation_bar.dart
+    │   │       │   ├── bottom_navigation_bar.dart
+    │   │       │   ├── navigation.dart
+    │   │       │   └── registration_app_bar.dart
+    │   │       ├── spacers/
+    │   │       │   ├── app_spacers.dart
+    │   │       │   └── spacers.dart
     │   │       └── states/
     │   │           ├── empty_state_widget.dart
     │   │           ├── error_message_widget.dart
@@ -287,12 +308,22 @@ Directory structure:
     │               ├── pages/
     │               │   └── profile_page.dart
     │               └── widgets/
+    │                   ├── business_registration_form.dart
     │                   ├── client_registration_form.dart
     │                   ├── profile_info_view.dart
     │                   ├── profile_section.dart
     │                   ├── profile_tabs.dart
     │                   ├── unauthenticated_view.dart
     │                   ├── user_type_option.dart
+    │                   ├── registration/
+    │                   │   ├── confirmation_dialog.dart
+    │                   │   ├── continue_divider.dart
+    │                   │   ├── error_message.dart
+    │                   │   ├── google_signup_button.dart
+    │                   │   ├── manual_form_section.dart
+    │                   │   ├── premium_app_bar.dart
+    │                   │   ├── registration_header.dart
+    │                   │   └── submit_button.dart
     │                   └── tabs/
     │                       ├── profile_business_tab.dart
     │                       ├── profile_favorites_tab.dart
@@ -344,7 +375,8 @@ Directory structure:
     │   ├── TASK_home_page.md
     │   ├── TASK_optimizacion_home_page.md
     │   ├── TASK_profile_page.md
-    │   └── TASK_sistema_de_diseno.md
+    │   ├── TASK_sistema_de_diseno.md
+    │   └── TASK_sistema_unificado_constantes.md
     ├── test/
     │   └── widget_test.dart
     ├── web/
@@ -372,4 +404,3 @@ Directory structure:
     └── .windsurf/
         └── workflows/
             └── profesor-synapse.md
-

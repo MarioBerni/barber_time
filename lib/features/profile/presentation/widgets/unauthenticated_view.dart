@@ -7,7 +7,7 @@ import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import 'business_registration_form.dart';
-import 'client_registration_form.dart';
+import 'create_account_page.dart';
 import 'user_type_option.dart';
 
 /// Widget que muestra la vista para usuarios no autenticados
@@ -23,7 +23,7 @@ class UnauthenticatedView extends StatelessWidget {
       builder: (context, state) {
         // Mostrar formulario de cliente si está en registro de cliente
         if (state is ProfileClientRegistration) {
-          return ClientRegistrationForm(state: state);
+          return const CreateAccountPage();
         }
 
         // Mostrar formulario de negocio si está en registro de negocio

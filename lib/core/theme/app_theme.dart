@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_design_constants.dart';
+
 /// Clase que define el tema global de la aplicación Barber Time.
 ///
 /// Incluye colores, estilos de texto y otros parámetros visuales.
@@ -416,7 +418,9 @@ class AppTheme {
       buttonTheme: ButtonThemeData(
         buttonColor: kPrimaryColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kDefaultRadius),
+          borderRadius: BorderRadius.circular(
+            AppDesignConstants.borderRadiusMD,
+          ),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -424,9 +428,14 @@ class AppTheme {
           backgroundColor: kPrimaryColor,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kDefaultRadius),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusMD,
+            ),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+          padding: EdgeInsets.symmetric(
+            vertical: AppDesignConstants.spacingSM,
+            horizontal: AppDesignConstants.spacingLG,
+          ),
         ),
       ),
       textButtonTheme: TextButtonThemeData(

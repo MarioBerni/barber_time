@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_theme_extensions.dart';
+import '../spacers/app_spacers.dart';
 
 /// Botón mejorado con animaciones y estados visuales
 class EnhancedButton extends StatefulWidget {
@@ -51,7 +53,7 @@ class EnhancedButton extends StatefulWidget {
     this.textColor,
     this.height = 56.0,
     this.width,
-    this.borderRadius = 12.0,
+    this.borderRadius = AppDesignConstants.borderRadiusMD,
     this.animationDuration = const Duration(milliseconds: 200),
   });
 
@@ -177,7 +179,7 @@ class _EnhancedButtonState extends State<EnhancedButton>
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          AppSpacers.hSm,
           Text(
             'Cargando...',
             style: context.textTheme.labelLarge!.copyWith(
@@ -198,7 +200,7 @@ class _EnhancedButtonState extends State<EnhancedButton>
             color: widget.textColor ?? AppTheme.kOffWhite,
             size: 20,
           ),
-          const SizedBox(width: 8),
+          AppSpacers.hXs,
         ],
         Text(
           widget.text,

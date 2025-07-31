@@ -4,6 +4,7 @@ import 'package:phone_form_field/phone_form_field.dart';
 
 import 'core/di/service_locator.dart';
 import 'core/routes/app_router.dart';
+import 'core/theme/app_design_constants.dart';
 import 'core/theme/app_theme.dart';
 
 /// Punto de entrada principal de la aplicación Barber Time
@@ -61,8 +62,10 @@ class BarberTimeApp extends StatelessWidget {
         bottomSheetTheme: BottomSheetThemeData(
           backgroundColor: AppTheme.kSurfaceColor,
           modalBackgroundColor: AppTheme.kSurfaceColor,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppDesignConstants.borderRadiusXXL),
+            ),
           ),
         ),
         // Personalizar AppBar del selector
@@ -91,19 +94,25 @@ class BarberTimeApp extends StatelessWidget {
           ),
           prefixIconColor: AppTheme.kPrimaryColor,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(
               color: AppTheme.kPrimaryColor.withAlpha((0.3 * 255).round()),
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(
               color: AppTheme.kCharcoalLight.withAlpha((0.6 * 255).round()),
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(
+              AppDesignConstants.borderRadiusLG,
+            ),
             borderSide: BorderSide(color: AppTheme.kPrimaryColor, width: 2),
           ),
         ),

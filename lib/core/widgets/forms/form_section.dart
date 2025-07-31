@@ -1,3 +1,4 @@
+import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_theme.dart';
@@ -40,7 +41,7 @@ class FormSection extends StatelessWidget {
         Row(
           children: [
             Icon(icon, color: AppTheme.kPrimaryColor, size: 20),
-            const SizedBox(width: 8),
+            AppSpacers.hXs,
             Expanded(
               child: Text(
                 title,
@@ -55,7 +56,7 @@ class FormSection extends StatelessWidget {
 
         // Descripción opcional
         if (description != null) ...[
-          const SizedBox(height: 8),
+          AppSpacers.xs,
           Text(
             description!,
             style: context.textTheme.bodySmall!.copyWith(
@@ -64,7 +65,7 @@ class FormSection extends StatelessWidget {
           ),
         ],
 
-        const SizedBox(height: 16),
+        AppSpacers.md,
 
         // Contenido de la sección
         child,
@@ -74,3 +75,4 @@ class FormSection extends StatelessWidget {
     );
   }
 }
+

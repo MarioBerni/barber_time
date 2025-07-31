@@ -1,3 +1,4 @@
+import 'package:barber_time/core/widgets/spacers/spacers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -232,7 +233,7 @@ class _EnhancedTextFieldState extends State<EnhancedTextField>
 
               // Contador de caracteres
               if (widget.showCharacterCount && widget.maxLength != null) ...[
-                const SizedBox(height: 4),
+                AppSpacers.xxs,
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
@@ -246,13 +247,13 @@ class _EnhancedTextFieldState extends State<EnhancedTextField>
 
               // Mensaje de error
               if (_errorText != null) ...[
-                const SizedBox(height: 8),
+                AppSpacers.xs,
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: Row(
                     children: [
                       Icon(Icons.error_outline, color: Colors.red, size: 16),
-                      const SizedBox(width: 8),
+                      AppSpacers.hXs,
                       Expanded(
                         child: Text(
                           _errorText!,
