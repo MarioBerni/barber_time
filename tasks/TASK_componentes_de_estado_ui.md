@@ -49,6 +49,11 @@
 
 #### Sistema de Botones Unificado
 - [x] **EnhancedButton:** Botón principal con animaciones premium
+  - [x] Gradiente turquesa visible y funcional
+  - [x] Resuelto conflicto con tema de aplicación
+  - [x] Colores hardcodeados para evitar interferencias
+  - [x] Estructura mejorada con ClipRRect
+  - [x] Sombra azul con mayor opacidad
 - [x] **GoogleSignUpButton:** Refactorizado para usar EnhancedButton
 - [x] **SubmitButton:** Refactorizado para usar EnhancedButton
 - [x] **Documentación:** Guía completa en DESIGN_SYSTEM.md
@@ -75,3 +80,20 @@
 - [x] **DESIGN_SYSTEM.md:** Guía completa del sistema unificado
 - [x] **DEVELOPMENT_GUIDE.md:** Reglas obligatorias para usar el sistema unificado
 - [x] **LINTING_CHANGES.md:** Registro de cambios del sistema unificado
+- [x] **ARCHITECTURE.md:** Sistema de Transiciones Centralizado (Sección 4)
+
+#### Sistema de Transiciones Centralizado
+- [x] **RouteTransitions** (`lib/core/routes/route_transitions.dart`)
+  - [x] Transiciones de estado para AnimatedSwitcher
+  - [x] Transiciones de ruta para GoRouter
+  - [x] 4 tipos de transición: state, fade, back, forward
+  - [x] Duración optimizada: 300-400ms
+  - [x] Implementación en ProfilePage con transición fade
+
+#### Resolución de Conflictos de Tema
+- [x] **Conflicto de EnhancedButton:** Resuelto problema de botón negro
+  - [x] Identificado conflicto con `elevatedButtonTheme` en AppTheme
+  - [x] Implementada estructura independiente del tema
+  - [x] Colores hardcodeados para evitar interferencias
+  - [x] Gradiente turquesa funcional y visible
+  - [x] Sombra mejorada con mayor opacidad

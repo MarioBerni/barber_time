@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
+import '../../../../core/routes/route_transitions.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/icons/styled_icon.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
@@ -40,25 +41,52 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
-          if (state is ProfileInitial || state is ProfileLoading) {
-            return _buildLoadingView();
-          } else if (state is ProfileUnauthenticated) {
-            return const UnauthenticatedView();
-          } else if (state is ProfileClientRegistration) {
-            return ClientRegistrationForm(state: state);
-          } else if (state is ProfileBusinessRegistration) {
-            return const BusinessRegistrationForm();
-          } else if (state is ProfileLoaded) {
-            return _buildProfileView(state);
-          } else if (state is ProfileError) {
-            return _buildErrorView(state);
-          } else {
-            return const SizedBox.shrink();
-          }
+          return RouteTransitions.animatedStateSwitcher(
+            child: _buildStateWidget(state),
+            stateKey: _getStateKey(state),
+            transitionType: TransitionType.fade,
+            duration: const Duration(milliseconds: 350),
+          );
         },
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
+  }
+
+  /// Obtiene la clave única para el estado actual
+  String _getStateKey(ProfileState state) {
+    if (state is ProfileInitial) return 'initial';
+    if (state is ProfileLoading) return 'loading';
+    if (state is ProfileUnauthenticated) return 'unauthenticated';
+    if (state is ProfileClientRegistration) return 'client_registration';
+    if (state is ProfileBusinessRegistration) return 'business_registration';
+    if (state is ProfileLoaded) return 'loaded';
+    if (state is ProfileError) return 'error';
+    return 'unknown';
+  }
+
+  /// Construye el widget correspondiente al estado actual
+  Widget _buildStateWidget(ProfileState state) {
+    if (state is ProfileInitial || state is ProfileLoading) {
+      return _buildLoadingView();
+    } else if (state is ProfileUnauthenticated) {
+      return const UnauthenticatedView(key: ValueKey('unauthenticated'));
+    } else if (state is ProfileClientRegistration) {
+      return ClientRegistrationForm(
+        key: const ValueKey('client_registration'),
+        state: state,
+      );
+    } else if (state is ProfileBusinessRegistration) {
+      return const BusinessRegistrationForm(
+        key: ValueKey('business_registration'),
+      );
+    } else if (state is ProfileLoaded) {
+      return _buildProfileView(state);
+    } else if (state is ProfileError) {
+      return _buildErrorView(state);
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   /// Construye la vista de carga

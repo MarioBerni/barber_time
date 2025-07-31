@@ -124,6 +124,7 @@ Directory structure:
     │           └── gradle-wrapper.properties
     ├── docs/
     │   ├── ARCHITECTURE.md
+    │   ├── CREATE_ACCOUNT_PAGE.md
     │   ├── DESIGN_SYSTEM.md
     │   ├── DEVELOPMENT_GUIDE.md
     │   ├── LINTING_CHANGES.md
@@ -310,6 +311,7 @@ Directory structure:
     │               └── widgets/
     │                   ├── business_registration_form.dart
     │                   ├── client_registration_form.dart
+    │                   ├── create_account_page.dart
     │                   ├── profile_info_view.dart
     │                   ├── profile_section.dart
     │                   ├── profile_tabs.dart
@@ -317,11 +319,6 @@ Directory structure:
     │                   ├── user_type_option.dart
     │                   ├── registration/
     │                   │   ├── confirmation_dialog.dart
-    │                   │   ├── continue_divider.dart
-    │                   │   ├── error_message.dart
-    │                   │   ├── google_signup_button.dart
-    │                   │   ├── manual_form_section.dart
-    │                   │   ├── premium_app_bar.dart
     │                   │   ├── registration_header.dart
     │                   │   └── submit_button.dart
     │                   └── tabs/
@@ -369,12 +366,15 @@ Directory structure:
     │   └── RunnerTests/
     │       └── RunnerTests.swift
     ├── tasks/
+    │   ├── audit_script.md
+    │   ├── TASK_auditoria_sistema_unificado.md
     │   ├── TASK_componentes_de_estado_ui.md
     │   ├── TASK_configuracion_inicial.md
     │   ├── TASK_fortalecer_entorno_desarrollo.md
     │   ├── TASK_home_page.md
     │   ├── TASK_optimizacion_home_page.md
     │   ├── TASK_profile_page.md
+    │   ├── TASK_refactorizacion_sistema_unificado.md
     │   ├── TASK_sistema_de_diseno.md
     │   └── TASK_sistema_unificado_constantes.md
     ├── test/
@@ -404,3 +404,137 @@ Directory structure:
     └── .windsurf/
         └── workflows/
             └── profesor-synapse.md
+
+---
+
+## 4. Sistema de Transiciones Centralizado
+
+### 4.1 Arquitectura de Transiciones
+
+El sistema de transiciones está centralizado en `lib/core/routes/route_transitions.dart` y proporciona animaciones elegantes y consistentes para toda la aplicación. Sigue los principios de Clean Architecture y mantiene la separación de responsabilidades.
+
+### 4.2 Tipos de Transiciones Disponibles
+
+#### **Transiciones de Estado (AnimatedSwitcher)**
+```dart
+RouteTransitions.animatedStateSwitcher(
+  child: miWidget,
+  stateKey: 'mi_estado',
+  transitionType: TransitionType.fade,
+  duration: const Duration(milliseconds: 350),
+);
+```
+
+**Tipos disponibles:**
+- `TransitionType.state`: Desvanecimiento + escala + blur (400ms)
+- `TransitionType.fade`: Desvanecimiento puro (350ms)
+- `TransitionType.back`: Escala hacia adentro (350ms)
+- `TransitionType.forward`: Escala hacia afuera (350ms)
+
+#### **Transiciones de Ruta (GoRouter)**
+```dart
+RouteTransitions.fadeTransition()
+RouteTransitions.slideTransition()
+RouteTransitions.scaleTransition()
+RouteTransitions.heroFadeTransition()
+```
+
+### 4.3 Implementación en ProfilePage
+
+El ProfilePage utiliza el sistema centralizado para manejar transiciones entre diferentes estados:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        return RouteTransitions.animatedStateSwitcher(
+          child: _buildStateWidget(state),
+          stateKey: _getStateKey(state),
+          transitionType: TransitionType.fade,
+          duration: const Duration(milliseconds: 350),
+        );
+      },
+    ),
+  );
+}
+```
+
+### 4.4 Principios de Diseño
+
+- **Consistencia**: Todas las transiciones siguen el mismo patrón
+- **Elegancia**: Efectos sutiles y no intrusivos
+- **Performance**: Duración optimizada (300-400ms)
+- **Reutilización**: Sistema centralizado para toda la app
+- **Mantenibilidad**: Cambios globales desde un solo lugar
+
+### 4.5 Casos de Uso Recomendados
+
+- **ProfilePage**: `TransitionType.fade` para cambios de estado
+- **HomePage**: `TransitionType.state` para efectos más complejos
+- **Formularios**: `TransitionType.forward` para navegación hacia adelante
+- **Botones Volver**: `TransitionType.back` para navegación hacia atrás
+
+---
+
+## 5. Resolución de Conflictos de Tema
+
+### 5.1 Problema Identificado
+
+El `EnhancedButton` experimentaba conflictos con el tema de la aplicación debido a la definición de `elevatedButtonTheme` en `AppTheme.lightTheme`, que forzaba estilos específicos y sobrescribía el gradiente personalizado.
+
+### 5.2 Solución Implementada
+
+#### **Estructura Independiente del Tema**
+```dart
+// Antes: Material con borderRadius que causaba problemas
+Material(
+  color: Colors.transparent,
+  borderRadius: BorderRadius.circular(widget.borderRadius),
+  child: InkWell(...)
+)
+
+// Ahora: ClipRRect para manejar el borderRadius correctamente
+ClipRRect(
+  borderRadius: BorderRadius.circular(widget.borderRadius),
+  child: Material(
+    color: Colors.transparent,
+    child: InkWell(...)
+  ),
+)
+```
+
+#### **Colores Hardcodeados**
+```dart
+// Colores directos para evitar conflictos del tema
+return [
+  const Color(0xFF3BBFAD), // Turquesa principal
+  const Color(0xFF2A8F83), // Turquesa oscuro
+];
+```
+
+#### **Estilos Independientes**
+```dart
+// Estilos directos sin depender del tema
+TextStyle(
+  color: widget.textColor ?? Colors.white,
+  fontWeight: FontWeight.w600,
+  fontSize: 16,
+)
+```
+
+### 5.3 Beneficios Obtenidos
+
+- ✅ **Gradiente turquesa visible** y funcional
+- ✅ **Independencia del tema** para evitar conflictos
+- ✅ **Sombra azul** con mayor opacidad
+- ✅ **Efectos de toque** funcionales
+- ✅ **Consistencia visual** en toda la aplicación
+
+### 5.4 Lecciones Aprendidas
+
+- **Evitar dependencias del tema** para componentes personalizados
+- **Usar colores hardcodeados** cuando sea necesario para evitar interferencias
+- **Implementar ClipRRect** para manejar borderRadius correctamente
+- **Mantener estructura simple** para evitar conflictos de renderizado

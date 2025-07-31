@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme/app_design_constants.dart';
 import '../../../../../core/theme/app_theme_extensions.dart';
 
 /// Botón de envío personalizado para formularios
@@ -38,7 +39,7 @@ class SubmitButton extends StatelessWidget {
           disabledBackgroundColor: context.grayDark,
           disabledForegroundColor: context.grayPale,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: AppDesignConstants.standardBorderRadius,
           ),
           elevation: 0,
         ),

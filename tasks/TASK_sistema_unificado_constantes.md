@@ -77,6 +77,14 @@
   - [x] Estructura actualizada del proyecto
   - [x] Documentación de los nuevos componentes
 
+### ✅ Resolución de Conflictos de Tema
+- [x] **EnhancedButton:** Resuelto conflicto con tema de aplicación
+  - [x] Identificado problema con `elevatedButtonTheme` en AppTheme
+  - [x] Implementada estructura independiente del tema
+  - [x] Colores hardcodeados para evitar interferencias
+  - [x] Gradiente turquesa funcional y visible
+  - [x] Sombra mejorada con mayor opacidad
+
 ### ✅ Organización de Archivos
 - [x] **Barrel files** actualizados
   - [x] `lib/core/widgets/spacers/spacers.dart`

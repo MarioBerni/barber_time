@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
+import '../../../../core/widgets/spacers/app_spacers.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import 'business_registration_form.dart';
@@ -37,13 +38,27 @@ class UnauthenticatedView extends StatelessWidget {
           extendBodyBehindAppBar: true,
           body: Stack(
             children: [
-              // Fondo con gradiente premium
+              // Fondo con gradiente premium mejorado
               AnimatedGradientBackground(
                 primaryColor: AppTheme.kBackgroundColor,
                 secondaryColor: AppTheme.kSurfaceColor,
-                showBouncingCircles: false,
-                lineOpacity: 0.03,
-                lineCount: 25,
+                lineOpacity: 0.08,
+                lineCount: 30,
+              ),
+
+              // Overlay sutil para mejorar contraste
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      AppTheme.kBackgroundColor.withOpacity(0.3),
+                      AppTheme.kBackgroundColor.withOpacity(0.1),
+                      AppTheme.kBackgroundColor.withOpacity(0.3),
+                    ],
+                  ),
+                ),
               ),
 
               // Contenido
@@ -68,47 +83,64 @@ class UnauthenticatedView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Título con gradiente
+          // Título con gradiente mejorado
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                AppTheme.kPrimaryColor,
+                AppTheme.kPrimaryLightColor,
+                AppTheme.kPrimaryDarkColor,
+              ],
+              stops: const [0.0, 0.5, 1.0],
             ).createShader(bounds),
             child: Text(
               'Selecciona tu tipo de usuario',
-              style: context.h2.copyWith(
+              style: context.h1.copyWith(
                 color: Colors.white,
-                fontWeight: FontWeight.w800,
-                fontSize: 28,
-                letterSpacing: 0.5,
-                height: 1.2,
+                fontWeight: FontWeight.w900,
+                fontSize: 32,
+                letterSpacing: 0.8,
+                height: 1.1,
               ),
               textAlign: TextAlign.center,
             ),
           ),
 
-          const SizedBox(height: 16),
+          AppSpacers.lg,
 
-          // Subtítulo
-          Text(
-            'Para brindarte la mejor experiencia, necesitamos saber '
-            'qué tipo de usuario eres.',
-            style: context.bodyLarge.copyWith(
-              color: AppTheme.kOffWhite,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              height: 1.5,
-              letterSpacing: 0.2,
+          // Subtítulo mejorado
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppTheme.kSurfaceColor.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: AppTheme.kPrimaryColor.withOpacity(0.2),
+              ),
             ),
-            textAlign: TextAlign.center,
+            child: Text(
+              'Para brindarte la mejor experiencia, necesitamos saber '
+              'qué tipo de usuario eres.',
+              style: context.bodyLarge.copyWith(
+                color: AppTheme.kOffWhite,
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+                height: 1.5,
+                letterSpacing: 0.3,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
 
-          const SizedBox(height: 48),
+          AppSpacers.xl,
 
-          // Opciones de usuario con animación
+          // Opciones de usuario con animación mejorada
           AnimatedOpacity(
             opacity: 1.0,
-            duration: const Duration(milliseconds: 800),
-            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 1000),
+            curve: Curves.easeOutCubic,
             child: Column(
               children: [
                 // Opción de cliente
@@ -119,7 +151,7 @@ class UnauthenticatedView extends StatelessWidget {
                   onTap: () => cubit.startClientRegistration(),
                 ),
 
-                const SizedBox(height: 16),
+                AppSpacers.md,
 
                 // Opción de negocio
                 UserTypeOption(

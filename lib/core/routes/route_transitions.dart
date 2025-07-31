@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -102,4 +104,165 @@ class RouteTransitions {
       transitionDuration: duration,
     );
   }
+
+  /// Transición elegante para cambios de estado con desvanecimiento suave
+  static Widget stateTransition({
+    required Widget child,
+    required Animation<double> animation,
+    Duration duration = const Duration(milliseconds: 400),
+  }) {
+    // Desvanecimiento principal con curva suave
+    final fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
+
+    // Escala sutil para dar profundidad
+    final scaleAnimation = Tween<double>(
+      begin: 0.98,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic));
+
+    // Blur sutil para efecto de enfoque
+    final blurAnimation = Tween<double>(
+      begin: 2.0,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic));
+
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: scaleAnimation.value,
+          child: Opacity(
+            opacity: fadeAnimation.value,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(
+                sigmaX: blurAnimation.value,
+                sigmaY: blurAnimation.value,
+              ),
+              child: child,
+            ),
+          ),
+        );
+      },
+      child: child,
+    );
+  }
+
+  /// Transición suave para navegación hacia atrás
+  static Widget backTransition({
+    required Widget child,
+    required Animation<double> animation,
+    Duration duration = const Duration(milliseconds: 350),
+  }) {
+    // Desvanecimiento con curva suave
+    final fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
+
+    // Escala sutil
+    final scaleAnimation = Tween<double>(
+      begin: 0.99,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic));
+
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: scaleAnimation.value,
+          child: Opacity(opacity: fadeAnimation.value, child: child),
+        );
+      },
+      child: child,
+    );
+  }
+
+  /// Transición suave para navegación hacia adelante
+  static Widget forwardTransition({
+    required Widget child,
+    required Animation<double> animation,
+    Duration duration = const Duration(milliseconds: 350),
+  }) {
+    // Desvanecimiento con curva suave
+    final fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
+
+    // Escala sutil con efecto de "zoom in"
+    final scaleAnimation = Tween<double>(
+      begin: 1.01,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic));
+
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: scaleAnimation.value,
+          child: Opacity(opacity: fadeAnimation.value, child: child),
+        );
+      },
+      child: child,
+    );
+  }
+
+  /// Transición simple de desvanecimiento puro
+  static Widget simpleFadeTransition({
+    required Widget child,
+    required Animation<double> animation,
+    Duration duration = const Duration(milliseconds: 300),
+  }) {
+    final fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut));
+
+    return FadeTransition(opacity: fadeAnimation, child: child);
+  }
+
+  /// Widget wrapper para AnimatedSwitcher con transiciones centralizadas
+  static Widget animatedStateSwitcher({
+    required Widget child,
+    required String stateKey,
+    Duration duration = const Duration(milliseconds: 400),
+    TransitionType transitionType = TransitionType.state,
+  }) {
+    return AnimatedSwitcher(
+      duration: duration,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        switch (transitionType) {
+          case TransitionType.state:
+            return stateTransition(child: child, animation: animation);
+          case TransitionType.back:
+            return backTransition(child: child, animation: animation);
+          case TransitionType.forward:
+            return forwardTransition(child: child, animation: animation);
+          case TransitionType.fade:
+            return simpleFadeTransition(child: child, animation: animation);
+          default:
+            return stateTransition(child: child, animation: animation);
+        }
+      },
+      child: child,
+    );
+  }
+}
+
+/// Tipos de transición disponibles
+enum TransitionType {
+  /// Transición estándar para cambios de estado
+  state,
+
+  /// Transición para navegación hacia atrás
+  back,
+
+  /// Transición para navegación hacia adelante
+  forward,
+
+  /// Transición simple de desvanecimiento
+  fade,
 }

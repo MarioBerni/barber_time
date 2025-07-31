@@ -73,7 +73,11 @@
 
 - [x] **Mejoras de Diseño y UX**
   - [x] **COMPLETADO:** Rediseñar formulario de registro con paleta dark premium de Home.
-  - [x] Implementar animaciones sutiles y transiciones suaves.
+  - [x] **COMPLETADO:** Implementar sistema de transiciones centralizado con desvanecimiento elegante.
+    - ✅ Transición tipo fade para cambios de estado (350ms)
+    - ✅ Sistema centralizado en `RouteTransitions.animatedStateSwitcher()`
+    - ✅ Claves únicas para cada estado del ProfilePage
+    - ✅ Transiciones suaves y no intrusivas
   - [x] Optimizar responsividad y espaciado según sistema de diseño.
   - [x] Documentar patrón de formularios premium en `DESIGN_SYSTEM.md`.
 

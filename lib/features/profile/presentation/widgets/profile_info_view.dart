@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/spacers/app_spacers.dart';
 import '../../domain/entities/user_profile.dart';
 import '../../domain/entities/user_type.dart';
 
@@ -56,11 +57,11 @@ class ProfileInfoView extends StatelessWidget {
         // completamente
         _buildInfoItem(context, 'Barrio', 'No especificado'),
 
-        const SizedBox(height: 32),
+        AppSpacers.xl,
 
         // Sección de estadísticas
         Text('Estadísticas', style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: 8),
+        AppSpacers.xs,
         _buildInfoItem(context, 'Citas realizadas', '12'),
         _buildInfoItem(context, 'Barberías favoritas', '3'),
         _buildInfoItem(context, 'Cliente desde', 'Marzo 2025'),
@@ -81,21 +82,21 @@ class ProfileInfoView extends StatelessWidget {
           profile.phoneNumber ?? 'No especificado',
         ),
 
-        const SizedBox(height: 24),
+        AppSpacers.lg,
 
         // Información del negocio
         Text(
           'Información del negocio',
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        const SizedBox(height: 8),
+        AppSpacers.xs,
         _buildInfoItem(context, 'Nombre del negocio', 'Barbería Premium'),
         _buildInfoItem(context, 'Ubicación', 'Pocitos, Montevideo'),
         _buildInfoItem(context, 'Horarios', 'Lun-Sáb: 9:00-20:00'),
         _buildInfoItem(context, 'Servicios', '12 servicios configurados'),
 
         // Botón para gestionar negocio
-        const SizedBox(height: 24),
+        AppSpacers.lg,
         ElevatedButton(
           onPressed: () {
             // Implementar navegación a gestión de negocio

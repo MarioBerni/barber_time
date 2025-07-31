@@ -7,7 +7,7 @@ import '../../../../core/widgets/spacers/app_spacers.dart';
 
 /// Widget para mostrar una opción de tipo de usuario
 /// en la pantalla de selección
-class UserTypeOption extends StatelessWidget {
+class UserTypeOption extends StatefulWidget {
   /// Título de la opción
   final String title;
 
@@ -30,138 +30,139 @@ class UserTypeOption extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
+  State<UserTypeOption> createState() => _UserTypeOptionState();
+}
+
+class _UserTypeOptionState extends State<UserTypeOption>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
-      child: Card(
-        elevation: 6,
-        shadowColor: AppTheme.kPrimaryColor.withOpacity(0.2),
-        color: AppTheme.kSurfaceColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: AppDesignConstants.premiumBorderRadius,
-          side: BorderSide(
-            color: AppDesignConstants.colorWithOpacity(
-              AppTheme.kPrimaryColor,
-              AppDesignConstants.opacityLow,
-            ),
-            width: 1.5,
-          ),
-        ),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(18),
-          splashColor: AppTheme.kPrimaryColor.withOpacity(0.15),
-          highlightColor: AppTheme.kPrimaryColor.withOpacity(0.08),
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: 20.0,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: AppDesignConstants.premiumBorderRadius,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  AppTheme.kSurfaceColor,
-                  AppDesignConstants.colorWithOpacity(
-                    AppTheme.kSurfaceColor,
-                    AppDesignConstants.opacityVeryHigh,
-                  ),
-                ],
-              ),
-            ),
-            child: Row(
-              children: [
-                // Icono con gradiente mejorado
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        AppDesignConstants.colorWithOpacity(
-                          AppTheme.kPrimaryColor,
-                          AppDesignConstants.opacityLow,
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    _opacityAnimation = Tween<double>(begin: 1.0, end: 0.8).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: _scaleAnimation.value,
+          child: Opacity(
+            opacity: _opacityAnimation.value,
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    _animationController.forward().then((_) {
+                      _animationController.reverse();
+                      widget.onTap();
+                    });
+                  },
+                  borderRadius: AppDesignConstants.premiumBorderRadius,
+                  splashColor: AppTheme.kPrimaryColor.withOpacity(0.3),
+                  highlightColor: AppTheme.kPrimaryColor.withOpacity(0.1),
+                  child: Container(
+                    padding: const EdgeInsets.all(24.0),
+                    decoration: AppDesignConstants.premiumDecoration,
+                    child: Row(
+                      children: [
+                        // Icono con mejor contraste
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Icon(
+                            widget.icon,
+                            color: Colors.white,
+                            size: 32,
+                          ),
                         ),
-                        AppDesignConstants.colorWithOpacity(
-                          AppTheme.kPrimaryLightColor,
-                          AppDesignConstants.opacityLow,
+
+                        AppSpacers.hLg,
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Título con mejor contraste
+                              Text(
+                                widget.title,
+                                style: context.titleLarge.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 22,
+                                  letterSpacing: 0.5,
+                                  height: 1.2,
+                                ),
+                              ),
+                              AppSpacers.sm,
+                              // Descripción con mejor legibilidad
+                              Text(
+                                widget.description,
+                                style: context.bodyLarge.copyWith(
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  height: 1.4,
+                                  letterSpacing: 0.2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // Flecha con mejor contraste
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.4),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(
-                      AppDesignConstants.borderRadiusLG,
-                    ),
-                    boxShadow: AppDesignConstants.shadowStandard,
-                  ),
-                  child: Icon(icon, color: AppTheme.kPrimaryColor, size: 32),
-                ),
-
-                AppSpacers.hMd,
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Título con mejor contraste
-                      Text(
-                        title,
-                        style: context.titleMedium.copyWith(
-                          color: AppTheme.kPrimaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 20,
-                          letterSpacing: 0.3,
-                          height: 1.2,
-                        ),
-                      ),
-                      AppSpacers.xs,
-                      // Descripción con mejor legibilidad
-                      Text(
-                        description,
-                        style: context.bodyMedium.copyWith(
-                          color: AppTheme.kOffWhite,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          height: 1.4,
-                          letterSpacing: 0.2,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
-
-                // Flecha con mejor contraste
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: AppDesignConstants.colorWithOpacity(
-                      AppTheme.kPrimaryColor,
-                      AppDesignConstants.opacityLow,
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      AppDesignConstants.borderRadiusMD,
-                    ),
-                    border: Border.all(
-                      color: AppDesignConstants.colorWithOpacity(
-                        AppTheme.kPrimaryColor,
-                        AppDesignConstants.opacityMedium,
-                      ),
-                    ),
-                    boxShadow: AppDesignConstants.shadowSubtle,
-                  ),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 18,
-                    color: AppTheme.kPrimaryColor,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

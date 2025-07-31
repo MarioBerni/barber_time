@@ -98,6 +98,46 @@
 - **ProfileTabs:** Refactorizado usando sistema unificado
   - Reemplazo de `Container` con `BoxDecoration` por `AppContainers.bordered`
   - Uso de `AppDesignConstants.shadowSubtle` para sombras
+
+---
+
+## Fecha: 2025-01-27
+
+### Resolución de Conflictos de Tema - EnhancedButton
+
+#### Problema Identificado:
+- **EnhancedButton** se mostraba negro debido a conflictos con `elevatedButtonTheme` en AppTheme
+- El tema forzaba `backgroundColor: kPrimaryColor` sobrescribiendo el gradiente personalizado
+- Estructura de Material con borderRadius causaba problemas de renderizado
+
+#### Soluciones Implementadas:
+- **Estructura Independiente del Tema:**
+  - Reemplazo de Material con borderRadius por ClipRRect + Material
+  - Eliminación de dependencias del tema para evitar conflictos
+  - Implementación de estructura más simple y robusta
+
+- **Colores Hardcodeados:**
+  - Uso de `const Color(0xFF3BBFAD)` y `const Color(0xFF2A8F83)` directamente
+  - Eliminación de referencias a `AppTheme.kPrimaryColor` en el gradiente
+  - Sombra mejorada con `Color(0xFF3BBFAD).withAlpha(150)`
+
+- **Estilos Independientes:**
+  - Reemplazo de `context.textTheme.labelLarge` por `TextStyle` directo
+  - Uso de `Colors.white` como color por defecto en lugar de `AppTheme.kOffWhite`
+  - Eliminación de dependencias del tema para colores de texto
+
+#### Beneficios Obtenidos:
+- ✅ **Gradiente turquesa visible** y funcional
+- ✅ **Independencia del tema** para evitar conflictos futuros
+- ✅ **Sombra azul** con mayor opacidad y visibilidad
+- ✅ **Efectos de toque** funcionales y consistentes
+- ✅ **Consistencia visual** en toda la aplicación
+
+#### Lecciones Aprendidas:
+- **Evitar dependencias del tema** para componentes personalizados complejos
+- **Usar colores hardcodeados** cuando sea necesario para evitar interferencias
+- **Implementar ClipRRect** para manejar borderRadius correctamente
+- **Mantener estructura simple** para evitar conflictos de renderizado
   - Reemplazo de `SizedBox` por `AppSpacers.xs`
   - Uso de `SizedBox` con altura específica para el contenedor principal
 

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../theme/app_design_constants.dart';
-import '../../theme/app_theme.dart';
-import '../../theme/app_theme_extensions.dart';
 import '../spacers/app_spacers.dart';
 
 /// Botón mejorado con animaciones y estados visuales
@@ -144,16 +142,25 @@ class _EnhancedButtonState extends State<EnhancedButton>
                     colors: _getGradientColors(),
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
+                    stops: [0.0, 1.0],
                   ),
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   boxShadow: _getBoxShadow(),
                 ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(widget.borderRadius),
-                    onTap: isDisabled ? null : widget.onPressed,
-                    child: Center(child: _buildContent()),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: isDisabled ? null : widget.onPressed,
+                      splashColor: Colors.white.withOpacity(0.1),
+                      highlightColor: Colors.white.withOpacity(0.05),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Center(child: _buildContent()),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -175,16 +182,17 @@ class _EnhancedButtonState extends State<EnhancedButton>
             child: CircularProgressIndicator(
               strokeWidth: 2,
               valueColor: AlwaysStoppedAnimation<Color>(
-                widget.textColor ?? AppTheme.kOffWhite,
+                widget.textColor ?? Colors.white,
               ),
             ),
           ),
           AppSpacers.hSm,
           Text(
             'Cargando...',
-            style: context.textTheme.labelLarge!.copyWith(
-              color: widget.textColor ?? AppTheme.kOffWhite,
+            style: TextStyle(
+              color: widget.textColor ?? Colors.white,
               fontWeight: FontWeight.w600,
+              fontSize: 16,
             ),
           ),
         ],
@@ -195,18 +203,15 @@ class _EnhancedButtonState extends State<EnhancedButton>
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.icon != null) ...[
-          Icon(
-            widget.icon,
-            color: widget.textColor ?? AppTheme.kOffWhite,
-            size: 20,
-          ),
+          Icon(widget.icon, color: widget.textColor ?? Colors.white, size: 20),
           AppSpacers.hXs,
         ],
         Text(
           widget.text,
-          style: context.textTheme.labelLarge!.copyWith(
-            color: widget.textColor ?? AppTheme.kOffWhite,
+          style: TextStyle(
+            color: widget.textColor ?? Colors.white,
             fontWeight: FontWeight.w600,
+            fontSize: 16,
           ),
         ),
       ],
@@ -215,17 +220,18 @@ class _EnhancedButtonState extends State<EnhancedButton>
 
   List<Color> _getGradientColors() {
     if (!widget.isEnabled || widget.isLoading) {
-      return [
-        AppTheme.kSurfaceColor.withAlpha(102),
-        AppTheme.kSurfaceColor.withAlpha(102),
-      ];
+      return [Colors.grey.withAlpha(102), Colors.grey.withAlpha(102)];
     }
 
     if (widget.color != null) {
       return [widget.color!, widget.color!.withAlpha(204)];
     }
 
-    return [AppTheme.kPrimaryColor, AppTheme.kPrimaryDarkColor];
+    // Gradiente simple y visible - Colores hardcodeados para diagnóstico
+    return [
+      const Color(0xFF3BBFAD), // Turquesa principal
+      const Color(0xFF2A8F83), // Turquesa oscuro
+    ];
   }
 
   List<BoxShadow> _getBoxShadow() {
@@ -235,9 +241,9 @@ class _EnhancedButtonState extends State<EnhancedButton>
 
     return [
       BoxShadow(
-        color: (widget.color ?? AppTheme.kPrimaryColor).withAlpha(77),
-        blurRadius: _isPressed ? 8 : 16,
-        offset: Offset(0, _isPressed ? 2 : 4),
+        color: const Color(0xFF3BBFAD).withAlpha(150), // Sombra más visible
+        blurRadius: _isPressed ? 8 : 12,
+        offset: Offset(0, _isPressed ? 2 : 6),
       ),
     ];
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme/app_design_constants.dart';
 import '../../../../../core/theme/app_theme_extensions.dart';
 import '../../../../../core/widgets/spacers/spacers.dart';
 
@@ -22,7 +23,9 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: context.charcoalMedium,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(
+        borderRadius: AppDesignConstants.dialogBorderRadius,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -103,7 +106,7 @@ class ConfirmationDialog extends StatelessWidget {
                       side: BorderSide(color: context.grayDark),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: AppDesignConstants.standardBorderRadius,
                       ),
                     ),
                     child: const Text('Cancelar'),
@@ -121,7 +124,7 @@ class ConfirmationDialog extends StatelessWidget {
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: AppDesignConstants.standardBorderRadius,
                       ),
                     ),
                     child: const Text('Confirmar'),

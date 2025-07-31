@@ -293,9 +293,28 @@ class AppDesignConstants {
   static BoxDecoration get premiumDecoration => BoxDecoration(
     borderRadius: premiumBorderRadius,
     gradient: LinearGradient(
-      colors: [AppTheme.kAccentColor, AppTheme.kAccentDarkColor],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        AppTheme.kPrimaryColor,
+        AppTheme.kPrimaryLightColor,
+        AppTheme.kPrimaryDarkColor,
+      ],
+      stops: const [0.0, 0.5, 1.0],
     ),
-    boxShadow: shadowStandard,
+    boxShadow: [
+      BoxShadow(
+        color: AppTheme.kPrimaryColor.withAlpha(77),
+        blurRadius: 12,
+        offset: const Offset(0, 6),
+        spreadRadius: 2,
+      ),
+      BoxShadow(
+        color: AppTheme.kBackgroundColor.withAlpha(102),
+        blurRadius: 20,
+        offset: const Offset(0, 10),
+      ),
+    ],
   );
 
   /// Decoración para diálogos

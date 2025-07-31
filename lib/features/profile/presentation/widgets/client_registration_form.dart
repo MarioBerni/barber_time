@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
-import '../../../../core/widgets/forms/info_card.dart';
-import '../../../../core/widgets/spacers/spacers.dart';
+import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
+import '../../../../core/widgets/buttons/buttons.dart';
+import '../../../../core/widgets/buttons/enhanced_button.dart';
+import '../../../../core/widgets/spacers/app_spacers.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import 'registration/confirmation_dialog.dart';
-import 'registration/submit_button.dart';
 
-/// Formulario simplificado de registro para clientes
-/// Solicita solo la información esencial para agilizar el proceso
+/// Formulario moderno de registro para clientes
+/// Diseño premium con animaciones y validaciones robustas
 class ClientRegistrationForm extends StatefulWidget {
   /// Estado del perfil para mostrar datos existentes
   final ProfileClientRegistration state;
@@ -23,7 +25,8 @@ class ClientRegistrationForm extends StatefulWidget {
   State<ClientRegistrationForm> createState() => _ClientRegistrationFormState();
 }
 
-class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
+class _ClientRegistrationFormState extends State<ClientRegistrationForm>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -31,12 +34,18 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
     initialValue: PhoneNumber.parse('+598'),
   );
 
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
   bool _isSubmitting = false;
+  final int _currentStep = 0;
 
   @override
   void initState() {
     super.initState();
     _loadExistingData();
+    _initializeAnimations();
   }
 
   @override
@@ -44,7 +53,30 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _phoneController.dispose();
+    _animationController.dispose();
     super.dispose();
+  }
+
+  /// Inicializa las animaciones
+  void _initializeAnimations() {
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic),
+    );
+
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
+
+    _animationController.forward();
   }
 
   /// Carga datos existentes del estado
@@ -113,14 +145,18 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
           _isSubmitting = false;
         });
 
-        // Navegar de vuelta o mostrar éxito
-        Navigator.of(context).pop();
+        // Navegar de vuelta usando el cubit
+        context.read<ProfileCubit>().backToUserTypeSelection();
 
         // Mostrar mensaje de éxito
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Perfil actualizado correctamente'),
-            backgroundColor: Colors.green,
+          SnackBar(
+            content: const Text('¡Registro completado exitosamente!'),
+            backgroundColor: AppTheme.kPrimaryColor,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
         );
       }
@@ -130,132 +166,445 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppSpacers.lg,
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          // Fondo animado
+          AnimatedGradientBackground(
+            primaryColor: AppTheme.kBackgroundColor,
+            secondaryColor: AppTheme.kSurfaceColor,
+            lineCount: 20,
+          ),
 
-              // Título
-              Text(
-                'Completa tu Perfil',
-                style: context.textTheme.headlineMedium?.copyWith(
-                  color: context.textColor,
-                  fontWeight: FontWeight.bold,
+          // Overlay sutil
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppTheme.kBackgroundColor.withOpacity(0.4),
+                  AppTheme.kBackgroundColor.withOpacity(0.2),
+                  AppTheme.kBackgroundColor.withOpacity(0.4),
+                ],
+              ),
+            ),
+          ),
+
+          // Contenido principal
+          SafeArea(
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: Column(
+                  children: [
+                    // Botón de retorno
+                    _buildBackButton(),
+
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              // Header premium
+                              _buildHeader(),
+                              AppSpacers.xl,
+
+                              // Progreso visual
+                              _buildProgressIndicator(),
+                              AppSpacers.lg,
+
+                              // Formulario
+                              _buildForm(),
+                              AppSpacers.xl,
+
+                              // Botón de envío
+                              _buildSubmitButton(),
+                              AppSpacers.lg,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-              AppSpacers.sm,
-
-              Text(
-                'Cuéntanos un poco sobre ti para personalizar tu experiencia',
-                style: context.textTheme.bodyMedium?.copyWith(
-                  color: context.secondaryTextColor,
+  /// Construye el botón de retorno
+  Widget _buildBackButton() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, top: 8.0, right: 16.0),
+      child: Row(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: AppTheme.kSurfaceColor.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppTheme.kPrimaryColor.withOpacity(0.3),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.kBackgroundColor.withAlpha(51),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
                 ),
-              ),
-
-              AppSpacers.lg,
-
-              // Información del formulario
-              InfoCard.info(
-                message: 'Solo necesitamos algunos datos básicos para comenzar',
-                icon: Icons.person_outline,
-              ),
-
-              AppSpacers.md,
-
-              // Campos del formulario
-              Text(
-                'Datos Personales',
-                style: context.textTheme.headlineSmall?.copyWith(
-                  color: context.textColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-
-              AppSpacers.sm,
-
-              // Nombre
-              TextFormField(
-                controller: _firstNameController,
-                decoration: InputDecoration(
-                  labelText: 'Nombre',
-                  hintText: 'Tu nombre',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+              ],
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  // Navegar hacia atrás usando el cubit
+                  context.read<ProfileCubit>().backToUserTypeSelection();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: AppTheme.kPrimaryColor,
+                        size: 20,
+                      ),
+                      AppSpacers.hXs,
+                      Text(
+                        'Volver',
+                        style: context.bodyMedium.copyWith(
+                          color: AppTheme.kPrimaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'El nombre es requerido';
-                  }
-                  return null;
-                },
-                onChanged: (value) => _updateField('firstName', value),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-              AppSpacers.sm,
-
-              // Apellido
-              TextFormField(
-                controller: _lastNameController,
-                decoration: InputDecoration(
-                  labelText: 'Apellido',
-                  hintText: 'Tu apellido',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'El apellido es requerido';
-                  }
-                  return null;
-                },
-                onChanged: (value) => _updateField('lastName', value),
+  /// Construye el header premium
+  Widget _buildHeader() {
+    return Column(
+      children: [
+        // Icono premium
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.kPrimaryColor.withAlpha(77),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
               ),
-
-              AppSpacers.sm,
-
-              // Teléfono
-              TextFormField(
-                controller: TextEditingController(
-                  text: _phoneController.value.international ?? '',
-                ),
-                decoration: InputDecoration(
-                  labelText: 'Teléfono',
-                  hintText: '+598 9X XXX XXX',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'El teléfono es requerido';
-                  }
-                  return null;
-                },
-                onChanged: (value) => _updateField('phone', value),
-              ),
-
-              AppSpacers.xl,
-
-              // Botón de envío
-              SubmitButton(
-                text: 'Completar Registro',
-                isLoading: _isSubmitting,
-                isEnabled: _isFormValid(),
-                onPressed: _showConfirmationDialog,
-              ),
-
-              AppSpacers.lg,
             ],
           ),
+          child: Icon(Icons.person_add_rounded, color: Colors.white, size: 40),
         ),
+        AppSpacers.lg,
+
+        // Título
+        ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
+          ).createShader(bounds),
+          child: Text(
+            'Crear tu cuenta',
+            style: context.h1.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              fontSize: 32,
+              letterSpacing: 0.8,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        AppSpacers.sm,
+
+        // Subtítulo
+        Text(
+          'Únete a Barber Time y descubre los mejores servicios',
+          style: context.bodyLarge.copyWith(
+            color: AppTheme.kOffWhite,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            height: 1.5,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  /// Construye el indicador de progreso
+  Widget _buildProgressIndicator() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppTheme.kSurfaceColor.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppTheme.kPrimaryColor.withOpacity(0.2)),
       ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Icon(Icons.check_circle, color: AppTheme.kPrimaryColor, size: 20),
+              AppSpacers.hSm,
+              Expanded(
+                child: Text(
+                  'Paso 1 de 1: Información personal',
+                  style: context.bodyMedium.copyWith(
+                    color: AppTheme.kOffWhite,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          AppSpacers.sm,
+          LinearProgressIndicator(
+            value: 1.0,
+            backgroundColor: AppTheme.kSurfaceColor.withOpacity(0.3),
+            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.kPrimaryColor),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Construye el formulario
+  Widget _buildForm() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Título de sección
+        Text(
+          'Información Personal',
+          style: context.titleLarge.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+          ),
+        ),
+        AppSpacers.md,
+
+        // Campo Nombre
+        _buildTextField(
+          controller: _firstNameController,
+          label: 'Nombre',
+          hint: 'Tu nombre',
+          icon: Icons.person_outline,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'El nombre es requerido';
+            }
+            if (value.length < 2) {
+              return 'El nombre debe tener al menos 2 caracteres';
+            }
+            return null;
+          },
+          onChanged: (value) => _updateField('firstName', value),
+        ),
+        AppSpacers.md,
+
+        // Campo Apellido
+        _buildTextField(
+          controller: _lastNameController,
+          label: 'Apellido',
+          hint: 'Tu apellido',
+          icon: Icons.person_outline,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'El apellido es requerido';
+            }
+            if (value.length < 2) {
+              return 'El apellido debe tener al menos 2 caracteres';
+            }
+            return null;
+          },
+          onChanged: (value) => _updateField('lastName', value),
+        ),
+        AppSpacers.md,
+
+        // Campo Teléfono
+        _buildPhoneField(),
+      ],
+    );
+  }
+
+  /// Construye un campo de texto personalizado
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    required String? Function(String?) validator,
+    required Function(String) onChanged,
+  }) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.kBackgroundColor.withAlpha(51),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: controller,
+        style: context.bodyLarge.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hint,
+          prefixIcon: Icon(icon, color: AppTheme.kPrimaryColor),
+          labelStyle: context.bodyMedium.copyWith(
+            color: AppTheme.kOffWhite,
+            fontWeight: FontWeight.w500,
+          ),
+          hintStyle: context.bodyMedium.copyWith(
+            color: AppTheme.kOffWhite.withOpacity(0.5),
+          ),
+          filled: true,
+          fillColor: AppTheme.kSurfaceColor.withOpacity(0.8),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: AppTheme.kPrimaryColor.withOpacity(0.3),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: AppTheme.kPrimaryColor, width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.red.withOpacity(0.7)),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.red, width: 2),
+          ),
+          errorStyle: context.bodySmall.copyWith(
+            color: Colors.red.withOpacity(0.8),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        validator: validator,
+        onChanged: onChanged,
+      ),
+    );
+  }
+
+  /// Construye el campo de teléfono
+  Widget _buildPhoneField() {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.kBackgroundColor.withAlpha(51),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: PhoneFormField(
+        controller: _phoneController,
+        decoration: InputDecoration(
+          labelText: 'Teléfono',
+          hintText: '+598 9X XXX XXX',
+          prefixIcon: Icon(Icons.phone_outlined, color: AppTheme.kPrimaryColor),
+          labelStyle: context.bodyMedium.copyWith(
+            color: AppTheme.kOffWhite,
+            fontWeight: FontWeight.w500,
+          ),
+          hintStyle: context.bodyMedium.copyWith(
+            color: AppTheme.kOffWhite.withOpacity(0.5),
+          ),
+          filled: true,
+          fillColor: AppTheme.kSurfaceColor.withOpacity(0.8),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              color: AppTheme.kPrimaryColor.withOpacity(0.3),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: AppTheme.kPrimaryColor, width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.red.withOpacity(0.7)),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(color: Colors.red, width: 2),
+          ),
+          errorStyle: context.bodySmall.copyWith(
+            color: Colors.red.withOpacity(0.8),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        validator: (value) {
+          if (value == null || !value.isValid()) {
+            return 'El teléfono es requerido';
+          }
+          return null;
+        },
+        onChanged: (value) => _updateField('phone', value.international ?? ''),
+      ),
+    );
+  }
+
+  /// Construye el botón de envío usando el sistema centralizado
+  Widget _buildSubmitButton() {
+    return EnhancedButton(
+      text: _isSubmitting ? 'Creando cuenta...' : 'Crear mi cuenta',
+      onPressed: _isFormValid() && !_isSubmitting
+          ? _showConfirmationDialog
+          : null,
+      isLoading: _isSubmitting,
+      isEnabled: _isFormValid() && !_isSubmitting,
+      icon: _isSubmitting ? null : Icons.check_circle_outline,
+      height: 60,
+      borderRadius: 16,
+      textColor: Colors.white,
     );
   }
 }
