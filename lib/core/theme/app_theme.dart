@@ -299,25 +299,8 @@ class AppTheme {
         ),
         iconTheme: const IconThemeData(color: kPrimaryColor),
       ),
-      buttonTheme: ButtonThemeData(
-        buttonColor: kPrimaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kDefaultRadius),
-        ),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: kPrimaryColor,
-          foregroundColor: kBackgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kDefaultRadius),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: kPrimaryColor),
-      ),
+      // Los botones se manejan a través del sistema unificado de componentes
+      // EnhancedButton y ThemedButton tienen sus propios estilos
       inputDecorationTheme: InputDecorationTheme(
         fillColor: kSurfaceColor,
         filled: true,

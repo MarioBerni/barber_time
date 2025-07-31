@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/app_theme.dart';
-import '../../../../../core/theme/app_theme_extensions.dart';
+import '../../../../../core/widgets/buttons/enhanced_button.dart';
 
 /// Botón de envío premium con estados dinámicos
 class SubmitButton extends StatelessWidget {
@@ -36,115 +35,15 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+    return EnhancedButton(
+      text: isEnabled ? enabledText : disabledText,
+      onPressed: (isEnabled && !isLoading) ? onPressed : null,
+      isLoading: isLoading,
+      isEnabled: isEnabled,
+      icon: isEnabled ? Icons.person_add_rounded : Icons.edit_rounded,
       width: double.infinity,
       height: 62,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: isEnabled
-            ? LinearGradient(
-                colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryDarkColor],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )
-            : null,
-        color: isEnabled ? null : AppTheme.kCharcoalLight,
-        border: Border.all(
-          color: isEnabled
-              ? AppTheme.kPrimaryLightColor.withAlpha((0.4 * 255).round())
-              : AppTheme.kPrimaryColor.withAlpha((0.3 * 255).round()),
-          width: 1.5,
-        ),
-        boxShadow: isEnabled
-            ? [
-                BoxShadow(
-                  color: AppTheme.kPrimaryColor.withAlpha((0.4 * 255).round()),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
-                ),
-              ]
-            : [
-                BoxShadow(
-                  color: Colors.black.withAlpha((0.1 * 255).round()),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: (isEnabled && !isLoading) ? onPressed : null,
-          child: DecoratedBox(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            child: Center(
-              child: isLoading
-                  ? _buildLoadingState(context)
-                  : _buildNormalState(context),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Construye el estado de carga
-  Widget _buildLoadingState(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 24,
-          width: 24,
-          child: CircularProgressIndicator(
-            strokeWidth: 3.0,
-            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.kOffWhite),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Text(
-          loadingText,
-          style: context.button.copyWith(
-            color: AppTheme.kOffWhite,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// Construye el estado normal
-  Widget _buildNormalState(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 200),
-          child: Icon(
-            isEnabled ? Icons.person_add_rounded : Icons.edit_rounded,
-            size: 22,
-            color: isEnabled
-                ? Colors.white
-                : AppTheme.kOffWhite.withAlpha((0.8 * 255).round()),
-            key: ValueKey(isEnabled),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Text(
-          isEnabled ? enabledText : disabledText,
-          style: context.button.copyWith(
-            color: isEnabled
-                ? Colors.white
-                : AppTheme.kOffWhite.withAlpha((0.8 * 255).round()),
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-            letterSpacing: 0.5,
-          ),
-        ),
-      ],
+      borderRadius: 20,
     );
   }
 }

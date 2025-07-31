@@ -137,8 +137,8 @@ class ProfileClientRegistration extends ProfileState {
   }
 }
 
-/// Estado durante el proceso de registro de administrador
-class ProfileAdminRegistration extends ProfileState {
+/// Estado durante el proceso de registro de negocio
+class ProfileBusinessRegistration extends ProfileState {
   /// Datos del formulario en proceso
   final Map<String, String> formData;
 
@@ -152,7 +152,7 @@ class ProfileAdminRegistration extends ProfileState {
   final String? registrationError;
 
   /// Constructor
-  const ProfileAdminRegistration({
+  const ProfileBusinessRegistration({
     this.formData = const {},
     this.fieldErrors = const {},
     this.isSubmitting = false,
@@ -168,13 +168,13 @@ class ProfileAdminRegistration extends ProfileState {
   ];
 
   /// Crea una copia con campos actualizados
-  ProfileAdminRegistration copyWith({
+  ProfileBusinessRegistration copyWith({
     Map<String, String>? formData,
     Map<String, String>? fieldErrors,
     bool? isSubmitting,
     String? registrationError,
   }) {
-    return ProfileAdminRegistration(
+    return ProfileBusinessRegistration(
       formData: formData ?? this.formData,
       fieldErrors: fieldErrors ?? this.fieldErrors,
       isSubmitting: isSubmitting ?? this.isSubmitting,

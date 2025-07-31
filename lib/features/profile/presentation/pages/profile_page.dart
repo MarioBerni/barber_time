@@ -6,9 +6,11 @@ import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/icons/styled_icon.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../../../home/presentation/widgets/home_header.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
+import '../widgets/business_registration_form.dart';
 import '../widgets/client_registration_form.dart';
 import '../widgets/profile_info_view.dart';
 import '../widgets/unauthenticated_view.dart';
@@ -41,14 +43,11 @@ class _ProfilePageState extends State<ProfilePage> {
           if (state is ProfileInitial || state is ProfileLoading) {
             return _buildLoadingView();
           } else if (state is ProfileUnauthenticated) {
-            return UnauthenticatedView(state: state);
+            return const UnauthenticatedView();
           } else if (state is ProfileClientRegistration) {
             return ClientRegistrationForm(state: state);
-          } else if (state is ProfileAdminRegistration) {
-            // TODO: Implementar AdminRegistrationForm
-            return const Center(
-              child: Text('Formulario de Admin - Por implementar'),
-            );
+          } else if (state is ProfileBusinessRegistration) {
+            return const BusinessRegistrationForm();
           } else if (state is ProfileLoaded) {
             return _buildProfileView(state);
           } else if (state is ProfileError) {
@@ -91,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 // Implementar navegación a edición de perfil
               },
             ),
-            const SizedBox(width: 12),
+            AppSpacers.hSm,
             // Botón de configuración
             StyledIcon(
               icon: Icons.settings_outlined,
@@ -121,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(Icons.error_outline, size: 48, color: Colors.red),
-          const SizedBox(height: 16),
+          AppSpacers.md,
           Text(
             'Error al cargar el perfil',
             style: Theme.of(context).textTheme.titleLarge,
@@ -132,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
             style: Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 24),
+          AppSpacers.lg,
           ElevatedButton(
             onPressed: () {
               context.read<ProfileCubit>().loadProfile();

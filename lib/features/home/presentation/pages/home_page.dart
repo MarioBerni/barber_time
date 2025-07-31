@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/navigation/bottom_navigation_bar.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../../../../core/widgets/states/states.dart';
 import '../bloc/home_cubit.dart';
 import '../bloc/home_state.dart';
@@ -137,7 +138,7 @@ class _HomePageState extends State<HomePage>
           _buildSimpleAppBar(state),
 
           // Espaciado superior mejorado
-          const SizedBox(height: 16),
+          AppSpacers.md,
 
           // TabBar para navegación entre categorías con animaciones
           HomeTabBar(

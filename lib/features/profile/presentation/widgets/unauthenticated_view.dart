@@ -6,42 +6,56 @@ import '../../../../core/theme/app_theme_extensions.dart';
 import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
+import 'business_registration_form.dart';
+import 'client_registration_form.dart';
 import 'user_type_option.dart';
 
 /// Widget que muestra la vista para usuarios no autenticados
-/// Permite seleccionar entre cliente y administrador
+/// Permite seleccionar entre cliente y negocio
 /// para el proceso de registro
 class UnauthenticatedView extends StatelessWidget {
-  /// Estado actual de perfil no autenticado
-  final ProfileUnauthenticated state;
-
   /// Constructor
-  const UnauthenticatedView({super.key, required this.state});
+  const UnauthenticatedView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          // Fondo con gradiente premium
-          AnimatedGradientBackground(
-            primaryColor: AppTheme.kBackgroundColor,
-            secondaryColor: AppTheme.kSurfaceColor,
-            showBouncingCircles: false,
-            lineOpacity: 0.03,
-            lineCount: 25,
-          ),
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        // Mostrar formulario de cliente si está en registro de cliente
+        if (state is ProfileClientRegistration) {
+          return ClientRegistrationForm(state: state);
+        }
 
-          // Contenido
-          Center(
-            child: SingleChildScrollView(
-              child: SafeArea(child: _buildUserTypeSelection(context)),
-            ),
+        // Mostrar formulario de negocio si está en registro de negocio
+        if (state is ProfileBusinessRegistration) {
+          return const BusinessRegistrationForm();
+        }
+
+        // Mostrar selección de tipo de usuario por defecto
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          body: Stack(
+            children: [
+              // Fondo con gradiente premium
+              AnimatedGradientBackground(
+                primaryColor: AppTheme.kBackgroundColor,
+                secondaryColor: AppTheme.kSurfaceColor,
+                showBouncingCircles: false,
+                lineOpacity: 0.03,
+                lineCount: 25,
+              ),
+
+              // Contenido
+              Center(
+                child: SingleChildScrollView(
+                  child: SafeArea(child: _buildUserTypeSelection(context)),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -107,12 +121,13 @@ class UnauthenticatedView extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                // Opción de administrador
+                // Opción de negocio
                 UserTypeOption(
-                  title: 'Administrador',
-                  description: 'Para propietarios y empleados de barberías',
-                  icon: Icons.business,
-                  onTap: () => cubit.startAdminRegistration(),
+                  title: 'Barbería',
+                  description:
+                      'Para registrar tu barbería o local de servicios',
+                  icon: Icons.store,
+                  onTap: () => cubit.startBusinessRegistration(),
                 ),
               ],
             ),

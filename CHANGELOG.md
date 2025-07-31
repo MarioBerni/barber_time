@@ -35,9 +35,11 @@
 - **Coherencia visual**: Mismo sistema de colores y efectos premium
 
 #### 🎯 Botón de Registro Mejorado
-- **Texto dinámico**: "Crear Cuenta Premium" vs "Completa los campos"
+- **Texto dinámico**: "Crear Cuenta" vs "Completa los campos"
 - **Iconos animados**: Rocket vs Edit con `AnimatedSwitcher`
 - **AnimatedContainer**: Transiciones suaves de 300ms
+- **Mejoras de contraste**: Elevación aumentada a 6, sombra más pronunciada
+- **Estados deshabilitados**: Colores específicos para mejor feedback visual
 - **Efectos visuales premium**: Gradientes dorados + sombras múltiples
 - **Estados loading**: "Creando cuenta..." con spinner elegante
 

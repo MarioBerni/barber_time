@@ -27,8 +27,8 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       // Usuario no autenticado - mostrar selección de tipo de usuario
       emit(const ProfileUnauthenticated());
-      
-      // Código para cuando el usuario está autenticado - 
+
+      // Código para cuando el usuario está autenticado -
       // descomentar cuando sea necesario
       /*
       if (hasValidSession) {
@@ -47,15 +47,35 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(const ProfileClientRegistration());
   }
 
-  /// Comienza flujo de registro como administrador
-  void startAdminRegistration() {
-    emit(const ProfileAdminRegistration());
+  /// Comienza flujo de registro como negocio
+  void startBusinessRegistration() {
+    emit(const ProfileBusinessRegistration());
   }
 
   /// Actualiza datos del formulario de registro de cliente
   void updateClientFormField(String field, String value) {
     final currentState = state;
     if (currentState is ProfileClientRegistration) {
+      final updatedFormData = Map<String, String>.from(currentState.formData);
+      updatedFormData[field] = value;
+
+      // Limpiar errores del campo si hay
+      final updatedErrors = Map<String, String>.from(currentState.fieldErrors)
+        ..remove(field);
+
+      emit(
+        currentState.copyWith(
+          formData: updatedFormData,
+          fieldErrors: updatedErrors,
+        ),
+      );
+    }
+  }
+
+  /// Actualiza datos del formulario de registro de negocio
+  void updateBusinessFormField(String field, String value) {
+    final currentState = state;
+    if (currentState is ProfileBusinessRegistration) {
       final updatedFormData = Map<String, String>.from(currentState.formData);
       updatedFormData[field] = value;
 
@@ -136,6 +156,114 @@ class ProfileCubit extends Cubit<ProfileState> {
           userType: UserType.client,
           createdAt: DateTime.now(),
           clientData: const ClientData(),
+        );
+
+        emit(ProfileLoaded(profile: newProfile));
+      } catch (e) {
+        emit(
+          currentState.copyWith(
+            isSubmitting: false,
+            registrationError: 'Error al registrar: ${e.toString()}',
+          ),
+        );
+      }
+    }
+  }
+
+  /// Valida los campos del formulario de negocio
+  Map<String, String> _validateBusinessForm(Map<String, String> formData) {
+    final errors = <String, String>{};
+
+    // Validar nombre del representante
+    final name = formData['name']?.trim() ?? '';
+    if (name.isEmpty) {
+      errors['name'] = 'El nombre es requerido';
+    } else if (name.length < 2) {
+      errors['name'] = 'El nombre debe tener al menos 2 caracteres';
+    }
+
+    // Validar email
+    final email = formData['email']?.trim() ?? '';
+    if (email.isEmpty) {
+      errors['email'] = 'El email es requerido';
+    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      errors['email'] = 'Ingresa un email válido';
+    }
+
+    // Validar teléfono
+    final phone = formData['phone']?.trim() ?? '';
+    if (phone.isNotEmpty) {
+      if (!RegExp(
+        r'^\+\d{1,4}\s?\d{6,15}$',
+      ).hasMatch(phone.replaceAll(RegExp(r'\s+'), ' '))) {
+        errors['phone'] = 'Número de teléfono inválido';
+      }
+    }
+
+    // Validar nombre del negocio
+    final businessName = formData['businessName']?.trim() ?? '';
+    if (businessName.isEmpty) {
+      errors['businessName'] = 'El nombre del negocio es requerido';
+    }
+
+    // Validar dirección
+    final address = formData['address']?.trim() ?? '';
+    if (address.isEmpty) {
+      errors['address'] = 'La dirección es requerida';
+    }
+
+    // Validar barrio
+    final neighborhood = formData['neighborhood']?.trim() ?? '';
+    if (neighborhood.isEmpty) {
+      errors['neighborhood'] = 'El barrio es requerido';
+    }
+
+    // Validar representante legal
+    final legalRepresentative = formData['legalRepresentative']?.trim() ?? '';
+    if (legalRepresentative.isEmpty) {
+      errors['legalRepresentative'] = 'El representante legal es requerido';
+    }
+
+    return errors;
+  }
+
+  /// Envía el formulario de registro de negocio
+  Future<void> submitBusinessRegistration() async {
+    final currentState = state;
+    if (currentState is ProfileBusinessRegistration) {
+      // Validar formulario
+      final errors = _validateBusinessForm(currentState.formData);
+
+      if (errors.isNotEmpty) {
+        emit(currentState.copyWith(fieldErrors: errors));
+        return;
+      }
+
+      emit(currentState.copyWith(isSubmitting: true));
+
+      try {
+        // Simular registro en servidor
+        await Future<void>.delayed(const Duration(milliseconds: 1500));
+
+        // Crear perfil de negocio mock con los datos del formulario
+        final newProfile = UserProfile(
+          id: 'business_${DateTime.now().millisecondsSinceEpoch}',
+          name: currentState.formData['name']!,
+          email: currentState.formData['email']!,
+          phoneNumber: currentState.formData['phone']?.isNotEmpty == true
+              ? currentState.formData['phone']
+              : null,
+          userType: UserType.business,
+          createdAt: DateTime.now(),
+          businessData: BusinessData(
+            businessName: currentState.formData['businessName']!,
+            address: currentState.formData['address']!,
+            neighborhood: currentState.formData['neighborhood']!,
+            phoneNumber: currentState.formData['phone'] ?? '',
+            email: currentState.formData['email']!,
+            legalRepresentative: currentState.formData['legalRepresentative']!,
+            legalRepresentativePhone: currentState.formData['legalPhone'] ?? '',
+          ),
         );
 
         emit(ProfileLoaded(profile: newProfile));

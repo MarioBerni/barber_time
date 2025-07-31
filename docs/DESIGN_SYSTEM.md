@@ -174,17 +174,210 @@ Container(
 
 ### Botones
 
+**🎯 Sistema Unificado de Botones:**
+
+#### EnhancedButton (Recomendado)
 ```dart
 // BOTÓN PRIMARIO
-ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    backgroundColor: context.primaryColor,     // Turquesa para acciones principales
-    foregroundColor: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
-  ),
+EnhancedButton(
+  text: 'Crear Cuenta',
+  onPressed: _submitForm,
+  isLoading: _isSubmitting,
+  icon: Icons.person_add,
+  width: double.infinity,
+  height: 56,
+  borderRadius: 12,
 )
+
+// BOTÓN SECUNDARIO
+EnhancedButton(
+  text: 'Cancelar',
+  onPressed: _cancel,
+  color: AppTheme.kSurfaceColor,
+  textColor: AppTheme.kOffWhite,
+)
+```
+
+**Características:**
+- ✅ Animaciones fluidas con feedback háptico
+- ✅ Estados de carga integrados
+- ✅ Gradientes y sombras premium
+- ✅ Personalización completa de colores
+- ✅ Iconos opcionales
+
+#### ThemedButton (Legacy)
+```dart
+// BOTÓN CON TEMA
+ThemedButton(
+  text: 'Iniciar Sesión',
+  type: ThemedButtonType.primary,
+  size: ThemedButtonSize.medium,
+  icon: Icons.login,
+  fullWidth: true,
+  onPressed: () => _login(),
+)
+```
+
+**🚫 NO USAR:** `ElevatedButton`, `TextButton`, `OutlinedButton` directamente
+
+---
+
+## 🎯 Sistema Unificado de Constantes y Componentes
+
+### AppDesignConstants
+**Ubicación:** `lib/core/theme/app_design_constants.dart`
+
+**Características:**
+- ✅ **Espaciado unificado:** `spacingMD` (16px), `spacingLG` (24px), `spacingXL` (32px)
+- ✅ **Bordes estandarizados:** `borderRadiusMD` (12px), `borderRadiusLG` (16px)
+- ✅ **Decoraciones predefinidas:** `containerDecoration`, `buttonDecoration`, `textFieldDecoration`
+- ✅ **Sombras consistentes:** `shadowSubtle`, `shadowStandard`, `shadowPronounced`
+- ✅ **Utilidades:** `colorWithOpacity()`, `opacityToAlpha()`, `standardBorderRadius`
+
+**Uso:**
+```dart
+// Espaciado
+const double spacing = AppDesignConstants.spacingMD;
+
+// Bordes
+BorderRadius borderRadius = AppDesignConstants.standardBorderRadius;
+
+// Colores con opacidad
+Color color = AppDesignConstants.colorWithOpacity(AppTheme.kPrimaryColor, 0.5);
+
+// Decoraciones
+BoxDecoration decoration = AppDesignConstants.containerDecoration;
+```
+
+### AppSpacers
+**Ubicación:** `lib/core/widgets/spacers/app_spacers.dart`
+
+**Espaciadores Verticales:**
+```dart
+// En lugar de: const SizedBox(height: 4)
+AppSpacers.xxs
+
+// En lugar de: const SizedBox(height: 8)
+AppSpacers.xs
+
+// En lugar de: const SizedBox(height: 12)
+AppSpacers.sm
+
+// En lugar de: const SizedBox(height: 16) - Estándar
+AppSpacers.md
+
+// En lugar de: const SizedBox(height: 24) - Entre secciones
+AppSpacers.lg
+
+// En lugar de: const SizedBox(height: 32) - Entre bloques
+AppSpacers.xl
+
+// En lugar de: const SizedBox(height: 48)
+AppSpacers.xxl
+```
+
+**Espaciadores Horizontales:**
+```dart
+// En lugar de: const SizedBox(width: 16)
+AppSpacers.hMd
+
+// En lugar de: const SizedBox(width: 24)
+AppSpacers.hLg
+```
+
+**Espaciadores para Slivers:**
+```dart
+// Para SliverToBoxAdapter
+AppSpacers.sliverMd  // 16px
+AppSpacers.sliverLg  // 24px
+AppSpacers.sliverXl  // 32px
+```
+
+**Espaciadores Condicionales:**
+```dart
+// Solo se muestra si la condición es verdadera
+AppSpacers.conditional(showSpacer, spacer: AppSpacers.lg)
+
+// Solo se muestra si el widget no es nulo
+AppSpacers.conditionalWidget(myWidget, spacer: AppSpacers.md)
+```
+
+### AppContainers
+**Ubicación:** `lib/core/widgets/containers/app_containers.dart`
+
+**Contenedores Básicos:**
+```dart
+// Contenedor estándar
+AppContainers.standard(
+  child: myWidget,
+  padding: AppDesignConstants.paddingMD,
+  borderRadius: AppDesignConstants.borderRadiusMD,
+)
+
+// Contenedor con efecto de cristal
+AppContainers.glass(
+  child: myWidget,
+  opacity: 0.4,
+  baseColor: AppTheme.kSurfaceColor,
+)
+
+// Contenedor con borde
+AppContainers.bordered(
+  child: myWidget,
+  borderColor: AppTheme.kPrimaryColor,
+  borderWidth: 1.0,
+)
+
+// Contenedor con gradiente
+AppContainers.gradient(
+  child: myWidget,
+  colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryDarkColor],
+)
+```
+
+**Contenedores Especializados:**
+```dart
+// Card con sombra
+AppContainers.card(
+  child: myWidget,
+  withShadow: true,
+  borderRadius: AppDesignConstants.borderRadiusLG,
+)
+
+// Campo de texto
+AppContainers.textField(
+  child: myWidget,
+  isFocused: true,
+  borderColor: AppTheme.kPrimaryColor,
+)
+
+// Badge/etiqueta
+AppContainers.badge(
+  child: Text('Nuevo'),
+  backgroundColor: AppTheme.kAccentColor,
+)
+
+// Icono
+AppContainers.icon(
+  child: Icon(Icons.star),
+  backgroundColor: AppTheme.kPrimaryColor,
+)
+```
+
+**Contenedores con Animación:**
+```dart
+// Con animación de escala
+AppContainers.animatedScale(
+  child: myWidget,
+  animation: scaleAnimation,
+)
+
+// Con animación de opacidad
+AppContainers.animatedOpacity(
+  child: myWidget,
+  animation: opacityAnimation,
+)
+```
 ```
 
 ---

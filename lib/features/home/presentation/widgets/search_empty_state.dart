@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../../../core/widgets/buttons/enhanced_button.dart';
 import '../../../../core/widgets/states/states.dart';
 
 /// Widget que muestra un estado vacío cuando no hay resultados de búsqueda
@@ -22,14 +24,10 @@ class SearchEmptyState extends StatelessWidget {
       title: 'No se encontraron barberías',
       message: 'No hay resultados para "$searchQuery"',
       icon: Icons.search_off,
-      action: ElevatedButton(
+      action: EnhancedButton(
+        text: 'Limpiar búsqueda',
         onPressed: onClearSearch,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        ),
-        child: const Text('Limpiar búsqueda'),
+        height: 48,
       ),
     );
   }

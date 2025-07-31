@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'app_theme.dart';
 
 /// Contiene temas alternativos para eventos especiales en la aplicación.
@@ -22,19 +23,7 @@ class AppSpecialThemes {
       cardTheme: AppTheme.theme.cardTheme.copyWith(
         shadowColor: christmasGreen.withAlpha((0.2 * 255).round()),
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: christmasRed,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: christmasGold),
-      ),
+      // Los botones se manejan a través del sistema unificado de componentes
       extensions: {
         ChristmasThemeExtension(
           isChristmasThemeActive: true,
@@ -62,19 +51,7 @@ class AppSpecialThemes {
       cardTheme: AppTheme.theme.cardTheme.copyWith(
         shadowColor: celebrationGold.withAlpha((0.3 * 255).round()),
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: celebrationGold,
-          foregroundColor: elegantBlack,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: silverAccent),
-      ),
+      // Los botones se manejan a través del sistema unificado de componentes
       extensions: {
         AnniversaryThemeExtension(
           isAnniversaryThemeActive: true,
@@ -102,19 +79,7 @@ class AppSpecialThemes {
       cardTheme: AppTheme.theme.cardTheme.copyWith(
         shadowColor: promotionalBlack.withAlpha((0.25 * 255).round()),
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: promotionalBlack,
-          foregroundColor: promotionalYellow,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppTheme.kDefaultRadius),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: discountRed),
-      ),
+      // Los botones se manejan a través del sistema unificado de componentes
       extensions: {
         PromotionalThemeExtension(
           isPromotionalThemeActive: true,

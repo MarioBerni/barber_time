@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+
+import '../../theme/app_theme.dart';
+import '../../theme/app_theme_extensions.dart';
+
+/// Indicador de progreso para formularios
+/// Muestra visualmente el avance del usuario en el formulario
+class FormProgressIndicator extends StatelessWidget {
+  /// Progreso actual (0.0 a 1.0)
+  final double progress;
+
+  /// Texto opcional que describe el progreso
+  final String? progressText;
+
+  /// Altura del indicador
+  final double height;
+
+  /// Constructor
+  const FormProgressIndicator({
+    super.key,
+    required this.progress,
+    this.progressText,
+    this.height = 4.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Barra de progreso
+        Container(
+          height: height,
+          decoration: BoxDecoration(
+            color: AppTheme.kSurfaceColor.withAlpha(51),
+            borderRadius: BorderRadius.circular(height / 2),
+          ),
+          child: FractionallySizedBox(
+            alignment: Alignment.centerLeft,
+            widthFactor: progress.clamp(0.0, 1.0),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [AppTheme.kPrimaryColor, AppTheme.kPrimaryLightColor],
+                ),
+                borderRadius: BorderRadius.circular(height / 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.kPrimaryColor.withAlpha(77),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        // Texto de progreso (opcional)
+        if (progressText != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            progressText!,
+            style: context.textTheme.bodySmall!.copyWith(
+              color: AppTheme.kOffWhite.withAlpha(179),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}

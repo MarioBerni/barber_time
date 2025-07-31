@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../buttons/enhanced_button.dart';
+
 /// Un widget para mostrar mensajes de error de forma estandarizada.
 ///
 /// Este componente muestra un mensaje de error con un icono, título opcional,
@@ -77,18 +79,13 @@ class ErrorMessageWidget extends StatelessWidget {
           ),
           if (onRetry != null) ...[
             const SizedBox(height: 24),
-            ElevatedButton.icon(
+            EnhancedButton(
+              text: retryText,
               onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: Text(retryText),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: secondaryColor,
-                foregroundColor: theme.colorScheme.onError,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
-              ),
+              icon: Icons.refresh,
+              color: secondaryColor,
+              textColor: theme.colorScheme.onError,
+              height: 48,
             ),
           ],
         ],

@@ -3,6 +3,6 @@ enum UserType {
   /// Cliente: Usuario regular que consume servicios
   client,
 
-  /// Administrador: Representa a un dueño o empleado de barbería
-  admin,
+  /// Negocio: Representa a una barbería o local de servicios
+  business,
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../../domain/entities/salon.dart';
 import '../bloc/home_state.dart';
 import 'home_salon_card.dart';
@@ -36,17 +37,17 @@ class HomeTabContent extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       slivers: [
         // Espacio superior
-        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+        AppSpacers.sliverLg,
 
         // Título de sección filtrada
         SliverToBoxAdapter(child: _buildTabSectionTitle()),
 
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        AppSpacers.sliverMd,
 
         // Lista de salones filtrados por pestaña
         _buildTabFilteredSalonsSection(),
 
-        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+        AppSpacers.sliverLg,
 
         // Título para ofertas especiales
         const SliverToBoxAdapter(
@@ -56,14 +57,14 @@ class HomeTabContent extends StatelessWidget {
           ),
         ),
 
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        AppSpacers.sliverMd,
 
         // Ofertas especiales
         SliverToBoxAdapter(
           child: SpecialOffersSection(offers: state.specialOffers),
         ),
 
-        const SliverToBoxAdapter(child: SizedBox(height: 32)),
+        AppSpacers.sliverXl,
       ],
     );
   }

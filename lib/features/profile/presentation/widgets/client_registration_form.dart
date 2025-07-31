@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
-import '../../../../core/theme/app_theme.dart';
-import '../../../../core/widgets/backgrounds/animated_gradient_background.dart';
+import '../../../../core/utils/form_validation_helper.dart';
+import '../../../../core/widgets/containers/containers.dart';
+import '../../../../core/widgets/forms/form_section.dart';
+import '../../../../core/widgets/forms/info_card.dart';
+import '../../../../core/widgets/inputs/enhanced_text_field.dart';
+import '../../../../core/widgets/inputs/themed_phone_field.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../bloc/profile_cubit.dart';
 import '../bloc/profile_state.dart';
 import 'registration/confirmation_dialog.dart';
 import 'registration/continue_divider.dart';
-import 'registration/error_message.dart';
 import 'registration/google_signup_button.dart';
-import 'registration/manual_form_section.dart';
-import 'registration/premium_app_bar.dart';
-import 'registration/registration_header.dart';
 import 'registration/submit_button.dart';
 
 /// Formulario de registro para nuevos clientes - Versión Refactorizada
@@ -73,103 +74,110 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
-      appBar: PremiumAppBar(
-        onBack: () => context.read<ProfileCubit>().backToUserTypeSelection(),
-      ),
-      body: Stack(
-        children: [
-          // Fondo con gradiente premium como Home
-          AnimatedGradientBackground(
-            primaryColor: AppTheme.kBackgroundColor,
-            secondaryColor: AppTheme.kSurfaceColor,
-            showBouncingCircles: false,
-            lineOpacity: 0.03,
-            lineCount: 25,
-          ),
-
-          // Contenido principal
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header premium - con menos espaciado vertical
-                  const RegistrationHeader(),
-
-                  const SizedBox(height: 32),
-
-                  // Formulario premium modular
-                  _buildModularForm(context),
-
-                  const SizedBox(height: 28),
-
-                  // Botón de envío modular
-                  SubmitButton(
-                    isEnabled: _isFormValid(),
-                    isLoading: widget.state.isSubmitting,
-                    onPressed: _showConfirmationDialog,
-                  ),
-
-                  // Mensaje de error modular
-                  ErrorMessage(message: widget.state.registrationError ?? ''),
-
-                  const SizedBox(height: 32),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+    return RegistrationScaffold(
+      title: 'Crear tu cuenta',
+      onBackPressed: () =>
+          context.read<ProfileCubit>().backToUserTypeSelection(),
+      child: _buildForm(context),
     );
   }
 
-  /// Construye el formulario modular
-  Widget _buildModularForm(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: AppTheme.kSurfaceColor.withAlpha((0.95 * 255).round()),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: AppTheme.kPrimaryColor.withAlpha((0.3 * 255).round()),
-          width: 1.5,
+  /// Construye el formulario sin contenedor
+  Widget _buildForm(BuildContext context) {
+    return Column(
+      children: [
+        // Opción de Google
+        GoogleSignUpButton(onPressed: _handleGoogleSignUp),
+
+        const SizedBox(height: 24),
+
+        // Divider elegante
+        const ContinueDivider(),
+
+        const SizedBox(height: 24),
+
+        // Sección de información personal
+        AppContainers.card(
+          child: FormSection(
+            title: 'Información Personal',
+            description: 'Completa tus datos para crear tu cuenta',
+            icon: Icons.person_outline,
+            child: Column(
+              children: [
+                // Campo de nombre
+                EnhancedTextField(
+                  controller: _nameController,
+                  labelText: 'Nombre completo',
+                  hintText: 'Juan Pérez',
+                  prefixIcon: Icons.person_outline,
+                  isRequired: true,
+                  validator: (value) => FormValidationHelper.validateRequired(
+                    value,
+                    'Nombre completo',
+                  ),
+                  onChanged: (value) => _updateField('name', value),
+                ),
+
+                AppSpacers.md,
+
+                // Campo de email
+                EnhancedTextField(
+                  controller: _emailController,
+                  labelText: 'Email',
+                  hintText: 'juan@ejemplo.com',
+                  prefixIcon: Icons.email_outlined,
+                  isRequired: true,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: FormValidationHelper.validateEmail,
+                  onChanged: (value) => _updateField('email', value),
+                ),
+              ],
+            ),
+          ),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha((0.3 * 255).round()),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+
+        // Sección de WhatsApp
+        AppContainers.glass(
+          child: FormSection(
+            title: 'Número de WhatsApp (Recomendado)',
+            description:
+                'Para notificaciones de citas y promociones exclusivas',
+            icon: Icons.phone_outlined,
+            child: ThemedPhoneField(
+              controller: _phoneController,
+              labelText: 'WhatsApp',
+              hintText: 'Número de WhatsApp',
+              prefixIcon: Icons.phone_outlined,
+              showValidation: true,
+              validator: (value) =>
+                  value?.isValid() == false ? 'Número inválido' : null,
+              onChanged: (phoneNumber) =>
+                  _updateField('phone', phoneNumber.international ?? ''),
+            ),
           ),
-          BoxShadow(
-            color: AppTheme.kPrimaryColor.withAlpha((0.1 * 255).round()),
-            blurRadius: 30,
-            offset: const Offset(0, 15),
+        ),
+
+        AppSpacers.xl,
+
+        // Botón de envío
+        SubmitButton(
+          isEnabled: _isFormValid(),
+          isLoading: widget.state.isSubmitting,
+          onPressed: _showConfirmationDialog,
+        ),
+
+        // Mensaje de error
+        if (widget.state.registrationError?.isNotEmpty == true) ...[
+          AppSpacers.md,
+          AppContainers.bordered(
+            borderColor: Colors.red.withAlpha(100),
+            child: InfoCard.error(
+              message: widget.state.registrationError!,
+              icon: Icons.error_outline,
+            ),
           ),
         ],
-      ),
-      child: Column(
-        children: [
-          // Opción de Google
-          GoogleSignUpButton(onPressed: _handleGoogleSignUp),
-
-          // Divider elegante
-          const ContinueDivider(),
-
-          // Formulario manual
-          ManualFormSection(
-            nameController: _nameController,
-            emailController: _emailController,
-            phoneController: _phoneController,
-            onNameChanged: _updateFormData,
-            onEmailChanged: _updateFormData,
-            onPhoneChanged: _updatePhoneData,
-          ),
-        ],
-      ),
+      ],
     );
   }
 
@@ -198,15 +206,8 @@ class _ClientRegistrationFormState extends State<ClientRegistrationForm> {
   }
 
   /// Actualiza los datos del formulario
-  void _updateFormData(String value) {
-    // Los cambios se reflejan automáticamente en los controladores
-    setState(() {}); // Trigger rebuild para validación
-  }
-
-  /// Actualiza los datos del teléfono
-  void _updatePhoneData(PhoneNumber? phoneNumber) {
-    // Los cambios se reflejan automáticamente en el controlador
-    setState(() {}); // Trigger rebuild para validación
+  void _updateField(String key, String value) {
+    context.read<ProfileCubit>().updateClientFormField(key, value);
   }
 
   /// Muestra el diálogo de confirmación

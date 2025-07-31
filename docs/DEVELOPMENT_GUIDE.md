@@ -87,6 +87,62 @@ Barber Time utiliza un conjunto estricto de reglas de análisis estático y lint
 - **Uso de super parámetros:** Utilizar la sintaxis de super parámetros en constructores.
 - **Comillas simples:** Usar comillas simples para strings.
 
+### 4.2 Sistema Unificado de Componentes
+
+#### Sistema de Constantes
+- **✅ AppDesignConstants:** Usar constantes centralizadas para espaciado, bordes, sombras
+- **❌ NO USAR:** Valores hardcodeados como `16.0`, `24.0`, `BorderRadius.circular(12)`
+
+#### Espaciadores
+- **✅ AppSpacers:** Reemplazar todos los `SizedBox` hardcodeados
+- **Uso obligatorio:**
+  ```dart
+  // ✅ CORRECTO
+  AppSpacers.md  // en lugar de const SizedBox(height: 16)
+  AppSpacers.lg  // en lugar de const SizedBox(height: 24)
+  AppSpacers.xl  // en lugar de const SizedBox(height: 32)
+
+  // ❌ INCORRECTO
+  const SizedBox(height: 16)
+  const SizedBox(height: 24)
+  ```
+
+#### Contenedores
+- **✅ AppContainers:** Reemplazar `Container` con `BoxDecoration` manual
+- **Uso obligatorio:**
+  ```dart
+  // ✅ CORRECTO
+  AppContainers.card(child: myWidget)
+  AppContainers.glass(child: myWidget)
+  AppContainers.bordered(child: myWidget)
+
+  // ❌ INCORRECTO
+  Container(
+    decoration: BoxDecoration(
+      color: Colors.grey,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: myWidget,
+  )
+  ```
+
+#### Botones
+- **✅ EnhancedButton:** Usar para formularios y acciones principales
+- **✅ ThemedButton:** Usar para casos legacy y navegación
+- **❌ NO USAR:** `ElevatedButton`, `TextButton`, `OutlinedButton` directamente
+- **❌ NO USAR:** `Container` con `InkWell` para botones
+
+#### Campos de Texto
+- **✅ EnhancedTextField:** Usar para formularios con validación avanzada
+- **✅ ThemedTextField:** Usar para casos legacy
+- **✅ ThemedPhoneField:** Usar para campos de teléfono
+
+#### Consistencia Visual
+- **Mantener** colores del tema (`AppTheme.kPrimaryColor`)
+- **Usar** iconos apropiados para cada acción
+- **Aplicar** animaciones sutiles con feedback háptico
+- **Prioridad:** Usar siempre `AppDesignConstants`, `AppSpacers` y `AppContainers`
+
 #### Configuración del Editor
 
 ##### VS Code
@@ -140,12 +196,12 @@ Si encuentras advertencias o errores que no puedes resolver fácilmente:
    // ignore: nombre_de_la_regla
    código que genera la advertencia;
    ```
-   
+
    O para todo un archivo:
    ```dart
    // ignore_for_file: nombre_de_la_regla
    ```
-   
+
 3. **Nunca deshabilites reglas globalmente** en el archivo `analysis_options.yaml` sin discusión previa con el equipo.
 
 ---
@@ -193,11 +249,11 @@ CachedNetworkImage(
 ```
 
 #### APIs Deprecadas y Actualizaciones
-- Reemplazar `withOpacity` por `withAlpha` para evitar pérdida de precisión: 
+- Reemplazar `withOpacity` por `withAlpha` para evitar pérdida de precisión:
   ```dart
   // Incorrecto
   color: Colors.black.withOpacity(0.5)
-  
+
   // Correcto
   color: Colors.black.withAlpha((0.5 * 255).round())
   ```
@@ -206,7 +262,7 @@ CachedNetworkImage(
   ```dart
   // Deprecado
   overlayColor: MaterialStateProperty.resolveWith((states) => color)
-  
+
   // Actual
   overlayColor: WidgetStateProperty.resolveWith((states) => color)
   ```

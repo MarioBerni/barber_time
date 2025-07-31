@@ -6,6 +6,7 @@ import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../bloc/auth_cubit.dart';
 import '../bloc/auth_state.dart';
 import '../widgets/auth_text_field.dart';
@@ -136,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  AppSpacers.md,
 
                   AuthTextField(
                     controller: _emailController,
@@ -154,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  AppSpacers.md,
 
                   AuthTextField(
                     controller: _passwordController,
@@ -181,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  AppSpacers.md,
 
                   AuthTextField(
                     controller: _confirmPasswordController,
@@ -208,7 +209,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 24),
+                  AppSpacers.lg,
 
                   // Selección de rol
                   Text('Tipo de cuenta:', style: context.bodyMedium),
