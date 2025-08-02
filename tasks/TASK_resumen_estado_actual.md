@@ -91,18 +91,17 @@
   - ✅ Consistencia visual total
   - ✅ Rendimiento optimizado
 
-### ✅ **Autocompletado e Historial de Búsquedas**
-- **Estado:** 100% COMPLETADO - Sistema completo implementado con persistencia
+### ✅ **Autocompletado con Chips**
+- **Estado:** 100% COMPLETADO - Sistema simplificado implementado
 - **Archivo:** `TASK_home_autocompletado_historial.md`
 - **Objetivos:**
   - ✅ Autocompletado en tiempo real con debounce
   - ✅ Sugerencias inteligentes (barberías y barrios)
   - ✅ Chips unificados en un solo contenedor
-  - ✅ Historial de búsquedas con persistencia local
-  - ✅ Solo búsquedas exitosas (mínimo 3 caracteres)
-  - ✅ Máximo 5 búsquedas en historial
-  - ✅ Función de limpiar historial
-  - ✅ Persistencia entre navegaciones con SharedPreferences
+  - ✅ Sistema simplificado sin historial complejo
+  - ✅ Solo sugerencias relevantes (mínimo 2 caracteres)
+  - ✅ UX más limpia y enfocada
+  - ✅ Código simplificado sin persistencia innecesaria
 
 ---
 
@@ -110,12 +109,12 @@
 
 ### 🔄 **Funcionalidades de Valor - EN PROGRESO**
 - ✅ Sistema de búsqueda mejorado (COMPLETADO)
-- ✅ Autocompletado e historial (COMPLETADO)
+- ✅ Autocompletado con chips (COMPLETADO)
 - 🔄 Filtros rápidos y sección "Para ti" (PRÓXIMO)
 - [ ] Barberías destacadas según ubicación
 - [ ] Remover Ofertas Especiales de Home
 - ✅ Filtros rápidos y autocompletado (COMPLETADO)
-- ✅ Historial de búsquedas (COMPLETADO)
+- ✅ Sistema simplificado (COMPLETADO)
 - [ ] **NUEVO:** Sección "Ofertas" en página de Favoritos
 - [ ] **NUEVO:** Simplificación de Home (2 pestañas en lugar de 3)
 

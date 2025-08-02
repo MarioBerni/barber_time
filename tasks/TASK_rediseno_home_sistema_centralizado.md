@@ -46,6 +46,14 @@
   - [x] Eliminada card "Preparando tu experiencia personalizada..."
   - [x] Spinner único y limpio para todos los estados de carga
 
+- [x] **Sistema de Búsquedas Recientes Eliminado**
+  - [x] Eliminado widget `SearchSuggestions` completo
+  - [x] Eliminado archivo `search_suggestions.dart`
+  - [x] Eliminada lógica de persistencia con SharedPreferences
+  - [x] Eliminados métodos `saveSearchToHistory`, `clearSearchHistory`
+  - [x] Eliminado campo `searchHistory` del estado
+  - [x] Sistema simplificado solo con chips inteligentes
+
 ---
 
 ## 🎯 **NUEVAS TAREAS: Reestructuración de Contenido** (Prioridad Alta)

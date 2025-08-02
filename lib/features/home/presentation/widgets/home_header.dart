@@ -5,7 +5,6 @@ import '../../../../core/widgets/icons/styled_icon.dart';
 import '../../../../core/widgets/navigation/app_top_bar.dart';
 import '../../../../core/widgets/spacers/spacers.dart';
 import '../../domain/entities/salon.dart';
-import 'search_suggestions.dart';
 
 /// Enumeración para los diferentes estilos de fondo del encabezado
 enum HomeHeaderStyle {
@@ -50,8 +49,11 @@ class HomeHeader extends StatelessWidget {
   /// Controlador para el campo de búsqueda
   final TextEditingController? searchController;
 
-  /// Callback para cuando se realiza una búsqueda.
+  /// Callback para cuando se realiza una búsqueda (ENTER).
   final ValueChanged<String>? onSearch;
+
+  /// Callback para cuando cambia el texto (tiempo real).
+  final ValueChanged<String>? onSearchChanged;
 
   /// Callback para cuando se selecciona un barrio.
   final ValueChanged<String>? onNeighborhoodSelected;
@@ -86,18 +88,6 @@ class HomeHeader extends StatelessWidget {
   /// Acciones personalizadas para la fila inferior del encabezado
   final List<Widget>? customBottomActions;
 
-  /// Sugerencias de búsqueda a mostrar
-  final List<String> searchSuggestions;
-
-  /// Indica si se deben mostrar las sugerencias
-  final bool showSuggestions;
-
-  /// Callback cuando se selecciona una sugerencia
-  final ValueChanged<String>? onSuggestionSelected;
-
-  /// Callback para limpiar historial
-  final VoidCallback? onClearHistory;
-
   /// Lista de salones para generar chips de barberías
   final List<Salon> salones;
 
@@ -112,6 +102,7 @@ class HomeHeader extends StatelessWidget {
     this.hasNotifications = false,
     this.searchController,
     this.onSearch,
+    this.onSearchChanged,
     this.onNeighborhoodSelected,
     this.isSearchActive = false,
     this.onSearchPressed,
@@ -123,10 +114,7 @@ class HomeHeader extends StatelessWidget {
     this.showSearchBar = true,
     this.customTopActions,
     this.customBottomActions,
-    this.searchSuggestions = const [],
-    this.showSuggestions = false,
-    this.onSuggestionSelected,
-    this.onClearHistory,
+
     this.salones = const [],
     this.onBarberiaSelected,
   });
@@ -148,6 +136,7 @@ class HomeHeader extends StatelessWidget {
           showSearchBar: showSearchBar,
           searchController: searchController,
           onSearch: onSearch,
+          onSearchChanged: onSearchChanged,
           onNeighborhoodSelected: onNeighborhoodSelected,
           salones: salones,
           onBarberiaSelected: onBarberiaSelected,
@@ -197,21 +186,8 @@ class HomeHeader extends StatelessWidget {
                   : []),
         ),
 
-        // Sugerencias de búsqueda
-        if (showSuggestions && searchSuggestions.isNotEmpty)
-          Padding(
-            padding: AppSpacers.only(top: 8.0) as EdgeInsets,
-            child: SearchSuggestions(
-              suggestions: searchSuggestions,
-              onSuggestionSelected: onSuggestionSelected,
-              onClearHistory: onClearHistory,
-              isHistory:
-                  searchSuggestions.length <= 5 && searchSuggestions.isNotEmpty,
-            ),
-          ),
-
         // Línea decorativa moderna con gradiente turquesa-menta
-        if (!isSearchActive && !showSuggestions)
+        if (!isSearchActive)
           Container(
             margin: AppSpacers.symmetric(horizontal: 20.0) as EdgeInsets,
             height: 2.0,

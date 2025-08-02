@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/salon.dart';
 import '../../domain/usecases/get_home_data_usecase.dart';
@@ -13,7 +12,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   /// Timer para implementar debounce en la búsqueda
   Timer? _searchDebounce;
-  static const String _searchHistoryKey = 'search_history';
 
   /// Constructor que recibe el caso de uso como dependencia
   HomeCubit(this._getHomeDataUsecase) : super(const HomeInitial());
@@ -27,9 +25,6 @@ class HomeCubit extends Cubit<HomeState> {
       final homeData = await _getHomeDataUsecase.execute();
       final salons = homeData.topRatedSalons;
 
-      // Cargar historial de búsquedas desde persistencia
-      final searchHistory = await _loadSearchHistory();
-
       emit(
         HomeLoaded(
           userName: homeData.userName,
@@ -38,7 +33,6 @@ class HomeCubit extends Cubit<HomeState> {
           serviceCategories: homeData.serviceCategories,
           topRatedSalons: salons,
           tabFilteredSalons: _getFilteredSalonsByTab(salons, HomeTab.cercanos),
-          searchHistory: searchHistory,
         ),
       );
     } catch (e) {
@@ -101,10 +95,8 @@ class HomeCubit extends Cubit<HomeState> {
         ),
       );
 
-      // Guardar en historial solo si hay resultados y es una búsqueda completa
-      if (filteredSalons.isNotEmpty && query.trim().length >= 3) {
-        saveSearchToHistory(query);
-      }
+      // ❌ ELIMINADO: No guardar automáticamente durante la búsqueda
+      // El historial se guardará solo cuando el usuario confirme la búsqueda
     }
   }
 
@@ -319,12 +311,9 @@ class HomeCubit extends Cubit<HomeState> {
     if (currentState is! HomeLoaded) return;
 
     if (query.trim().isEmpty) {
-      // Si no hay query, mostrar historial
+      // ✅ SIMPLIFICADO: Si no hay query, no mostrar sugerencias
       emit(
-        currentState.copyWith(
-          searchSuggestions: currentState.searchHistory.take(5).toList(),
-          showSuggestions: currentState.searchHistory.isNotEmpty,
-        ),
+        currentState.copyWith(searchSuggestions: [], showSuggestions: false),
       );
       return;
     }
@@ -345,49 +334,6 @@ class HomeCubit extends Cubit<HomeState> {
         showSuggestions: suggestions.isNotEmpty,
       ),
     );
-  }
-
-  /// Guarda una búsqueda en el historial solo si tiene resultados y es completa
-  void saveSearchToHistory(String query) {
-    final currentState = state;
-    if (currentState is! HomeLoaded) return;
-
-    final trimmedQuery = query.trim();
-    if (trimmedQuery.isEmpty) return;
-
-    // Solo guardar búsquedas completas (no parciales)
-    // Verificar que la búsqueda tenga al menos 3 caracteres
-    if (trimmedQuery.length < 3) return;
-
-    // Verificar que la búsqueda tenga resultados
-    final normalizedQuery = _normalizeText(trimmedQuery);
-    final hasResults = currentState.topRatedSalons.any((salon) {
-      final normalizedName = _normalizeText(salon.name.toLowerCase());
-      final normalizedAddress = _normalizeText(salon.address.toLowerCase());
-      return normalizedName.contains(normalizedQuery) ||
-          normalizedAddress.contains(normalizedQuery);
-    });
-
-    // Solo guardar si hay resultados
-    if (!hasResults) return;
-
-    final normalizedQueryLower = trimmedQuery.toLowerCase();
-    final currentHistory = List<String>.from(currentState.searchHistory);
-
-    // Remover si ya existe
-    currentHistory.removeWhere(
-      (item) => item.toLowerCase() == normalizedQueryLower,
-    );
-
-    // Agregar al inicio
-    currentHistory.insert(0, trimmedQuery);
-
-    // Mantener solo las últimas 5 búsquedas (como solicitaste)
-    final newHistory = currentHistory.take(5).toList();
-
-    // Actualizar estado y persistencia
-    emit(currentState.copyWith(searchHistory: newHistory));
-    _saveSearchHistory(newHistory);
   }
 
   /// Oculta las sugerencias
@@ -441,37 +387,6 @@ class HomeCubit extends Cubit<HomeState> {
     // Remover duplicados y limitar a 5 sugerencias
     final uniqueSuggestions = suggestions.toSet().toList();
     return uniqueSuggestions.take(5).toList();
-  }
-
-  /// Carga el historial de búsquedas desde SharedPreferences
-  Future<List<String>> _loadSearchHistory() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final historyJson = prefs.getStringList(_searchHistoryKey) ?? [];
-      return historyJson;
-    } catch (e) {
-      // Si hay error, retornar lista vacía
-      return [];
-    }
-  }
-
-  /// Guarda el historial de búsquedas en SharedPreferences
-  Future<void> _saveSearchHistory(List<String> history) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setStringList(_searchHistoryKey, history);
-    } catch (e) {
-      // Silenciar errores de persistencia
-    }
-  }
-
-  /// Limpia el historial de búsquedas
-  void clearSearchHistory() {
-    final currentState = state;
-    if (currentState is HomeLoaded) {
-      emit(currentState.copyWith(searchHistory: []));
-      _saveSearchHistory([]);
-    }
   }
 
   /// Limpia el timer de debounce al cerrar el cubit

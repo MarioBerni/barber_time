@@ -93,6 +93,21 @@
     - [x] Reemplazar `Spacer()` problemático con `SizedBox(height: 8)`
     - [x] Resolver error de constraints de RenderFlex
 
+- [x] **Sistema de Búsqueda Simplificado** ✅ COMPLETADO RECIENTEMENTE
+  - [x] Eliminar sistema de búsquedas recientes complejo:
+    - [x] Eliminado widget `SearchSuggestions`
+    - [x] Eliminada persistencia con SharedPreferences
+    - [x] Eliminados métodos de historial
+    - [x] Eliminado campo `searchHistory` del estado
+  - [x] Mantener solo chips inteligentes:
+    - [x] Chips de barrios de Montevideo
+    - [x] Chips de nombres de barberías
+    - [x] Términos populares de búsqueda
+  - [x] UX más limpia y enfocada:
+    - [x] Sin historial confuso
+    - [x] Solo sugerencias relevantes
+    - [x] Código simplificado
+
 - [ ] **Finalización y Pruebas**
   - [ ] Verificar la correcta visualización y responsividad en diferentes tamaños de pantalla.
   - [ ] Medir y comparar rendimiento antes y después de las optimizaciones.

@@ -23,6 +23,9 @@ class AppTopBar extends StatelessWidget {
   /// Callback para evento de búsqueda.
   final ValueChanged<String>? onSearch;
 
+  /// Callback cuando cambia el texto de búsqueda en tiempo real.
+  final ValueChanged<String>? onSearchChanged;
+
   /// Callback para cuando se selecciona un barrio específico.
   final ValueChanged<String>? onNeighborhoodSelected;
 
@@ -95,6 +98,7 @@ class AppTopBar extends StatelessWidget {
     this.avatarUrl,
     this.searchController,
     this.onSearch,
+    this.onSearchChanged,
     this.onNeighborhoodSelected,
     this.salones = const [],
     this.onBarberiaSelected,
@@ -262,7 +266,7 @@ class AppTopBar extends StatelessWidget {
                           child: custom.SearchBar(
                             controller: searchController,
                             onSubmitted: onSearch,
-                            onChanged: onSearch,
+                            onChanged: onSearchChanged,
                             onNeighborhoodSelected:
                                 onNeighborhoodSelected ?? onSearch,
                             salones: salones,

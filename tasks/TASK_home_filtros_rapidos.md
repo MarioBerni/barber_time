@@ -2,7 +2,7 @@
 
 **Objetivo:** Implementar filtros rápidos de búsqueda y una sección "Para Ti" con recomendaciones personalizadas para mejorar la experiencia de descubrimiento en la Home Page.
 
-**Prioridad:** Alta - Complementa el sistema de búsqueda ya implementado.
+**Prioridad:** Alta - Complementa el sistema de búsqueda simplificado ya implementado.
 
 **Estado Actual:** 🔄 **LISTO PARA INICIAR** - Sistema de búsqueda y autocompletado completado.
 
@@ -13,9 +13,9 @@
 ### ✅ **Lo que ya existe:**
 - ✅ Búsqueda en tiempo real con debounce implementada
 - ✅ Autocompletado con chips unificados
-- ✅ Historial de búsquedas con persistencia
 - ✅ Sistema de pestañas (Cercanos, Mejor Valorados)
 - ✅ Filtrado básico por nombre y ubicación
+- ✅ Sistema simplificado sin historial complejo
 
 ### 🔧 **Lo que necesita implementación:**
 - ❌ **Filtros rápidos** - No hay filtros por rating, distancia, precio
@@ -35,7 +35,7 @@
 - [ ] **Filtro por Horarios** (abierto ahora, 24h, etc.)
 
 ### 🎯 **2. Sección "Para Ti"**
-- [ ] **Recomendaciones personalizadas** basadas en historial
+- [ ] **Recomendaciones personalizadas** basadas en preferencias
 - [ ] **Barberías populares** en la zona
 - [ ] **Ofertas especiales** destacadas
 - [ ] **Servicios trending** del momento

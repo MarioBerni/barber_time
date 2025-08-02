@@ -53,13 +53,12 @@ class _HomePageState extends State<HomePage>
       homeCubit: context.read<HomeCubit>(),
     );
 
-    // Agregar listener para sugerencias
-    _searchController.addListener(_onSearchChanged);
+    // Ya no necesitamos listener - se maneja directamente en los callbacks
   }
 
   @override
   void dispose() {
-    _searchController.removeListener(_onSearchChanged);
+    // Ya no hay listener que remover
     _searchController.dispose();
     _pageController.dispose();
     _navigationController.dispose();
@@ -186,12 +185,6 @@ class _HomePageState extends State<HomePage>
     context.read<HomeCubit>().clearSearch();
   }
 
-  /// Método para manejar cambios en el campo de búsqueda
-  void _onSearchChanged() {
-    final query = _searchController.text;
-    context.read<HomeCubit>().getSearchSuggestions(query);
-  }
-
   /// Construye una barra de aplicación simplificada
   Widget _buildSimpleAppBar(HomeLoaded state) {
     return HomeHeader(
@@ -199,14 +192,17 @@ class _HomePageState extends State<HomePage>
       hasNotifications: state.hasNotifications,
       searchController: _searchController,
       onSearch: (query) {
+        // ✅ SOLO confirmar búsqueda (ENTER)
         context.read<HomeCubit>().searchSalonsWithDebounce(query);
-        // NO guardar en historial aquí - solo cuando se selecciona una sugerencia
-        // o se completa una búsqueda exitosa
+      },
+      onSearchChanged: (query) {
+        // ✅ SOLO búsqueda en tiempo real (SIN guardar en historial)
+        context.read<HomeCubit>().searchSalonsWithDebounce(query);
+        context.read<HomeCubit>().getSearchSuggestions(query);
       },
       onNeighborhoodSelected: (neighborhood) {
         _searchController.text = neighborhood;
         context.read<HomeCubit>().selectNeighborhood(neighborhood);
-        context.read<HomeCubit>().saveSearchToHistory(neighborhood);
       },
       isSearchActive: state.isSearchActive,
       onSearchPressed: () {
@@ -218,22 +214,13 @@ class _HomePageState extends State<HomePage>
       onUserAvatarPressed: () {
         context.go(AppRoutes.profile);
       },
-      searchSuggestions: state.searchSuggestions,
-      showSuggestions: state.showSuggestions,
+
       salones: state.topRatedSalons,
-      onSuggestionSelected: (suggestion) {
-        _searchController.text = suggestion;
-        context.read<HomeCubit>().searchSalonsWithDebounce(suggestion);
-        context.read<HomeCubit>().saveSearchToHistory(suggestion);
-        context.read<HomeCubit>().hideSuggestions();
-      },
+
       onBarberiaSelected: (barberia) {
         _searchController.text = barberia;
         context.read<HomeCubit>().searchSalonsWithDebounce(barberia);
-        context.read<HomeCubit>().saveSearchToHistory(barberia);
-      },
-      onClearHistory: () {
-        context.read<HomeCubit>().clearSearchHistory();
+        context.read<HomeCubit>().hideSuggestions();
       },
     );
   }

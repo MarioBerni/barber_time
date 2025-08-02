@@ -13,7 +13,7 @@
 ### 🎯 **1. HOME PAGE - Búsqueda y Descubrimiento**
 - [x] **Búsqueda en tiempo real** con debounce ✅
 - [x] **Autocompletado** de términos de búsqueda ✅
-- [x] **Historial de búsquedas** recientes ✅
+- [x] **Sistema de búsqueda simplificado** con chips ✅
 - [ ] **Filtros rápidos** (por rating, distancia, precio)
 - [ ] **Sección "Para Ti"** con recomendaciones
 - [ ] **Barberías destacadas** según ubicación
@@ -109,7 +109,7 @@ lib/features/
 
 ### **Fase 1: HOME PAGE Mejorada (2-3 días)**
 1. ✅ **Búsqueda en tiempo real con debounce** - [COMPLETADO] `TASK_home_busqueda_tiempo_real.md`
-2. ✅ **Autocompletado y historial de búsquedas** - [COMPLETADO] `TASK_home_autocompletado_historial.md`
+2. ✅ **Autocompletado con chips** - [COMPLETADO] `TASK_home_autocompletado_historial.md`
 3. 🔄 **Filtros rápidos y sección "Para Ti"** - [PRÓXIMO] `TASK_home_filtros_rapidos.md`
 4. Barberías destacadas según ubicación
 5. **Remover Ofertas Especiales** de Home
@@ -140,7 +140,7 @@ lib/features/
 
 ### **Fase 6: PROFILE Mejorado (1-2 días)**
 1. Servicios populares en la zona
-2. Historial completo de búsquedas
+2. Sistema de búsqueda simplificado
 3. Preferencias de usuario
 
 ---

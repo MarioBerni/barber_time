@@ -82,9 +82,6 @@ class HomeLoaded extends HomeState {
   /// Sugerencias de búsqueda actuales
   final List<String> searchSuggestions;
 
-  /// Historial de búsquedas recientes
-  final List<String> searchHistory;
-
   /// Indica si se deben mostrar las sugerencias
   final bool showSuggestions;
 
@@ -102,7 +99,6 @@ class HomeLoaded extends HomeState {
     this.selectedTab = HomeTab.cercanos,
     List<Salon>? tabFilteredSalons,
     this.searchSuggestions = const [],
-    this.searchHistory = const [],
     this.showSuggestions = false,
   }) : filteredSalons = filteredSalons ?? topRatedSalons,
        tabFilteredSalons = tabFilteredSalons ?? topRatedSalons;
@@ -120,7 +116,6 @@ class HomeLoaded extends HomeState {
     selectedTab,
     tabFilteredSalons,
     searchSuggestions,
-    searchHistory,
     showSuggestions,
   ];
 
@@ -137,7 +132,7 @@ class HomeLoaded extends HomeState {
     HomeTab? selectedTab,
     List<Salon>? tabFilteredSalons,
     List<String>? searchSuggestions,
-    List<String>? searchHistory,
+
     bool? showSuggestions,
   }) {
     return HomeLoaded(
@@ -152,7 +147,6 @@ class HomeLoaded extends HomeState {
       selectedTab: selectedTab ?? this.selectedTab,
       tabFilteredSalons: tabFilteredSalons ?? this.tabFilteredSalons,
       searchSuggestions: searchSuggestions ?? this.searchSuggestions,
-      searchHistory: searchHistory ?? this.searchHistory,
       showSuggestions: showSuggestions ?? this.showSuggestions,
     );
   }

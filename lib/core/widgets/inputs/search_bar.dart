@@ -213,7 +213,7 @@ class _SearchBarState extends State<SearchBar> {
     }
   }
 
-  /// Construye las sugerencias de barrios y barberías basadas en el texto actual
+  /// Construye las sugerencias de barrios y barberías basadas en el texto
   Widget _buildNeighborhoodSuggestions(BuildContext context) {
     return ValueListenableBuilder<TextEditingValue>(
       valueListenable: widget.controller!,
