@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../features/home/domain/entities/salon.dart';
 import '../../theme/app_design_constants.dart';
 import '../../theme/app_theme_extensions.dart';
 import '../avatars/user_avatar.dart';
@@ -24,6 +25,12 @@ class AppTopBar extends StatelessWidget {
 
   /// Callback para cuando se selecciona un barrio específico.
   final ValueChanged<String>? onNeighborhoodSelected;
+
+  /// Lista de salones para generar chips de barberías
+  final List<Salon> salones;
+
+  /// Callback cuando se selecciona una barbería desde chips
+  final ValueChanged<String>? onBarberiaSelected;
 
   /// Texto de sugerencia para la búsqueda.
   final String? searchHint;
@@ -89,6 +96,8 @@ class AppTopBar extends StatelessWidget {
     this.searchController,
     this.onSearch,
     this.onNeighborhoodSelected,
+    this.salones = const [],
+    this.onBarberiaSelected,
     this.searchHint,
     this.showNeighborhoodSuggestions = true,
     this.isSearchActive = false,
@@ -116,7 +125,8 @@ class AppTopBar extends StatelessWidget {
     final startColor = gradientStartColor ?? context.accentDarkColor;
     final endColor = gradientEndColor ?? context.accentColor;
 
-    return DecoratedBox(
+    return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -149,7 +159,7 @@ class AppTopBar extends StatelessWidget {
           SafeArea(
             bottom: false,
             child: Padding(
-              padding: padding ?? const EdgeInsets.fromLTRB(16, 16, 16, 20),
+              padding: padding ?? const EdgeInsets.fromLTRB(20, 24, 20, 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -255,6 +265,8 @@ class AppTopBar extends StatelessWidget {
                             onChanged: onSearch,
                             onNeighborhoodSelected:
                                 onNeighborhoodSelected ?? onSearch,
+                            salones: salones,
+                            onBarberiaSelected: onBarberiaSelected ?? onSearch,
                             hintText:
                                 searchHint ?? 'Buscar por barbería o barrio',
                             showNeighborhoodSuggestions:

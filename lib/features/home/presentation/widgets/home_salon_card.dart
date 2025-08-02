@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme/app_theme_extensions.dart';
+import '../../../../core/theme/app_design_constants.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/containers/containers.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../../../../core/widgets/states/states.dart';
 import '../../domain/entities/salon.dart';
 
@@ -24,36 +27,25 @@ class HomeSalonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha((0.1 * 255).round()),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+    return AppContainers.card(
+      margin: AppSpacers.symmetric(vertical: 6) as EdgeInsets,
       child: Row(
         children: [
-          // Imagen del salón
+          // Imagen del salón con diseño optimizado
           ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(AppDesignConstants.borderRadiusMD),
+              bottomLeft: Radius.circular(AppDesignConstants.borderRadiusMD),
             ),
             child: CachedNetworkImage(
               imageUrl: salon.imageUrl,
-              width: 110,
-              height: 110,
+              width: 120,
+              height: 120,
               fit: BoxFit.cover,
               placeholder: (context, url) => Container(
-                width: 110,
-                height: 110,
-                color: theme.colorScheme.primary.withAlpha((0.1 * 255).round()),
+                width: 120,
+                height: 120,
+                color: AppTheme.kSurfaceAlt,
                 child: const Center(
                   child: LoadingIndicatorWidget(
                     size: LoadingIndicatorSize.small,
@@ -61,21 +53,22 @@ class HomeSalonCard extends StatelessWidget {
                 ),
               ),
               errorWidget: (context, url, error) => Container(
-                width: 110,
-                height: 110,
-                color: theme.colorScheme.primary.withAlpha((0.2 * 255).round()),
+                width: 120,
+                height: 120,
+                color: AppTheme.kSurfaceAlt,
                 child: Icon(
                   Icons.image_not_supported,
-                  size: context.iconSizeDefault,
+                  color: AppTheme.kMediumGray,
+                  size: 32,
                 ),
               ),
             ),
           ),
 
-          // Información del salón
+          // Información del salón con diseño optimizado
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: AppSpacers.all(16.0) as EdgeInsets,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -87,39 +80,70 @@ class HomeSalonCard extends StatelessWidget {
                         child: Text(
                           salon.name,
                           style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: AppTheme.kTextColor,
+                            letterSpacing: -0.3,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          salon.isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: salon.isFavorite
-                              ? theme.colorScheme.primary
-                              : null,
+                      // Botón de favorito optimizado
+                      GestureDetector(
+                        onTap: onFavoritePressed,
+                        child: Container(
+                          padding: AppSpacers.all(8.0) as EdgeInsets,
+                          decoration: BoxDecoration(
+                            color: salon.isFavorite
+                                ? AppTheme.kAccentColor.withAlpha(30)
+                                : AppTheme.kSurfaceAlt,
+                            borderRadius: BorderRadius.circular(
+                              AppDesignConstants.borderRadiusSM2,
+                            ),
+                          ),
+                          child: Icon(
+                            salon.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: salon.isFavorite
+                                ? AppTheme.kAccentColor
+                                : AppTheme.kMediumGray,
+                            size: 20,
+                          ),
                         ),
-                        onPressed: onFavoritePressed,
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
                       ),
                     ],
                   ),
 
-                  // Dirección
-                  Text(
-                    salon.address,
-                    style: theme.textTheme.bodySmall,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  AppSpacers.sm,
+
+                  // Dirección con icono
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: AppTheme.kMediumGray,
+                        size: 16,
+                      ),
+                      AppSpacers.hXxs,
+                      Expanded(
+                        child: Text(
+                          salon.address,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppTheme.kMediumGray,
+                            fontSize: 13,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
 
-                  const SizedBox(height: 8),
+                  AppSpacers.md,
 
-                  // Calificación, reseñas y precio
+                  // Calificación, reseñas y precio optimizados
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -127,45 +151,50 @@ class HomeSalonCard extends StatelessWidget {
                       Row(
                         children: [
                           Icon(
-                            Icons.star,
-                            color: context
-                                .accentColor, // Actualizado a naranja terracota
+                            Icons.star_rounded,
+                            color: AppTheme.kAccentColor,
                             size: 18,
                           ),
-                          const SizedBox(width: 4),
+                          AppSpacers.hXxs,
                           Text(
                             '${salon.rating}',
                             style: theme.textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
+                              color: AppTheme.kTextColor,
+                              fontSize: 14,
                             ),
                           ),
-                          const SizedBox(width: 4),
+                          AppSpacers.hXxs,
                           Text(
                             '(${salon.reviewCount})',
-                            style: theme.textTheme.bodySmall,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: AppTheme.kMediumGray,
+                              fontSize: 13,
+                            ),
                           ),
                         ],
                       ),
 
-                      // Precio
+                      // Precio con diseño mejorado
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
+                        padding:
+                            AppSpacers.symmetric(horizontal: 10, vertical: 4)
+                                as EdgeInsets,
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.secondary.withAlpha(
-                            (0.1 * 255).round(),
+                          color: AppTheme.kPrimaryColor.withAlpha(30),
+                          borderRadius: BorderRadius.circular(
+                            AppDesignConstants.borderRadiusSM2,
                           ),
-                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                            color: AppTheme.kPrimaryColor.withAlpha(50),
+                          ),
                         ),
                         child: Text(
                           salon.price,
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme
-                                .colorScheme
-                                .secondary, // Naranja terracota
-                            fontWeight: FontWeight.bold,
+                            color: AppTheme.kPrimaryColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
                           ),
                         ),
                       ),

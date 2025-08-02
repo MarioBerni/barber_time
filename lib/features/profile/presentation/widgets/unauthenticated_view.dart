@@ -95,7 +95,7 @@ class UnauthenticatedView extends StatelessWidget {
             child: Text(
               'Selecciona tu tipo de usuario',
               style: context.h1.copyWith(
-                color: Colors.white,
+                color: AppTheme.kTextColor,
                 fontWeight: FontWeight.w900,
                 fontSize: 32,
                 letterSpacing: 0.8,

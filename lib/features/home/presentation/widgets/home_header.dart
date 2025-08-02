@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/icons/styled_icon.dart';
 import '../../../../core/widgets/navigation/app_top_bar.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
+import '../../domain/entities/salon.dart';
+import 'search_suggestions.dart';
 
 /// Enumeración para los diferentes estilos de fondo del encabezado
 enum HomeHeaderStyle {
@@ -83,6 +86,24 @@ class HomeHeader extends StatelessWidget {
   /// Acciones personalizadas para la fila inferior del encabezado
   final List<Widget>? customBottomActions;
 
+  /// Sugerencias de búsqueda a mostrar
+  final List<String> searchSuggestions;
+
+  /// Indica si se deben mostrar las sugerencias
+  final bool showSuggestions;
+
+  /// Callback cuando se selecciona una sugerencia
+  final ValueChanged<String>? onSuggestionSelected;
+
+  /// Callback para limpiar historial
+  final VoidCallback? onClearHistory;
+
+  /// Lista de salones para generar chips de barberías
+  final List<Salon> salones;
+
+  /// Callback cuando se selecciona una barbería desde chips
+  final ValueChanged<String>? onBarberiaSelected;
+
   /// Constructor del encabezado de la página de inicio.
   const HomeHeader({
     super.key,
@@ -96,12 +117,18 @@ class HomeHeader extends StatelessWidget {
     this.onSearchPressed,
     this.onNotificationsPressed,
     this.onUserAvatarPressed,
-    this.padding = const EdgeInsets.fromLTRB(16, 50, 16, 16),
+    this.padding = const EdgeInsets.fromLTRB(16, 24, 16, 16),
     this.backgroundColor,
     this.style = HomeHeaderStyle.light,
     this.showSearchBar = true,
     this.customTopActions,
     this.customBottomActions,
+    this.searchSuggestions = const [],
+    this.showSuggestions = false,
+    this.onSuggestionSelected,
+    this.onClearHistory,
+    this.salones = const [],
+    this.onBarberiaSelected,
   });
 
   @override
@@ -121,23 +148,21 @@ class HomeHeader extends StatelessWidget {
           showSearchBar: showSearchBar,
           searchController: searchController,
           onSearch: onSearch,
+          onNeighborhoodSelected: onNeighborhoodSelected,
+          salones: salones,
+          onBarberiaSelected: onBarberiaSelected,
           searchHint: 'Buscar barberías por nombre o ubicación...',
           // Saludo con tipografía moderna
           greetingText: '¡Hola, $userName!',
           secondaryText: formattedDate,
           // Colores de texto con mayor contraste para mejor legibilidad
           greetingTextColor: AppTheme.kOffWhite,
-          secondaryTextColor:
-              AppTheme.kPrimaryLightColor, // Turquesa-menta claro para fecha
+          secondaryTextColor: AppTheme.kPrimaryLightColor,
+          // Turquesa-menta claro para fecha
           // Fondo moderno con gradiente negro azulado
           gradientStartColor: AppTheme.kBackgroundColor,
           gradientEndColor: AppTheme.kSurfaceColor,
-          padding: const EdgeInsets.fromLTRB(
-            16.0,
-            24.0,
-            16.0,
-            20.0,
-          ), // Más espacio vertical
+          padding: AppSpacers.fromLTRB(20.0, 24.0, 20.0, 20.0) as EdgeInsets,
           // Acciones para la fila superior con nuevo estilo
           topActions:
               customTopActions ??
@@ -147,13 +172,12 @@ class HomeHeader extends StatelessWidget {
                   icon: Icons.notifications_outlined,
                   iconColor: hasNotifications
                       ? AppTheme.kAccentColor
-                      : AppTheme
-                            .kOffWhite, 
-                            // Naranja terracota si hay notificaciones
+                      : AppTheme.kOffWhite,
+                  // Naranja terracota si hay notificaciones
                   backgroundColor: AppTheme.kSurfaceAlt,
                   showBadge: hasNotifications,
-                  badgeColor: AppTheme.kAccentColor, 
-                      // Badge naranja para mayor distinción
+                  badgeColor: AppTheme.kAccentColor,
+                  // Badge naranja para mayor distinción
                   onTap: onNotificationsPressed,
                 ),
               ],
@@ -173,11 +197,24 @@ class HomeHeader extends StatelessWidget {
                   : []),
         ),
 
+        // Sugerencias de búsqueda
+        if (showSuggestions && searchSuggestions.isNotEmpty)
+          Padding(
+            padding: AppSpacers.only(top: 8.0) as EdgeInsets,
+            child: SearchSuggestions(
+              suggestions: searchSuggestions,
+              onSuggestionSelected: onSuggestionSelected,
+              onClearHistory: onClearHistory,
+              isHistory:
+                  searchSuggestions.length <= 5 && searchSuggestions.isNotEmpty,
+            ),
+          ),
+
         // Línea decorativa moderna con gradiente turquesa-menta
-        if (!isSearchActive)
+        if (!isSearchActive && !showSuggestions)
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24.0),
-            height: 2.0, // Ligeramente más gruesa
+            margin: AppSpacers.symmetric(horizontal: 20.0) as EdgeInsets,
+            height: 2.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [

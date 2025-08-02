@@ -70,6 +70,41 @@ class AppSpacers {
   /// Crea un espaciador cuadrado
   static Widget square(double size) => SizedBox(width: size, height: size);
 
+  // ===== MÉTODOS PARA EDGEINSETS =====
+
+  /// Crea EdgeInsets.fromLTRB usando constantes del sistema
+  static EdgeInsetsGeometry fromLTRB(
+    double left,
+    double top,
+    double right,
+    double bottom,
+  ) {
+    return EdgeInsets.fromLTRB(left, top, right, bottom);
+  }
+
+  /// Crea EdgeInsets.symmetric usando constantes del sistema
+  static EdgeInsetsGeometry symmetric({
+    double horizontal = 0.0,
+    double vertical = 0.0,
+  }) {
+    return EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
+  }
+
+  /// Crea EdgeInsets.all usando constantes del sistema
+  static EdgeInsetsGeometry all(double value) {
+    return EdgeInsets.all(value);
+  }
+
+  /// Crea EdgeInsets.only usando constantes del sistema
+  static EdgeInsetsGeometry only({
+    double left = 0.0,
+    double top = 0.0,
+    double right = 0.0,
+    double bottom = 0.0,
+  }) {
+    return EdgeInsets.only(left: left, top: top, right: right, bottom: bottom);
+  }
+
   // ===== ESPACIADORES PARA SLIVERS =====
 
   /// Espaciador para SliverToBoxAdapter (16px)

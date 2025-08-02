@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/barberia_sugerencias.dart';
 import '../../../core/constants/montevideo_barrios.dart';
 import '../../../core/theme/app_theme_extensions.dart';
+import '../../../features/home/domain/entities/salon.dart';
 
 /// Componente reutilizable para barra de búsqueda
 ///
@@ -25,6 +27,12 @@ class SearchBar extends StatefulWidget {
 
   /// Función a ejecutar cuando se selecciona un barrio
   final ValueChanged<String>? onNeighborhoodSelected;
+
+  /// Lista de salones para generar chips de barberías
+  final List<Salon> salones;
+
+  /// Función a ejecutar cuando se selecciona una barbería
+  final ValueChanged<String>? onBarberiaSelected;
 
   /// Si debe mostrar el botón de limpiar
   final bool showClearButton;
@@ -59,6 +67,8 @@ class SearchBar extends StatefulWidget {
     this.hintText = 'Buscar barberías por nombre o ubicación',
     this.showNeighborhoodSuggestions = true,
     this.onNeighborhoodSelected,
+    this.salones = const [],
+    this.onBarberiaSelected,
     this.showClearButton = true,
     this.enabled = true,
     this.backgroundColor,
@@ -203,7 +213,7 @@ class _SearchBarState extends State<SearchBar> {
     }
   }
 
-  /// Construye las sugerencias de barrios basadas en el texto actual
+  /// Construye las sugerencias de barrios y barberías basadas en el texto actual
   Widget _buildNeighborhoodSuggestions(BuildContext context) {
     return ValueListenableBuilder<TextEditingValue>(
       valueListenable: widget.controller!,
@@ -216,20 +226,48 @@ class _SearchBarState extends State<SearchBar> {
         }
 
         // Obtener sugerencias de barrios
-        final suggestions = MontevideoBarrios.obtenerSugerencias(text);
+        final barriosSuggestions = MontevideoBarrios.obtenerSugerencias(text);
 
-        if (suggestions.isEmpty) {
+        // Obtener sugerencias de barberías
+        final salonesMap = widget.salones
+            .map((salon) => {'name': salon.name, 'address': salon.address})
+            .toList();
+        final barberiasSuggestions = BarberiaSugerencias.obtenerSugerencias(
+          text,
+          salonesMap,
+        );
+
+        // Combinar todas las sugerencias
+        final allSuggestions = <MapEntry<String, String>>[];
+
+        // Agregar barrios con tipo
+        for (final barrio in barriosSuggestions) {
+          allSuggestions.add(MapEntry(barrio, 'barrio'));
+        }
+
+        // Agregar barberías con tipo
+        for (final barberia in barberiasSuggestions) {
+          allSuggestions.add(MapEntry(barberia, 'barberia'));
+        }
+
+        if (allSuggestions.isEmpty) {
           return const SizedBox.shrink();
         }
 
-        // Mostrar chips de barrios como sugerencias
+        // Mostrar chips unificados
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: suggestions
-                .map((barrio) => _buildSuggestionChip(context, barrio))
+            children: allSuggestions
+                .map(
+                  (suggestion) => _buildUnifiedSuggestionChip(
+                    context,
+                    suggestion.key,
+                    suggestion.value,
+                  ),
+                )
                 .toList(),
           ),
         );
@@ -237,25 +275,49 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 
-  /// Construye un chip para una sugerencia de barrio
-  Widget _buildSuggestionChip(BuildContext context, String barrio) {
+  /// Construye un chip unificado para sugerencias de barrios y barberías
+  Widget _buildUnifiedSuggestionChip(
+    BuildContext context,
+    String suggestion,
+    String type,
+  ) {
+    IconData icon;
+    VoidCallback? onPressed;
+
+    if (type == 'barrio') {
+      icon = Icons.location_on;
+      onPressed = () {
+        if (widget.onNeighborhoodSelected != null) {
+          widget.onNeighborhoodSelected!(suggestion);
+          widget.controller!.text = suggestion;
+        } else {
+          widget.controller!.text = suggestion;
+          if (widget.onSubmitted != null) {
+            widget.onSubmitted!(suggestion);
+          }
+        }
+      };
+    } else {
+      icon = Icons.content_cut;
+      onPressed = () {
+        if (widget.onBarberiaSelected != null) {
+          widget.onBarberiaSelected!(suggestion);
+          widget.controller!.text = suggestion;
+        } else {
+          widget.controller!.text = suggestion;
+          if (widget.onSubmitted != null) {
+            widget.onSubmitted!(suggestion);
+          }
+        }
+      };
+    }
+
     return ActionChip(
       backgroundColor: context.surfaceColor,
       side: BorderSide(color: context.dividerColor),
-      label: Text(barrio, style: context.bodySmall),
-      avatar: const Icon(Icons.location_on, size: 16),
-      onPressed: () {
-        if (widget.onNeighborhoodSelected != null) {
-          widget.onNeighborhoodSelected!(barrio);
-          widget.controller!.text = barrio;
-        } else {
-          // Si no hay handler específico, usamos el normal
-          widget.controller!.text = barrio;
-          if (widget.onSubmitted != null) {
-            widget.onSubmitted!(barrio);
-          }
-        }
-      },
+      label: Text(suggestion, style: context.bodySmall),
+      avatar: Icon(icon, size: 16),
+      onPressed: onPressed,
     );
   }
 

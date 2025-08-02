@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_design_constants.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 
 /// Widget reutilizable para títulos de sección con estilo moderno
 ///
@@ -31,7 +32,7 @@ class SectionTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: AppSpacers.symmetric(horizontal: 20) as EdgeInsets,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -62,9 +63,10 @@ class SectionTitleWidget extends StatelessWidget {
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: AppTheme.kTextColor,
+                      letterSpacing: -0.5,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -72,21 +74,28 @@ class SectionTitleWidget extends StatelessWidget {
               ],
             ),
           ),
-          // Botón de acción "Ver todas"
+          // Botón de acción "Ver todas" con mejor diseño
           TextButton(
             onPressed: onActionPressed ?? () {},
             style: TextButton.styleFrom(
               visualDensity: VisualDensity.compact,
-              padding: EdgeInsets.zero,
+              padding:
+                  AppSpacers.symmetric(horizontal: 12, vertical: 6)
+                      as EdgeInsets,
               minimumSize: Size.zero,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  AppDesignConstants.borderRadiusSM2,
+                ),
+              ),
             ),
             child: Text(
               actionText,
               style: TextStyle(
-                color: AppTheme.kMediumGray,
+                color: AppTheme.kPrimaryColor,
                 fontSize: 14,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

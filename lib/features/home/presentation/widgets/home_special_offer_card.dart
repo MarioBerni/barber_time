@@ -82,8 +82,8 @@ class HomeSpecialOfferCard extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black.withAlpha(10),
-                      Colors.black.withAlpha(200),
+                      AppTheme.kBlackPure.withAlpha(10),
+                      AppTheme.kBlackPure.withAlpha(200),
                     ],
                   ),
                 ),
@@ -111,7 +111,7 @@ class HomeSpecialOfferCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: Icon(Icons.star, color: Colors.white, size: 16),
+                child: Icon(Icons.star, color: AppTheme.kTextColor, size: 16),
               ),
             ),
 

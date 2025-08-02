@@ -93,7 +93,7 @@ class _UserTypeOptionState extends State<UserTypeOption>
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withAlpha(102),
+                          color: AppTheme.kBlackPure.withAlpha(102),
                           blurRadius: 12,
                           offset: const Offset(0, 6),
                           spreadRadius: 2,
@@ -136,7 +136,7 @@ class _UserTypeOptionState extends State<UserTypeOption>
                               Text(
                                 widget.title,
                                 style: context.titleLarge.copyWith(
-                                  color: Colors.white,
+                                  color: AppTheme.kTextColor,
                                   fontWeight: FontWeight.w800,
                                   fontSize: 22,
                                   letterSpacing: 0.5,

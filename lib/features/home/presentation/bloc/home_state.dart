@@ -6,9 +6,6 @@ import '../../domain/entities/special_offer.dart';
 
 /// Enum que define las pestañas disponibles en la página de inicio
 enum HomeTab {
-  /// Pestaña de destacados (muestra el contenido principal)
-  destacados,
-
   /// Pestaña de barberías cercanas (filtradas por distancia)
   cercanos,
 
@@ -30,6 +27,24 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {
   /// Constructor del estado inicial de la página de inicio.
   const HomeInitial();
+}
+
+/// Estado cuando se está realizando una búsqueda
+class HomeSearching extends HomeState {
+  /// Texto de búsqueda actual
+  final String searchQuery;
+
+  /// Resultados previos de búsqueda
+  final List<Salon> previousResults;
+
+  /// Constructor del estado de búsqueda
+  const HomeSearching({
+    required this.searchQuery,
+    required this.previousResults,
+  });
+
+  @override
+  List<Object?> get props => [searchQuery, previousResults];
 }
 
 /// Estado cuando la carga de datos es exitosa
@@ -64,6 +79,15 @@ class HomeLoaded extends HomeState {
   /// Salones filtrados según la pestaña seleccionada
   final List<Salon> tabFilteredSalons;
 
+  /// Sugerencias de búsqueda actuales
+  final List<String> searchSuggestions;
+
+  /// Historial de búsquedas recientes
+  final List<String> searchHistory;
+
+  /// Indica si se deben mostrar las sugerencias
+  final bool showSuggestions;
+
   /// Constructor de HomeLoaded.
   /// Constructor de HomeLoaded.
   const HomeLoaded({
@@ -75,8 +99,11 @@ class HomeLoaded extends HomeState {
     this.isSearchActive = false,
     this.searchQuery = '',
     List<Salon>? filteredSalons,
-    this.selectedTab = HomeTab.destacados,
+    this.selectedTab = HomeTab.cercanos,
     List<Salon>? tabFilteredSalons,
+    this.searchSuggestions = const [],
+    this.searchHistory = const [],
+    this.showSuggestions = false,
   }) : filteredSalons = filteredSalons ?? topRatedSalons,
        tabFilteredSalons = tabFilteredSalons ?? topRatedSalons;
 
@@ -92,6 +119,9 @@ class HomeLoaded extends HomeState {
     filteredSalons,
     selectedTab,
     tabFilteredSalons,
+    searchSuggestions,
+    searchHistory,
+    showSuggestions,
   ];
 
   /// Crea una copia del estado con los campos actualizados
@@ -106,6 +136,9 @@ class HomeLoaded extends HomeState {
     List<Salon>? filteredSalons,
     HomeTab? selectedTab,
     List<Salon>? tabFilteredSalons,
+    List<String>? searchSuggestions,
+    List<String>? searchHistory,
+    bool? showSuggestions,
   }) {
     return HomeLoaded(
       userName: userName ?? this.userName,
@@ -118,6 +151,9 @@ class HomeLoaded extends HomeState {
       filteredSalons: filteredSalons ?? this.filteredSalons,
       selectedTab: selectedTab ?? this.selectedTab,
       tabFilteredSalons: tabFilteredSalons ?? this.tabFilteredSalons,
+      searchSuggestions: searchSuggestions ?? this.searchSuggestions,
+      searchHistory: searchHistory ?? this.searchHistory,
+      showSuggestions: showSuggestions ?? this.showSuggestions,
     );
   }
 }

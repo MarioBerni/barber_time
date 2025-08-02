@@ -75,15 +75,12 @@ class HomeTabContent extends StatelessWidget {
     bool showPremiumIcon = false;
 
     switch (tab) {
-      case HomeTab.destacados:
-        title = 'Barberías Premium';
-        showPremiumIcon = true;
-        break;
       case HomeTab.cercanos:
         title = 'Barberías Cercanas';
         break;
       case HomeTab.mejorValorados:
         title = 'Mejor Valoradas';
+        showPremiumIcon = true;
         break;
     }
 

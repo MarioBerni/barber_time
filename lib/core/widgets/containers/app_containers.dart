@@ -426,4 +426,23 @@ class AppContainers {
       child: ClipPath(clipper: clipper, child: child),
     );
   }
+
+  /// Contenedor para navbar que ocupa toda la pantalla
+  static Widget navbar({
+    required Widget child,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+    Color? backgroundColor,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: padding,
+      margin: margin ?? EdgeInsets.zero,
+      decoration: BoxDecoration(
+        color: backgroundColor ?? AppTheme.kSurfaceColor,
+        borderRadius: BorderRadius.zero,
+      ),
+      child: child,
+    );
+  }
 }

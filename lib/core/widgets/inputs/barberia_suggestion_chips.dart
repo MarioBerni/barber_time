@@ -1,0 +1,75 @@
+import 'package:flutter/material.dart';
+
+import '../../../core/constants/barberia_sugerencias.dart';
+import '../../../core/theme/app_theme_extensions.dart';
+import '../../../features/home/domain/entities/salon.dart';
+
+/// Widget para mostrar chips de sugerencias de barberías
+class BarberiaSuggestionChips extends StatelessWidget {
+  /// Lista de salones disponibles
+  final List<Salon> salones;
+
+  /// Texto de búsqueda actual
+  final String searchText;
+
+  /// Callback cuando se selecciona una barbería
+  final ValueChanged<String>? onBarberiaSelected;
+
+  /// Constructor del widget
+  const BarberiaSuggestionChips({
+    super.key,
+    required this.salones,
+    required this.searchText,
+    this.onBarberiaSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Solo mostrar si hay texto de búsqueda
+    if (searchText.trim().isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Convertir salones a formato Map para BarberiaSugerencias
+    final salonesMap = salones
+        .map((salon) => {'name': salon.name, 'address': salon.address})
+        .toList();
+
+    // Obtener sugerencias de barberías
+    final sugerencias = BarberiaSugerencias.obtenerSugerencias(
+      searchText,
+      salonesMap,
+    );
+
+    if (sugerencias.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Mostrar chips de barberías como sugerencias
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Wrap(
+        spacing: 8.0,
+        runSpacing: 8.0,
+        children: sugerencias
+            .map((barberia) => _buildSuggestionChip(context, barberia))
+            .toList(),
+      ),
+    );
+  }
+
+  /// Construye un chip para una sugerencia de barbería
+  Widget _buildSuggestionChip(BuildContext context, String barberia) {
+    return ActionChip(
+      backgroundColor: context.surfaceColor,
+      side: BorderSide(color: context.dividerColor),
+      label: Text(barberia, style: context.bodySmall),
+      avatar: const Icon(Icons.content_cut, size: 16), // Icono de tijera
+      onPressed: () {
+        if (onBarberiaSelected != null) {
+          onBarberiaSelected!(barberia);
+        }
+      },
+    );
+  }
+}

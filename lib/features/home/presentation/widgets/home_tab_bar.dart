@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/spacers/spacers.dart';
 import '../bloc/home_state.dart';
 
 /// Widget que implementa una barra de pestañas personalizada para la Home Page
@@ -28,18 +29,7 @@ class HomeTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        // Sombra sutil para separación visual
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha((0.05 * 255).round()),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+      padding: AppSpacers.symmetric(horizontal: 20) as EdgeInsets,
       child: TabBar(
         controller: tabController,
         onTap: (index) {
@@ -63,7 +53,7 @@ class HomeTabBar extends StatelessWidget {
         // Indicador personalizado con animación
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(width: 3, color: AppTheme.kPrimaryColor),
-          insets: const EdgeInsets.symmetric(horizontal: 16),
+          insets: AppSpacers.symmetric(horizontal: 20) as EdgeInsets,
         ),
         indicatorSize: TabBarIndicatorSize.label,
         // Colores y estilos
@@ -75,9 +65,8 @@ class HomeTabBar extends StatelessWidget {
           fontSize: 14,
         ),
         // Animación de selección de pestañas
-        labelPadding: const EdgeInsets.symmetric(horizontal: 12),
+        labelPadding: AppSpacers.symmetric(horizontal: 12) as EdgeInsets,
         tabs: const [
-          Tab(text: 'Destacados'),
           Tab(text: 'Cerca de ti'),
           Tab(text: 'Mejor Valorados'),
         ],
@@ -89,25 +78,21 @@ class HomeTabBar extends StatelessWidget {
   static HomeTab getHomeTabFromIndex(int index) {
     switch (index) {
       case 0:
-        return HomeTab.destacados;
-      case 1:
         return HomeTab.cercanos;
-      case 2:
+      case 1:
         return HomeTab.mejorValorados;
       default:
-        return HomeTab.destacados;
+        return HomeTab.cercanos;
     }
   }
 
   /// Obtiene el índice de TabBar correspondiente a un HomeTab
   static int getTabIndexFromHomeTab(HomeTab tab) {
     switch (tab) {
-      case HomeTab.destacados:
-        return 0;
       case HomeTab.cercanos:
-        return 1;
+        return 0;
       case HomeTab.mejorValorados:
-        return 2;
+        return 1;
     }
   }
 }

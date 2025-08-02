@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage>
 
     // Inicializar controladores
     _pageController = PageController();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
 
     // Inicializar controlador de navegación
     _navigationController = HomeNavigationController(
@@ -52,10 +52,14 @@ class _HomePageState extends State<HomePage>
       pageController: _pageController,
       homeCubit: context.read<HomeCubit>(),
     );
+
+    // Agregar listener para sugerencias
+    _searchController.addListener(_onSearchChanged);
   }
 
   @override
   void dispose() {
+    _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
     _pageController.dispose();
     _navigationController.dispose();
@@ -123,51 +127,50 @@ class _HomePageState extends State<HomePage>
     _navigationController.syncWithState(state);
 
     return Container(
-      // Fondo principal con el color de fondo
       color: AppTheme.kBackgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Barra superior con información de usuario
+          // Barra superior con información de usuario - SIN PADDING LATERAL
           _buildSimpleAppBar(state),
 
-          // Espaciado superior mejorado
-          AppSpacers.md,
-
-          // TabBar para navegación entre categorías con animaciones
-          HomeTabBar(
-            tabController: _tabController,
-            pageController: _pageController,
-          ),
-
-          // Contenido principal con PageView para deslizamiento lateral
+          // Contenido con padding lateral para elementos internos
           Expanded(
-            child: PageView(
-              controller: _pageController,
-              physics: const BouncingScrollPhysics(),
-              onPageChanged: _navigationController.onPageChanged,
+            child: Column(
               children: [
-                // Pestañas con contenido filtrado
-                HomeTabContent(
-                  state: state,
-                  tab: HomeTab.destacados,
-                  onFavoritePressed: (salonId) =>
-                      context.read<HomeCubit>().toggleFavorite(salonId),
-                  onClearSearch: _clearSearch,
+                // Espaciado superior mejorado
+                AppSpacers.md,
+
+                // TabBar para navegación entre categorías con animaciones
+                HomeTabBar(
+                  tabController: _tabController,
+                  pageController: _pageController,
                 ),
-                HomeTabContent(
-                  state: state,
-                  tab: HomeTab.cercanos,
-                  onFavoritePressed: (salonId) =>
-                      context.read<HomeCubit>().toggleFavorite(salonId),
-                  onClearSearch: _clearSearch,
-                ),
-                HomeTabContent(
-                  state: state,
-                  tab: HomeTab.mejorValorados,
-                  onFavoritePressed: (salonId) =>
-                      context.read<HomeCubit>().toggleFavorite(salonId),
-                  onClearSearch: _clearSearch,
+
+                // Contenido principal con PageView para deslizamiento lateral
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const BouncingScrollPhysics(),
+                    onPageChanged: _navigationController.onPageChanged,
+                    children: [
+                      // Pestañas con contenido filtrado
+                      HomeTabContent(
+                        state: state,
+                        tab: HomeTab.cercanos,
+                        onFavoritePressed: (salonId) =>
+                            context.read<HomeCubit>().toggleFavorite(salonId),
+                        onClearSearch: _clearSearch,
+                      ),
+                      HomeTabContent(
+                        state: state,
+                        tab: HomeTab.mejorValorados,
+                        onFavoritePressed: (salonId) =>
+                            context.read<HomeCubit>().toggleFavorite(salonId),
+                        onClearSearch: _clearSearch,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -183,6 +186,12 @@ class _HomePageState extends State<HomePage>
     context.read<HomeCubit>().clearSearch();
   }
 
+  /// Método para manejar cambios en el campo de búsqueda
+  void _onSearchChanged() {
+    final query = _searchController.text;
+    context.read<HomeCubit>().getSearchSuggestions(query);
+  }
+
   /// Construye una barra de aplicación simplificada
   Widget _buildSimpleAppBar(HomeLoaded state) {
     return HomeHeader(
@@ -190,11 +199,14 @@ class _HomePageState extends State<HomePage>
       hasNotifications: state.hasNotifications,
       searchController: _searchController,
       onSearch: (query) {
-        context.read<HomeCubit>().searchSalons(query);
+        context.read<HomeCubit>().searchSalonsWithDebounce(query);
+        // NO guardar en historial aquí - solo cuando se selecciona una sugerencia
+        // o se completa una búsqueda exitosa
       },
       onNeighborhoodSelected: (neighborhood) {
         _searchController.text = neighborhood;
         context.read<HomeCubit>().selectNeighborhood(neighborhood);
+        context.read<HomeCubit>().saveSearchToHistory(neighborhood);
       },
       isSearchActive: state.isSearchActive,
       onSearchPressed: () {
@@ -205,6 +217,23 @@ class _HomePageState extends State<HomePage>
       },
       onUserAvatarPressed: () {
         context.go(AppRoutes.profile);
+      },
+      searchSuggestions: state.searchSuggestions,
+      showSuggestions: state.showSuggestions,
+      salones: state.topRatedSalons,
+      onSuggestionSelected: (suggestion) {
+        _searchController.text = suggestion;
+        context.read<HomeCubit>().searchSalonsWithDebounce(suggestion);
+        context.read<HomeCubit>().saveSearchToHistory(suggestion);
+        context.read<HomeCubit>().hideSuggestions();
+      },
+      onBarberiaSelected: (barberia) {
+        _searchController.text = barberia;
+        context.read<HomeCubit>().searchSalonsWithDebounce(barberia);
+        context.read<HomeCubit>().saveSearchToHistory(barberia);
+      },
+      onClearHistory: () {
+        context.read<HomeCubit>().clearSearchHistory();
       },
     );
   }

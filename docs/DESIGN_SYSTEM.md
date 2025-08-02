@@ -803,7 +803,63 @@ UserTypeOption(
 - **Espaciado**: `letterSpacing` y `height` optimizados para legibilidad
 - **Interactividad**: Estados de hover y press claramente definidos
 
-### 5.5 Buenas Prácticas
+### 5.5 StyledIcon
+
+**🆕 NUEVO** Componente reutilizable para iconos con estilo estandarizado:
+
+```dart
+StyledIcon(
+  icon: Icons.notifications_outlined,
+  iconColor: AppTheme.kAccentColor,
+  backgroundColor: AppTheme.kSurfaceAlt,
+  showBadge: true,
+  badgeColor: AppTheme.kAccentColor,
+  onTap: () => onNotificationsPressed(),
+)
+```
+
+**Características de Diseño:**
+- ✅ **Estilo consistente**: Diseño uniforme para iconos en toda la aplicación
+- ✅ **Estados dinámicos**: Soporte para estados activo, inactivo y deshabilitado
+- ✅ **Badges integrados**: Indicadores de notificación con contadores opcionales
+- ✅ **Efectos visuales**: Brillo y sombras para estados activos
+- ✅ **Personalización**: Colores, tamaños y efectos configurables
+
+**Parámetros Principales:**
+- `icon`: Icono a mostrar (requerido)
+- `iconColor`: Color del icono (opcional, usa tema por defecto)
+- `backgroundColor`: Color de fondo del círculo (opcional, usa tema por defecto)
+- `isActive`: Si es true, usa colores destacados (opcional)
+- `showBadge`: Muestra indicador de notificación (opcional)
+- `badgeCount`: Contador para el badge (opcional)
+- `onTap`: Callback al presionar el icono (opcional)
+
+**Ejemplo de Uso:**
+```dart
+// Icono básico
+StyledIcon(
+  icon: Icons.home,
+  onTap: () => Navigator.pushNamed(context, '/home'),
+)
+
+// Icono con badge de notificación
+StyledIcon(
+  icon: Icons.notifications_outlined,
+  showBadge: hasNotifications,
+  badgeCount: notificationCount,
+  onTap: () => showNotifications(),
+)
+
+// Icono activo con efectos
+StyledIcon(
+  icon: Icons.favorite,
+  isActive: true,
+  hasGlowEffect: true,
+  onTap: () => toggleFavorite(),
+)
+```
+
+### 5.6 Buenas Prácticas
 
 - **Consistencia:** Usa estos componentes en toda la aplicación para mantener una experiencia de usuario uniforme.
 - **Personaliza con Cuidado:** Aunque estos widgets son personalizables, mantente dentro de las directrices visuales del proyecto.
