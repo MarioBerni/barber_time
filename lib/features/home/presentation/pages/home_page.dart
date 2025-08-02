@@ -109,8 +109,8 @@ class _HomePageState extends State<HomePage>
           case 1: // Citas
             context.go(AppRoutes.appointments);
             break;
-          case 2: // Favoritos
-            // Podría ser una ruta específica para favoritos en el futuro
+          case 2: // Ofertas
+            context.go(AppRoutes.profile);
             break;
           case 3: // Perfil
             context.go(AppRoutes.profile);

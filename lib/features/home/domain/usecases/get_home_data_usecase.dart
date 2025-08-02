@@ -1,6 +1,5 @@
 import '../entities/salon.dart';
 import '../entities/service_category.dart';
-import '../entities/special_offer.dart';
 import '../repositories/home_repository.dart';
 
 /// Caso de uso para obtener todos los datos necesarios para la página de inicio
@@ -14,7 +13,6 @@ class GetHomeDataUsecase {
   ///
   /// Retorna un [HomeData] con toda la información necesaria para la UI
   Future<HomeData> execute() async {
-    final specialOffers = await _repository.getSpecialOffers();
     final serviceCategories = await _repository.getServiceCategories();
     final topRatedSalons = await _repository.getTopRatedSalons();
     final userName = await _repository.getUserDisplayName();
@@ -23,7 +21,6 @@ class GetHomeDataUsecase {
     return HomeData(
       userName: userName,
       hasNotifications: hasNotifications,
-      specialOffers: specialOffers,
       serviceCategories: serviceCategories,
       topRatedSalons: topRatedSalons,
     );
@@ -38,9 +35,6 @@ class HomeData {
   /// Indica si hay notificaciones no leídas.
   final bool hasNotifications;
 
-  /// Lista de ofertas especiales.
-  final List<SpecialOffer> specialOffers;
-
   /// Lista de categorías de servicios.
   final List<ServiceCategory> serviceCategories;
 
@@ -51,7 +45,6 @@ class HomeData {
   HomeData({
     required this.userName,
     required this.hasNotifications,
-    required this.specialOffers,
     required this.serviceCategories,
     required this.topRatedSalons,
   });

@@ -64,8 +64,8 @@ class SearchBar extends StatefulWidget {
     this.controller,
     this.onSubmitted,
     this.onChanged,
-    this.hintText = 'Buscar barberías por nombre o ubicación',
-    this.showNeighborhoodSuggestions = true,
+    this.hintText = 'Buscar...',
+    this.showNeighborhoodSuggestions = false,
     this.onNeighborhoodSelected,
     this.salones = const [],
     this.onBarberiaSelected,
@@ -84,123 +84,66 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(_onFocusChange);
-  }
-
-  @override
-  void dispose() {
-    _focusNode
-      ..removeListener(_onFocusChange)
-      ..dispose();
-    super.dispose();
-  }
-
-  void _onFocusChange() {
-    setState(() {
-      _isFocused = _focusNode.hasFocus;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Calculamos el radio de borde final
-    final effectiveBorderRadius =
-        widget.borderRadius ?? context.textFieldBorderRadius;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Campo de texto principal
         TextField(
           controller: widget.controller,
-          focusNode: _focusNode,
           onSubmitted: widget.onSubmitted,
           onChanged: _handleOnChanged,
           onTap: widget.onTap,
           enabled: widget.enabled,
-          style: (widget.compact ? context.bodySmall : context.bodyMedium)
-              .copyWith(color: context.textColor),
+          style: widget.compact ? context.bodySmall : context.bodyMedium,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: (widget.compact ? context.bodySmall : context.bodyMedium)
-                .copyWith(
-                  color: context.secondaryTextColor.withAlpha(
-                    (0.8 * 255).round(),
-                  ),
-                ),
-            helperStyle: context.caption.copyWith(
-              color: context.secondaryTextColor,
+            hintStyle: context.bodySmall.copyWith(
+              color: context.tertiaryTextColor,
             ),
             prefixIcon: widget.showSearchIcon
-                ? Padding(
-                    padding: EdgeInsets.only(
-                      left: widget.compact
-                          ? context.spacingXS
-                          : context.spacingSM,
-                      right: context.spacingXXS,
-                    ),
-                    child: Icon(
-                      Icons.search_rounded,
-                      color: _isFocused
-                          ? context.primaryColor
-                          : context.grayMedium,
-                      size: widget.compact ? 20 : 24,
-                    ),
+                ? Icon(
+                    Icons.search,
+                    color: context.secondaryTextColor,
+                    size: widget.compact ? 18 : 20,
                   )
                 : null,
             suffixIcon: _buildSuffixIcon(context),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: widget.compact
-                  ? context.spacingXS
-                  : context.spacingSM,
-              vertical: widget.compact ? 0 : context.spacingXXS,
-            ),
             filled: true,
-            fillColor: widget.backgroundColor ?? context.charcoalMedium,
-            // Usar OutlineInputBorder para todos los estados
-            // con el radio efectivo
-            border: OutlineInputBorder(
-              borderRadius: effectiveBorderRadius,
-              borderSide: widget.hasBorder
-                  ? BorderSide(color: context.grayDark)
-                  : BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: effectiveBorderRadius,
-              borderSide: widget.hasBorder
-                  ? BorderSide(color: context.primaryColor, width: 1.5)
-                  : BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: effectiveBorderRadius,
-              borderSide: widget.hasBorder
-                  ? BorderSide(color: context.grayDark)
-                  : BorderSide.none,
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: effectiveBorderRadius,
-              borderSide: BorderSide(color: context.errorColor),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: effectiveBorderRadius,
-              borderSide: widget.hasBorder
-                  ? BorderSide(
-                      color: context.grayMedium.withAlpha((0.5 * 255).round()),
-                    )
-                  : BorderSide.none,
-            ),
+            fillColor: widget.backgroundColor ?? context.surfaceColor,
+            border: widget.hasBorder
+                ? OutlineInputBorder(
+                    borderRadius:
+                        widget.borderRadius ?? BorderRadius.circular(12),
+                    borderSide: BorderSide(color: context.dividerColor),
+                  )
+                : null,
+            enabledBorder: widget.hasBorder
+                ? OutlineInputBorder(
+                    borderRadius:
+                        widget.borderRadius ?? BorderRadius.circular(12),
+                    borderSide: BorderSide(color: context.dividerColor),
+                  )
+                : null,
+            focusedBorder: widget.hasBorder
+                ? OutlineInputBorder(
+                    borderRadius:
+                        widget.borderRadius ?? BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: context.primaryColor,
+                      width: 2,
+                    ),
+                  )
+                : null,
+            contentPadding: widget.compact
+                ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
+                : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           ),
         ),
 
-        // Muestra sugerencias de barrios si está habilitado
-        if (widget.showNeighborhoodSuggestions &&
-            widget.enabled &&
-            widget.controller != null)
+        // Sugerencias de barrios y barberías
+        if (widget.showNeighborhoodSuggestions)
           _buildNeighborhoodSuggestions(context),
       ],
     );
@@ -228,14 +171,12 @@ class _SearchBarState extends State<SearchBar> {
         // Obtener sugerencias de barrios
         final barriosSuggestions = MontevideoBarrios.obtenerSugerencias(text);
 
-        // Obtener sugerencias de barberías
+        // Obtener sugerencias de barberías con tipo
         final salonesMap = widget.salones
             .map((salon) => {'name': salon.name, 'address': salon.address})
             .toList();
-        final barberiasSuggestions = BarberiaSugerencias.obtenerSugerencias(
-          text,
-          salonesMap,
-        );
+        final barberiasSuggestions =
+            BarberiaSugerencias.obtenerSugerenciasConTipo(text, salonesMap);
 
         // Combinar todas las sugerencias
         final allSuggestions = <MapEntry<String, String>>[];
@@ -246,8 +187,11 @@ class _SearchBarState extends State<SearchBar> {
         }
 
         // Agregar barberías con tipo
-        for (final barberia in barberiasSuggestions) {
-          allSuggestions.add(MapEntry(barberia, 'barberia'));
+        for (final sugerencia in barberiasSuggestions) {
+          final tipo = sugerencia.tipo == TipoCoincidencia.nombre
+              ? 'barberia'
+              : 'direccion';
+          allSuggestions.add(MapEntry(sugerencia.texto, tipo));
         }
 
         if (allSuggestions.isEmpty) {
@@ -284,32 +228,57 @@ class _SearchBarState extends State<SearchBar> {
     IconData icon;
     VoidCallback? onPressed;
 
-    if (type == 'barrio') {
-      icon = Icons.location_on;
-      onPressed = () {
-        if (widget.onNeighborhoodSelected != null) {
-          widget.onNeighborhoodSelected!(suggestion);
-          widget.controller!.text = suggestion;
-        } else {
+    switch (type) {
+      case 'barrio':
+        icon = Icons.location_on;
+        onPressed = () {
+          if (widget.onNeighborhoodSelected != null) {
+            widget.onNeighborhoodSelected!(suggestion);
+            widget.controller!.text = suggestion;
+          } else {
+            widget.controller!.text = suggestion;
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(suggestion);
+            }
+          }
+        };
+        break;
+      case 'barberia':
+        icon = Icons.content_cut;
+        onPressed = () {
+          if (widget.onBarberiaSelected != null) {
+            widget.onBarberiaSelected!(suggestion);
+            widget.controller!.text = suggestion;
+          } else {
+            widget.controller!.text = suggestion;
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(suggestion);
+            }
+          }
+        };
+        break;
+      case 'direccion':
+        icon = Icons.store;
+        onPressed = () {
+          if (widget.onBarberiaSelected != null) {
+            widget.onBarberiaSelected!(suggestion);
+            widget.controller!.text = suggestion;
+          } else {
+            widget.controller!.text = suggestion;
+            if (widget.onSubmitted != null) {
+              widget.onSubmitted!(suggestion);
+            }
+          }
+        };
+        break;
+      default:
+        icon = Icons.search;
+        onPressed = () {
           widget.controller!.text = suggestion;
           if (widget.onSubmitted != null) {
             widget.onSubmitted!(suggestion);
           }
-        }
-      };
-    } else {
-      icon = Icons.content_cut;
-      onPressed = () {
-        if (widget.onBarberiaSelected != null) {
-          widget.onBarberiaSelected!(suggestion);
-          widget.controller!.text = suggestion;
-        } else {
-          widget.controller!.text = suggestion;
-          if (widget.onSubmitted != null) {
-            widget.onSubmitted!(suggestion);
-          }
-        }
-      };
+        };
     }
 
     return ActionChip(
@@ -323,9 +292,7 @@ class _SearchBarState extends State<SearchBar> {
 
   /// Construye el icono de sufijo (limpiar texto)
   Widget? _buildSuffixIcon(BuildContext context) {
-    if (!widget.showClearButton ||
-        widget.controller == null ||
-        !widget.enabled) {
+    if (!widget.showClearButton || widget.controller == null) {
       return null;
     }
 
@@ -338,9 +305,9 @@ class _SearchBarState extends State<SearchBar> {
 
         return IconButton(
           icon: Icon(
-            Icons.close,
+            Icons.clear,
             color: context.secondaryTextColor,
-            size: widget.compact ? 16 : 20,
+            size: widget.compact ? 18 : 20,
           ),
           onPressed: () {
             widget.controller!.clear();
@@ -348,9 +315,8 @@ class _SearchBarState extends State<SearchBar> {
               widget.onChanged!('');
             }
           },
-          splashRadius: widget.compact ? 16 : 20,
           padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
+          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
         );
       },
     );

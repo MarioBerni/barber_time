@@ -6,7 +6,6 @@ import '../bloc/home_state.dart';
 import 'home_salon_card.dart';
 import 'search_empty_state.dart';
 import 'section_title_widget.dart';
-import 'special_offers_section.dart';
 
 /// Widget que representa el contenido de una pestaña en la Home Page
 class HomeTabContent extends StatelessWidget {
@@ -33,6 +32,11 @@ class HomeTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _buildMainContent();
+  }
+
+  /// Construye el contenido principal con CustomScrollView para lazy loading
+  Widget _buildMainContent() {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
@@ -46,23 +50,6 @@ class HomeTabContent extends StatelessWidget {
 
         // Lista de salones filtrados por pestaña
         _buildTabFilteredSalonsSection(),
-
-        AppSpacers.sliverLg,
-
-        // Título para ofertas especiales
-        const SliverToBoxAdapter(
-          child: SectionTitleWidget(
-            title: 'Ofertas Especiales',
-            actionText: 'Ver todas',
-          ),
-        ),
-
-        AppSpacers.sliverMd,
-
-        // Ofertas especiales
-        SliverToBoxAdapter(
-          child: SpecialOffersSection(offers: state.specialOffers),
-        ),
 
         AppSpacers.sliverXl,
       ],

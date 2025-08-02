@@ -35,8 +35,8 @@ class BarberiaSuggestionChips extends StatelessWidget {
         .map((salon) => {'name': salon.name, 'address': salon.address})
         .toList();
 
-    // Obtener sugerencias de barberías
-    final sugerencias = BarberiaSugerencias.obtenerSugerencias(
+    // Obtener sugerencias de barberías con tipo
+    final sugerencias = BarberiaSugerencias.obtenerSugerenciasConTipo(
       searchText,
       salonesMap,
     );
@@ -52,22 +52,33 @@ class BarberiaSuggestionChips extends StatelessWidget {
         spacing: 8.0,
         runSpacing: 8.0,
         children: sugerencias
-            .map((barberia) => _buildSuggestionChip(context, barberia))
+            .map((sugerencia) => _buildSuggestionChip(context, sugerencia))
             .toList(),
       ),
     );
   }
 
   /// Construye un chip para una sugerencia de barbería
-  Widget _buildSuggestionChip(BuildContext context, String barberia) {
+  Widget _buildSuggestionChip(BuildContext context, Sugerencia sugerencia) {
+    // Determinar icono según el tipo de coincidencia
+    IconData icon;
+    switch (sugerencia.tipo) {
+      case TipoCoincidencia.nombre:
+        icon = Icons.content_cut; // Tijera para nombres de barberías
+        break;
+      case TipoCoincidencia.direccion:
+        icon = Icons.store; // Local para direcciones
+        break;
+    }
+
     return ActionChip(
       backgroundColor: context.surfaceColor,
       side: BorderSide(color: context.dividerColor),
-      label: Text(barberia, style: context.bodySmall),
-      avatar: const Icon(Icons.content_cut, size: 16), // Icono de tijera
+      label: Text(sugerencia.texto, style: context.bodySmall),
+      avatar: Icon(icon, size: 16),
       onPressed: () {
         if (onBarberiaSelected != null) {
-          onBarberiaSelected!(barberia);
+          onBarberiaSelected!(sugerencia.texto);
         }
       },
     );

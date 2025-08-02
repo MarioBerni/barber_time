@@ -49,9 +49,9 @@ class AppBottomNavigationBar extends StatelessWidget {
           label: 'Citas',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite_border, size: 24),
-          activeIcon: Icon(Icons.favorite, size: 24),
-          label: 'Favoritos',
+          icon: Icon(Icons.local_offer_outlined, size: 24),
+          activeIcon: Icon(Icons.local_offer, size: 24),
+          label: 'Ofertas',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline, size: 24),

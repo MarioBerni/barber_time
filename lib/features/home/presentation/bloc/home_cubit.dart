@@ -23,16 +23,13 @@ class HomeCubit extends Cubit<HomeState> {
 
     try {
       final homeData = await _getHomeDataUsecase.execute();
-      final salons = homeData.topRatedSalons;
 
       emit(
         HomeLoaded(
           userName: homeData.userName,
           hasNotifications: homeData.hasNotifications,
-          specialOffers: homeData.specialOffers,
           serviceCategories: homeData.serviceCategories,
-          topRatedSalons: salons,
-          tabFilteredSalons: _getFilteredSalonsByTab(salons, HomeTab.cercanos),
+          topRatedSalons: homeData.topRatedSalons,
         ),
       );
     } catch (e) {

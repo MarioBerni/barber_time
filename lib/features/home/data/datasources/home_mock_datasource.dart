@@ -1,48 +1,11 @@
 import '../../domain/entities/salon.dart';
 import '../../domain/entities/service_category.dart';
-import '../../domain/entities/special_offer.dart';
 
 /// Fuente de datos mock para la página de inicio
 ///
 /// Esta clase simula una API o base de datos real proporcionando
 /// datos estáticos para desarrollo y pruebas
 class HomeMockDatasource {
-  /// Obtiene ofertas especiales mock
-  Future<List<SpecialOffer>> getSpecialOffers() async {
-    // Simulamos un retardo para imitar una petición de red
-    await Future<void>.delayed(const Duration(milliseconds: 800));
-
-    return [
-      const SpecialOffer(
-        id: '1',
-        title: 'Special Discount',
-        description: 'Get Special Discount Up to',
-        discount: '40%',
-        imageUrl:
-            'https://images.unsplash.com/photo-1503951914875-452162b0f3f1',
-        promoCode: 'BARBER40',
-      ),
-      const SpecialOffer(
-        id: '2',
-        title: 'Nuevo Cliente',
-        description: 'Descuento para tu primer corte',
-        discount: '25%',
-        imageUrl:
-            'https://images.unsplash.com/photo-1599351431202-1e0f0137899a',
-        promoCode: 'NUEVO25',
-      ),
-      const SpecialOffer(
-        id: '3',
-        title: 'Combo Familiar',
-        description: 'Trae a tus hijos y obtén',
-        discount: '15%',
-        imageUrl:
-            'https://images.unsplash.com/photo-1628890891274-89aa45592e85',
-        promoCode: 'FAMILIA15',
-      ),
-    ];
-  }
-
   /// Obtiene categorías de servicios mock
   Future<List<ServiceCategory>> getServiceCategories() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));

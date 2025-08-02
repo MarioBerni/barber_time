@@ -1,15 +1,11 @@
 import '../entities/salon.dart';
 import '../entities/service_category.dart';
-import '../entities/special_offer.dart';
 
 /// Repositorio para obtener datos de la página de inicio
 ///
 /// Define la interfaz para acceder a los datos que se mostrarán
 /// en la página de inicio
 abstract class HomeRepository {
-  /// Obtiene la lista de ofertas especiales
-  Future<List<SpecialOffer>> getSpecialOffers();
-
   /// Obtiene las categorías de servicios disponibles
   Future<List<ServiceCategory>> getServiceCategories();
 

@@ -1,6 +1,5 @@
 import '../../domain/entities/salon.dart';
 import '../../domain/entities/service_category.dart';
-import '../../domain/entities/special_offer.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../datasources/home_mock_datasource.dart';
 
@@ -10,11 +9,6 @@ class HomeRepositoryImpl implements HomeRepository {
 
   /// Constructor que recibe la fuente de datos
   HomeRepositoryImpl(this._datasource);
-
-  @override
-  Future<List<SpecialOffer>> getSpecialOffers() {
-    return _datasource.getSpecialOffers();
-  }
 
   @override
   Future<List<ServiceCategory>> getServiceCategories() {

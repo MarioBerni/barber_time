@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../domain/entities/salon.dart';
 import '../../domain/entities/service_category.dart';
-import '../../domain/entities/special_offer.dart';
 
 /// Enum que define las pestañas disponibles en la página de inicio
 enum HomeTab {
@@ -55,9 +54,6 @@ class HomeLoaded extends HomeState {
   /// Indica si hay notificaciones no leídas.
   final bool hasNotifications;
 
-  /// Lista de ofertas especiales.
-  final List<SpecialOffer> specialOffers;
-
   /// Lista de categorías de servicios.
   final List<ServiceCategory> serviceCategories;
 
@@ -86,11 +82,9 @@ class HomeLoaded extends HomeState {
   final bool showSuggestions;
 
   /// Constructor de HomeLoaded.
-  /// Constructor de HomeLoaded.
   const HomeLoaded({
     required this.userName,
     required this.hasNotifications,
-    required this.specialOffers,
     required this.serviceCategories,
     required this.topRatedSalons,
     this.isSearchActive = false,
@@ -107,7 +101,6 @@ class HomeLoaded extends HomeState {
   List<Object?> get props => [
     userName,
     hasNotifications,
-    specialOffers,
     serviceCategories,
     topRatedSalons,
     isSearchActive,
@@ -123,7 +116,6 @@ class HomeLoaded extends HomeState {
   HomeLoaded copyWith({
     String? userName,
     bool? hasNotifications,
-    List<SpecialOffer>? specialOffers,
     List<ServiceCategory>? serviceCategories,
     List<Salon>? topRatedSalons,
     bool? isSearchActive,
@@ -132,13 +124,11 @@ class HomeLoaded extends HomeState {
     HomeTab? selectedTab,
     List<Salon>? tabFilteredSalons,
     List<String>? searchSuggestions,
-
     bool? showSuggestions,
   }) {
     return HomeLoaded(
       userName: userName ?? this.userName,
       hasNotifications: hasNotifications ?? this.hasNotifications,
-      specialOffers: specialOffers ?? this.specialOffers,
       serviceCategories: serviceCategories ?? this.serviceCategories,
       topRatedSalons: topRatedSalons ?? this.topRatedSalons,
       isSearchActive: isSearchActive ?? this.isSearchActive,

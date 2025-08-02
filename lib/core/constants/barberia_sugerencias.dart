@@ -1,3 +1,14 @@
+/// Tipo de coincidencia encontrada
+enum TipoCoincidencia { nombre, direccion }
+
+/// Estructura para una sugerencia con su tipo
+class Sugerencia {
+  final String texto;
+  final TipoCoincidencia tipo;
+
+  const Sugerencia(this.texto, this.tipo);
+}
+
 /// Provee métodos de utilidad para generar sugerencias de barberías
 /// basadas en nombres y ubicaciones de salones existentes.
 class BarberiaSugerencias {
@@ -7,8 +18,8 @@ class BarberiaSugerencias {
   /// Obtiene sugerencias de barberías basadas en texto de búsqueda.
   ///
   /// Busca en nombres de salones y direcciones que coincidan con el texto.
-  /// Similar a MontevideoBarrios.obtenerSugerencias() pero para barberías.
-  static List<String> obtenerSugerencias(
+  /// Retorna sugerencias con información del tipo de coincidencia.
+  static List<Sugerencia> obtenerSugerenciasConTipo(
     String busqueda,
     List<Map<String, String>> salones, {
     int limite = 5,
@@ -18,13 +29,13 @@ class BarberiaSugerencias {
     }
 
     final terminoBusqueda = busqueda.toLowerCase().trim();
-    final sugerencias = <String>[];
+    final sugerencias = <Sugerencia>[];
 
     // Buscar en nombres de salones
     for (final salon in salones) {
       final nombre = salon['name'] ?? '';
       if (nombre.toLowerCase().contains(terminoBusqueda)) {
-        sugerencias.add(nombre);
+        sugerencias.add(Sugerencia(nombre, TipoCoincidencia.nombre));
       }
     }
 
@@ -32,7 +43,7 @@ class BarberiaSugerencias {
     for (final salon in salones) {
       final direccion = salon['address'] ?? '';
       if (direccion.toLowerCase().contains(terminoBusqueda)) {
-        sugerencias.add(direccion);
+        sugerencias.add(Sugerencia(direccion, TipoCoincidencia.direccion));
       }
     }
 
@@ -43,6 +54,24 @@ class BarberiaSugerencias {
     }
 
     return sugerenciasUnicas.sublist(0, limite);
+  }
+
+  /// Obtiene sugerencias de barberías basadas en texto de búsqueda.
+  ///
+  /// Busca en nombres de salones y direcciones que coincidan con el texto.
+  /// Similar a MontevideoBarrios.obtenerSugerencias() pero para barberías.
+  /// [DEPRECATED] Usar obtenerSugerenciasConTipo() para mejor clasificación de iconos.
+  static List<String> obtenerSugerencias(
+    String busqueda,
+    List<Map<String, String>> salones, {
+    int limite = 5,
+  }) {
+    final sugerenciasConTipo = obtenerSugerenciasConTipo(
+      busqueda,
+      salones,
+      limite: limite,
+    );
+    return sugerenciasConTipo.map((s) => s.texto).toList();
   }
 
   /// Verifica si una barbería es válida (existe en la lista de salones).

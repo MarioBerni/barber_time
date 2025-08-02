@@ -15,6 +15,7 @@ import '../bloc/profile_state.dart';
 import '../widgets/business_registration_form.dart';
 import '../widgets/client_registration_form.dart';
 import '../widgets/profile_info_view.dart';
+import '../widgets/tabs/profile_offers_tab.dart';
 import '../widgets/unauthenticated_view.dart';
 
 /// Página principal del perfil de usuario
@@ -29,12 +30,23 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
+    // Inicializar controlador de pestañas
+    _tabController = TabController(length: 4, vsync: this);
     // Cargar el perfil al inicializar
     context.read<ProfileCubit>().loadProfile();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -99,48 +111,84 @@ class _ProfilePageState extends State<ProfilePage> {
 
   /// Construye la vista principal del perfil para usuarios autenticados
   Widget _buildProfileView(ProfileLoaded state) {
-    return Column(
-      children: [
-        // Reutilizar el HomeHeader para mantener la coherencia
-        // visual en toda la app
-        HomeHeader(
-          userName: state.profile.name,
-          avatarUrl: state.profile.imageUrl,
-          showSearchBar: false, // Ocultar barra de búsqueda en perfil
-          style: HomeHeaderStyle.gray,
-          onUserAvatarPressed: () {
-            // Implementar cambio de avatar
-          },
-          customTopActions: [
-            // Botón de editar perfil
-            StyledIcon(
-              icon: Icons.edit_outlined,
-              iconColor: context.deepBlue,
-              backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
-              onTap: () {
-                // Implementar navegación a edición de perfil
-              },
-            ),
-            AppSpacers.hSm,
-            // Botón de configuración
-            StyledIcon(
-              icon: Icons.settings_outlined,
-              iconColor: context.deepBlue,
-              backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
-              onTap: () {
-                // Implementar navegación a configuraciones
-              },
-            ),
-          ],
-        ),
-
-        // Contenido principal del perfil
-        Expanded(
-          child: SingleChildScrollView(
-            child: ProfileInfoView(profile: state.profile),
+    return DefaultTabController(
+      length: 4,
+      child: Column(
+        children: [
+          // Reutilizar el HomeHeader para mantener la coherencia
+          // visual en toda la app
+          HomeHeader(
+            userName: state.profile.name,
+            avatarUrl: state.profile.imageUrl,
+            showSearchBar: false, // Ocultar barra de búsqueda en perfil
+            style: HomeHeaderStyle.gray,
+            onUserAvatarPressed: () {
+              // Implementar cambio de avatar
+            },
+            customTopActions: [
+              // Botón de editar perfil
+              StyledIcon(
+                icon: Icons.edit_outlined,
+                iconColor: context.deepBlue,
+                backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
+                onTap: () {
+                  // Implementar navegación a edición de perfil
+                },
+              ),
+              AppSpacers.hSm,
+              // Botón de configuración
+              StyledIcon(
+                icon: Icons.settings_outlined,
+                iconColor: context.deepBlue,
+                backgroundColor: Colors.white.withAlpha((0.3 * 255).round()),
+                onTap: () {
+                  // Implementar navegación a configuraciones
+                },
+              ),
+            ],
           ),
-        ),
-      ],
+
+          // TabBar para navegación entre secciones
+          Container(
+            color: context.surfaceColor,
+            child: TabBar(
+              controller: _tabController,
+              labelColor: context.primaryColor,
+              unselectedLabelColor: context.secondaryTextColor,
+              indicatorColor: context.primaryColor,
+              tabs: const [
+                Tab(text: 'Información'),
+                Tab(text: 'Ofertas'),
+                Tab(text: 'Historial'),
+                Tab(text: 'Configuración'),
+              ],
+            ),
+          ),
+
+          // Contenido de las pestañas
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                // Pestaña de Información
+                SingleChildScrollView(
+                  child: ProfileInfoView(profile: state.profile),
+                ),
+                // Pestaña de Ofertas
+                ProfileOffersTab(profile: state.profile),
+                // Pestaña de Historial
+                const Center(
+                  child: Text('Historial pendiente de implementación'),
+                ),
+                // Pestaña de Configuración
+                const Center(
+                  child: Text('Configuración pendiente de implementación'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -187,8 +235,8 @@ class _ProfilePageState extends State<ProfilePage> {
           case 1: // Citas
             context.go(AppRoutes.appointments);
             break;
-          case 2: // Favoritos
-            // Podría ser una ruta específica para favoritos en el futuro
+          case 2: // Ofertas
+            context.go(AppRoutes.profile);
             break;
           case 3: // Perfil
             // Ya estamos en la página de perfil, no es necesario navegar
